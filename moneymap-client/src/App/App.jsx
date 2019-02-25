@@ -3,7 +3,6 @@ import "./App.css";
 import Home from "../Home/Home";
 import Dashboard from "../Dashboard/Dashboard";
 import { Switch, Route } from "react-router-dom";
-import withAuth from "../AuthService/WithAuth";
 
 class App extends Component {
   render() {
