@@ -13,12 +13,6 @@ class Dashboard extends Component {
     );
   }
 
-  componentWillMount = () => {
-    document.body.classList.add("SurveyBg");
-  };
 
-  componentWillUnmount = () => {
-    document.body.classList.remove("SurveyBg");
-  };
 }
 export default Dashboard;
