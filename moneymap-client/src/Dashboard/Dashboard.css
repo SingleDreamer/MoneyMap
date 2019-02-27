@@ -2,15 +2,11 @@
 /*Need to plan the grid layout better*/
 .Dashboard{
 	position: absolute;
-	grid-template-columns: 1fr 12fr;
 	background-color: rgb(132, 160, 192);
 	height: 100vh;
 	width: 100vw;
 	overflow: hidden;
 }
-
-
-
 
 /*Attempt at making the dashboard resonsive. Kinda works but clunky*/
 @media screen and (max-width: 1600px) {

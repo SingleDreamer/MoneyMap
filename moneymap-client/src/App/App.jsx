@@ -1,3 +1,4 @@
+import React, { Component } from "react";
 import Home from "../Home/Home.jsx";
 import Dashboard from "../Dashboard/Dashboard.jsx";
 import {

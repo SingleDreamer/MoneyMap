@@ -1,8 +1,9 @@
-
+import React, { Component } from "react";
 import CardArray from "../Components/CardArray/CardArray.js"
 import Sidebar from "../Components/Sidebar/Sidebar.js"
 import Button from 'react-bootstrap/Button';
 import './Dashboard.css'
+
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
@@ -29,13 +30,6 @@ class Dashboard extends Component {
       </div>
     );
   }
-  componentWillMount = () => {
-    document.body.classList.add("DashBg");
-  };
-
-  componentWillUnmount = () => {
-    document.body.classList.remove("DashBg");
-  };
 
 }
 export default Dashboard;
