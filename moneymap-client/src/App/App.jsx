@@ -10,7 +10,7 @@ import {
 class App extends Component {
   render() {
     return (
-      <div>
+      <div class = 'App'>
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
