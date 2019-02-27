@@ -65,5 +65,6 @@ class Home extends Component {
   componentWillUnmount = () => {
     document.body.classList.remove("HomeBg");
   };
+
 }
 export default Home;

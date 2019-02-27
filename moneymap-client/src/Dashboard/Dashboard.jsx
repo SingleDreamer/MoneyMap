@@ -13,7 +13,6 @@ class Dashboard extends Component {
       </div>
     );
   }
-
   componentWillMount = () => {
     document.body.classList.add("DashBg");
   };
@@ -21,5 +20,6 @@ class Dashboard extends Component {
   componentWillUnmount = () => {
     document.body.classList.remove("DashBg");
   };
+
 }
 export default Dashboard;
