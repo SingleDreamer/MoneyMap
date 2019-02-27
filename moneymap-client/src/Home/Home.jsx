@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Register from "./Register/Register";
+import LoginDetails from "./Login/LoginDetails"
 import "./Home.css";
 
 class Home extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      show: false
+      show: false,
+      showLogin: false
     };
     this.handleShow = this.handleShow.bind(this);
+    this.handleShowLogin = this.handleShowLogin.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
   render() {
@@ -29,12 +32,11 @@ class Home extends Component {
             style={{
               marginRight: "10px"
             }}
-            bsStyle="secondary"
-            bsSize="small"
+            onClick={this.handleShowLogin}
           >
             Login
           </Button>
-          <Button bsStyle="secondary" bsSize="small" onClick={this.handleShow}>
+          <Button  onClick={this.handleShow}>
             Launch registration page
           </Button>
         </div>
@@ -49,14 +51,32 @@ class Home extends Component {
             <Button onClick={this.handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
+
+        <Modal show={this.state.showLogin} onHide={this.handleClose}>
+          <Modal.Header closeButton={false}>
+            <Modal.Title>Login</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <LoginDetails />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleClose}>Close</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
   handleShow() {
     this.setState({ show: true });
   }
+  handleShowLogin() {
+    this.setState({ showLogin: true });
+  }
   handleClose() {
-    this.setState({ show: false });
+    this.setState({ 
+      show: false, 
+      showLogin: false
+    });
   }
   componentWillMount = () => {
     document.body.classList.add("HomeBg");
