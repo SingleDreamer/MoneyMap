@@ -9,14 +9,7 @@
 	overflow: hidden;
 }
 
-.Sidebar{
-	height: 100vh;
-	width: 250px;
-	margin-right: 10px;
-	background-color: lightgrey;
-	float: left;
-	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-}
+
 
 
 /*Attempt at making the dashboard resonsive. Kinda works but clunky*/

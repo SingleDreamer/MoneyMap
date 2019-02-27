@@ -29,7 +29,6 @@ class CardArray extends Component {
           (company, index) => 
             <Card className = 'card' key = {index}  info = {company}/>
           )}
-       }
       </div>
     );
   }

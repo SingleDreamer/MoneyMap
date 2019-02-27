@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CardArray from "../Components/CardArray/CardArray.js"
+import Sidebar from "../Components/Sidebar/Sidebar.js"
 import Button from 'react-bootstrap/Button';
 import './Dashboard.css'
 class Dashboard extends Component {
@@ -21,7 +22,7 @@ class Dashboard extends Component {
     return (
       <div className = 'Dashboard'>
         {/*Need to tuen this into a component to update depending on the currently logged in user's info */}
-        <h1 className = 'Sidebar'>Dashboard</h1>
+        <Sidebar className = 'Sidebar'/>
         <Button className = 'AddJOC' onClick = {()=>updateCompanies()}>Add New JOC</Button>
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
         <CardArray companies = {this.state.companies}/>
