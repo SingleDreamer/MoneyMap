@@ -1,0 +1,9 @@
+.Dashboard{
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: center;
+}
+.AddJOC{
+	text-align: center;
+}

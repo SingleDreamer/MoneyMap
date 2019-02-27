@@ -1,0 +1,12 @@
+.array{
+ 	width: 90vw;
+	height: 30vh;
+	display: flex;
+	background-color: blue;
+	overflow: hidden;
+	overflow: scroll;
+}
+
+.card{
+	margin: 2em;
+}

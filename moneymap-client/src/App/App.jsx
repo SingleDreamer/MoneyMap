@@ -5,7 +5,6 @@ import Dashboard from "../Dashboard/Dashboard.jsx";
 import {
   BrowserRouter as Router,
   Route,
-  Link,
   Switch
 } from 'react-router-dom'
 class App extends Component {
