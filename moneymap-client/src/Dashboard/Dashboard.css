@@ -2,7 +2,7 @@
 /*Need to plan the grid layout better*/
 .Dashboard{
 	position: absolute;
-	background-color: rgb(132, 160, 192);
+	background-color: #e8eef3;
 	height: 100vh;
 	width: 100vw;
 	overflow: hidden;
@@ -16,6 +16,8 @@
 }
 /*Need to properly center the button. Off place when side bar is visible, fine when not*/
 .AddJOC{
+	position: relative;
+	left: 35vw;
 	text-align: center;
 	margin-top: 20vh;
   	height: 80px;
