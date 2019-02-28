@@ -10,12 +10,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/test', function(req, res, next) {
-  const request = new sql.Request(db);
-  request.execute('sp_get_cities', (err, result) => {
-      console.log(result);
-      console.log(err);
-  });
-
+  // const request = new sql.Request(db);
+  // request.execute('sp_get_cities', (err, result) => {
+  //     console.log(result);
+  //     console.log(err);
+  // });
+  res.json({status: "success"});
 });
 
 module.exports = router;

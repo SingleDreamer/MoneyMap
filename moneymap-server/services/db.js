@@ -1,4 +1,4 @@
-const sql = require('mssql');
+const sql = require('mssql')
 
 const config = {
     user: "sa",
@@ -10,7 +10,9 @@ const config = {
 const pool = new sql.ConnectionPool(config);
 
 pool.connect(err => {
-    console.log(err);
+  if(err != null) {
+    console.log(err)
+  }
 })
 
 module.exports = pool;
