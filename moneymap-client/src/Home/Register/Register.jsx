@@ -1,19 +1,90 @@
 import React, { Component } from "react";
-// import "../Home.css";
 import UserDetails from "./UserDetails";
 import ProfileDetails from "./ProfileDetails";
 import ProfileDetails2 from "./ProfileDetails2";
-import Success from "./Success";
+import { Form } from "react-bootstrap";
 
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       step: 1,
-      values: {},
+      userInfo: [
+        {
+          firstName: "",
+          lastName: "",
+          email: "",
+          age: null,
+          city: "",
+          state: "",
+          country: ""
+        }
+      ],
+      profileInfo: [
+        {
+          info: "",
+          moreinfo: ""
+        }
+      ],
+      profileInfo2: [{ info: "", moreinfo: "" }],
       submit: false
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
+
+  render() {
+    const { step } = this.state;
+    let success;
+    if (this.state.submit === true) {
+      success = (
+        <h6 style={{ marginTop: "10px" }}>
+          Profile Successfully created. Thank you for registering!
+        </h6>
+      );
+    }
+
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        {" "}
+        <p>Step {this.state.step} </p>
+        {this.renderSwitch(step)}
+        {success}
+      </Form>
+    );
+  }
+
+  renderSwitch(step) {
+    switch (step) {
+      case 1:
+        return (
+          <UserDetails
+            nextStep={this.nextStep}
+            handleChange={this.handleChange}
+            userInfo={this.state.userInfo}
+          />
+        );
+      case 2:
+        return (
+          <ProfileDetails
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleChange}
+            profileInfo={this.state.profileInfo}
+          />
+        );
+      case 3:
+        return (
+          <ProfileDetails2
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleChange}
+            profileInfo2={this.state.profileInfo2}
+          />
+        );
+    }
+  }
+
   nextStep = () => {
     const { step } = this.state;
     this.setState({
@@ -31,43 +102,16 @@ class Register extends Component {
   handleChange = input => event => {
     this.setState({ [input]: event.target.value });
   };
-  render() {
-    const { step } = this.state;
 
-    return <div>{this.renderSwitch(step)}</div>;
-  }
-
-  renderSwitch(step) {
-    switch (step) {
-      case 1:
-        return (
-          <UserDetails
-            nextStep={this.nextStep}
-            handleChange={this.handleChange}
-            values={this.values}
-          />
-        );
-      case 2:
-        return (
-          <ProfileDetails
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            values={this.values}
-          />
-        );
-      case 3:
-        return (
-          <ProfileDetails2
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            values={this.values}
-          />
-        );
-      case 4:
-        return <Success />;
-    }
-  }
+  handleSubmit = event => {
+    event.preventDefault();
+    this.setState({ submit: true });
+    const { email, username, password } = this.state;
+    alert(`Your registration detail: \n 
+      Email: ${email} \n 
+      Username: ${username} \n
+      Password: ${password}`);
+  };
 }
 
 export default Register;

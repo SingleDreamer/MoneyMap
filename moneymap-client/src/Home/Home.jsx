@@ -35,7 +35,7 @@ class Home extends Component {
             Login
           </Button>
           <Button bsStyle="secondary" bsSize="small" onClick={this.handleShow}>
-            Launch registration page
+            Register now
           </Button>
         </div>
         <Modal show={this.state.show} onHide={this.handleClose}>
@@ -65,6 +65,5 @@ class Home extends Component {
   componentWillUnmount = () => {
     document.body.classList.remove("HomeBg");
   };
-
 }
 export default Home;
