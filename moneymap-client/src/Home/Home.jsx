@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Register from "./Register/Register";
-import LoginDetails from "./Login/LoginDetails"
+import LoginDetails from "./Login/LoginDetails";
 import "./Home.css";
 
 class Home extends Component {
@@ -36,8 +36,8 @@ class Home extends Component {
           >
             Login
           </Button>
-          <Button  onClick={this.handleShow}>
-            Launch registration page
+          <Button bsStyle="secondary" bsSize="small" onClick={this.handleShow}>
+            Register now
           </Button>
         </div>
         <Modal show={this.state.show} onHide={this.handleClose}>
@@ -73,8 +73,8 @@ class Home extends Component {
     this.setState({ showLogin: true });
   }
   handleClose() {
-    this.setState({ 
-      show: false, 
+    this.setState({
+      show: false,
       showLogin: false
     });
   }
@@ -85,6 +85,5 @@ class Home extends Component {
   componentWillUnmount = () => {
     document.body.classList.remove("HomeBg");
   };
-
 }
 export default Home;
