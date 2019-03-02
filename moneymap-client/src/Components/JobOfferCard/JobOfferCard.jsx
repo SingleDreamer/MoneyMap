@@ -1,32 +1,25 @@
 import React, { Component } from "react";
-import UserDetails from "./UserDetails";
-import ProfileDetails from "./ProfileDetails";
-import ProfileDetails2 from "./ProfileDetails2";
+import JobOfferDetails from "./JobOfferDetails/JobOfferDetails";
+import JobOfferDetails2 from "./JobOfferDetails/JobOfferDetails2";
 import { Form } from "react-bootstrap";
 
-class Register extends Component {
+class JobOfferCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       step: 1,
-      userInfo: [
-        {
-          firstName: "",
-          lastName: "",
-          email: "",
-          age: null,
-          city: "",
-          state: "",
-          country: ""
-        }
-      ],
-      profileInfo: [
+      jobInfo: [
         {
           info: "",
           moreinfo: ""
         }
       ],
-      profileInfo2: [{ info: "", moreinfo: "" }],
+      jobInfo2: [
+        {
+          info: "",
+          moreinfo: ""
+        }
+      ],
       submit: false
     };
 
@@ -39,13 +32,14 @@ class Register extends Component {
     if (this.state.submit === true) {
       success = (
         <h6 style={{ marginTop: "10px" }}>
-          Profile Successfully created. Thank you for registering!
+          JobOfferCard Successfully created.!
         </h6>
       );
     }
 
     return (
-      <Form onSubmit={e => this.handleSubmit(e)}>
+      <Form onSubmit={this.handleSubmit}>
+        {" "}
         <p>Step {this.state.step} </p>
         {this.renderSwitch(step)}
         {success}
@@ -57,7 +51,7 @@ class Register extends Component {
     switch (step) {
       case 1:
         return (
-          <UserDetails
+          <JobOfferDetails
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             userInfo={this.state.userInfo}
@@ -65,19 +59,10 @@ class Register extends Component {
         );
       case 2:
         return (
-          <ProfileDetails
-            nextStep={this.nextStep}
+          <JobOfferDetails2
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             profileInfo={this.state.profileInfo}
-          />
-        );
-      case 3:
-        return (
-          <ProfileDetails2
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            profileInfo2={this.state.profileInfo2}
           />
         );
     }
@@ -104,12 +89,11 @@ class Register extends Component {
   handleSubmit = event => {
     event.preventDefault();
     this.setState({ submit: true });
-    const { email, username, password } = this.state;
-    alert(`Your registration detail: \n 
-      Email: ${email} \n 
-      Username: ${username} \n
-      Password: ${password}`);
+    const { jobInfo, jobInfo2 } = this.state;
+    alert(`Your job offer detail: \n 
+      Job info: ${jobInfo} \n 
+      Job info 2: ${jobInfo2}`);
   };
 }
 
-export default Register;
+export default JobOfferCard;

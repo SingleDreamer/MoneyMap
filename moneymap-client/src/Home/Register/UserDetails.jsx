@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 
-class Register extends Component {
+class UserDetails extends Component {
   // constructor(props) {
   //   super(props);
   //   this.state = {
@@ -65,4 +65,4 @@ class Register extends Component {
   };
 }
 
-export default Register;
+export default UserDetails;
