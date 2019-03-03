@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import './Sidebar.css'
+import "./Sidebar.css";
 import { Button } from "react-bootstrap";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 class Sidebar extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      userInfo: {},
+      userInfo: {}
     };
   }
 
-  //????
+  //what props will this recieve????
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.userInfo)
+    console.log(nextProps.userInfo);
     this.setState({
       userInfo: nextProps.userInfo
     });
@@ -20,10 +20,10 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className = 'Sidebar'>
-       <h1> Dashboard </h1>
-       <Link to="/">
-          <Button variant="primary" type="submit" >
+      <div className="Sidebar">
+        <h1> Dashboard </h1>
+        <Link to="/">
+          <Button variant="primary" type="submit">
             Log Out
           </Button>
         </Link>

@@ -1,24 +1,15 @@
-.array{
-	position: relative;
- 	width: 80vw;
-	height: 400px;
-	display: flex;
-	overflow: hidden;
-	overflow: scroll;
-	margin-top: 2em;
+.array {
+  position: relative;
+  width: 80vw;
+  height: 480px;
+  display: flex;
+  overflow: hidden;
+  overflow: scroll;
+  margin-top: 2em;
 }
 /*Attempt at responsiveness. Works well.... For now*/
 @media screen and (max-width: 1600px) {
   .array {
-   width: 100vw;
+    width: 100vw;
   }
-}
-
-.card{
-	margin: 2em;
-	height: 300px;
-	width: 200px;
-	/*filter: blur(4px);*/
-	border-radius: 20px;
-	box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.5);
 }
