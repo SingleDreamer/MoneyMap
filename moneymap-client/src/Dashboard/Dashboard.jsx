@@ -4,13 +4,21 @@ import Sidebar from "../Components/Sidebar/Sidebar.js";
 import { JobOfferCard } from "../Components/JobOfferCard";
 import { Modal, Button } from "react-bootstrap";
 import "./Dashboard.css";
+<<<<<<< HEAD
+=======
+import myData from "./test.json";
+>>>>>>> Cris2
 
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       show: false,
+<<<<<<< HEAD
       companies: ["Google", "Facebook", "Apple", "Microsoft", "Airbnb"]
+=======
+      companies: myData
+>>>>>>> Cris2
     };
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -20,10 +28,17 @@ class Dashboard extends Component {
     //When the Add JOC button is clicked it adds 'Uber' the the company list currently in the state
     //using the spread operator. Just for tesing purposes, will be reworked.
     let updateCompanies = () => {
+<<<<<<< HEAD
       this.handleShow();
       this.setState({
         companies: [...this.state.companies, "Uber"]
       });
+=======
+      this.setState({
+        companies: {}
+      });
+      console.log(myData);
+>>>>>>> Cris2
     };
 
     return (
@@ -34,7 +49,10 @@ class Dashboard extends Component {
           Add New JOC
         </Button>
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
+<<<<<<< HEAD
 
+=======
+>>>>>>> Cris2
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>
             <Modal.Title>New JobOfferCard</Modal.Title>
@@ -51,6 +69,7 @@ class Dashboard extends Component {
       </div>
     );
   }
+<<<<<<< HEAD
   handleShow() {
     this.setState({ show: true });
   }
@@ -58,5 +77,7 @@ class Dashboard extends Component {
   handleClose() {
     this.setState({ show: false });
   }
+=======
+>>>>>>> Cris2
 }
 export default Dashboard;

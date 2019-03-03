@@ -1,0 +1,70 @@
+{
+  "cards": [
+    {
+      "name": "Google",
+      "city": "MTV",
+      "score": 68,
+      "income": 10956,
+      "mandatory_costs": 4703,
+      "comsumable_costs": 570,
+      "entertainment_cost": 600,
+      "debt": 0,
+      "savings": 0
+    },
+    {
+      "name": "FaceBook",
+      "city": "NYC",
+      "score": 100,
+      "income": 109536,
+      "mandatory_costs": 4703,
+      "comsumable_costs": 570,
+      "entertainment_cost": 600,
+      "debt": 0,
+      "savings": 123234
+    },
+    {
+      "name": "Apple",
+      "city": "SF",
+      "score": 89,
+      "income": 20956,
+      "mandatory_costs": 9842,
+      "comsumable_costs": 312,
+      "entertainment_cost": 0,
+      "debt": 0,
+      "savings": 0
+    },
+    {
+      "name": "Microsoft",
+      "city": "NYC",
+      "score": 34,
+      "income": 10956,
+      "mandatory_costs": 4703,
+      "comsumable_costs": 570,
+      "entertainment_cost": 600,
+      "debt": 0,
+      "savings": 0
+    },
+    {
+      "name": "Airbnb",
+      "city": "Seattle",
+      "score": 78,
+      "income": 10956,
+      "mandatory_costs": 4703,
+      "comsumable_costs": 570,
+      "entertainment_cost": 600,
+      "debt": 0,
+      "savings": 0
+    },
+    {
+      "name": "Uber",
+      "city": "SF",
+      "score": 14,
+      "income": 10956,
+      "mandatory_costs": 4703,
+      "comsumable_costs": 570,
+      "entertainment_cost": 600,
+      "debt": 0,
+      "savings": 0
+    }
+  ]
+}
