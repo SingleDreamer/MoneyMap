@@ -4,13 +4,13 @@ import { Form, Button } from "react-bootstrap";
 class JobOfferDetails extends Component {
   render() {
     return (
-      <Form>
-        <Form.Group controlId="job">
+      <div>
+        <Form.Group controlId="JOCName">
           <Form.Label>Job name</Form.Label>
           <Form.Control
             type="text"
             placeholder="Job name"
-            onChange={this.props.handleChange("job")}
+            onChange={this.props.handleChange("JOCName")}
           />
         </Form.Group>
 
@@ -33,7 +33,7 @@ class JobOfferDetails extends Component {
         <Button variant="primary" onClick={this.next}>
           Next
         </Button>
-      </Form>
+      </div>
     );
   }
 
