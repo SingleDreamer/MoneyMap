@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Card, Button, Modal } from "react-bootstrap";
 import "./Card.css";
 import Chart from "react-apexcharts";
-
+import Charts from "./Charts.js";
 class CardArray extends Component {
   constructor(props, context) {
     super(props, context);
@@ -75,19 +75,25 @@ class CardArray extends Component {
               variant="primary"
               onClick={e => this.openModal(e, this.props.id)}
             >
-              Edit
+              Analyze
             </Button>
           </Card.Body>
-
+          {/*Maybe make this modal into it's own component*/}
           <Modal
             id={this.props.id}
             show={this.state.currModal === this.props.id}
             onHide={this.closeModal}
+            centered
+            size="lg"
           >
             <Modal.Header closeButton={false}>
               <Modal.Title>{this.props.info.name}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Info</Modal.Body>
+            <Modal.Body>Job offer analysis</Modal.Body>
+            <Modal.Body>
+              <Charts info={this.props.info} />
+            </Modal.Body>
+
             <Modal.Footer>
               <Button onClick={this.closeModal}>Close</Button>
             </Modal.Footer>
