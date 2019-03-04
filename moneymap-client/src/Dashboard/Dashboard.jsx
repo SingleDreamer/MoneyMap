@@ -21,9 +21,7 @@ class Dashboard extends Component {
     //When the Add JOC button is clicked it adds 'Uber' the the company list currently in the state
     //using the spread operator. Just for tesing purposes, will be reworked.
     let updateCompanies = () => {
-      this.setState({
-        companies: {}
-      });
+      this.handleShow();
       console.log(myData);
     };
 

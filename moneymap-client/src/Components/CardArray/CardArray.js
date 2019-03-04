@@ -19,16 +19,17 @@ class CardArray extends Component {
   }
 
   render() {
+    let cards = this.state.companies.cards.map((company, index) => (
+      <div key={index}>
+        <Card className="card" id={index} info={company} />
+      </div>
+    ));
     return (
       <div className="array">
         {/*This will map over the list of companies and provide the data to the CARD component
           -each CARD component will recive a key, and info
           -returns the CARD component at each iteration*/}
-        {this.state.companies.cards.map((company, index) => (
-          <div key={index}>
-            <Card className="card" id={index} info={company} />
-          </div>
-        ))}
+        {cards}
       </div>
     );
   }

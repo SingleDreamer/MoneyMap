@@ -85,7 +85,7 @@ class CardArray extends Component {
             onHide={this.closeModal}
           >
             <Modal.Header closeButton={false}>
-              <Modal.Title>{this.props.info}</Modal.Title>
+              <Modal.Title>{this.props.info.name}</Modal.Title>
             </Modal.Header>
             <Modal.Body>Info</Modal.Body>
             <Modal.Footer>
