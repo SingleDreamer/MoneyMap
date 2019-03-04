@@ -5,7 +5,7 @@ const UserService = {};
 
 UserService.getJOCs = async (id) => {
   const request = new sql.Request(db);
-  request.input('uid', sql.Int, id);
+  request.input('uid', sql.text, id);
 
   let result = await request.execute('sp_get_jocs');
 
