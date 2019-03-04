@@ -4,7 +4,7 @@ import { Form, Button, ButtonToolbar } from "react-bootstrap";
 class JobOfferDetails2 extends Component {
   render() {
     return (
-      <Form>
+      <div>
         <Form.Group controlId="details">
           <Form.Label>Details</Form.Label>
           <Form.Control
@@ -38,7 +38,7 @@ class JobOfferDetails2 extends Component {
             Submit
           </Button>
         </ButtonToolbar>
-      </Form>
+      </div>
     );
   }
 
