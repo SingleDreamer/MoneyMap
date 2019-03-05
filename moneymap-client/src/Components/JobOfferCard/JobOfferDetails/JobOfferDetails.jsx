@@ -14,20 +14,20 @@ class JobOfferDetails extends Component {
           />
         </Form.Group>
 
-        <Form.Group controlId="location">
+        <Form.Group controlId="city">
           <Form.Label> Location</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Location"
-            onChange={this.props.handleChange("location")}
+            placeholder="City"
+            onChange={this.props.handleChange("city")}
           />
         </Form.Group>
-        <Form.Group controlId="salary">
-          <Form.Label>Salary</Form.Label>
+        <Form.Group controlId="income">
+          <Form.Label>Income</Form.Label>
           <Form.Control
             type="number"
-            placeholder="Salary"
-            onChange={this.props.handleChange("salary")}
+            placeholder="Income"
+            onChange={this.props.handleChange("Components", "income")}
           />
         </Form.Group>
         <Button variant="primary" onClick={this.next}>

@@ -80,6 +80,8 @@ class Register extends Component {
             profileInfo2={this.state.profileInfo2}
           />
         );
+      default:
+        return;
     }
   }
 

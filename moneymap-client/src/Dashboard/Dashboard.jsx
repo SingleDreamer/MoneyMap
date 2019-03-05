@@ -22,7 +22,8 @@ class Dashboard extends Component {
     //using the spread operator. Just for tesing purposes, will be reworked.
     let updateCompanies = () => {
       this.setState({
-        companies: {}
+        ...this.state,
+        show: true
       });
       console.log(myData);
     };
@@ -40,7 +41,7 @@ class Dashboard extends Component {
             <Modal.Title>New JobOfferCard</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <JobOfferCard />
+            <JobOfferCard handleClose={this.handleClose} />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Close</Button>

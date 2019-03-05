@@ -5,29 +5,40 @@ class JobOfferDetails2 extends Component {
   render() {
     return (
       <div>
-        <Form.Group controlId="details">
-          <Form.Label>Details</Form.Label>
+        <Form.Group controlId="Mandatory Costs">
+          <Form.Label>Mandatory Costs</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Details"
-            onChange={this.props.handleChange("details")}
+            placeholder="Mandatory Costs"
+            onChange={this.props.handleChange("Components", "Mandatory Costs")}
           />
         </Form.Group>
 
-        <Form.Group controlId="location">
-          <Form.Label> Location</Form.Label>
+        <Form.Group controlId="Consumable Costs">
+          <Form.Label> Consumable Costs</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Location"
-            onChange={this.props.handleChange("location")}
+            placeholder="Consumable Costs"
+            onChange={this.props.handleChange("Components", "Consumable Costs")}
           />
         </Form.Group>
-        <Form.Group controlId="salary">
-          <Form.Label>Salary</Form.Label>
+        <Form.Group controlId="Entertainment Expenses">
+          <Form.Label>Entertainment Expenses</Form.Label>
           <Form.Control
             type="number"
-            placeholder="Salary"
-            onChange={this.props.handleChange("salary")}
+            placeholder="Entertainment Expenses"
+            onChange={this.props.handleChange(
+              "Components",
+              "Entertainment Expenses"
+            )}
+          />
+        </Form.Group>
+        <Form.Group controlId="Debt">
+          <Form.Label>Debt</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="Debt"
+            onChange={this.props.handleChange("Components", "Debt")}
           />
         </Form.Group>
         <ButtonToolbar>
