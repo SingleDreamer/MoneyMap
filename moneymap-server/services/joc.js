@@ -4,12 +4,12 @@ var db = require("../services/db")
 const JOCService = {};
 
 JOCService.create = async (uid, name, cityid, image) => {
-  const request = new sql.Request(db);
-  request.input('uid', sql.Int, uid);
-  request.input('name', sql.Text, name);
+    const request = new sql.Request(db);
+    request.input('uid', sql.UniqueIdentifier, uid);
+  request.input('name', sql.VarChar, name);
   request.input('cityid', sql.Int, cityid);
   if(image != null) {
-    request.input('image', sql.Text, image);
+    request.input('image', sql.VarChar, image);
   }
 
   let result = await request.execute('sp_create_joc');
@@ -23,7 +23,7 @@ JOCService.addComponent = async (id, ctypid, cdesc, camt) => {
   request.input('ctypeid', sql.Int, id);
   request.input('camt', sql.Int, id);
   if(cdesc != null) {
-    request.input('cdesc', sql.Text, cdesc);
+    request.input('cdesc', sql.VarChar, cdesc);
   }
   let result = await request.execute('sp_add_joc_component');
 
