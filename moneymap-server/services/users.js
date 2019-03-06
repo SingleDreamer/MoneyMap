@@ -13,16 +13,17 @@ UserService.getJOCs = async (id) => {
     };
     for (var row in result.recordset) {
         const comprequest = new sql.Request(db);
-        comprequest.input('jocid', sql.Int, row)
-        let components = await comprequest.execute('sp_get_components')
+        comprequest.input('jocid', sql.Int, row);
+        let components = await comprequest.execute('sp_get_components');
         output.result.push({
-            "jocid": row.JobOfferCardID,
+            "row": row
+            /*"jocid": row.JobOfferCardID,
             "jocname": row.JobOfferCardName,
             "jocrfc": row.RFS,
             "joccityid": row.CityID,
             "jocimage": row.CardImageSrc,
-            "components": components.recordset
-        })
+            "components": components.recordset*/
+        });
     }
 
   return output;
