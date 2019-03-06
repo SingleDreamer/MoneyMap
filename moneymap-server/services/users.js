@@ -24,7 +24,7 @@ UserService.getJOCs = async (id) => {
             "components": components.recordset
         });
     }
-
+    console.log(output);
   return output;
 };
 
