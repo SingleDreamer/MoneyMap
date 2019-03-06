@@ -13,7 +13,7 @@ UserService.getJOCs = async (id) => {
     };
     for (var row in result.recordset) {
         const comprequest = new sql.Request(db);
-        comprequest.input('jocid', sql.Int, row.JobOfferCardID)
+        comprequest.input('jocid', sql.Int, row)
         let components = await comprequest.execute('sp_get_components')
         output.result.push({
             "jocid": row.JobOfferCardID,
