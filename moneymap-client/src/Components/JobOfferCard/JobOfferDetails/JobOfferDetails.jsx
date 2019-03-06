@@ -27,7 +27,7 @@ class JobOfferDetails extends Component {
           <Form.Control
             type="number"
             placeholder="Income"
-            onChange={this.props.handleChange("Components", "income")}
+            onChange={this.props.handleChange("Components", "income", 1)}
           />
         </Form.Group>
         <Button variant="primary" onClick={this.next}>

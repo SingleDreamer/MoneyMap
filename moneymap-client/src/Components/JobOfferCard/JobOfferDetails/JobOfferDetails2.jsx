@@ -10,7 +10,11 @@ class JobOfferDetails2 extends Component {
           <Form.Control
             type="text"
             placeholder="Mandatory Costs"
-            onChange={this.props.handleChange("Components", "Mandatory Costs")}
+            onChange={this.props.handleChange(
+              "Components",
+              "Mandatory Costs",
+              2
+            )}
           />
         </Form.Group>
 
@@ -19,7 +23,11 @@ class JobOfferDetails2 extends Component {
           <Form.Control
             type="text"
             placeholder="Consumable Costs"
-            onChange={this.props.handleChange("Components", "Consumable Costs")}
+            onChange={this.props.handleChange(
+              "Components",
+              "Consumable Costs",
+              3
+            )}
           />
         </Form.Group>
         <Form.Group controlId="Entertainment Expenses">
@@ -29,7 +37,8 @@ class JobOfferDetails2 extends Component {
             placeholder="Entertainment Expenses"
             onChange={this.props.handleChange(
               "Components",
-              "Entertainment Expenses"
+              "Entertainment Expenses",
+              4
             )}
           />
         </Form.Group>
@@ -38,7 +47,7 @@ class JobOfferDetails2 extends Component {
           <Form.Control
             type="number"
             placeholder="Debt"
-            onChange={this.props.handleChange("Components", "Debt")}
+            onChange={this.props.handleChange("Components", "Debt", 5)}
           />
         </Form.Group>
         <ButtonToolbar>

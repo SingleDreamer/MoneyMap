@@ -107,7 +107,7 @@ Return
     });
   };
 
-  handleChange = (input, input2) => event => {
+  handleChange = (input, input2, input3) => event => {
     if (!!input2) {
       this.setState({
         ...this.state,
@@ -117,7 +117,7 @@ Return
             ...this.state.Components[input2],
             ComponentDescription: input2,
             ComponentAmount: event.target.value,
-            ComponentTypeID: 1
+            ComponentTypeID: input3
           }
         }
       });
