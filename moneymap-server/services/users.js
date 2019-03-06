@@ -11,7 +11,7 @@ UserService.getJOCs = async (id) => {
     var output = {
         "result": []
     };
-    for (var row in result.recordset) {
+    for (var row in result.output) {
         const comprequest = new sql.Request(db);
         comprequest.input('jocid', sql.Int, row);
         let components = await comprequest.execute('sp_get_components');
