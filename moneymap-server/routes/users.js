@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+const UserService = require('../services/users');
+
+router.get('/:id/jocs', async (req, res, next) => {
+  let result = await UserService.getJOCs(req.params.id);
+  res.json(result);
 });
 
 module.exports = router;
