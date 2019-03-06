@@ -3,6 +3,7 @@ import { Card, Button, Modal } from "react-bootstrap";
 import "./Card.css";
 import Chart from "react-apexcharts";
 import { axios } from "axios";
+import Charts from "./Charts.js";
 
 class CardArray extends Component {
   constructor(props, context) {
@@ -79,6 +80,7 @@ class CardArray extends Component {
             <Card.Text>
               {`Monthly Savings: $${this.props.info.savings}`}
             </Card.Text>
+<<<<<<< HEAD
             <Button variant="primary" onClick={this.handleShow}>
               Edit
             </Button>
@@ -92,6 +94,31 @@ class CardArray extends Component {
               City: {this.props.info.city} <br />
               Income: ${this.props.info.income}
             </Modal.Body>
+=======
+            <Button
+              variant="primary"
+              onClick={e => this.openModal(e, this.props.id)}
+            >
+              Analyze
+            </Button>
+          </Card.Body>
+          {/*Maybe make this modal into it's own component*/}
+          <Modal
+            id={this.props.id}
+            show={this.state.currModal === this.props.id}
+            onHide={this.closeModal}
+            centered
+            size="lg"
+          >
+            <Modal.Header closeButton={false}>
+              <Modal.Title>{this.props.info.name}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Job offer analysis</Modal.Body>
+            <Modal.Body>
+              <Charts info={this.props.info} />
+            </Modal.Body>
+
+>>>>>>> Cris2
             <Modal.Footer>
               <Button onClick={this.handleClose}>Close</Button>
             </Modal.Footer>
