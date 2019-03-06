@@ -2,12 +2,20 @@ import React, { Component } from "react";
 import { Card, Button, Modal } from "react-bootstrap";
 import "./Card.css";
 import Chart from "react-apexcharts";
+import { axios } from "axios";
 
 class CardArray extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      currModal: null,
+      show: false,
+      jobOfferCardID: 0,
+      jocDetails: {
+        UID: 1,
+        JOCName: "",
+        CityID: 1,
+        CardImageSrc: ""
+      },
       optionsRadial: {
         plotOptions: {
           radialBar: {
@@ -33,8 +41,8 @@ class CardArray extends Component {
         labels: ["RFS"]
       }
     };
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   render() {
@@ -71,25 +79,21 @@ class CardArray extends Component {
             <Card.Text>
               {`Monthly Savings: $${this.props.info.savings}`}
             </Card.Text>
-            <Button
-              variant="primary"
-              onClick={e => this.openModal(e, this.props.id)}
-            >
+            <Button variant="primary" onClick={this.handleShow}>
               Edit
             </Button>
           </Card.Body>
 
-          <Modal
-            id={this.props.id}
-            show={this.state.currModal === this.props.id}
-            onHide={this.closeModal}
-          >
+          <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton={false}>
               <Modal.Title>{this.props.info.name}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Info</Modal.Body>
+            <Modal.Body>
+              City: {this.props.info.city} <br />
+              Income: ${this.props.info.income}
+            </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.closeModal}>Close</Button>
+              <Button onClick={this.handleClose}>Close</Button>
             </Modal.Footer>
           </Modal>
         </Card>
@@ -97,12 +101,68 @@ class CardArray extends Component {
     );
   }
 
-  openModal(e, index) {
-    this.setState({ currModal: index });
+  // handleShow() {
+  //   this.setState({ show: true });
+  // }
+
+  handleShow = e => {
+    e.preventDefault();
+    this.setState(
+      {
+        show: true,
+        jocDetails: {
+          UID: 1,
+          JOCName: this.props.info.name,
+          CityID: 1,
+          CardImageSrc: ""
+        }
+      },
+      () => {
+        return this.sendRequest();
+      }
+    );
+  };
+
+  async sendRequest() {
+    let url = "http://localhost:3000/test";
+
+    let config = {
+      headers: {
+        // Authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+
+    let payload = this.state.jocDetails;
+
+    console.log(payload);
+
+    try {
+      let response = await axios.post(url, payload, config);
+      console.log("****");
+      console.log(response);
+      // if (response.data.message) alert(response.data.message);
+      const { jocDetails } = this.state;
+      this.setState({ jobOfferCardID: response.data });
+      console.log("jobOfferCardID: " + this.state.jobOfferCardID);
+      alert(`Your job: \n
+      Job UID: ${jocDetails.UID} \n
+      Job JOCName: ${jocDetails.JOCName}\n
+      Job CityID: ${jocDetails.CityID}\n
+      Job CardImageSrc: ${jocDetails.CardImageSrc}
+  `);
+      return response;
+    } catch (err) {
+      this.setState({ error: err });
+      console.log("####");
+      console.log(err);
+      // alert(`Ya got an error boy \n
+      // ${err}`);
+    }
   }
 
-  closeModal = () => {
-    this.setState({ currModal: null });
-  };
+  handleClose() {
+    this.setState({ show: false });
+  }
 }
 export default CardArray;

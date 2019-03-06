@@ -4,30 +4,50 @@ import { Form, Button, ButtonToolbar } from "react-bootstrap";
 class JobOfferDetails2 extends Component {
   render() {
     return (
-      <Form>
-        <Form.Group controlId="details">
-          <Form.Label>Details</Form.Label>
+      <div>
+        <Form.Group controlId="Mandatory Costs">
+          <Form.Label>Mandatory Costs</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Details"
-            onChange={this.props.handleChange("details")}
+            placeholder="Mandatory Costs"
+            onChange={this.props.handleChange(
+              "Components",
+              "Mandatory Costs",
+              2
+            )}
           />
         </Form.Group>
 
-        <Form.Group controlId="location">
-          <Form.Label> Location</Form.Label>
+        <Form.Group controlId="Consumable Costs">
+          <Form.Label> Consumable Costs</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Location"
-            onChange={this.props.handleChange("location")}
+            placeholder="Consumable Costs"
+            onChange={this.props.handleChange(
+              "Components",
+              "Consumable Costs",
+              3
+            )}
           />
         </Form.Group>
-        <Form.Group controlId="salary">
-          <Form.Label>Salary</Form.Label>
+        <Form.Group controlId="Entertainment Expenses">
+          <Form.Label>Entertainment Expenses</Form.Label>
           <Form.Control
             type="number"
-            placeholder="Salary"
-            onChange={this.props.handleChange("salary")}
+            placeholder="Entertainment Expenses"
+            onChange={this.props.handleChange(
+              "Components",
+              "Entertainment Expenses",
+              4
+            )}
+          />
+        </Form.Group>
+        <Form.Group controlId="Debt">
+          <Form.Label>Debt</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="Debt"
+            onChange={this.props.handleChange("Components", "Debt", 5)}
           />
         </Form.Group>
         <ButtonToolbar>
@@ -38,7 +58,7 @@ class JobOfferDetails2 extends Component {
             Submit
           </Button>
         </ButtonToolbar>
-      </Form>
+      </div>
     );
   }
 

@@ -21,7 +21,10 @@ class Dashboard extends Component {
     //When the Add JOC button is clicked it adds 'Uber' the the company list currently in the state
     //using the spread operator. Just for tesing purposes, will be reworked.
     let updateCompanies = () => {
-      this.handleShow();
+      this.setState({
+        ...this.state,
+        show: true
+      });
       console.log(myData);
     };
 
@@ -38,7 +41,7 @@ class Dashboard extends Component {
             <Modal.Title>New JobOfferCard</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <JobOfferCard />
+            <JobOfferCard handleClose={this.handleClose} />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Close</Button>
