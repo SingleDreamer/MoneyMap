@@ -41,6 +41,21 @@ Return
 }
  */
 
+  /*POST
+/JOC_creation
+Body
+{
+	UID: (1) for now
+	JOCName: (max 50 chars)
+	CityID: (1) for now
+	CardImageSrc: “” (empty string for now)
+}
+Return 
+{
+	JobOfferCardID
+}
+ */
+
   render() {
     const { step } = this.state;
 
