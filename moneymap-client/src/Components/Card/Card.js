@@ -80,21 +80,6 @@ class CardArray extends Component {
             <Card.Text>
               {`Monthly Savings: $${this.props.info.savings}`}
             </Card.Text>
-<<<<<<< HEAD
-            <Button variant="primary" onClick={this.handleShow}>
-              Edit
-            </Button>
-          </Card.Body>
-
-          <Modal show={this.state.show} onHide={this.handleClose}>
-            <Modal.Header closeButton={false}>
-              <Modal.Title>{this.props.info.name}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              City: {this.props.info.city} <br />
-              Income: ${this.props.info.income}
-            </Modal.Body>
-=======
             <Button
               variant="primary"
               onClick={e => this.openModal(e, this.props.id)}
@@ -117,8 +102,6 @@ class CardArray extends Component {
             <Modal.Body>
               <Charts info={this.props.info} />
             </Modal.Body>
-
->>>>>>> Cris2
             <Modal.Footer>
               <Button onClick={this.handleClose}>Close</Button>
             </Modal.Footer>
@@ -131,6 +114,13 @@ class CardArray extends Component {
   // handleShow() {
   //   this.setState({ show: true });
   // }
+    openModal(e, index) {
+    this.setState({ currModal: index });
+  }
+
+  closeModal = () => {
+    this.setState({ currModal: null });
+  };
 
   handleShow = e => {
     e.preventDefault();
