@@ -9,7 +9,7 @@ class JobOfferCard extends Component {
     super(props);
     this.state = {
       step: 1,
-      UID: 1,
+      UID: "11111111-1111-1111-1111-111111111111",
       JOCName: "",
       CityID: 1,
       CardImageSrc: "",
