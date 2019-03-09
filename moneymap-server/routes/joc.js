@@ -11,10 +11,15 @@ router.post('/', async (req, res, next) => {
 });
 
 router.post('/:id', async (req, res, next) => {
-  const { ctype, cdesc, camt } = req.body;
+  let results = [];
 
-  let result = await JOCService.addComponent(ctype, cdesc, camt);
-  res.json(result);
+  for(i in req.body) {
+    let component = req.body[i];
+    let result = await JOCService.addComponent(component.ctype, component.cdesc, component.camt);
+    results.push(result);
+  }
+
+  res.json(results);
 });
 
 router.get('/types', async (req, res, next) => {

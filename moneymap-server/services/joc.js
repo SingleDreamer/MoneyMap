@@ -4,8 +4,8 @@ var db = require("../services/db")
 const JOCService = {};
 
 JOCService.create = async (uid, name, cityid, image) => {
-    const request = new sql.Request(db);
-    request.input('uid', sql.UniqueIdentifier, uid);
+  const request = new sql.Request(db);
+  request.input('uid', sql.UniqueIdentifier, uid);
   request.input('name', sql.VarChar, name);
   request.input('cityid', sql.Int, cityid);
   if(image != null) {
