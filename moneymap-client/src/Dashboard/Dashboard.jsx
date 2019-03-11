@@ -10,11 +10,14 @@ class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      // fromRegister: false,
+      profileSubmit: false,
       show: false,
       companies: myData
     };
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    // this.profileSubmit = this.profileSubmit.bind(this);
   }
 
   render() {
@@ -27,6 +30,12 @@ class Dashboard extends Component {
       });
       console.log(myData);
     };
+    let cardType;
+    if (this.state.profileSubmit === false) {
+      cardType = <Modal.Title>Profile Card</Modal.Title>; //check if profile submission exists vs backend call
+    } else {
+      cardType = <Modal.Title>New JobOfferCard</Modal.Title>;
+    }
 
     return (
       <div className="Dashboard">
@@ -37,11 +46,12 @@ class Dashboard extends Component {
         </Button>
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
         <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton={false}>
-            <Modal.Title>New JobOfferCard</Modal.Title>
-          </Modal.Header>
+          <Modal.Header closeButton={false}>{cardType}</Modal.Header>
           <Modal.Body>
-            <JobOfferCard handleClose={this.handleClose} />
+            <JobOfferCard
+              handleClose={this.handleClose}
+              profileSubmit={this.profileSubmit}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Close</Button>
@@ -52,12 +62,27 @@ class Dashboard extends Component {
       </div>
     );
   }
+
+  // profileSubmit() {
+  //   this.setState({ profileSubmit: true });
+  // }
+
   handleShow() {
     this.setState({ show: true });
   }
 
   handleClose() {
-    this.setState({ show: false });
+    this.setState({ fromRegister: false, show: false });
+    console.log("Profile submit: ", this.state.profileSubmit);
   }
+
+  // componentWillMount = () => {
+  //   console.log("prop from register: ", this.props.location.state.fromRegister);
+  //   console.log("fromRegister: ", this.state.fromRegister);
+  //   console.log("show: ", this.state.show);
+  //   if (this.props.location.state.fromRegister === true) {
+  //     this.setState({ fromRegister: true, show: true });
+  //   }
+  // };
 }
 export default Dashboard;

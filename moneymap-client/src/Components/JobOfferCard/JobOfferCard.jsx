@@ -2,17 +2,17 @@ import React, { Component } from "react";
 import JobOfferDetails from "./JobOfferDetails/JobOfferDetails";
 import JobOfferDetails2 from "./JobOfferDetails/JobOfferDetails2";
 import { Form } from "react-bootstrap";
-import { axios } from "axios";
+import axios from "axios";
 
 class JobOfferCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       step: 1,
-      UID: "11111111-1111-1111-1111-111111111111",
-      JOCName: "",
-      CityID: 1,
-      CardImageSrc: "",
+      uid: "11111111-1111-1111-1111-111111111111",
+      name: "",
+      cityid: 1,
+      image: "",
       Components: {},
       submit: false,
       error: null
@@ -20,41 +20,6 @@ class JobOfferCard extends Component {
 
     this.handleChange = this.handleChange.bind(this);
   }
-  // 1	Income
-  // 2	Mandatory Costs
-  // 3	Consumable Costs
-  // 4	Entertainment Expenses
-  // 5	Debt
-
-  /*POST
-/JOC_creation
-Body
-{
-	UID: (1) for now
-	JOCName: (max 50 chars)
-	CityID: (1) for now
-	CardImageSrc: “” (empty string for now)
-}
-Return 
-{
-	JobOfferCardID
-}
- */
-
-  /*POST
-/JOC_creation
-Body
-{
-	UID: (1) for now
-	JOCName: (max 50 chars)
-	CityID: (1) for now
-	CardImageSrc: “” (empty string for now)
-}
-Return 
-{
-	JobOfferCardID
-}
- */
 
   render() {
     const { step } = this.state;
@@ -74,7 +39,7 @@ Return
     }
 
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form noValidate onSubmit={this.handleSubmit}>
         {" "}
         <p>Step {step} </p>
         {this.renderSwitch(step)}
@@ -90,8 +55,8 @@ Return
           <JobOfferDetails
             nextStep={this.nextStep}
             handleChange={this.handleChange}
-            JOCName={this.state.JOCName}
-            CityID={this.state.CityID}
+            name={this.state.name}
+            cityid={this.state.cityid}
             Components={this.state.Components}
           />
         );
@@ -130,9 +95,9 @@ Return
           ...this.state.Components,
           [input2]: {
             ...this.state.Components[input2],
-            ComponentDescription: input2,
-            ComponentAmount: event.target.value,
-            ComponentTypeID: input3
+            cdesc: input2,
+            camt: event.target.value,
+            ctype: input3
           }
         }
       });
@@ -144,6 +109,8 @@ Return
   handleSubmit = e => {
     e.preventDefault();
     this.props.handleClose();
+    // this.props.profileSubmit();
+
     this.setState({
       submit: true
     });
@@ -158,8 +125,8 @@ Return
   };
 
   sendRequest() {
-    let url = "http://localhost:8080/JOC_creation";
-    let url2 = "http://localhost:8080/JOC_components";
+    let url =
+      "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc";
 
     let config = {
       headers: {
@@ -167,8 +134,8 @@ Return
         "Content-Type": "application/json"
       }
     };
-    const { UID, JOCName, CityID, CardImageSrc, Components } = this.state;
-    let payload1 = { UID, JOCName, CityID, CardImageSrc };
+    const { uid, name, cityid, image, Components } = this.state;
+    let payload1 = { uid, name, cityid, image };
 
     console.log("Payload1: ", payload1);
     let body = [];
@@ -179,8 +146,14 @@ Return
     try {
       axios
         .post(url, payload1, config)
+
         .then(response => {
+          // console.log(".then() payload1: ", payload1);
+
           //something something response something
+          let url2 =
+            "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
+            response;
           console.log("Response: ", response);
           const body2 = body.map(component => {
             return { ...component, JobOfferCardID: response.data };

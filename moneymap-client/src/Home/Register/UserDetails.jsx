@@ -11,7 +11,7 @@ class UserDetails extends Component {
 
   render() {
     return (
-      <Form>
+      <div>
         <Form.Group controlId="firstName">
           <Form.Label>First name</Form.Label>
           <Form.Control
@@ -41,7 +41,7 @@ class UserDetails extends Component {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
         </Form.Group>
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group controlId="formBasicPassword2">
           <Form.Label>Re-enter Password</Form.Label>
           <Form.Control type="password" placeholder="Re-enter Password" />
         </Form.Group>
@@ -55,7 +55,7 @@ class UserDetails extends Component {
         <Button variant="primary" onClick={this.next}>
           Next
         </Button>
-      </Form>
+      </div>
     );
   }
 
