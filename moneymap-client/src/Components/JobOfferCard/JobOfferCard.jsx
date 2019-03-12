@@ -152,9 +152,8 @@ class JobOfferCard extends Component {
 
           //something something response something
           let url2 =
-            "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
-            response;
-          console.log("Response: ", response);
+            "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" + response.data.JobOfferCardID;
+          console.log("Response: ", response.data.JobOfferCardID);
           const body2 = body.map(component => {
             return { ...component, JobOfferCardID: response.data };
           });

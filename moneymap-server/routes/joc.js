@@ -15,7 +15,7 @@ router.post('/:id', async (req, res, next) => {
 
   for(i in req.body) {
     let component = req.body[i];
-    let result = await JOCService.addComponent(component.ctype, component.cdesc, component.camt);
+    let result = await JOCService.addComponent(req.params.id, component.ctype, component.cdesc, component.camt);
     results.push(result);
   }
 

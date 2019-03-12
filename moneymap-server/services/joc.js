@@ -14,14 +14,14 @@ JOCService.create = async (uid, name, cityid, image) => {
 
   let result = await request.execute('sp_create_joc');
 
-  return result;
+  return result.recordset[0];
 };
 
 JOCService.addComponent = async (id, ctypid, cdesc, camt) => {
   const request = new sql.Request(db);
   request.input('jocid', sql.Int, id);
-  request.input('ctypeid', sql.Int, id);
-  request.input('camt', sql.Int, id);
+  request.input('ctypeid', sql.Int, ctypid);
+  request.input('camt', sql.Int, camt);
   if(cdesc != null) {
     request.input('cdesc', sql.VarChar, cdesc);
   }
