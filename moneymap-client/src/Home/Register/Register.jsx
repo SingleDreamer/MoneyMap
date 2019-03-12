@@ -3,6 +3,7 @@ import UserDetails from "./UserDetails";
 import ProfileDetails from "./ProfileDetails";
 import ProfileDetails2 from "./ProfileDetails2";
 import { Form } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 
 class Register extends Component {
   constructor(props) {
@@ -37,16 +38,22 @@ class Register extends Component {
     const { step } = this.state;
     let success;
     if (this.state.submit === true) {
+      console.log("Profile successfully created");
+
       success = (
-        <h6 style={{ marginTop: "10px" }}>
-          Profile Successfully created. Thank you for registering!
-        </h6>
+        // <h6 style={{ marginTop: "10px" }}>
+        //   Profile successfully created. Thank you for registering!
+        // </h6>
+
+        // <Redirect
+        //   to={{ pathname: "/dashboard", state: { fromRegister: true } }}
+        // />
+        <Redirect to="/dashboard" />
       );
     }
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        {" "}
+      <Form onSubmit={e => this.handleSubmit(e)}>
         <p>Step {this.state.step} </p>
         {this.renderSwitch(step)}
         {success}
@@ -76,12 +83,13 @@ class Register extends Component {
       case 3:
         return (
           <ProfileDetails2
-            nextStep={this.nextStep}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             profileInfo2={this.state.profileInfo2}
           />
         );
+      default:
+        return;
     }
   }
 

@@ -1,0 +1,22 @@
+.card {
+  margin: 2em;
+  height: 350px;
+  width: 18em;
+  /*filter: blur(4px);*/
+  border-radius: 20px;
+  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.5);
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  padding: 0%;
+  margin: 0;
+  max-height: 40px;
+}
+
+.chart {
+  position: relative;
+  top: -30px;
+  left: 20px;
+}

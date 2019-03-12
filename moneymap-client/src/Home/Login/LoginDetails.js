@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 // import "../Home/Home.css";
 import { Form, Button } from "react-bootstrap";
-
+import { Link } from 'react-router-dom'
 class LoginDetails extends Component {
-  constructor(props) {
+  constructor(props){
     super(props);
     this.state = {
       email: "",
@@ -30,9 +30,13 @@ class LoginDetails extends Component {
             label="Remember Me."
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Login
-        </Button>
+        <Link to="/Dashboard">
+          <Button variant="primary" type="submit" >
+            Login
+          </Button>
+        </Link>
+
+        
       </Form>
     )
   }

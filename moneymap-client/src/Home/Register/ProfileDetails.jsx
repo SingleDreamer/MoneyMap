@@ -11,7 +11,7 @@ class ProfileDetails extends Component {
 
   render() {
     return (
-      <Form>
+      <div>
         <Form.Group controlId="Prof">
           <Form.Label>Profile 1</Form.Label>
           <Form.Control
@@ -45,7 +45,7 @@ class ProfileDetails extends Component {
             Next
           </Button>
         </ButtonToolbar>
-      </Form>
+      </div>
     );
   }
 

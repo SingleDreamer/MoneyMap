@@ -36,7 +36,7 @@ class Home extends Component {
           >
             Login
           </Button>
-          <Button bsStyle="secondary" bsSize="small" onClick={this.handleShow}>
+          <Button variant="primary" onClick={this.handleShow}>
             Register now
           </Button>
         </div>
