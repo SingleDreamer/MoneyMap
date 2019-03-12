@@ -80,12 +80,15 @@ class CardArray extends Component {
             <Card.Text>
               {`Monthly Savings: $${this.props.info.savings}`}
             </Card.Text>
-            <Button
-              variant="primary"
-              onClick={e => this.openModal(e, this.props.id)}
-            >
-              Analyze
-            </Button>
+            <div className="buttons">
+              <Button
+                variant="primary"
+                onClick={e => this.openModal(e, this.props.id)}
+              >
+                Analyze
+              </Button>
+              <Button variant="danger">Delete</Button>
+            </div>
           </Card.Body>
           {/*Maybe make this modal into it's own component*/}
           <Modal
@@ -114,7 +117,7 @@ class CardArray extends Component {
   // handleShow() {
   //   this.setState({ show: true });
   // }
-    openModal(e, index) {
+  openModal(e, index) {
     this.setState({ currModal: index });
   }
 

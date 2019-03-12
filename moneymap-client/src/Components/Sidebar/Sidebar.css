@@ -2,7 +2,21 @@
   height: 100vh;
   width: 250px;
   margin-right: 10px;
-  background-color: #f8f8f8;
-  float: left;
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: #bb9c9c;
+}
+.icon {
+  font-size: 3em;
+  color: Dodgerblue;
+}
+.icon:hover {
+  color: #bc3421;
+  cursor: pointer;
+}
+.header {
+  display: flex;
+  align-content: space-around;
+}
+.content {
+  font-family: montserat;
+  font-size: 1.5em;
 }

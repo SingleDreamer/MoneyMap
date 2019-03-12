@@ -27,8 +27,6 @@ class CardArray extends Component {
   //       }
   //     };
 
-
-
   //     try {
   //       let response = await axios.post(url, config);
   //       console.log("****");
