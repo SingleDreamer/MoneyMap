@@ -24,7 +24,7 @@ class Dashboard extends Component {
       axios.get('http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/11111111-1111-1111-1111-111111111111/jocs')
         .then((response) => {
           // handle success
-          let jocs = response.data.result.splice(25, 10)
+          let jocs = response.data.result
           console.log(jocs);
           this.setState({
             companies: jocs
@@ -41,8 +41,8 @@ class Dashboard extends Component {
         axios.get('http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/11111111-1111-1111-1111-111111111111/jocs')
         .then((response) => {
           // handle success
-          let jocs = response.data.result.splice(25, 10)
-          console.log(this.state.companies);
+          let jocs = response.result
+          console.log(response);
           this.setState({
             companies: jocs,
             show:true
