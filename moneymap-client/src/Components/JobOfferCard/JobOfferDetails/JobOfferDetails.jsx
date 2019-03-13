@@ -33,7 +33,7 @@ class JobOfferDetails extends Component {
           <Form.Control
             type="number"
             placeholder="Income"
-            onChange={this.props.handleChange("Components", "income", 1)}
+            onChange={this.props.handleChange("Components", "Income", 1)}
             // value={this.props.Components.ComponentDescription}
           />
         </Form.Group>

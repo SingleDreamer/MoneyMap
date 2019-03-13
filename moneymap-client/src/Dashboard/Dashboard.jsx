@@ -4,7 +4,7 @@ import Sidebar from "../Components/Sidebar/Sidebar.js";
 import { JobOfferCard } from "../Components/JobOfferCard";
 import { Modal, Button } from "react-bootstrap";
 import "./Dashboard.css";
-import myData from "./test.json";
+import axios from "axios";
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -13,23 +13,49 @@ class Dashboard extends Component {
       // fromRegister: false,
       profileSubmit: false,
       show: false,
-      companies: myData
+      companies: []
     };
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     // this.profileSubmit = this.profileSubmit.bind(this);
   }
-
+  componentDidMount(){
+      //getting the cards each time the component renders
+      axios.get('http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/11111111-1111-1111-1111-111111111111/jocs')
+        .then((response) => {
+          // handle success
+          let jocs = response.data.result.splice(25, 10)
+          console.log(jocs);
+          this.setState({
+            companies: jocs
+          })
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+    }
   render() {
-    //When the Add JOC button is clicked it adds 'Uber' the the company list currently in the state
-    //using the spread operator. Just for tesing purposes, will be reworked.
+    //Need to figure out how to render as soon as a new JOC is added
     let updateCompanies = () => {
-      this.setState({
-        ...this.state,
-        show: true
-      });
-      console.log(myData);
+        axios.get('http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/11111111-1111-1111-1111-111111111111/jocs')
+        .then((response) => {
+          // handle success
+          let jocs = response.data.result.splice(25, 10)
+          console.log(this.state.companies);
+          this.setState({
+            companies: jocs,
+            show:true
+          })
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+      //console.log(myData);
     };
+
+   
     let cardType;
     if (this.state.profileSubmit === false) {
       cardType = <Modal.Title>Profile Card</Modal.Title>; //check if profile submission exists vs backend call
@@ -41,7 +67,7 @@ class Dashboard extends Component {
       <div className="Dashboard">
         {/*Need to tuen this into a component to update depending on the currently logged in user's info */}
         <Sidebar className="Sidebar" />
-        <Button className="AddJOC" onClick={() => updateCompanies()}>
+        <Button className="AddJOC" onClick={() => this.setState({show: true})}>
           Add New JOC
         </Button>
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}

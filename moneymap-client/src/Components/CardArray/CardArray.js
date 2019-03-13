@@ -6,16 +6,17 @@ class CardArray extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      companies: props.companies
+      companies: []
     };
   }
 
-  //Whenever the CardArray component receives new props from the Dashboard
-  //it will rerender with the new list of Cards
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState({
-  //     companies: nextProps.companies
-  //   });
+  // Whenever the CardArray component receives new props from the Dashboard
+  // it will rerender with the new list of Cards
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      companies: nextProps.companies
+    })
+  }
 
   //   async sendRequest(() => {
   //     let url = "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/11111111-1111-1111-1111-111111111111/jocs";
@@ -26,8 +27,6 @@ class CardArray extends Component {
   //         "Content-Type": "application/json"
   //       }
   //     };
-
-
 
   //     try {
   //       let response = await axios.post(url, config);
@@ -46,11 +45,20 @@ class CardArray extends Component {
   // }
 
   render() {
-    let cards = this.state.companies.cards.map((company, index) => (
+    let cards = [];
+    cards = this.state.companies.map((company, index) => {
+      if(company.jocrfc < 100){return(
       <div key={index}>
-        <Card className="card" id={index} info={company} />
+        <Card cardType="joc" id={index} info={company} />
       </div>
-    ));
+      )}else{return(
+      <div key={index} className = "container">
+        <Card cardType="jocSelected" id={index} info={company} />
+      </div>
+      )}
+    });
+
+    //console.log(cards);
     return (
       <div className="array">
         {/*This will map over the list of companies and provide the data to the CARD component

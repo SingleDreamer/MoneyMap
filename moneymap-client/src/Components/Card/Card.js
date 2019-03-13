@@ -48,44 +48,43 @@ class CardArray extends Component {
 
   render() {
     return (
-      <div>
-        <Card className="card">
+      <div >
+        <Card className={this.props.cardType} draggable="true">
           <Card.Body>
             <div className="header">
-              <Card.Title>{this.props.info.name}</Card.Title>
+              <Card.Title>{this.props.info.jocname}</Card.Title>
               <div className="chart">
+                {/*Series needs to change to the actual RFS score*/}
                 <Chart
                   options={this.state.optionsRadial}
-                  series={[this.props.info.score]}
+                  series={[Math.floor(Math.random() * 101)]}
                   type="radialBar"
                   width="100"
                   height="130"
                 />
               </div>
             </div>
-
             <Card.Title>
-              {this.props.info.city} {`$${this.props.info.income}`}
+              {`$${this.props.info.components[0].ComponentAmount}`}
             </Card.Title>
-            <Card.Text>
-              {`Mandatory Costs: $${this.props.info.mandatory_costs}`}
-            </Card.Text>
-            <Card.Text>
-              {`Consumable Costs: $${this.props.info.comsumable_costs}`}
-            </Card.Text>
-            <Card.Text>
-              {`Entertainment Costs: $${this.props.info.entertainment_cost}`}
-            </Card.Text>
-            <Card.Text>{`Monthly Debt: $${this.props.info.debt}`}</Card.Text>
+            {this.props.info.components.map((component, index)=>
+              <Card.Text>
+              {`${component.ComponentDescription}: $${component.ComponentAmount}`}
+              </Card.Text>
+            )}
+          
             <Card.Text>
               {`Monthly Savings: $${this.props.info.savings}`}
             </Card.Text>
-            <Button
-              variant="primary"
-              onClick={e => this.openModal(e, this.props.id)}
-            >
-              Analyze
-            </Button>
+            <div className="buttons">
+              <Button
+                variant="primary"
+                onClick={e => this.openModal(e, this.props.id)}
+              >
+                Analyze
+              </Button>
+              <Button variant="danger">Delete</Button>
+            </div>
           </Card.Body>
           {/*Maybe make this modal into it's own component*/}
           <Modal
@@ -100,7 +99,7 @@ class CardArray extends Component {
             </Modal.Header>
             <Modal.Body>Job offer analysis</Modal.Body>
             <Modal.Body>
-              <Charts info={this.props.info} />
+              <Charts info={50} />
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={this.handleClose}>Close</Button>
@@ -114,7 +113,7 @@ class CardArray extends Component {
   // handleShow() {
   //   this.setState({ show: true });
   // }
-    openModal(e, index) {
+  openModal(e, index) {
     this.setState({ currModal: index });
   }
 

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material/react-drawer": "^0.10.0",
     "apexcharts": "^3.5.0",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",

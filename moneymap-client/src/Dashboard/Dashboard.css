@@ -1,26 +1,25 @@
-
 /*Need to plan the grid layout better*/
-.Dashboard{
-	position: absolute;
-	background-color: #e8eef3;
-	height: 100vh;
-	width: 100vw;
-	overflow: hidden;
+.Dashboard {
+  position: absolute;
+  background-color: #e8eef3;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
-/*Attempt at making the dashboard resonsive. Kinda works but clunky*/
+/* Attempt at making the dashboard resonsive. Kinda works but clunky
 @media screen and (max-width: 1600px) {
   .Sidebar {
     margin-left: -350px;
   }
-}
+} */
 /*Need to properly center the button. Off place when side bar is visible, fine when not*/
-.AddJOC{
-	position: relative;
-	left: 35vw;
-	text-align: center;
-	margin-top: 20vh;
-  	height: 80px;
-  	width: 180px;
-  	box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
+.AddJOC {
+  position: relative;
+  left: 35vw;
+  text-align: center;
+  margin-top: 10vh;
+  height: 80px;
+  width: 180px;
+  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
 }
