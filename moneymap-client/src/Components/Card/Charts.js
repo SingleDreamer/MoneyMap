@@ -130,7 +130,7 @@ class Charts extends Component {
         },
         labels: ["Percent"]
       },
-      seriesRadial: [this.props.info.score],
+      seriesRadial: [this.props.info],
       optionsBar: {
         chart: {
           stacked: true,

@@ -1,4 +1,5 @@
 .array {
+  display: flex;
   position: relative;
   width: 100vw;
   height: 480px;
@@ -7,6 +8,7 @@
   overflow: scroll;
   margin-top: 1em;
 }
+
 /*Attempt at responsiveness. Works well.... For now*/
 @media screen and (max-width: 1600px) {
   .array {

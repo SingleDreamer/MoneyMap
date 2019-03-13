@@ -42,41 +42,42 @@ class Sidebar extends Component {
           open={this.state.open}
           onClose={this.handleClose}
         >
-          {" "}
-          <h2 className="header">
-            <span className="icon">
-              <i class="fas fa-user-circle" />
-            </span>
-            {`${this.state.userInfo.firstName}
-        ${this.state.userInfo.lastName}`}
-          </h2>
-          <br />
-          <br />
-          <DrawerSubtitle>Relative Finance Score</DrawerSubtitle>
-          <div className="content">{`${
-            this.state.userInfo.relativeScore
-          }`}</div>
-          <br />
-          <DrawerSubtitle>Curent City</DrawerSubtitle>
-          <div className="content">{`${this.state.userInfo.currentCity}`}</div>
-          <br />
-          <DrawerSubtitle>Monthly Income</DrawerSubtitle>
-          <div className="content">{`$${
-            this.state.userInfo.monthlyIncome
-          }`}</div>
-          <br />
-          <DrawerSubtitle>Family Size</DrawerSubtitle>
-          <div className="content">{`${this.state.userInfo.familySize}`}</div>
-          <br />
-          <DrawerSubtitle>Monthly Expenses</DrawerSubtitle>
-          <div className="content">{`$${this.state.userInfo.expenses}`}</div>
-          <br />
-          <DrawerSubtitle>Monthly Savings</DrawerSubtitle>
-          <div className="content">{`$${this.state.userInfo.savings}`}</div>
-          <br />
-          <Link to="/">
-            <Button variant="danger">Log Out</Button>
-          </Link>
+          <div className = "content">
+            <h2 className="header">
+              <span className="icon">
+                <i class="fas fa-user-circle" />
+              </span>
+              {`${this.state.userInfo.firstName}
+          ${this.state.userInfo.lastName}`}
+            </h2>
+            <br />
+            <br />
+            <DrawerSubtitle>Relative Finance Score</DrawerSubtitle>
+            <div className="content">{`${
+              this.state.userInfo.relativeScore
+            }`}</div>
+            <br />
+            <DrawerSubtitle>Curent City</DrawerSubtitle>
+            <div className="content">{`${this.state.userInfo.currentCity}`}</div>
+            <br />
+            <DrawerSubtitle>Monthly Income</DrawerSubtitle>
+            <div className="content">{`$${
+              this.state.userInfo.monthlyIncome
+            }`}</div>
+            <br />
+            <DrawerSubtitle>Family Size</DrawerSubtitle>
+            <div className="content">{`${this.state.userInfo.familySize}`}</div>
+            <br />
+            <DrawerSubtitle>Monthly Expenses</DrawerSubtitle>
+            <div className="content">{`$${this.state.userInfo.expenses}`}</div>
+            <br />
+            <DrawerSubtitle>Monthly Savings</DrawerSubtitle>
+            <div className="content">{`$${this.state.userInfo.savings}`}</div>
+            <br />
+            <Link to="/">
+              <Button variant="danger">Log Out</Button>
+            </Link>
+          </div>
         </Drawer>
 
         <span className="icon">
