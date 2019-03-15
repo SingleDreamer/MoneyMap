@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Form, Button, ButtonToolbar } from "react-bootstrap";
+import "../JobOfferCard.css";
 
 class JobOfferDetails2 extends Component {
   render() {
     return (
-      <div>
+      <Form>
         <Form.Group controlId="Mandatory Costs">
-          <Form.Label>Mandatory Costs</Form.Label>
+          <Form.Label className="required">Mandatory Costs</Form.Label>
           <Form.Control
             type="text"
             placeholder="Mandatory Costs"
@@ -19,7 +20,7 @@ class JobOfferDetails2 extends Component {
         </Form.Group>
 
         <Form.Group controlId="Consumable Costs">
-          <Form.Label> Consumable Costs</Form.Label>
+          <Form.Label className="required"> Consumable Costs</Form.Label>
           <Form.Control
             type="text"
             placeholder="Consumable Costs"
@@ -31,7 +32,7 @@ class JobOfferDetails2 extends Component {
           />
         </Form.Group>
         <Form.Group controlId="Entertainment Expenses">
-          <Form.Label>Entertainment Expenses</Form.Label>
+          <Form.Label className="required">Entertainment Expenses</Form.Label>
           <Form.Control
             type="number"
             placeholder="Entertainment Expenses"
@@ -43,7 +44,7 @@ class JobOfferDetails2 extends Component {
           />
         </Form.Group>
         <Form.Group controlId="Debt">
-          <Form.Label>Debt</Form.Label>
+          <Form.Label className="required">Debt</Form.Label>
           <Form.Control
             type="number"
             placeholder="Debt"
@@ -58,7 +59,7 @@ class JobOfferDetails2 extends Component {
             Submit
           </Button>
         </ButtonToolbar>
-      </div>
+      </Form>
     );
   }
 
