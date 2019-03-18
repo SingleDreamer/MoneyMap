@@ -16,7 +16,10 @@ UserService.getJOCs = async (id) => {
         const comprequest = new sql.Request(db);
         comprequest.input('jocid', sql.Int, result.recordset[row].JobOfferCardID);
         let components = await comprequest.execute('sp_get_components');
-        
+    	var comps = components.recordset;
+	    if(comps == null) {
+	 	comps = [];
+	    }
 	    output.result.push({
             "jocid": result.recordset[row].JobOfferCardID,
             "jocname": result.recordset[row].JobOfferCardName,
@@ -24,7 +27,7 @@ UserService.getJOCs = async (id) => {
             "joccityid": result.recordset[row].CityID,
             "jocimage": result.recordset[row].CardImageSrc,
 	    "savings": result.recordset[row].savings,
-            "components": components.recordset
+            "components": comps
         });
 	
     }
