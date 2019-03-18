@@ -64,18 +64,13 @@ class CardArray extends Component {
                 />
               </div>
             </div>
-            <Card.Title>
-              {`$${this.props.info.components[0].ComponentAmount}`}
-            </Card.Title>
-            {this.props.info.components.map((component, index)=>
+            {this.props.info.components.length ? this.props.info.components.map((component, index)=>
               <Card.Text>
               {`${component.ComponentDescription}: $${component.ComponentAmount}`}
               </Card.Text>
-            )}
-          
-            <Card.Text>
-              {`Monthly Savings: $${this.props.info.savings}`}
-            </Card.Text>
+            ) : <Card.Text>
+                  Empty Card
+                </Card.Text>}
             <div className="buttons">
               <Button
                 variant="primary"
