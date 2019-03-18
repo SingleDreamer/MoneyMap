@@ -13,7 +13,7 @@ class ProfileDetails extends Component {
     return (
       <div>
         <Form.Group controlId="Prof">
-          <Form.Label>Profile 1</Form.Label>
+          <Form.Label className="required">Profile 1</Form.Label>
           <Form.Control
             type="text"
             placeholder="Prof"
@@ -22,7 +22,7 @@ class ProfileDetails extends Component {
         </Form.Group>
 
         <Form.Group controlId="Prof">
-          <Form.Label>Profile Info</Form.Label>
+          <Form.Label className="required">Profile Info</Form.Label>
           <Form.Control
             type="text"
             placeholder="Prof"
@@ -30,7 +30,7 @@ class ProfileDetails extends Component {
           />
         </Form.Group>
         <Form.Group controlId="email">
-          <Form.Label>Email</Form.Label>
+          <Form.Label className="required">Email</Form.Label>
           <Form.Control
             type="email"
             placeholder="Email"

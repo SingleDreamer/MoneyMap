@@ -4,30 +4,27 @@ import ProfileDetails from "./ProfileDetails";
 import ProfileDetails2 from "./ProfileDetails2";
 import { Form } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import "../Home.css";
 
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       step: 1,
-      userInfo: [
-        {
-          firstName: "",
-          lastName: "",
-          email: "",
-          age: null,
-          city: "",
-          state: "",
-          country: ""
-        }
-      ],
-      profileInfo: [
-        {
-          info: "",
-          moreinfo: ""
-        }
-      ],
-      profileInfo2: [{ info: "", moreinfo: "" }],
+      userInfo: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        age: null,
+        city: "",
+        state: "",
+        country: ""
+      },
+      profileInfo: {
+        info: "",
+        moreinfo: ""
+      },
+      profileInfo2: { info: "", moreinfo: "" },
       submit: false
     };
 
@@ -54,7 +51,8 @@ class Register extends Component {
 
     return (
       <Form onSubmit={e => this.handleSubmit(e)}>
-        <p>Step {this.state.step} </p>
+        {/* <p>Step {this.state.step} </p> */}
+        <p className="required">Required field = </p>
         {this.renderSwitch(step)}
         {success}
       </Form>

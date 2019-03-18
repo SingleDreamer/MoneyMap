@@ -7,3 +7,8 @@
 
   /* background-color: rgb(74, 74, 121); */
 }
+
+.required:after {
+  content: "*";
+  color: red;
+}

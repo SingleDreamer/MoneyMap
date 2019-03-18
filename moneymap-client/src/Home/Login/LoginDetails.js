@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-// import "../Home/Home.css";
+import "../Home.css";
 import { Form, Button } from "react-bootstrap";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 class LoginDetails extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       email: "",
@@ -13,32 +13,27 @@ class LoginDetails extends Component {
   }
 
   render() {
-     
     return (
       <Form onSubmit={e => this.handleSubmit(e)}>
+        <p className="required">Required field = </p>
         <Form.Group controlId="email">
-          <Form.Label>Email</Form.Label>
+          <Form.Label className="required">Email</Form.Label>
           <Form.Control type="email" placeholder="Email" />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className="required">Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
         </Form.Group>
         <Form.Group controlId="formBasicChecbox">
-          <Form.Check
-            type="checkbox"
-            label="Remember Me."
-          />
+          <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
         <Link to="/Dashboard">
-          <Button variant="primary" type="submit" >
+          <Button variant="primary" type="submit">
             Login
           </Button>
         </Link>
-
-        
       </Form>
-    )
+    );
   }
 }
 

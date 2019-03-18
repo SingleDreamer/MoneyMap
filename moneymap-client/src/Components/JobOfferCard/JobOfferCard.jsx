@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import JobOfferDetails from "./JobOfferDetails/JobOfferDetails";
 import JobOfferDetails2 from "./JobOfferDetails/JobOfferDetails2";
-import { Form } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import axios from "axios";
 
 class JobOfferCard extends Component {
@@ -39,12 +39,12 @@ class JobOfferCard extends Component {
     }
 
     return (
-      <Form noValidate onSubmit={this.handleSubmit}>
+      <Container noValidate onSubmit={this.handleSubmit}>
         {" "}
         <p>Step {step} </p>
         {this.renderSwitch(step)}
         {success}
-      </Form>
+      </Container>
     );
   }
 
@@ -55,6 +55,7 @@ class JobOfferCard extends Component {
           <JobOfferDetails
             nextStep={this.nextStep}
             handleChange={this.handleChange}
+            fields={this.state.fields}
             name={this.state.name}
             cityid={this.state.cityid}
             Components={this.state.Components}
@@ -88,6 +89,7 @@ class JobOfferCard extends Component {
   };
 
   handleChange = (input, input2, input3) => event => {
+    // console.log("input: ", input, input2, input3);
     if (!!input2) {
       this.setState({
         ...this.state,
@@ -152,7 +154,8 @@ class JobOfferCard extends Component {
 
           //something something response something
           let url2 =
-            "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" + response.data.JobOfferCardID;
+            "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
+            response.data.JobOfferCardID;
           console.log("Response: ", response.data.JobOfferCardID);
           const body2 = body.map(component => {
             return { ...component, JobOfferCardID: response.data };
