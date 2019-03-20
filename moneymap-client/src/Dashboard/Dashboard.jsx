@@ -26,6 +26,9 @@ class Dashboard extends Component {
           // handle success
           let jocs = response.data.result
           console.log(jocs);
+          jocs.forEach(company => {
+            company.selected = false;
+          });
           this.setState({
             companies: jocs
           })

@@ -48,7 +48,7 @@ class CardArray extends Component {
 
   render() {
     return (
-      <div >
+      <div>
         <Card className={this.props.cardType} draggable="true">
           <Card.Body>
             <div className="header">
@@ -64,13 +64,17 @@ class CardArray extends Component {
                 />
               </div>
             </div>
-            {this.props.info.components.length ? this.props.info.components.map((component, index)=>
-              <Card.Text>
-              {`${component.ComponentDescription}: $${component.ComponentAmount}`}
-              </Card.Text>
-            ) : <Card.Text>
-                  Empty Card
-                </Card.Text>}
+            {this.props.info.components.length ? (
+              this.props.info.components.map((component, index) => (
+                <Card.Text>
+                  {`${component.ComponentDescription}: $${
+                    component.ComponentAmount
+                  }`}
+                </Card.Text>
+              ))
+            ) : (
+              <Card.Text>Empty Card</Card.Text>
+            )}
             <div className="buttons">
               <Button
                 variant="primary"
