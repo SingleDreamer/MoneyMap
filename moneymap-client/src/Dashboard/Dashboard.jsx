@@ -19,43 +19,48 @@ class Dashboard extends Component {
     this.handleClose = this.handleClose.bind(this);
     // this.profileSubmit = this.profileSubmit.bind(this);
   }
-  componentDidMount(){
-      //getting the cards each time the component renders
-      axios.get('http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/11111111-1111-1111-1111-111111111111/jocs')
-        .then((response) => {
-          // handle success
-          let jocs = response.data.result
-          console.log(jocs);
-          this.setState({
-            companies: jocs
-          })
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-    }
+  componentDidMount() {
+    //getting the cards each time the component renders
+    axios
+      .get(
+        "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/11111111-1111-1111-1111-111111111111/jocs"
+      )
+      .then(response => {
+        // handle success
+        let jocs = response.data.result;
+        console.log("JOCS: ", jocs);
+        this.setState({
+          companies: jocs
+        });
+      })
+      .catch(function(error) {
+        // handle error
+        console.log(error);
+      });
+  }
   render() {
     //Need to figure out how to render as soon as a new JOC is added
     let updateCompanies = () => {
-        axios.get('http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/11111111-1111-1111-1111-111111111111/jocs')
-        .then((response) => {
+      axios
+        .get(
+          "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/11111111-1111-1111-1111-111111111111/jocs"
+        )
+        .then(response => {
           // handle success
-          let jocs = response.result
+          let jocs = response.result;
           console.log(response);
           this.setState({
             companies: jocs,
-            show:true
-          })
+            show: true
+          });
         })
-        .catch(function (error) {
+        .catch(function(error) {
           // handle error
           console.log(error);
-        })
+        });
       //console.log(myData);
     };
 
-   
     let cardType;
     if (this.state.profileSubmit === false) {
       cardType = <Modal.Title>Profile Card</Modal.Title>; //check if profile submission exists vs backend call
@@ -67,9 +72,12 @@ class Dashboard extends Component {
       <div className="Dashboard">
         {/*Need to tuen this into a component to update depending on the currently logged in user's info */}
         <Sidebar className="Sidebar" />
-        <Button className="AddJOC" onClick={() => this.setState({show: true})}>
+        {/* <Button
+          className="AddJOC"
+          onClick={() => this.setState({ show: true })}
+        >
           Add New JOC
-        </Button>
+        </Button> */}
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>{cardType}</Modal.Header>
@@ -84,7 +92,10 @@ class Dashboard extends Component {
           </Modal.Footer>
         </Modal>
 
-        <CardArray companies={this.state.companies} />
+        <CardArray
+          companies={this.state.companies}
+          handleShow={this.handleShow}
+        />
       </div>
     );
   }
@@ -99,7 +110,7 @@ class Dashboard extends Component {
 
   handleClose() {
     this.setState({ fromRegister: false, show: false });
-    console.log("Profile submit: ", this.state.profileSubmit);
+    console.log("Profile submit: ", this.profileSubmit);
   }
 
   // componentWillMount = () => {
