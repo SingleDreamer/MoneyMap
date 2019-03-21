@@ -26,7 +26,9 @@ JOCService.addComponent = async (id, ctypid, cdesc, camt) => {
     request.input('cdesc', sql.VarChar, cdesc);
   }
   let result = await request.execute('sp_add_joc_component');
-
+  const request2 = new sql.Request(db);
+  request2.input('CardID', sql.Int, id);
+  await request2.execute('sp_update_rfs');
   return result;
 };
 
