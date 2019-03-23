@@ -17,6 +17,15 @@ JOCService.create = async (uid, name, cityid, image) => {
   return result.recordset[0];
 };
 
+JOCService.delete = async (id) => {
+  const request = new sql.Request(db);
+  request.input('cardid', sql.UniqueIdentifier, id);
+
+  let result = await request.execute('sp_delete_joc');
+
+  return result.recordset[0];
+};
+
 JOCService.addComponent = async (id, ctypid, cdesc, camt) => {
   const request = new sql.Request(db);
   request.input('jocid', sql.Int, id);
