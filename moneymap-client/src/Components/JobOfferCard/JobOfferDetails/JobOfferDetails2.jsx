@@ -4,11 +4,14 @@ import "../JobOfferCard.css";
 
 class JobOfferDetails2 extends Component {
   render() {
+    const { values } = this.props;
+
     return (
-      <Form>
+      <div>
         <Form.Group controlId="Mandatory Costs">
           <Form.Label className="required">Mandatory Costs</Form.Label>
           <Form.Control
+            required
             type="text"
             placeholder="Mandatory Costs"
             onChange={this.props.handleChange(
@@ -16,6 +19,7 @@ class JobOfferDetails2 extends Component {
               "Mandatory Costs",
               2
             )}
+            defaultValue={values.Components["Mandatory Costs"].camt || null}
           />
         </Form.Group>
 
@@ -59,7 +63,7 @@ class JobOfferDetails2 extends Component {
             Submit
           </Button>
         </ButtonToolbar>
-      </Form>
+      </div>
     );
   }
 
