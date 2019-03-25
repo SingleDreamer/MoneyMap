@@ -7,16 +7,11 @@
   overflow: hidden;
 }
 
-/* Attempt at making the dashboard resonsive. Kinda works but clunky
-@media screen and (max-width: 1600px) {
-  .Sidebar {
-    margin-left: -350px;
-  }
-} */
 /*Need to properly center the button. Off place when side bar is visible, fine when not*/
 .AddJOC {
   position: relative;
-  left: 35vw;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
   margin-top: 10vh;
   height: 80px;

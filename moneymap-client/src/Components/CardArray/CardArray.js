@@ -25,7 +25,6 @@ class CardArray extends Component {
   }
 
   selectCard = company => {
-    console.log("heheh");
     console.log(company);
     let temp = this.state.companies;
     temp[temp.indexOf(company)].selected = !temp[temp.indexOf(company)]
@@ -37,6 +36,7 @@ class CardArray extends Component {
       ? this.setState({ companies: temp, show: true })
       : this.setState({ companies: temp });
   };
+
   handleClose() {
     this.setState({ show: false });
   }
@@ -71,7 +71,7 @@ class CardArray extends Component {
         <div className="array">{cards}</div>
         <Modal
           show={this.state.show}
-          onHide={this.closeModal}
+          onHide={this.handleClose}
           centered
           size="lg"
         >

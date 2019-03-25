@@ -57,7 +57,7 @@ class CardArray extends Component {
                 {/*Series needs to change to the actual RFS score*/}
                 <Chart
                   options={this.state.optionsRadial}
-                  series={[Math.floor(Math.random() * 101)]}
+                  series={[this.props.info.jocrfc]}
                   type="radialBar"
                   width="100"
                   height="130"
