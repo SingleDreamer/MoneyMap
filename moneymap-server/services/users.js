@@ -4,14 +4,27 @@ var db = require("../services/db")
 
 const UserService = {};
 
+const privateKey = "atestprivatekey";
+
 UserService.create = async (username, password) => {
   const request = new sql.Request(db);
+
   request.input('username', sql.Text, username);
   request.input('password', sql.Text, password);
 
   let result = await request.execute('sp_create_user');
 
-  return result;
+  if(result.recordsets[0].length == 0) {
+    return {
+      status: "error",
+      message: "There was an error creating the user"
+    };
+  }
+
+  return {
+    status: "success",
+    uid: result.recordset[0].UID
+  };
 }
 
 UserService.get = async (username, password) => {
@@ -21,7 +34,23 @@ UserService.get = async (username, password) => {
 
   let result = await request.execute('sp_validate_user');
 
-  return result;
+  let payload;
+
+  if(result.recordsets[0].length == 0) {
+    payload = {
+      status: "error",
+      message: "There was an error validating the user"
+    };
+  } else {
+    payload = {
+      status: "success",
+      uid: result.recordset[0].UID
+    };
+  }
+
+  return {
+    token: jwt.sign(payload, privateKey)
+  };
 }
 
 UserService.update = async (id, email, size, cardid) => {
