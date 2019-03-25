@@ -1,24 +1,80 @@
 import React, { Component } from "react";
-import { Form, Button } from "react-bootstrap";
-import ReactAutocomplete from "react-autocomplete";
+import { Form, Button, Col } from "react-bootstrap";
+import Select from "react-select";
 import "../JobOfferCard.css";
 
 class JobOfferDetails extends Component {
-  constructor() {
-    super();
-    this.state = {
-      value: "",
-      fields: {},
-      errors: {},
-      validated: false
-    };
+  state = {
+    selectedOption: { value: "", label: "" }, //map this to the cityid in the database and pass over to joc
+    inputs: ["input-0"], //:{name:"", amount:null} maybe send row data here then send using row???
+    filledInName: false,
+    filledInAmount: false
+  };
+
+  handleThisChange = selectedOption => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  };
+
+  addRow() {
+    if (!!this.state.filledInName && !!this.state.filledInAmount) {
+      console.log("Filled in!");
+      var newInput = `input-${this.state.inputs.length}`;
+      this.setState(prevState => ({
+        inputs: prevState.inputs.concat([newInput]), //what if i did an object of objects
+        filledInName: false,
+        filledInAmount: false
+      }));
+    }
+    //else error message to fill last box in
   }
 
   render() {
-    const { validated } = this.state;
-
+    const { selectedOption } = this.state;
+    const { values } = this.props;
+    let row = (
+      <Form.Row>
+        {/* can i send the whole row to handle change */}
+        <Col>
+          <Form.Control
+            required
+            type="text"
+            placeholder="Income source"
+            onChange={this.props.handleNameChange()}
+            onInput={() => this.setState({ filledInName: true })}
+            // defaultValue={
+            //   "values.Components[values.Components.cdesc].cdesc" || null
+            // }
+          />
+        </Col>
+        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">
+          {" "}
+          Please enter your income name.
+        </Form.Control.Feedback>
+        <Col>
+          <Form.Control
+            required
+            type="number"
+            placeholder="Income"
+            onInput={() => this.setState({ filledInAmount: true })}
+            onChange={this.props.handleChange(
+              "Components",
+              "values.Components",
+              1
+            )} //how to grab the name that was input
+            defaultValue={values.Components["Income"].camt || null} //how to reference the object that was just created
+          />
+        </Col>
+        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">
+          {" "}
+          Please enter your income.
+        </Form.Control.Feedback>
+      </Form.Row>
+    );
     return (
-      <Form noValidate validated={validated}>
+      <div>
         <Form.Group controlId="name">
           <Form.Label className="required">Job name</Form.Label>
           <Form.Control
@@ -26,7 +82,7 @@ class JobOfferDetails extends Component {
             type="text"
             placeholder="Job name"
             onChange={this.props.handleChange("name")}
-            defaultValue={this.props.name}
+            defaultValue={values.name}
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
@@ -36,39 +92,12 @@ class JobOfferDetails extends Component {
         </Form.Group>
         <Form.Group controlId="city">
           <Form.Label className="required">Job city</Form.Label>
-          <p />
-          {/* <Form.Control
-            required
-            type="text"
-            placeholder="City"
-            onChange={this.props.handleChange("city")}
-            defaultValue={this.props.cityid}
-          /> */}
-          <ReactAutocomplete
-            items={[
-              { id: "NYC", label: "NYC" },
-              { id: "BOS", label: "BOS" },
-              { id: "LA", label: "LA" }
-            ]}
-            shouldItemRender={(item, value) =>
-              item.label.toLowerCase().indexOf(value.toLowerCase()) > -1
-            }
-            getItemValue={item => item.label}
-            renderItem={(item, highlighted) => (
-              <div
-                key={item.id}
-                style={{
-                  backgroundColor: highlighted ? "#eee" : "transparent"
-                }}
-              >
-                {item.label}
-              </div>
-            )}
-            value={this.state.value}
-            onChange={this.props.handleChange("city")}
-            // onChange={e => this.setState({ value: e.target.value })}
-            onSelect={value => this.setState({ value })}
-            defaultValue={this.props.cityid}
+
+          <Select
+            isClearable //handle this; breaks
+            defaultValue={selectedOption.value || ""}
+            onChange={this.handleThisChange}
+            options={cities}
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
@@ -78,23 +107,20 @@ class JobOfferDetails extends Component {
         </Form.Group>
         <Form.Group controlId="income">
           <Form.Label className="required">Income</Form.Label>
-          <Form.Control
-            required
-            type="number"
-            placeholder="Income"
-            onChange={this.props.handleChange("Components", "Income", 1)}
-            defaultValue={this.props.Components.Income}
-          />
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">
+
+          {this.state.inputs.map(input => (
+            <div key={input}>{row}</div>
+          ))}
+
+          <Button variant="primary" onClick={() => this.addRow()}>
             {" "}
-            Please enter your income.
-          </Form.Control.Feedback>
+            Add row
+          </Button>
         </Form.Group>
         <Button variant="primary" onClick={this.next}>
           Next
         </Button>
-      </Form>
+      </div>
     );
   }
 
@@ -141,5 +167,25 @@ class JobOfferDetails extends Component {
     //   return formIsValid;
   };
 }
+
+const cities = [
+  {
+    value: "NYC",
+    label: "NYC"
+  },
+  {
+    value: "NC",
+    label: "NC"
+  },
+  {
+    value: "NCR",
+    label: "NCR"
+  },
+  {
+    value: "NOO",
+    label: "NOO"
+  },
+  { value: "NCA", label: "NCA" }
+];
 
 export default JobOfferDetails;
