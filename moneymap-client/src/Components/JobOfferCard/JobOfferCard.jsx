@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import JobOfferDetails from "./JobOfferDetails/JobOfferDetails";
 import JobOfferDetails2 from "./JobOfferDetails/JobOfferDetails2";
-import { Container } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import axios from "axios";
 
 class JobOfferCard extends Component {
@@ -13,16 +13,19 @@ class JobOfferCard extends Component {
       name: "",
       cityid: 1,
       image: "",
-      Components: {},
+      Components: { Income: { cdes: "", camt: "", ctype: "" } },
       submit: false,
       error: null
     };
 
+    this.handleNameChange = this.handleNameChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   render() {
     const { step } = this.state;
+    const { name, cityid, image, Components } = this.state;
+    const values = { name, cityid, image, Components };
 
     let success;
     if (
@@ -39,26 +42,27 @@ class JobOfferCard extends Component {
     }
 
     return (
-      <Container noValidate onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit}>
         {" "}
         <p>Step {step} </p>
-        {this.renderSwitch(step)}
+        {this.renderSwitch(step, values)}
         {success}
-      </Container>
+      </Form>
     );
   }
 
-  renderSwitch(step) {
+  renderSwitch(step, values) {
     switch (step) {
       case 1:
         return (
           <JobOfferDetails
             nextStep={this.nextStep}
             handleChange={this.handleChange}
-            fields={this.state.fields}
-            name={this.state.name}
-            cityid={this.state.cityid}
-            Components={this.state.Components}
+            handleNameChange={this.handleNameChange}
+            values={values}
+            // name={this.state.name}
+            // cityid={this.state.cityid}
+            // Components={this.state.Components}
           />
         );
       case 2:
@@ -66,7 +70,9 @@ class JobOfferCard extends Component {
           <JobOfferDetails2
             prevStep={this.prevStep}
             handleChange={this.handleChange}
-            Components={this.state.Components}
+            handleNameChange={this.handleNameChange}
+            values={values}
+            // Components={this.state.Components}
           />
         );
       default:
@@ -75,6 +81,7 @@ class JobOfferCard extends Component {
   }
 
   nextStep = () => {
+    console.log("Values: ", this.state.Components);
     const { step } = this.state;
     this.setState({
       step: step + 1
@@ -88,8 +95,23 @@ class JobOfferCard extends Component {
     });
   };
 
+  handleNameChange = () => event => {
+    this.setState({
+      ...this.state,
+      Components: {
+        ...this.state.Components,
+        [event.target.value]: {
+          ...this.state.Components[event.target.value],
+          cdesc: event.target.value,
+          camt: "",
+          ctype: ""
+        }
+      }
+    });
+  };
+
   handleChange = (input, input2, input3) => event => {
-    // console.log("input: ", input, input2, input3);
+    console.log("input: ", input, input2, input3);
     if (!!input2) {
       this.setState({
         ...this.state,
@@ -106,6 +128,7 @@ class JobOfferCard extends Component {
     } else {
       this.setState({ ...this.state, [input]: event.target.value });
     }
+    console.log("Components: ", null || this.state.Components["Income"].camt);
   };
 
   handleSubmit = e => {
@@ -119,7 +142,7 @@ class JobOfferCard extends Component {
     console.log("Components: ", this.state.Components);
     let validation = this.checkInput();
     if (validation) {
-      alert(validation.errMsg);
+      alert("Validation error: ", validation.errMsg);
       return;
     }
 
@@ -127,8 +150,8 @@ class JobOfferCard extends Component {
   };
 
   sendRequest() {
-    let url =
-      "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc";
+    let url = "test";
+    // "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc";
 
     let config = {
       headers: {
@@ -153,9 +176,9 @@ class JobOfferCard extends Component {
           // console.log(".then() payload1: ", payload1);
 
           //something something response something
-          let url2 =
-            "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
-            response.data.JobOfferCardID;
+          let url2 = "test2";
+          // "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
+          // response.data.JobOfferCardID;
           console.log("Response: ", response.data.JobOfferCardID);
           const body2 = body.map(component => {
             return { ...component, JobOfferCardID: response.data };
@@ -194,18 +217,19 @@ class JobOfferCard extends Component {
   }
 
   checkInput = () => {
-    // let inputs = [
-    //   { field: "joc_creation.JOCName", errMsg: "Please enter a name" },
-    //   {
-    //     field: "location",
-    //     errMsg: "Please enter location"
-    //   },
-    //   { field: "income", errMsg: "Please enter your income" }
-    // ];
-    // for (let input of inputs) {
-    //   if (!this.state[input.field]) return input;
-    // }
-    // return null;
+    //   let inputs = [
+    //     { field: "name", errMsg: "Please enter a name" },
+    //     {
+    //       field: "cityid",
+    //       errMsg: "Please enter location"
+    //     },
+    //     { field: "image", errMsg: "Please enter your image" }
+    //   ];
+    //   for (let input of inputs) {
+    //     if (!this.state[input.field]) console.log("input: ", input);
+    //     return input;
+    //   }
+    //   return null;
   };
 }
 

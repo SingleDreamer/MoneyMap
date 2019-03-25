@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Card, Button, Modal } from "react-bootstrap";
 import "./Card.css";
 import Chart from "react-apexcharts";
-import { axios } from "axios";
+// import axios from "axios";
 import Charts from "./Charts.js";
 
 class CardArray extends Component {
@@ -133,48 +133,48 @@ class CardArray extends Component {
         }
       },
       () => {
-        return this.sendRequest();
+        // return this.sendRequest();
       }
     );
   };
 
-  async sendRequest() {
-    let url = "http://localhost:3000/test";
+  // async sendRequest() {
+  //   let url = "http://localhost:3000/test";
 
-    let config = {
-      headers: {
-        // Authorization: this.Auth.getToken(),
-        "Content-Type": "application/json"
-      }
-    };
+  //   let config = {
+  //     headers: {
+  //       // Authorization: this.Auth.getToken(),
+  //       "Content-Type": "application/json"
+  //     }
+  //   };
 
-    let payload = this.state.jocDetails;
+  //   let payload = this.state.jocDetails;
 
-    console.log(payload);
+  //   console.log(payload);
 
-    try {
-      let response = await axios.post(url, payload, config);
-      console.log("****");
-      console.log(response);
-      // if (response.data.message) alert(response.data.message);
-      const { jocDetails } = this.state;
-      this.setState({ jobOfferCardID: response.data });
-      console.log("jobOfferCardID: " + this.state.jobOfferCardID);
-      alert(`Your job: \n
-      Job UID: ${jocDetails.UID} \n
-      Job JOCName: ${jocDetails.JOCName}\n
-      Job CityID: ${jocDetails.CityID}\n
-      Job CardImageSrc: ${jocDetails.CardImageSrc}
-  `);
-      return response;
-    } catch (err) {
-      this.setState({ error: err });
-      console.log("####");
-      console.log(err);
-      // alert(`Ya got an error boy \n
-      // ${err}`);
-    }
-  }
+  //   try {
+  //     let response = await axios.post(url, payload, config);
+  //     console.log("****");
+  //     console.log(response);
+  //     // if (response.data.message) alert(response.data.message);
+  //     const { jocDetails } = this.state;
+  //     this.setState({ jobOfferCardID: response.data });
+  //     console.log("jobOfferCardID: " + this.state.jobOfferCardID);
+  //     alert(`Your job: \n
+  //     Job UID: ${jocDetails.UID} \n
+  //     Job JOCName: ${jocDetails.JOCName}\n
+  //     Job CityID: ${jocDetails.CityID}\n
+  //     Job CardImageSrc: ${jocDetails.CardImageSrc}
+  // `);
+  //     return response;
+  //   } catch (err) {
+  //     this.setState({ error: err });
+  //     console.log("####");
+  //     console.log(err);
+  //     // alert(`Ya got an error boy \n
+  //     // ${err}`);
+  //   }
+  // }
 
   handleClose() {
     this.setState({ show: false });

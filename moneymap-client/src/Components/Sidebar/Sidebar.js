@@ -42,10 +42,10 @@ class Sidebar extends Component {
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <div className = "content">
+          <div className="content">
             <h2 className="header">
               <span className="icon">
-                <i class="fas fa-user-circle" />
+                <i className="fas fa-user-circle" />
               </span>
               {`${this.state.userInfo.firstName}
           ${this.state.userInfo.lastName}`}
@@ -58,7 +58,9 @@ class Sidebar extends Component {
             }`}</div>
             <br />
             <DrawerSubtitle>Curent City</DrawerSubtitle>
-            <div className="content">{`${this.state.userInfo.currentCity}`}</div>
+            <div className="content">{`${
+              this.state.userInfo.currentCity
+            }`}</div>
             <br />
             <DrawerSubtitle>Monthly Income</DrawerSubtitle>
             <div className="content">{`$${
@@ -82,7 +84,7 @@ class Sidebar extends Component {
 
         <span className="icon">
           <i
-            class="fas fa-chevron-circle-right"
+            className="fas fa-chevron-circle-right"
             onClick={() => this.setState({ open: !this.state.open })}
           />
         </span>
