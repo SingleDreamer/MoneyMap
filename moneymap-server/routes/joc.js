@@ -32,4 +32,9 @@ router.get('/:id', async (req, res, next) => {
   res.json(result);
 });
 
+router.delete('/:id', async (req, res, next) => {
+  let result = await JOCService.delete(req.params.id);
+  res.json(result);
+});
+
 module.exports = router;
