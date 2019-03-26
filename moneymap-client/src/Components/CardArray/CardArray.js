@@ -2,26 +2,18 @@ import React, { Component } from "react";
 import Card from "../Card/Card.js";
 //import { Card as Bscard } from "react-bootstrap";
 import "./CardArray.css";
-<<<<<<< HEAD
 import "../Card/Card.css";
 import logo from "./addJOC2.png";
-=======
 import { Button, Modal } from "react-bootstrap";
 import CompareCharts from "../Card/CompareChart";
->>>>>>> Cris2
 
 let amountSelected = 0;
 class CardArray extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-<<<<<<< HEAD
-      // show: false,
-      companies: []
-=======
       companies: [],
       show: false
->>>>>>> Cris2
     };
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -59,7 +51,6 @@ class CardArray extends Component {
   };
 
   render() {
-<<<<<<< HEAD
     var cards = [];
     cards = this.state.companies.map((company, index) => (
       <div key={company.jocid} id={company.jocid}>
@@ -77,24 +68,6 @@ class CardArray extends Component {
         onClick={this.props.handleShow}
       />
     );
-=======
-    let cards = [];
-    cards = this.state.companies.map((company, index) => {
-      if (company.selected === false) {
-        return (
-          <div key={index} onClick={() => this.selectCard(company)}>
-            <Card cardType="joc" id={index} info={company} />
-          </div>
-        );
-      } else {
-        return (
-          <div key={index} onClick={() => this.selectCard(company)}>
-            <Card cardType="jocSelected" id={index} info={company} />
-          </div>
-        );
-      }
-    });
->>>>>>> Cris2
 
     return (
       <div>
