@@ -8,7 +8,16 @@
   overflow: scroll;
   margin-top: 1em;
 }
-
+.add {
+  margin-left: 0.4em;
+  margin-right: 0.15em;
+  transform: scale(0.8);
+  height: 400px;
+}
+.add:hover {
+  transform: scale(0.85);
+  cursor: pointer;
+}
 /*Attempt at responsiveness. Works well.... For now*/
 @media screen and (max-width: 1600px) {
   .array {

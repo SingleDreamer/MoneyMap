@@ -150,7 +150,8 @@ class JobOfferCard extends Component {
   };
 
   sendRequest() {
-    let url = "test";
+    let url =
+      "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc";
     // "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc";
 
     let config = {
@@ -176,8 +177,9 @@ class JobOfferCard extends Component {
           // console.log(".then() payload1: ", payload1);
 
           //something something response something
-          let url2 = "test2";
-          // "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
+          let url2 =
+            "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/";
+          // "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc" +
           // response.data.JobOfferCardID;
           console.log("Response: ", response.data.JobOfferCardID);
           const body2 = body.map(component => {

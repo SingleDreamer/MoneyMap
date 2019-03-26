@@ -66,7 +66,7 @@ class CardArray extends Component {
             </div>
             {this.props.info.components.length ? (
               this.props.info.components.map((component, index) => (
-                <Card.Text>
+                <Card.Text key={index}>
                   {`${component.ComponentDescription}: $${
                     component.ComponentAmount
                   }`}

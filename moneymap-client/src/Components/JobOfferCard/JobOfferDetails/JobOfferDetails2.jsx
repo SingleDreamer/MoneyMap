@@ -5,7 +5,13 @@ import "../JobOfferCard.css";
 class JobOfferDetails2 extends Component {
   render() {
     const { values } = this.props;
-
+    // let temp = values => {
+    //   if (values.Components["Mandatory Costs"]) {
+    //     return values.Components["Mandatory Costs"];
+    //   } else {
+    //     return null;
+    //   }
+    // };
     return (
       <div>
         <Form.Group controlId="Mandatory Costs">
@@ -19,7 +25,7 @@ class JobOfferDetails2 extends Component {
               "Mandatory Costs",
               2
             )}
-            defaultValue={values.Components["Mandatory Costs"].camt || null}
+            // defaultValue={temp(values) || null}
           />
         </Form.Group>
 
