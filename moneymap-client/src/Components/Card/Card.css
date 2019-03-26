@@ -3,20 +3,27 @@
   width: 18em;
   box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.5);
 }
-.jocSelected {
-  margin: 2em;
-  filter: blur(4px);
-  width: 18em;
-  /* transform: scale(1.15); */
-  box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.5);
+
+.selected {
+  position: relative;
+  top: 5px;
+  left: 150px;
+  font-size: 3em;
+  color: rgba(66, 134, 244, 0.5);
+  animation-name: checked;
+  animation-duration: 0.5s;
+  z-index: 2;
 }
-.joc:hover,
-.jocSelected:hover {
+.notSelected {
+  position: relative;
+  bottom: 30px;
+  font-size: 1em;
+}
+.joc:hover {
   transform: scale(1.05);
 }
 
-.joc:active,
-.jocSelected:active {
+.joc:active {
   box-shadow: 5px 5px 5px 5px rgba(66, 134, 244, 0.5);
 }
 
@@ -37,4 +44,15 @@
 .buttons {
   display: flex;
   justify-content: space-between;
+}
+/* Standard syntax */
+@keyframes checked {
+  from {
+    top: 30px;
+    left: 150px;
+  }
+  to {
+    top: 0px;
+    left: 150px;
+  }
 }

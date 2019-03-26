@@ -1,9 +1,22 @@
 import React, { Component } from "react";
-import { Card, Button, Modal } from "react-bootstrap";
+import {
+  Card,
+  Button,
+  Modal,
+  OverlayTrigger,
+  Popover,
+  Tooltip
+} from "react-bootstrap";
 import "./Card.css";
 import Chart from "react-apexcharts";
 // import axios from "axios";
 import Charts from "./Charts.js";
+
+const popover = (
+  <Popover id="popover-basic" title="Analysis">
+    Click on the score to see a detailed breakdown
+  </Popover>
+);
 
 class CardArray extends Component {
   constructor(props, context) {
@@ -49,21 +62,29 @@ class CardArray extends Component {
   render() {
     return (
       <div>
-        <Card className={this.props.cardType}>
+        <div className={this.props.cardType}>
+          <i className="fas fa-check" />
+        </div>
+        <Card className="joc">
           <Card.Body>
             <div className="header">
               <Card.Title>{this.props.info.jocname}</Card.Title>
-              <div className="chart">
-                {/*Series needs to change to the actual RFS score*/}
-                <Chart
-                  options={this.state.optionsRadial}
-                  series={[this.props.info.jocrfc]}
-                  type="radialBar"
-                  width="100"
-                  height="130"
-                  onClick={e => this.openModal(e, this.props.id)}
-                />
-              </div>
+              <OverlayTrigger
+                trigger="hover"
+                placement="right"
+                overlay={popover}
+              >
+                <div className="chart">
+                  <Chart
+                    options={this.state.optionsRadial}
+                    series={[this.props.info.jocrfc]}
+                    type="radialBar"
+                    width="100"
+                    height="130"
+                    onClick={e => this.openModal(e, this.props.id)}
+                  />
+                </div>
+              </OverlayTrigger>
             </div>
             {this.props.info.components.length ? (
               this.props.info.components.map((component, index) => (
@@ -77,12 +98,21 @@ class CardArray extends Component {
               <Card.Text>Empty Card</Card.Text>
             )}
             <div className="buttons">
-              <Button
-                variant="primary"
-                onClick={() => this.props.selectCard(this.props.info)}
+              <OverlayTrigger
+                placement="bottom"
+                delay={{ show: 250, hide: 400 }}
+                overlay={
+                  <Tooltip id={"top"}>Select two Job Offers to Compare</Tooltip>
+                }
               >
-                Compare
-              </Button>
+                <Button
+                  variant="primary"
+                  onClick={() => this.props.selectCard(this.props.info)}
+                >
+                  Compare
+                </Button>
+              </OverlayTrigger>
+
               <Button variant="danger">Delete</Button>
             </div>
           </Card.Body>

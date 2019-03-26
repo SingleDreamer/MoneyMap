@@ -61,7 +61,7 @@ class CardArray extends Component {
         >
           <Card
             key={company.jocid}
-            cardType="jocSelected"
+            cardType="selected"
             id={index}
             info={company}
             selectCard={this.selectCard}
@@ -75,7 +75,7 @@ class CardArray extends Component {
         >
           <Card
             key={company.jocid}
-            cardType="joc"
+            cardType="notSelected"
             id={index}
             info={company}
             selectCard={this.selectCard}
