@@ -32,16 +32,20 @@ class JobOfferDetails extends Component {
   render() {
     const { selectedOption } = this.state;
     const { values } = this.props;
+
     let row = (
       <Form.Row>
         {/* can i send the whole row to handle change */}
         <Col>
+          {/* try making it so that first box is entered then second box pops up */}
           <Form.Control
             required
             type="text"
             placeholder="Income source"
             onChange={this.props.handleNameChange()}
+            // change this
             onInput={() => this.setState({ filledInName: true })}
+            // make sure things arent deleted
             // defaultValue={
             //   "values.Components[values.Components.cdesc].cdesc" || null
             // }
@@ -52,6 +56,8 @@ class JobOfferDetails extends Component {
           {" "}
           Please enter your income name.
         </Form.Control.Feedback>
+        {/* submit first thing */}
+        {/* onclick second box sends variable of first box to components state */}
         <Col>
           <Form.Control
             required
