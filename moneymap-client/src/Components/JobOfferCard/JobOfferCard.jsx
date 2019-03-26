@@ -191,6 +191,7 @@ class JobOfferCard extends Component {
               //something something response something
               console.log(response2);
               alert(`Successfully submitted`);
+              this.props.updateCompanies();
             })
             .catch(err => {
               this.setState({ error: err });

@@ -28,7 +28,10 @@ class Dashboard extends Component {
       .then(response => {
         // handle success
         let jocs = response.data.result;
-        console.log("JOCS: ", jocs);
+        console.log(jocs);
+        jocs.forEach(company => {
+          company.selected = false;
+        });
         this.setState({
           companies: jocs
         });
@@ -63,6 +66,7 @@ class Dashboard extends Component {
             <JobOfferCard
               handleClose={this.handleClose}
               profileSubmit={this.profileSubmit}
+              updateCompanies={this.updateCompanies}
             />
           </Modal.Body>
           <Modal.Footer>

@@ -1,24 +1,22 @@
 .joc {
   margin: 2em;
-  /*height: 350px;*/
   width: 18em;
-  /*filter: blur(4px);*/
-  border-radius: 20px;
   box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.5);
 }
 .jocSelected {
   margin: 2em;
-  height: 350px;
-  width: 18em;
   filter: blur(4px);
-  border-radius: 20px;
+  width: 18em;
+  /* transform: scale(1.15); */
   box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.5);
 }
-.joc:hover {
+.joc:hover,
+.jocSelected:hover {
   transform: scale(1.05);
 }
 
-.joc:active {
+.joc:active,
+.jocSelected:active {
   box-shadow: 5px 5px 5px 5px rgba(66, 134, 244, 0.5);
 }
 
