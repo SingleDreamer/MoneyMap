@@ -8,7 +8,8 @@ class JobOfferDetails extends Component {
     selectedOption: { value: "", label: "" }, //map this to the cityid in the database and pass over to joc
     inputs: ["input-0"], //:{name:"", amount:null} maybe send row data here then send using row???
     filledInName: false,
-    filledInAmount: false
+    filledInAmount: false,
+    cmt: 0
   };
 
   handleThisChange = selectedOption => {
@@ -16,7 +17,15 @@ class JobOfferDetails extends Component {
     console.log(`Option selected:`, selectedOption);
   };
 
+  handleAmountChange = event => {
+    this.setState({
+      cmt: event.target.value
+    });
+    console.log(this.state);
+  };
+
   addRow() {
+    this.props.handleNameChange();
     if (!!this.state.filledInName && !!this.state.filledInAmount) {
       console.log("Filled in!");
       var newInput = `input-${this.state.inputs.length}`;
@@ -40,7 +49,6 @@ class JobOfferDetails extends Component {
             required
             type="text"
             placeholder="Income source"
-            onChange={this.props.handleNameChange()}
             onInput={() => this.setState({ filledInName: true })}
             // defaultValue={
             //   "values.Components[values.Components.cdesc].cdesc" || null
@@ -49,7 +57,6 @@ class JobOfferDetails extends Component {
         </Col>
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         <Form.Control.Feedback type="invalid">
-          {" "}
           Please enter your income name.
         </Form.Control.Feedback>
         <Col>
@@ -57,13 +64,10 @@ class JobOfferDetails extends Component {
             required
             type="number"
             placeholder="Income"
+            onChange={this.handleAmountChange}
             onInput={() => this.setState({ filledInAmount: true })}
-            onChange={this.props.handleChange(
-              "Components",
-              "values.Components",
-              1
-            )} //how to grab the name that was input
-            defaultValue={values.Components["Income"].camt || null} //how to reference the object that was just created
+            value={this.state.cmt}
+            //how to grab the name that was input
           />
         </Col>
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -86,7 +90,6 @@ class JobOfferDetails extends Component {
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
-            {" "}
             Please enter a job name.
           </Form.Control.Feedback>
         </Form.Group>
@@ -101,7 +104,6 @@ class JobOfferDetails extends Component {
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
-            {" "}
             Please enter a city name.
           </Form.Control.Feedback>
         </Form.Group>
@@ -113,7 +115,6 @@ class JobOfferDetails extends Component {
           ))}
 
           <Button variant="primary" onClick={() => this.addRow()}>
-            {" "}
             Add row
           </Button>
         </Form.Group>

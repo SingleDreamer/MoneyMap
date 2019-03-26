@@ -39,28 +39,6 @@ class Dashboard extends Component {
       });
   }
   render() {
-    //Need to figure out how to render as soon as a new JOC is added
-    let updateCompanies = () => {
-      axios
-        .get(
-          "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/11111111-1111-1111-1111-111111111111/jocs"
-        )
-        .then(response => {
-          // handle success
-          let jocs = response.result;
-          console.log(response);
-          this.setState({
-            companies: jocs,
-            show: true
-          });
-        })
-        .catch(function(error) {
-          // handle error
-          console.log(error);
-        });
-      //console.log(myData);
-    };
-
     let cardType;
     if (this.state.profileSubmit === false) {
       cardType = <Modal.Title>Profile Card</Modal.Title>; //check if profile submission exists vs backend call

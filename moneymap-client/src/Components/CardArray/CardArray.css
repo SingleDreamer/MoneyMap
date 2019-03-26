@@ -18,7 +18,6 @@
   transform: scale(0.85);
   cursor: pointer;
 }
-/*Attempt at responsiveness. Works well.... For now*/
 @media screen and (max-width: 1600px) {
   .array {
     width: 100vw;

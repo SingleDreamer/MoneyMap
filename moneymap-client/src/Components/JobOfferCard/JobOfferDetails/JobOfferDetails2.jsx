@@ -4,7 +4,7 @@ import "../JobOfferCard.css";
 
 class JobOfferDetails2 extends Component {
   render() {
-    const { values } = this.props;
+    //const { values } = this.props;
     // let temp = values => {
     //   if (values.Components["Mandatory Costs"]) {
     //     return values.Components["Mandatory Costs"];

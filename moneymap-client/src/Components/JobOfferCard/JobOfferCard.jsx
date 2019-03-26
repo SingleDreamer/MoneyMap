@@ -13,7 +13,7 @@ class JobOfferCard extends Component {
       name: "",
       cityid: 1,
       image: "",
-      Components: { Income: { cdes: "", camt: "", ctype: "" } },
+      Components: { Income: { cdes: "", camt: 0, ctype: "" } },
       submit: false,
       error: null
     };
@@ -95,14 +95,12 @@ class JobOfferCard extends Component {
     });
   };
 
-  handleNameChange = () => event => {
+  handleNameChange = () => {
     this.setState({
-      ...this.state,
       Components: {
         ...this.state.Components,
-        [event.target.value]: {
-          ...this.state.Components[event.target.value],
-          cdesc: event.target.value,
+        test: {
+          cdesc: "test",
           camt: "",
           ctype: ""
         }
