@@ -49,15 +49,41 @@ class CardArray extends Component {
       show: true
     });
   };
-
+  getCardType = () => {};
   render() {
     var cards = [];
-    cards = this.state.companies.map((company, index) => (
-      <div key={company.jocid} id={company.jocid}>
-        <Card key={company.jocid} cardType="joc" id={index} info={company} />
-      </div>
-    ));
-    console.log("Original cards: ", cards);
+    cards = this.state.companies.map((company, index) =>
+      company.selected ? (
+        <div
+          key={company.jocid}
+          id={company.jocid}
+          //onClick={() => this.selectCard(company)}
+        >
+          <Card
+            key={company.jocid}
+            cardType="jocSelected"
+            id={index}
+            info={company}
+            selectCard={this.selectCard}
+          />
+        </div>
+      ) : (
+        <div
+          key={company.jocid}
+          id={company.jocid}
+          //onClick={() => this.selectCard(company)}
+        >
+          <Card
+            key={company.jocid}
+            cardType="joc"
+            id={index}
+            info={company}
+            selectCard={this.selectCard}
+          />
+        </div>
+      )
+    );
+    console.log(" cards: ", cards);
 
     cards.unshift(
       <img

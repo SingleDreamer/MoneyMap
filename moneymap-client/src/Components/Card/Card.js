@@ -49,7 +49,7 @@ class CardArray extends Component {
   render() {
     return (
       <div>
-        <Card className={this.props.cardType} draggable="true">
+        <Card className={this.props.cardType}>
           <Card.Body>
             <div className="header">
               <Card.Title>{this.props.info.jocname}</Card.Title>
@@ -61,6 +61,7 @@ class CardArray extends Component {
                   type="radialBar"
                   width="100"
                   height="130"
+                  onClick={e => this.openModal(e, this.props.id)}
                 />
               </div>
             </div>
@@ -78,9 +79,9 @@ class CardArray extends Component {
             <div className="buttons">
               <Button
                 variant="primary"
-                onClick={e => this.openModal(e, this.props.id)}
+                onClick={() => this.props.selectCard(this.props.info)}
               >
-                Analyze
+                Compare
               </Button>
               <Button variant="danger">Delete</Button>
             </div>
@@ -113,14 +114,19 @@ class CardArray extends Component {
   //   this.setState({ show: true });
   // }
   openModal(e, index) {
+    console.log("openModal");
     this.setState({ currModal: index });
   }
 
   closeModal = () => {
+    console.log("closeModal");
+
     this.setState({ currModal: null });
   };
 
   handleShow = e => {
+    console.log("handleShow");
+
     e.preventDefault();
     this.setState(
       {
@@ -177,6 +183,8 @@ class CardArray extends Component {
   // }
 
   handleClose() {
+    console.log("handleClose");
+
     this.setState({ show: false });
   }
 }
