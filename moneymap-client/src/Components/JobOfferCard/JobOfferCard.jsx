@@ -106,6 +106,7 @@ class JobOfferCard extends Component {
         }
       }
     });
+    console.log(this.state.Components);
   };
 
   handleChange = (input, input2, input3) => event => {
@@ -123,6 +124,7 @@ class JobOfferCard extends Component {
           }
         }
       });
+      console.log(this.state.Components);
     } else {
       this.setState({ ...this.state, [input]: event.target.value });
     }
