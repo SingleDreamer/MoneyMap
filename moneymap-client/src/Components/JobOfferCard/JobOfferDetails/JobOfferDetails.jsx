@@ -109,14 +109,27 @@ class JobOfferDetails extends Component {
         </Form.Group>
         <Form.Group controlId="income">
           <Form.Label className="required">Income</Form.Label>
-
-          {this.state.inputs.map(input => (
+          <Form.Control
+            required
+            type="number"
+            placeholder="Income"
+            onChange={this.props.handleChange("Components", "Income", 1)}
+            onInput={() => this.setState({ filledInAmount: true })}
+            // value={this.state.cmt}
+            //how to grab the name that was input
+          />
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            {" "}
+            Please enter your income.
+          </Form.Control.Feedback>
+          {/* {this.state.inputs.map(input => (
             <div key={input}>{row}</div>
           ))}
 
           <Button variant="primary" onClick={() => this.addRow()}>
             Add row
-          </Button>
+          </Button> */}
         </Form.Group>
         <Button variant="primary" onClick={this.next}>
           Next

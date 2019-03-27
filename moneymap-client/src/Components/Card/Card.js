@@ -140,9 +140,6 @@ class CardArray extends Component {
     );
   }
 
-  // handleShow() {
-  //   this.setState({ show: true });
-  // }
   openModal(e, index) {
     console.log("openModal");
     this.setState({ currModal: index });
@@ -174,43 +171,7 @@ class CardArray extends Component {
     );
   };
 
-  // async sendRequest() {
-  //   let url = "http://localhost:3000/test";
 
-  //   let config = {
-  //     headers: {
-  //       // Authorization: this.Auth.getToken(),
-  //       "Content-Type": "application/json"
-  //     }
-  //   };
-
-  //   let payload = this.state.jocDetails;
-
-  //   console.log(payload);
-
-  //   try {
-  //     let response = await axios.post(url, payload, config);
-  //     console.log("****");
-  //     console.log(response);
-  //     // if (response.data.message) alert(response.data.message);
-  //     const { jocDetails } = this.state;
-  //     this.setState({ jobOfferCardID: response.data });
-  //     console.log("jobOfferCardID: " + this.state.jobOfferCardID);
-  //     alert(`Your job: \n
-  //     Job UID: ${jocDetails.UID} \n
-  //     Job JOCName: ${jocDetails.JOCName}\n
-  //     Job CityID: ${jocDetails.CityID}\n
-  //     Job CardImageSrc: ${jocDetails.CardImageSrc}
-  // `);
-  //     return response;
-  //   } catch (err) {
-  //     this.setState({ error: err });
-  //     console.log("####");
-  //     console.log(err);
-  //     // alert(`Ya got an error boy \n
-  //     // ${err}`);
-  //   }
-  // }
 
   handleClose() {
     console.log("handleClose");

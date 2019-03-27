@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import Table from "react-bootstrap/Table";
-
+import "./Card.css";
 class CompareCharts extends Component {
   constructor(props) {
     super(props);
@@ -28,35 +28,35 @@ class CompareCharts extends Component {
           "Debt",
           "Savings",
           "RFS"
-        ]
-        // markers: {
-        //   size: 0
-        // },
-        // yaxis: [
-        //   {
-        //     title: {
-        //       text: "Series A"
-        //     }
-        //   },
-        //   {
-        //     opposite: true,
-        //     title: {
-        //       text: "Series B"
-        //     }
-        //   }
-        // ],
-        // tooltip: {
-        //   shared: true,
-        //   intersect: false,
-        //   y: {
-        //     formatter: function(y) {
-        //       if (typeof y !== "undefined") {
-        //         return y.toFixed(0) + " points";
-        //       }
-        //       return y;
-        //     }
-        //   }
-        // }
+        ],
+        markers: {
+          size: 0
+        },
+        yaxis: [
+          {
+            title: {
+              text: "Series A"
+            }
+          },
+          {
+            opposite: true,
+            title: {
+              text: "Series B"
+            }
+          }
+        ],
+        tooltip: {
+          shared: true,
+          intersect: false,
+          y: {
+            formatter: function(y) {
+              if (typeof y !== "undefined") {
+                return y.toFixed(0) + " points";
+              }
+              return y;
+            }
+          }
+        }
       }
     };
   }
