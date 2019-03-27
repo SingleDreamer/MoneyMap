@@ -4,12 +4,40 @@ import Select from "react-select";
 import "../JobOfferCard.css";
 
 class JobOfferDetails extends Component {
-  state = {
-    selectedOption: { value: "", label: "" }, //map this to the cityid in the database and pass over to joc
-    inputs: ["input-0"], //:{name:"", amount:null} maybe send row data here then send using row???
-    filledInName: false,
-    filledInAmount: false,
-    cmt: 0
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedOption: { value: "", label: "" } //map this to the cityid in the database and pass over to joc
+    };
+    this.handleCityChange = this.handleCityChange.bind(this);
+  }
+
+  // how to grab final input values and pass in on submit??
+  handleTempChange = input => event => {
+    var foundIndex = this.state.inputs.findIndex(
+      i => i.id === this.state.inputs.id
+    );
+    if (foundIndex !== -1) {
+      this.setState({
+        ...this.state,
+        // write over existing input for field
+        inputs: {
+          id: event.target.input.id,
+          tempName: event.target.value,
+          tempIncome: event.target.value
+        }
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        inputs: {
+          ...this.state.inputs,
+          id: this.target.event.input.id,
+          value: event.target.value
+        }
+      });
+    }
+    console.log(`Option selected: `, input, event.target.value);
   };
 
   handleCityChange = selectedOption => {
@@ -17,92 +45,6 @@ class JobOfferDetails extends Component {
     console.log(`Option selected:`, selectedOption);
   };
 
-  handleAmountChange = event => {
-    this.setState({
-      cmt: event.target.value
-    });
-    console.log(this.state);
-  };
-
-  addRow() {
-    this.props.handleNameChange();
-    if (!!this.state.filledInName && !!this.state.filledInAmount) {
-      console.log(
-        "Filled in! tempname, tempincome",
-        this.state.tempName,
-        this.state.tempIncome
-      );
-      // this.props.handleChange(
-      //   "Components",
-      //   this.state.tempName,
-      //   this.state.tempIncome,
-      //   1
-      // );
-      var newInputLength = `input-${this.state.inputs.length}`;
-      var newInput = { id: newInputLength, tempName: "", tempIncome: "" };
-
-      this.setState(prevState => ({
-        inputs: prevState.inputs.concat([newInput]), //what if i did an arr of objects
-        filledInName: false,
-        filledInAmount: false,
-        tempName: "",
-        tempIncome: ""
-      }));
-    } else {
-      console.log("fill in previous row");
-    }
-  }
-
-  removeRow = rowItem => {
-    this.setState(({ inputs }) => ({
-      inputs: inputs.filter(i => i !== rowItem)
-    }));
-  };
-
-  render() {
-    const { selectedOption, inputs } = this.state;
-    const { values } = this.props;
-
-    let row = (
-      <Form.Row>
-        <Col>
-          {/* try making it so that first box is entered then second box pops up */}
-          <Form.Control
-            required
-            type="text"
-            placeholder="Income source"
-            onChange={this.handleTempChange("tempName")}
-            // change this
-            onInput={() => this.setState({ filledInName: true })}
-            // make sure things arent deleted
-            // defaultValue={
-            //   "values.Components[values.Components.cdesc].cdesc" || null
-            // }
-          />
-        </Col>
-        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        <Form.Control.Feedback type="invalid">
-          Please enter your income name.
-        </Form.Control.Feedback>
-        {/* submit first thing */}
-        {/* onclick second box sends variable of first box to components state */}
-        <Col>
-          <Form.Control
-            required
-            type="number"
-            placeholder="Income"
-            onChange={this.handleAmountChange}
-            onInput={() => this.setState({ filledInAmount: true })}
-            //how to grab the name that was input
-          />
-        </Col>
-        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        <Form.Control.Feedback type="invalid">
-          {" "}
-          Please enter your income.
-        </Form.Control.Feedback>
-      </Form.Row>
-    );
     return (
       <div>
         <Form.Group controlId="name">
@@ -139,23 +81,18 @@ class JobOfferDetails extends Component {
             required
             type="number"
             placeholder="Income"
-            onChange={this.props.handleChange("Components", "Income", 1)}
-            onInput={() => this.setState({ filledInAmount: true })}
-            // value={this.state.cmt}
-            //how to grab the name that was input
+            onChange={this.props.handleChange(
+              "Components",
+              "values.Components",
+              1
+            )} //how to grab the name that was input
+            // defaultValue={values.Components["Income"].camt || null} //how to reference the object that was just created
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
             {" "}
             Please enter your income.
           </Form.Control.Feedback>
-          {/* {this.state.inputs.map(input => (
-            <div key={input}>{row}</div>
-          ))}
-
-          <Button variant="primary" onClick={() => this.addRow()}>
-            Add row
-          </Button> */}
         </Form.Group>
         <Button variant="primary" onClick={this.next}>
           Next
