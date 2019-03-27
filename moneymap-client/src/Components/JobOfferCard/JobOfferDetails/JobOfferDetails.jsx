@@ -12,7 +12,7 @@ class JobOfferDetails extends Component {
     cmt: 0
   };
 
-  handleThisChange = selectedOption => {
+  handleCityChange = selectedOption => {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
   };
@@ -27,31 +27,51 @@ class JobOfferDetails extends Component {
   addRow() {
     this.props.handleNameChange();
     if (!!this.state.filledInName && !!this.state.filledInAmount) {
-      console.log("Filled in!");
-      var newInput = `input-${this.state.inputs.length}`;
+      console.log(
+        "Filled in! tempname, tempincome",
+        this.state.tempName,
+        this.state.tempIncome
+      );
+      // this.props.handleChange(
+      //   "Components",
+      //   this.state.tempName,
+      //   this.state.tempIncome,
+      //   1
+      // );
+      var newInputLength = `input-${this.state.inputs.length}`;
+      var newInput = { id: newInputLength, tempName: "", tempIncome: "" };
+
       this.setState(prevState => ({
-        inputs: prevState.inputs.concat([newInput]), //what if i did an object of objects
+        inputs: prevState.inputs.concat([newInput]), //what if i did an arr of objects
         filledInName: false,
-        filledInAmount: false
+        filledInAmount: false,
+        tempName: "",
+        tempIncome: ""
       }));
+    } else {
+      console.log("fill in previous row");
     }
-    //else error message to fill last box in
   }
 
+  removeRow = rowItem => {
+    this.setState(({ inputs }) => ({
+      inputs: inputs.filter(i => i !== rowItem)
+    }));
+  };
+
   render() {
-    const { selectedOption } = this.state;
+    const { selectedOption, inputs } = this.state;
     const { values } = this.props;
 
     let row = (
       <Form.Row>
-        {/* can i send the whole row to handle change */}
         <Col>
           {/* try making it so that first box is entered then second box pops up */}
           <Form.Control
             required
             type="text"
             placeholder="Income source"
-            onChange={this.props.handleNameChange()}
+            onChange={this.handleTempChange("tempName")}
             // change this
             onInput={() => this.setState({ filledInName: true })}
             // make sure things arent deleted
@@ -73,7 +93,6 @@ class JobOfferDetails extends Component {
             placeholder="Income"
             onChange={this.handleAmountChange}
             onInput={() => this.setState({ filledInAmount: true })}
-            value={this.state.cmt}
             //how to grab the name that was input
           />
         </Col>
@@ -106,7 +125,7 @@ class JobOfferDetails extends Component {
           <Select
             isClearable //handle this; breaks
             defaultValue={selectedOption.value || ""}
-            onChange={this.handleThisChange}
+            onChange={this.handleCityChange}
             options={cities}
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
