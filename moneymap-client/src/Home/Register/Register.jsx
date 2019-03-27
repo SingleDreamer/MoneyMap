@@ -15,6 +15,7 @@ class Register extends Component {
         firstName: "",
         lastName: "",
         email: "",
+        famSize: null,
         age: null,
         city: "",
         state: "",

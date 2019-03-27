@@ -4,7 +4,7 @@ import "../JobOfferCard.css";
 
 class JobOfferDetails2 extends Component {
   render() {
-    const { values } = this.props;
+    // const { values } = this.props;
 
     return (
       <div>
@@ -19,7 +19,7 @@ class JobOfferDetails2 extends Component {
               "Mandatory Costs",
               2
             )}
-            defaultValue={values.Components["Mandatory Costs"].camt || null}
+            // defaultValue={values.Components["Mandatory Costs"].camt || null}
           />
         </Form.Group>
 
