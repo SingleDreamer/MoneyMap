@@ -22,13 +22,10 @@ class Dashboard extends Component {
   componentDidMount() {
     //getting the cards each time the component renders
     axios
-      .get(
-        "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/11111111-1111-1111-1111-111111111111/jocs"
-      )
+      .get("/users/11111111-1111-1111-1111-111111111111/jocs")
       .then(response => {
         // handle success
         let jocs = response.data.result;
-        console.log(jocs);
         jocs.forEach(company => {
           company.selected = false;
         });
@@ -36,7 +33,7 @@ class Dashboard extends Component {
           companies: jocs
         });
       })
-      .catch(function(error) {
+      .catch(error => {
         // handle error
         console.log(error);
       });

@@ -9,6 +9,8 @@
   margin-top: 1em;
 }
 .add {
+  position: relative;
+  top: 20px;
   margin-left: 0.4em;
   margin-right: 0.15em;
   transform: scale(0.8);

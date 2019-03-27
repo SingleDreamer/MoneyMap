@@ -13,6 +13,7 @@ class CardArray extends Component {
     super(props, context);
     this.state = {
       companies: [],
+      compareCompanies: [],
       show: false
     };
     this.handleShow = this.handleShow.bind(this);
@@ -33,11 +34,30 @@ class CardArray extends Component {
     temp[temp.indexOf(company)].selected = !temp[temp.indexOf(company)]
       .selected;
 
-    temp[temp.indexOf(company)].selected ? amountSelected++ : amountSelected--;
+    temp[temp.indexOf(company)].selected
+      ? this.addToCompare(company)
+      : this.removeFromCompare(company);
 
     amountSelected === 2
       ? this.setState({ companies: temp, show: true })
       : this.setState({ companies: temp });
+  };
+  addToCompare = company => {
+    console.log("added", company);
+    amountSelected++;
+    this.setState({
+      compareCompanies: [...this.state.compareCompanies, company]
+    });
+  };
+
+  removeFromCompare = company => {
+    console.log("removed", company);
+    amountSelected--;
+    let newCompanies = this.state.compareCompanies;
+    newCompanies.splice(newCompanies.indexOf(company), 1);
+    this.setState({
+      compareCompanies: newCompanies
+    });
   };
 
   handleClose() {
@@ -105,11 +125,11 @@ class CardArray extends Component {
           size="lg"
         >
           <Modal.Header closeButton={false}>
-            <Modal.Title>Compare</Modal.Title>
+            <Modal.Title>Compare Job Offers</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Job offer analysis</Modal.Body>
+          <Modal.Body>Job offer comparison</Modal.Body>
           <Modal.Body>
-            <CompareCharts info={50} />
+            <CompareCharts info={50} companies={this.state.compareCompanies} />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Close</Button>
