@@ -12,34 +12,6 @@ class JobOfferDetails extends Component {
     this.handleCityChange = this.handleCityChange.bind(this);
   }
 
-  // how to grab final input values and pass in on submit??
-  handleTempChange = input => event => {
-    var foundIndex = this.state.inputs.findIndex(
-      i => i.id === this.state.inputs.id
-    );
-    if (foundIndex !== -1) {
-      this.setState({
-        ...this.state,
-        // write over existing input for field
-        inputs: {
-          id: event.target.input.id,
-          tempName: event.target.value,
-          tempIncome: event.target.value
-        }
-      });
-    } else {
-      this.setState({
-        ...this.state,
-        inputs: {
-          ...this.state.inputs,
-          id: this.target.event.input.id,
-          value: event.target.value
-        }
-      });
-    }
-    console.log(`Option selected: `, input, event.target.value);
-  };
-
   handleCityChange = selectedOption => {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
@@ -89,7 +61,7 @@ class JobOfferDetails extends Component {
               "Components",
               "values.Components",
               1
-            )} //how to grab the name that was input
+            )}
             // defaultValue={values.Components["Income"].camt || null} //how to reference the object that was just created
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
