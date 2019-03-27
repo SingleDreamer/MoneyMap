@@ -45,6 +45,10 @@ class JobOfferDetails extends Component {
     console.log(`Option selected:`, selectedOption);
   };
 
+  render() {
+    const { selectedOption } = this.state;
+    const { values } = this.props;
+
     return (
       <div>
         <Form.Group controlId="name">
