@@ -17,11 +17,13 @@
   animation-duration: 0.5s;
   z-index: 2;
 }
+
 .notSelected {
   position: relative;
   bottom: 30px;
   font-size: 1em;
 }
+
 .joc:hover {
   transform: scale(1.05);
 }
