@@ -18,7 +18,7 @@ class JobOfferCard extends Component {
       error: null
     };
 
-    this.handleNameChange = this.handleNameChange.bind(this);
+    // this.handleNameChange = this.handleNameChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -58,11 +58,8 @@ class JobOfferCard extends Component {
           <JobOfferDetails
             nextStep={this.nextStep}
             handleChange={this.handleChange}
-            handleNameChange={this.handleNameChange}
+            // handleNameChange={this.handleNameChange}
             values={values}
-            // name={this.state.name}
-            // cityid={this.state.cityid}
-            // Components={this.state.Components}
           />
         );
       case 2:
@@ -70,9 +67,8 @@ class JobOfferCard extends Component {
           <JobOfferDetails2
             prevStep={this.prevStep}
             handleChange={this.handleChange}
-            handleNameChange={this.handleNameChange}
+            // handleNameChange={this.handleNameChange}
             values={values}
-            // Components={this.state.Components}
           />
         );
       default:
@@ -109,8 +105,8 @@ class JobOfferCard extends Component {
     console.log(this.state.Components);
   };
 
-  handleChange = (input, input2, input3) => event => {
-    console.log("input: ", input, input2, input3);
+  handleChange = (input, input2, input3, input4) => event => {
+    console.log("input: ", input, input2, input3, input4);
     if (!!input2) {
       this.setState({
         ...this.state,
@@ -119,8 +115,8 @@ class JobOfferCard extends Component {
           [input2]: {
             ...this.state.Components[input2],
             cdesc: input2,
-            camt: event.target.value,
-            ctype: input3
+            camt: input3,
+            ctype: input4
           }
         }
       });
