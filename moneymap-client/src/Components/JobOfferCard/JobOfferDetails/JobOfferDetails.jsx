@@ -45,6 +45,13 @@ class JobOfferDetails extends Component {
     console.log(`Option selected:`, selectedOption);
   };
 
+<<<<<<< HEAD
+=======
+  render() {
+    const { selectedOption } = this.state;
+    const { values } = this.props;
+
+>>>>>>> 0045f25d966a1c66808ae9743fab36efe8d57ba0
     return (
       <div>
         <Form.Group controlId="name">
@@ -77,6 +84,10 @@ class JobOfferDetails extends Component {
         </Form.Group>
         <Form.Group controlId="income">
           <Form.Label className="required">Income</Form.Label>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0045f25d966a1c66808ae9743fab36efe8d57ba0
           <Form.Control
             required
             type="number"

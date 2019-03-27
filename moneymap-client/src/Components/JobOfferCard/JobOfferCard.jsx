@@ -91,6 +91,7 @@ class JobOfferCard extends Component {
     });
   };
 
+<<<<<<< HEAD
   handleNameChange = () => {
     this.setState({
       Components: {
@@ -104,6 +105,23 @@ class JobOfferCard extends Component {
     });
     console.log(this.state.Components);
   };
+=======
+  // handleNameChange = () => event => {
+  //   this.setState({
+  //     ...this.state,
+  //     Components: {
+  //       ...this.state.Components,
+  //       [event.target.value]: {
+  //         ...this.state.Components[event.target.value],
+  //         cdesc: event.target.value,
+  //         camt: "",
+  //         ctype: ""
+  //       }
+  //     }
+  //   });
+  //   console.log(this.state.Components);
+  // };
+>>>>>>> 0045f25d966a1c66808ae9743fab36efe8d57ba0
 
   handleChange = (input, input2, input3, input4) => event => {
     console.log("input: ", input, input2, input3, input4);
