@@ -57,7 +57,7 @@ UserService.update = async (id, email, size, cardid) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
   request.input('email', sql.Text, password);
-  request.input('size', sql.Int, password);
+  request.input('size', sql.Float, password);
   if(cardid != null) {
     request.input('cardid', sql.UniqueIdentifier, password);
   }
