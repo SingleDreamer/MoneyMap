@@ -6,6 +6,7 @@ export default class AuthService {
     this.domain = domain || "/auth/login"; // get routes from backend
     this.forgotpw = this.baseurl + "/auth/forgot-password";
     this.resetpw = this.baseurl + "/auth/change-password";
+    this.register = this.baseurl + "/auth/register";
     this.fetch = this.fetch.bind(this);
     this.login = this.login.bind(this);
     this.getProfile = this.getProfile.bind(this);
@@ -69,6 +70,31 @@ export default class AuthService {
     } catch (err) {
       console.log(err.response);
       alert(err.response.data.message);
+    }
+  }
+
+  async register(userDetails) {
+    let body = [];
+    for (var key in userDetails) {
+      body.push(userDetails[key]);
+    }
+    console.log("registration details: ", body);
+    let payload = {
+      body
+    };
+
+    let config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    try {
+      let response = await axios.post(this.register, payload, config);
+      console.log(response.data);
+      if (response.data.success) alert("Successful reg");
+    } catch (err) {
+      console.log(err.response);
     }
   }
 

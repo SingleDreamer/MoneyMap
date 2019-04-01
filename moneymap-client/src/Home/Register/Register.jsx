@@ -4,6 +4,8 @@ import ProfileDetails from "./ProfileDetails";
 import ProfileDetails2 from "./ProfileDetails2";
 import { Form } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
+import AuthService from "../../Components/AuthService/AuthService";
 import "../Home.css";
 
 class Register extends Component {
@@ -15,6 +17,8 @@ class Register extends Component {
         firstName: "",
         lastName: "",
         email: "",
+        password: "",
+        reenterPass: "",
         famSize: null,
         age: null,
         city: "",
@@ -26,10 +30,13 @@ class Register extends Component {
         moreinfo: ""
       },
       profileInfo2: { info: "", moreinfo: "" },
-      submit: false
+      submit: false,
+      hasError: false
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.Auth = new AuthService();
   }
 
   render() {
@@ -110,15 +117,22 @@ class Register extends Component {
     this.setState({ [input]: event.target.value });
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    this.setState({ submit: true });
-    const { email, username, password } = this.state;
-    alert(`Your registration detail: \n 
-      Email: ${email} \n 
-      Username: ${username} \n
-      Password: ${password}`);
-  };
+  handleSubmit(e) {
+    e.preventDefault();
+    this.Auth.register(this.state.userInfo)
+      .then(res => {
+        this.setState({ submit: true });
+        const { email, username, password } = this.state;
+        alert(`Your registration detail: \n 
+            Email: ${email} \n 
+            Username: ${username} \n
+            Password: ${password}`);
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ hasError: true });
+      });
+  }
 }
 
 export default Register;
