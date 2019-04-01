@@ -13,7 +13,7 @@ class JobOfferCard extends Component {
       name: "",
       cityid: 1,
       image: "",
-      Components: { Income: { cdes: "", camt: 0, ctype: "" } },
+      Components: {},
       submit: false,
       error: null
     };
@@ -105,9 +105,26 @@ class JobOfferCard extends Component {
     console.log(this.state.Components);
   };
 
-  handleChange = (input, input2, input3, input4) => event => {
-    console.log("input: ", input, input2, input3, input4);
-    if (!!input2) {
+  handleChange = (input, input2, input3) => event => {
+    // console.log("input: ", input, input2, input3);
+    if (!!input2 && !!this.state.Components[input2]) {
+      this.setState(
+        {
+          ...this.state,
+          Components: {
+            ...this.state.Components,
+            [input2]: {
+              cdesc: input2,
+              camt: event.target.value,
+              ctype: input3
+            }
+          }
+        },
+        () => {
+          console.log("Components: ", this.state.Components);
+        }
+      );
+    } else if (!!input2) {
       this.setState({
         ...this.state,
         Components: {
@@ -115,16 +132,14 @@ class JobOfferCard extends Component {
           [input2]: {
             ...this.state.Components[input2],
             cdesc: input2,
-            camt: input3,
-            ctype: input4
+            camt: event.target.value,
+            ctype: input3
           }
         }
       });
-      console.log(this.state.Components);
     } else {
       this.setState({ ...this.state, [input]: event.target.value });
     }
-    console.log("Components: ", null || this.state.Components["Income"].camt);
   };
 
   handleSubmit = e => {
