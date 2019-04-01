@@ -4,79 +4,23 @@ import Select from "react-select";
 import "../JobOfferCard.css";
 
 class JobOfferDetails extends Component {
-  state = {
-    selectedOption: { value: "", label: "" }, //map this to the cityid in the database and pass over to joc
-    inputs: ["input-0"], //:{name:"", amount:null} maybe send row data here then send using row???
-    filledInName: false,
-    filledInAmount: false,
-    cmt: 0
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedOption: { value: "", label: "" } //map this to the cityid in the database and pass over to joc
+    };
+    this.handleCityChange = this.handleCityChange.bind(this);
+  }
 
-  handleThisChange = selectedOption => {
+  handleCityChange = selectedOption => {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
   };
 
-  handleAmountChange = event => {
-    this.setState({
-      cmt: event.target.value
-    });
-    console.log(this.state);
-  };
-
-  addRow() {
-    this.props.handleNameChange();
-    if (!!this.state.filledInName && !!this.state.filledInAmount) {
-      console.log("Filled in!");
-      var newInput = `input-${this.state.inputs.length}`;
-      this.setState(prevState => ({
-        inputs: prevState.inputs.concat([newInput]), //what if i did an object of objects
-        filledInName: false,
-        filledInAmount: false
-      }));
-    }
-    //else error message to fill last box in
-  }
-
   render() {
     const { selectedOption } = this.state;
     const { values } = this.props;
-    let row = (
-      <Form.Row>
-        {/* can i send the whole row to handle change */}
-        <Col>
-          <Form.Control
-            required
-            type="text"
-            placeholder="Income source"
-            onInput={() => this.setState({ filledInName: true })}
-            // defaultValue={
-            //   "values.Components[values.Components.cdesc].cdesc" || null
-            // }
-          />
-        </Col>
-        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        <Form.Control.Feedback type="invalid">
-          Please enter your income name.
-        </Form.Control.Feedback>
-        <Col>
-          <Form.Control
-            required
-            type="number"
-            placeholder="Income"
-            onChange={this.handleAmountChange}
-            onInput={() => this.setState({ filledInAmount: true })}
-            value={this.state.cmt}
-            //how to grab the name that was input
-          />
-        </Col>
-        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        <Form.Control.Feedback type="invalid">
-          {" "}
-          Please enter your income.
-        </Form.Control.Feedback>
-      </Form.Row>
-    );
+
     return (
       <div>
         <Form.Group controlId="name">
@@ -99,7 +43,7 @@ class JobOfferDetails extends Component {
           <Select
             isClearable //handle this; breaks
             defaultValue={selectedOption.value || ""}
-            onChange={this.handleThisChange}
+            onChange={this.handleCityChange}
             options={cities}
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -113,23 +57,18 @@ class JobOfferDetails extends Component {
             required
             type="number"
             placeholder="Income"
-            onChange={this.props.handleChange("Components", "Income", 1)}
-            onInput={() => this.setState({ filledInAmount: true })}
-            // value={this.state.cmt}
-            //how to grab the name that was input
+            onChange={this.props.handleChange(
+              "Components",
+              "values.Components",
+              1
+            )}
+            // defaultValue={values.Components["Income"].camt || null} //how to reference the object that was just created
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
             {" "}
             Please enter your income.
           </Form.Control.Feedback>
-          {/* {this.state.inputs.map(input => (
-            <div key={input}>{row}</div>
-          ))}
-
-          <Button variant="primary" onClick={() => this.addRow()}>
-            Add row
-          </Button> */}
         </Form.Group>
         <Button variant="primary" onClick={this.next}>
           Next
