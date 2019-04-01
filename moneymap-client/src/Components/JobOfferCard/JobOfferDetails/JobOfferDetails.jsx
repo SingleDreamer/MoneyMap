@@ -57,18 +57,14 @@ class JobOfferDetails extends Component {
             required
             type="number"
             placeholder="Income"
-            onChange={this.props.handleChange(
-              "Components",
-              "values.Components",
-              1
-            )}
+            onChange={this.props.handleChange("Components", "Income", 1)}
             // defaultValue={values.Components["Income"].camt || null} //how to reference the object that was just created
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
             {" "}
             Please enter your income.
-          </Form.Control.Feedback>
+          </Form.Control.Feedback>{" "}
         </Form.Group>
         <Button variant="primary" onClick={this.next}>
           Next
