@@ -18,6 +18,15 @@
   z-index: 2;
 }
 
+.arrow_box {
+  position: relative;
+  background: whitesmoke;
+  /* word-break: break-word; */
+  width: 210px;
+  height: auto;
+  border: 2px solid #000000;
+}
+
 .notSelected {
   position: relative;
   bottom: 30px;

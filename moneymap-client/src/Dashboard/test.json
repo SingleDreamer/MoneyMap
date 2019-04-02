@@ -1,70 +1,246 @@
 {
-  "cards": [
-    {
-      "name": "Google",
-      "city": "MTV",
-      "score": 68,
-      "income": 10956,
-      "mandatory_costs": 4703,
-      "comsumable_costs": 570,
-      "entertainment_cost": 600,
-      "debt": 0,
-      "savings": 0
+  "Google": {
+    "Compensation Philosophy": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "You will get raises, cash bonuses and stock refreshers yearly to try to keep you happy. You get larger raises if you get promoted."
     },
-    {
-      "name": "FaceBook",
-      "city": "NYC",
-      "score": 100,
-      "income": 109536,
-      "mandatory_costs": 4703,
-      "comsumable_costs": 570,
-      "entertainment_cost": 600,
-      "debt": 0,
-      "savings": 123234
+    "Vacation/Time Off": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Between years: 0-3: 15 days 4-5: 20 days 5+: 25 days"
     },
-    {
-      "name": "Apple",
-      "city": "SF",
-      "score": 89,
-      "income": 20956,
-      "mandatory_costs": 9842,
-      "comsumable_costs": 312,
-      "entertainment_cost": 0,
-      "debt": 0,
-      "savings": 0
+    "PTO/Sick Days": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Unlimited personal/sick days (honor system)"
     },
-    {
-      "name": "Microsoft",
-      "city": "NYC",
-      "score": 34,
-      "income": 10956,
-      "mandatory_costs": 4703,
-      "comsumable_costs": 570,
-      "entertainment_cost": 600,
-      "debt": 0,
-      "savings": 0
+    "Meals/Food": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Free Breakfast, Lunch and Dinner"
     },
-    {
-      "name": "Airbnb",
-      "city": "Seattle",
-      "score": 78,
-      "income": 10956,
-      "mandatory_costs": 4703,
-      "comsumable_costs": 570,
-      "entertainment_cost": 600,
-      "debt": 0,
-      "savings": 0
+    "Snacks": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Fully stocked mini kitchens (chips, cookies, fruit etc)"
     },
-    {
-      "name": "Uber",
-      "city": "SF",
-      "score": 14,
-      "income": 10956,
-      "mandatory_costs": 4703,
-      "comsumable_costs": 570,
-      "entertainment_cost": 600,
-      "debt": 0,
-      "savings": 0
+    "Coffee/Drinks": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Juice bars, french press coffee machines, soda, juice, milk, bottled drinks etc."
+    },
+    "401k Matching": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "The higher of a 50% match up to ie. $9000 or 100% match up to $3000"
+    },
+    "Health/Fitness": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Onsite fitness centre, free massages"
+    },
+    "Mental Health/Therapy": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Free 24/7 access to confidential counselling services"
+    },
+    "Green Card Sponsorship": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Will sponsor immediately"
+    },
+    "Company Holidays": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "12 days (MLK Day, Presidents Day, Memorial Day, Labor Day, New Years + 1 day, Independence Day + 1 day Thanksgiving + 1 day Christmas + 1 day)"
+    },
+    "Cell Phone Allowance": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "$70/month or go on their corporate plan"
+    },
+    "Charity Donation Match": {
+      "Rating": "Good",
+      "Score": 3,
+      "Description": "$6000/year 20 paid hours/year to volunteer"
+    },
+    "Ridesharing benefits": {
+      "Rating": "Horrible",
+      "Score": 0,
+      "Description": "None"
+    },
+    "Parking": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Free Parking"
+    },
+    "Maternity/Paternity Leave": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "18 weeks paid maternity leave, 4 weeks off before birth and 12 weeks paid paternity leave. $500 baby cash"
+    },
+    "Childcare": {
+      "Rating": "Good",
+      "Score": 3,
+      "Description": "Free premium membership to Care.com and 10 subsidized days of in-home or in-center childcare"
+    },
+    "Adoption Assistance": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "up to $25000 for agency fees or legal expenses. up to $25000 for surrogacy fees"
+    },
+    "Onsite Facilities": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Physicians and nurses for health/wellness available onsite. Onsite massage therapists and confidential counseling service."
+    },
+    "Dog friendly Policy": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Yes"
+    },
+    "Break time activities": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Ping pong tables, foosball, arcades depending on building"
+    },
+    "Tuition": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "1/3 off up to $1000 for non-work related courses, 2/3 off up to $10000 for work related courses"
+    },
+    "Health Insurance": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Basic: Vision: $0 ($150 for frames per year) Dental: $0 (100% coverage for preventitive care, 60% off for major operations) General: $0(Deductible: $1300/individuals, $2600/family)"
+    },
+    "Other": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Oncall pay at 1x, 0.66x or 0.33x of your base salary depending on the tier of your service. Caps at 80 hrs per quarter Free cooking lessons on site Free fitness classes on site Internet allowance (75$/month)"
     }
-  ]
+  },
+  "Facebook": {
+    "Compensation Philosophy": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "You will get raises, cash bonuses and stock refreshers yearly to try to keep you happy. You get larger raises if you get promoted."
+    },
+    "Vacation/Time Off": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "21 Days"
+    },
+    "PTO/Sick Days": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "21 days includes vacation and pto. Unlimited sick days. 1 month off every 5 years."
+    },
+    "Meals/Food": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Free Breakfast, Lunch and Dinner"
+    },
+    "Snacks": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Fully stocked mini kitchens (chips, cookies, fruit etc)"
+    },
+    "Coffee/Drinks": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Juice bars, french press coffee machines, soda, juice, milk, bottled drinks etc."
+    },
+    "401k Matching": {
+      "Rating": "Good",
+      "Score": 3,
+      "Description": "50% match up to 7% of your base pay. For Example: $3500 on $7000 contribution with a base pay of $100,000"
+    },
+    "Health/Fitness": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "$720/yr for health and wellness"
+    },
+    "Mental Health/Therapy": {
+      "Rating": "Good",
+      "Score": 3,
+      "Description": "25 free therapy session/yr for you and dependents"
+    },
+    "Green Card Sponsorship": {
+      "Rating": "Good",
+      "Score": 3,
+      "Description": "Will sponsor after 3 months"
+    },
+    "Company Holidays": {
+      "Rating": "Good",
+      "Score": 3,
+      "Description": "11 holidays ( New Year’s Day, MLK Day, Presidents’ Day, Memorial Day, Independence Day + 1 day, Labor Day, Thanksgiving Day + 1 day, Christmas Day + 1 day)"
+    },
+    "Cell Phone Allowance": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Free company phone w/ paid service"
+    },
+    "Charity Donation Match": {
+      "Rating": "Horrible",
+      "Score": 0,
+      "Description": "None"
+    },
+    "Ridesharing benefits": {
+      "Rating": "Horrible",
+      "Score": 0,
+      "Description": "None"
+    },
+    "Parking": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Free Parking"
+    },
+    "Maternity/Paternity Leave": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Mothers receive 16 weeks (~4 months) paid maternity leave plus 6-8 weeks of paid disability leave. Fathers receive 16 weeks (~4 months) paid paternity leave. $4000 baby cash"
+    },
+    "Childcare": {
+      "Rating": "Exellent",
+      "Score": 4,
+      "Description": "$3000/yr for childcare expenses 10 uses/yr of back-up care including in-home care for a child, adult or elder"
+    },
+    "Adoption Assistance": {
+      "Rating": "Good",
+      "Score": 3,
+      "Description": "$10000 for fees related to adoption $20000 for fees related to surrogacy"
+    },
+    "Onsite Facilities": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Doctors on call (health center at worki including prescriptions, vaccines, dental and vision) Barber on site (MLP office) Dry cleaning and laundry"
+    },
+    "Dog friendly Policy": {
+      "Rating": "Horrible",
+      "Score": 0,
+      "Description": "No"
+    },
+    "Break time activities": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Ping pong tables, foosball, arcades depending on building"
+    },
+    "Tuition": {
+      "Rating": "Horrible",
+      "Score": 0,
+      "Description": "None"
+    },
+    "Health Insurance": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Basic Vision: $0 ($10 copay for vision exam, 25$ copay for frames and lenses, $150 for frames, $150 for contacts), $2000 for lasik (1 time only) Dental: $0 (Deductable: 50$ in general, 0$ for preventitive care, $2000 max benefit/year) General: $0 (Single: Deductable: $250, max out of pocket: $1500) (Family: $500, max out of pocket: $3000)"
+    },
+    "Other": {
+      "Rating": "Okay",
+      "Score": 2,
+      "Description": "250$ FB ad credit to use or give away. Laundry and drycleaning onsite or reimbursement. Free valet parking."
+    }
+  }
 }

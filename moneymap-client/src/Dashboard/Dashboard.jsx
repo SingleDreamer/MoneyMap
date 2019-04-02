@@ -5,6 +5,7 @@ import { JobOfferCard } from "../Components/JobOfferCard";
 import { Modal, Button } from "react-bootstrap";
 import "./Dashboard.css";
 import axios from "axios";
+var perks = require("./test.json");
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -28,6 +29,11 @@ class Dashboard extends Component {
         let jocs = response.data.result;
         jocs.forEach(company => {
           company.selected = false;
+          if (company.jocname === "Google") {
+            company.perks = perks.Google;
+          } else if (company.jocname === "Facebook") {
+            company.perks = perks.Facebook;
+          }
         });
         this.setState({
           companies: jocs

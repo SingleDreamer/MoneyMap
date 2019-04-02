@@ -11,6 +11,7 @@ import "./Card.css";
 import Chart from "react-apexcharts";
 // import axios from "axios";
 import Charts from "./Charts.js";
+import axios from "axios";
 
 const popover = (
   <Popover id="popover-basic" title="Analysis">
@@ -58,6 +59,14 @@ class CardArray extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
+  
+  deleteJOC = jocid => {
+    console.log(jocid);
+    axios.delete("/joc/" + jocid).catch(error => {
+      // handle error
+      console.log(error);
+    });
+  };
 
   render() {
     return (
@@ -113,7 +122,12 @@ class CardArray extends Component {
                 </Button>
               </OverlayTrigger>
 
-              <Button variant="danger">Delete</Button>
+              <Button
+                variant="danger"
+                onClick={() => this.deleteJOC(this.props.info.jocid)}
+              >
+                Delete
+              </Button>
             </div>
           </Card.Body>
           {/*Maybe make this modal into it's own component*/}
@@ -170,8 +184,6 @@ class CardArray extends Component {
       }
     );
   };
-
-
 
   handleClose() {
     console.log("handleClose");

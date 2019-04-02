@@ -103,7 +103,6 @@ class CardArray extends Component {
         </div>
       )
     );
-    console.log(" cards: ", cards);
 
     cards.unshift(
       <img
