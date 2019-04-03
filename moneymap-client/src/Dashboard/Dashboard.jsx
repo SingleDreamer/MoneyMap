@@ -70,7 +70,7 @@ class Dashboard extends Component {
             <Button onClick={this.handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
-        <div className="map">map is here</div>
+        <div className="map">map goes here</div>
         <CardArray
           companies={this.state.companies}
           handleShow={this.handleShow}
