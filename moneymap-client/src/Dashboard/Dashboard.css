@@ -7,7 +7,6 @@
   overflow: hidden;
 }
 
-/*Need to properly center the button. Off place when side bar is visible, fine when not*/
 .AddJOC {
   position: relative;
   left: 50%;
@@ -17,4 +16,13 @@
   height: 80px;
   width: 180px;
   box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.map {
+  position: relative;
+  left: 10vw;
+  height: 40vh;
+  width: 80vw;
+  background-color: blue;
+  color: white;
+  font-size: 17em;
 }

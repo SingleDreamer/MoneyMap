@@ -56,12 +56,6 @@ class Dashboard extends Component {
       <div className="Dashboard">
         {/*Need to tuen this into a component to update depending on the currently logged in user's info */}
         <Sidebar className="Sidebar" />
-        {/* <Button
-          className="AddJOC"
-          onClick={() => this.setState({ show: true })}
-        >
-          Add New JOC
-        </Button> */}
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>{cardType}</Modal.Header>
@@ -76,7 +70,7 @@ class Dashboard extends Component {
             <Button onClick={this.handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
-
+        <div className="map">map is here</div>
         <CardArray
           companies={this.state.companies}
           handleShow={this.handleShow}

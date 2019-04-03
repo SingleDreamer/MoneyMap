@@ -1,7 +1,8 @@
 .array {
   display: flex;
   position: relative;
-  width: 100vw;
+  left: 10vw;
+  width: 80vw;
   height: 480px;
   display: flex;
   overflow: hidden;

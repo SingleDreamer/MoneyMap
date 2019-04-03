@@ -196,6 +196,17 @@ class CompareCharts extends Component {
       });
     }
   }
+
+  componentWillUnmount() {
+    newSeries = [];
+    this.setState({
+      optionsPerksChart: {
+        ...this.state.optionsPerksChart,
+        series: newSeries
+      }
+    });
+  }
+
   render() {
     return (
       <div className="app">
