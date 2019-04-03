@@ -130,7 +130,7 @@ class CardArray extends Component {
                 <div className="chart">
                   <Chart
                     options={this.test(this.props.info.jocrfc)}//{this.state.optionsRadial}
-                    series={[this.props.info.jocrfc]}
+                    series={[Math.ceil(this.props.info.jocrfc)]}
                     type="radialBar"
                     width="100"
                     height="130"
