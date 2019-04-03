@@ -19,6 +19,7 @@ const popover = (
   </Popover>
 );
 
+
 class CardArray extends Component {
   constructor(props, context) {
     super(props, context);
@@ -31,7 +32,9 @@ class CardArray extends Component {
         CityID: 1,
         CardImageSrc: ""
       },
+
       optionsRadial: {
+        colors:["#111111"],
         plotOptions: {
           radialBar: {
             dataLabels: {
@@ -55,9 +58,46 @@ class CardArray extends Component {
         },
         labels: ["RFS"]
       }
+
     };
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
+  }
+
+  test = rfs => {
+    let optionsRadial = {
+          colors:["#000000"],
+          plotOptions: {
+            radialBar: {
+              dataLabels: {
+                name: {
+                  offsetY: -50,
+                  show: false,
+                  color: "#888",
+                  fontSize: "15px"
+                },
+                value: {
+                  formatter: function(val) {
+                    return val;
+                  },
+                  offsetY: 5,
+                  color: "#111",
+                  fontSize: "20px",
+                  show: true
+                }
+              }
+            }
+          },
+          labels: ["RFS"]
+    }
+    if (rfs > 50){
+      optionsRadial.colors = ["#35ff53"];
+      console.log("testttt");
+    }
+    else {
+      optionsRadial.colors = ["#f45042"];
+    }
+    return (optionsRadial);
   }
 
   deleteJOC = jocid => {
@@ -68,7 +108,11 @@ class CardArray extends Component {
     });
   };
 
+
   render() {
+
+
+
     return (
       <div>
         <div className={this.props.cardType}>
@@ -85,7 +129,7 @@ class CardArray extends Component {
               >
                 <div className="chart">
                   <Chart
-                    options={this.state.optionsRadial}
+                    options={this.test(this.props.info.jocrfc)}//{this.state.optionsRadial}
                     series={[this.props.info.jocrfc]}
                     type="radialBar"
                     width="100"
