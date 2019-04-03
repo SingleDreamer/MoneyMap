@@ -10,7 +10,7 @@ import {
 import "./Card.css";
 import Chart from "react-apexcharts";
 // import axios from "axios";
-import Charts from "./Charts.js";
+import Charts from "./AnalysisCharts.js";
 import axios from "axios";
 
 const popover = (
@@ -59,7 +59,7 @@ class CardArray extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
-  
+
   deleteJOC = jocid => {
     console.log(jocid);
     axios.delete("/joc/" + jocid).catch(error => {
