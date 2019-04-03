@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import UserDetails from "./UserDetails";
-import ProfileDetails from "./ProfileDetails";
-import ProfileDetails2 from "./ProfileDetails2";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import axios from "axios";
 import AuthService from "../../Components/AuthService/AuthService";
 import "../Home.css";
 
@@ -12,7 +9,6 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      step: 1,
       userInfo: {
         firstName: "",
         lastName: "",
@@ -20,16 +16,11 @@ class Register extends Component {
         password: "",
         reenterPass: "",
         famSize: null,
-        age: null,
-        city: "",
-        state: "",
-        country: ""
+        age: null
+        // city: "",
+        // state: "",
+        // country: ""
       },
-      profileInfo: {
-        info: "",
-        moreinfo: ""
-      },
-      profileInfo2: { info: "", moreinfo: "" },
       submit: false,
       hasError: false
     };
@@ -40,7 +31,6 @@ class Register extends Component {
   }
 
   render() {
-    const { step } = this.state;
     let success;
     if (this.state.submit === true) {
       console.log("Profile successfully created");
@@ -58,60 +48,21 @@ class Register extends Component {
     }
 
     return (
-      <Form onSubmit={e => this.handleSubmit(e)}>
+      <Form>
         {/* <p>Step {this.state.step} </p> */}
         <p className="required">Required field = </p>
-        {this.renderSwitch(step)}
+        <UserDetails
+          nextStep={this.nextStep}
+          handleChange={this.handleChange}
+          userInfo={this.state.userInfo}
+        />
+        <Button variant="primary" onSubmit={e => this.handleSubmit(e)}>
+          Submit
+        </Button>
         {success}
       </Form>
     );
   }
-
-  renderSwitch(step) {
-    switch (step) {
-      case 1:
-        return (
-          <UserDetails
-            nextStep={this.nextStep}
-            handleChange={this.handleChange}
-            userInfo={this.state.userInfo}
-          />
-        );
-      case 2:
-        return (
-          <ProfileDetails
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            profileInfo={this.state.profileInfo}
-          />
-        );
-      case 3:
-        return (
-          <ProfileDetails2
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            profileInfo2={this.state.profileInfo2}
-          />
-        );
-      default:
-        return;
-    }
-  }
-
-  nextStep = () => {
-    const { step } = this.state;
-    this.setState({
-      step: step + 1
-    });
-  };
-
-  prevStep = () => {
-    const { step } = this.state;
-    this.setState({
-      step: step - 1
-    });
-  };
 
   handleChange = input => event => {
     this.setState({ [input]: event.target.value });

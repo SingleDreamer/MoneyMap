@@ -92,19 +92,12 @@ class UserDetails extends Component {
           />
           <a href="privacy">Privacy policy</a>
         </Form.Group>
-        <Button variant="primary" onClick={this.next}>
+        {/* <Button variant="primary" onClick={this.next}>
           Next
-        </Button>
+        </Button> */}
       </div>
     );
   }
-
-  next = e => {
-    e.preventDefault();
-    if (this.checkInput() === true) {
-      this.props.nextStep();
-    }
-  };
 
   checkInput = () => {
     // if (this.props.firstName.length < 5) {

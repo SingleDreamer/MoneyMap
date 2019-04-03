@@ -9,6 +9,7 @@ export default class AuthService {
     this.register = this.baseurl + "/auth/register";
     this.fetch = this.fetch.bind(this);
     this.login = this.login.bind(this);
+    this.register = this.register.bind(this);
     this.getProfile = this.getProfile.bind(this);
   }
 
