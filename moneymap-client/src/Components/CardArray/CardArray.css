@@ -1,5 +1,4 @@
 .array {
-  display: flex;
   position: relative;
   left: 10vw;
   width: 80vw;
@@ -20,9 +19,4 @@
 .add:hover {
   transform: scale(0.85);
   cursor: pointer;
-}
-@media screen and (max-width: 1600px) {
-  .array {
-    width: 100vw;
-  }
 }
