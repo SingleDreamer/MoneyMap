@@ -93,6 +93,7 @@ class CompareCharts extends Component {
             show: true
           }
         },
+        columnWidth: "40%",
         responsive: [
           {
             breakpoint: 400,
@@ -105,6 +106,7 @@ class CompareCharts extends Component {
             }
           }
         ],
+        distributed: true,
         plotOptions: {
           bar: {
             horizontal: false
@@ -134,6 +136,14 @@ class CompareCharts extends Component {
             this.props.companies[0].jocname,
             this.props.companies[1].jocname
           ]
+        },
+        dataLabels: {
+          //maybe do something with this... for now its just disabled
+          enabled: false,
+          textAnchor: "start",
+          formatter: function(val, { seriesIndex, dataPointIndex }) {
+            return newSeries[seriesIndex].name + ":  " + val;
+          }
         },
         legend: {
           position: "right",

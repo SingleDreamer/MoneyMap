@@ -19,10 +19,11 @@
 }
 
 .arrow_box {
+  z-index: 300;
   position: relative;
   background: whitesmoke;
   /* word-break: break-word; */
-  width: 210px;
+  width: auto;
   height: auto;
   border: 2px solid #000000;
 }
