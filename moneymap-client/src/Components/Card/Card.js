@@ -90,9 +90,14 @@ class CardArray extends Component {
           },
           labels: ["RFS"]
     }
-    if (rfs > 50){
+    if (rfs >= 50){
       optionsRadial.colors = ["#35ff53"];
-      console.log("testttt");
+    }
+    else if (rfs < 50 && rfs >=0) {
+      optionsRadial.colors = ["#fcf344"]; 
+    }
+    else if (rfs < 0 && rfs >=-50) {
+      optionsRadial.colors = ["#ffa434"];
     }
     else {
       optionsRadial.colors = ["#f45042"];
