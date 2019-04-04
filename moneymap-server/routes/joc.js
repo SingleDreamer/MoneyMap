@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const JOCService = require('../services/joc');
+const AuthService = require('../services/auth');
 
 router.post('/', async (req, res, next) => {
   const { uid, name, cityid, image } = req.body;
@@ -32,7 +33,7 @@ router.get('/:id', async (req, res, next) => {
   res.json(result);
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', [AuthService.checkToken], async (req, res, next) => {
   let result = await JOCService.delete(req.params.id);
   res.json(result);
 });

@@ -4,7 +4,7 @@ var db = require("../services/db")
 
 const UserService = {};
 
-const privateKey = "atestprivatekey";
+const AuthService = require('../services/auth');
 
 UserService.create = async (username, password) => {
   const request = new sql.Request(db);
@@ -49,7 +49,7 @@ UserService.get = async (username, password) => {
   }
 
   return {
-    token: jwt.sign(payload, privateKey)
+    token: jwt.sign(payload, AuthService.privateKey)
   };
 }
 

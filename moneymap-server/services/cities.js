@@ -27,4 +27,21 @@ CityService.get = async (name) => {
   return result;
 };
 
+CityService.getCityIds = async (type) => {
+  const request = new sql.Request(db);
+  request.input('type', sql.Bit, type);
+
+  try {
+    let result = await request.execute('sp_get_city_ids');
+  } catch (error) {
+    console.log(error);
+  }
+
+  return 1;
+}
+
+CityService.getPrices = async (cityid) => {
+  return 1;
+}
+
 module.exports = CityService;

@@ -1,5 +1,13 @@
 const numbeo = require('../services/numbeo');
+//const CityService = require('../services/cities');
 const ItemService = require('../services/items');
+
+// const args = process.argv;
+//
+// if(args.length == 2) {
+//   console.log("Missing arguments");
+//   return;
+// }
 
 numbeo.getItemData().then(function(res) {
   let body = JSON.parse(res);
@@ -9,3 +17,7 @@ numbeo.getItemData().then(function(res) {
   }
   console.log("Done");
 });
+
+// numbeo.getItemPriceData(args[2]).then(function(res) {
+//
+// });

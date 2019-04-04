@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const UserService = require('../services/users');
+const AuthService = require('../services/auth');
 
 router.get('/:id/jocs', async (req, res, next) => {
   let result = await UserService.getJOCs(req.params.id);
