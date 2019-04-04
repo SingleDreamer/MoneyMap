@@ -69,6 +69,8 @@ class CardArray extends Component {
           colors:["#000000"],
           plotOptions: {
             radialBar: {
+              startAngle:0,
+              endAngle: 360,
               dataLabels: {
                 name: {
                   offsetY: -50,
@@ -94,12 +96,14 @@ class CardArray extends Component {
       optionsRadial.colors = ["#35ff53"];
     }
     else if (rfs < 50 && rfs >=0) {
-      optionsRadial.colors = ["#fcf344"]; 
+      optionsRadial.colors = ["#fcf344"];
     }
     else if (rfs < 0 && rfs >=-50) {
+      optionsRadial.plotOptions.radialBar.startAngle = 360*(rfs/100);
       optionsRadial.colors = ["#ffa434"];
     }
     else {
+      optionsRadial.plotOptions.radialBar.startAngle = 360*(rfs/100);
       optionsRadial.colors = ["#f45042"];
     }
     return (optionsRadial);
