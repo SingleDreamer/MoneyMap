@@ -3,6 +3,7 @@ import CardArray from "../Components/CardArray/CardArray.js";
 import Sidebar from "../Components/Sidebar/Sidebar.js";
 import { JobOfferCard } from "../Components/JobOfferCard";
 import { Modal, Button } from "react-bootstrap";
+import DashboardMap from "../Components/DashboardMap/DashboardMap.js"
 import "./Dashboard.css";
 import axios from "axios";
 var perks = require("./test.json");
@@ -70,7 +71,7 @@ class Dashboard extends Component {
             <Button onClick={this.handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
-        <div className="map">map goes here</div>
+        <DashboardMap />
         <CardArray
           companies={this.state.companies}
           handleShow={this.handleShow}
