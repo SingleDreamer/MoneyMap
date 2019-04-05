@@ -44,20 +44,19 @@ UserService.get = async (username, password) => {
   } else {
     payload = {
       status: "success",
-      uid: result.recordset[0].UID
+      token: result.recordset[0].AuthToken
     };
   }
 
-  return {
-    token: jwt.sign(payload, AuthService.privateKey)
-  };
+  return payload;
 }
 
-UserService.update = async (id, email, size, cardid) => {
+UserService.update = async (id, email, size, cardid, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
   request.input('email', sql.Text, password);
   request.input('size', sql.Float, password);
+  request.input('token', sql.UniqueIdentifier, token);
   if(cardid != null) {
     request.input('cardid', sql.UniqueIdentifier, password);
   }
@@ -67,9 +66,10 @@ UserService.update = async (id, email, size, cardid) => {
   return result;
 }
 
-UserService.getJOCs = async (id) => {
+UserService.getJOCs = async (id, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
+  request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_get_jocs');
   var output = {
