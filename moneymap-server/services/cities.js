@@ -31,13 +31,9 @@ CityService.getCityIds = async (type) => {
   const request = new sql.Request(db);
   request.input('type', sql.Bit, type);
 
-  try {
-    let result = await request.execute('sp_get_city_ids');
-  } catch (error) {
-    console.log(error);
-  }
+  let result = await request.execute('sp_get_city_ids');
 
-  return 1;
+  return result.recordset;
 }
 
 CityService.getPrices = async (cityid) => {
