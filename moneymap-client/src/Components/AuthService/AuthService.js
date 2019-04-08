@@ -3,13 +3,13 @@ import axios from "axios";
 
 export default class AuthService {
   constructor(domain) {
-    this.domain = domain || "/auth/login"; // get routes from backend
-    this.forgotpw = this.baseurl + "/auth/forgot-password";
-    this.resetpw = this.baseurl + "/auth/change-password";
-    this.register = this.baseurl + "/auth/register";
+    this.domain = domain || this.baseurl + "/validate"; //this.baseurl = /users
+    this.forgotpw = this.baseurl + "/auth/forgot-password"; //not active yet
+    this.resetpw = this.baseurl + "/auth/change-password"; //not active yet
+    this.register = this.baseurl + "/";
     this.fetch = this.fetch.bind(this);
     this.login = this.login.bind(this);
-    this.register = this.register.bind(this);
+    // this.register = this.register.bind(this);
     this.getProfile = this.getProfile.bind(this);
   }
 

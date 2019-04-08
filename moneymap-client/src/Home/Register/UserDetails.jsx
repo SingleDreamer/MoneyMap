@@ -4,63 +4,65 @@ import { Form, Col, Button } from "react-bootstrap";
 class UserDetails extends Component {
   render() {
     return (
-      <div>
+      <Form>
         <Form.Row>
           <Col>
-            <Form.Group controlId="firstName">
+            <Form.Group controlId="fname">
               <Form.Label className="required">First name</Form.Label>
               <Form.Control
                 required
                 type="text"
                 placeholder="First name"
-                onChange={this.props.handleChange("firstName")}
+                onChange={this.props.handleChange("fname")}
               />
             </Form.Group>
           </Col>
           <Col>
-            <Form.Group controlId="lastName">
+            <Form.Group controlId="lname">
               <Form.Label className="required">Last name</Form.Label>
               <Form.Control
                 required
                 type="text"
                 placeholder="Last name"
-                onChange={this.props.handleChange("lastName")}
+                onChange={this.props.handleChange("lname")}
               />
             </Form.Group>
           </Col>
         </Form.Row>
         <Form.Row>
           <Col>
-            <Form.Group controlId="email">
+            <Form.Group controlId="username">
               <Form.Label className="required">Email</Form.Label>
               <Form.Control
                 required
                 type="email"
                 placeholder="Email"
-                onChange={this.props.handleChange("email")}
+                onChange={this.props.handleChange("username")}
+              />
+            </Form.Group>
+          </Col>
+        </Form.Row>
+        <Form.Row>
+          <Col>
+            <Form.Group controlId="adultFamSize">
+              <Form.Label className="required">Adults in family</Form.Label>
+              <Form.Control
+                type="number"
+                required
+                placeholder="Adults in family"
+                onChange={this.props.handleChange("adultFamSize")}
               />
             </Form.Group>
           </Col>
           <Col>
-            <Form.Group controlId="famSize">
-              <Form.Label className="required">Family size</Form.Label>
+            <Form.Group controlId="childFamSize">
+              <Form.Label className="required">Children in family</Form.Label>
               <Form.Control
-                as="select"
+                type="number"
                 required
-                placeholder="Choose..."
-                onChange={this.props.handleChange("famSize")}
-              >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10+</option>
-              </Form.Control>
+                placeholder="Children in family"
+                onChange={this.props.handleChange("childFamSize")}
+              />
             </Form.Group>
           </Col>
         </Form.Row>
@@ -92,10 +94,10 @@ class UserDetails extends Component {
           />
           <a href="privacy">Privacy policy</a>
         </Form.Group>
-        {/* <Button variant="primary" onClick={this.next}>
-          Next
-        </Button> */}
-      </div>
+        <Button variant="primary" onSubmit={e => this.props.handleSubmit(e)}>
+          Submit
+        </Button>
+      </Form>
     );
   }
 

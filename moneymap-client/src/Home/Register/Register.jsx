@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import UserDetails from "./UserDetails";
-import { Form, Button } from "react-bootstrap";
+// import { Form, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import AuthService from "../../Components/AuthService/AuthService";
 import "../Home.css";
@@ -10,21 +10,19 @@ class Register extends Component {
     super(props);
     this.state = {
       userInfo: {
-        firstName: "",
-        lastName: "",
-        email: "",
+        fname: "",
+        lname: "",
+        username: "", //email
         password: "",
         reenterPass: "",
-        famSize: null,
-        age: null
-        // city: "",
-        // state: "",
-        // country: ""
+        adultFamSize: 0,
+        childFamSize: 0.0,
+        size: 0.0 //float, change to adults + children and make children .5 person
       },
       submit: false,
       hasError: false
     };
-
+    this.add = this.add.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.Auth = new AuthService();
@@ -48,21 +46,26 @@ class Register extends Component {
     }
 
     return (
-      <Form>
+      <div>
         {/* <p>Step {this.state.step} </p> */}
         <p className="required">Required field = </p>
         <UserDetails
           nextStep={this.nextStep}
           handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
           userInfo={this.state.userInfo}
         />
-        <Button variant="primary" onSubmit={e => this.handleSubmit(e)}>
-          Submit
-        </Button>
         {success}
-      </Form>
+      </div>
     );
   }
+
+  add = () => {
+    const { adultFamSize, childFamSize } = this.state;
+    this.setState({
+      size: adultFamSize + childFamSize / 2
+    });
+  };
 
   handleChange = input => event => {
     this.setState({ [input]: event.target.value });
@@ -70,14 +73,15 @@ class Register extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.add();
+    console.log("Registration details: ", this.state.userInfo);
     this.Auth.register(this.state.userInfo)
       .then(res => {
         this.setState({ submit: true });
-        const { email, username, password } = this.state;
-        alert(`Your registration detail: \n 
-            Email: ${email} \n 
-            Username: ${username} \n
-            Password: ${password}`);
+        // const {username, password } = this.state;
+        // alert(`Your registration detail: \n
+        //     Username: ${username} \n
+        //     Password: ${password}`);
       })
       .catch(err => {
         console.log(err);
