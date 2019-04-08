@@ -19,15 +19,17 @@ numbeo.getItemData().then(async function(res) {
   let type = parseInt(args[2]);
 
   let cityIds = await CityService.getCityIds(type);
+  var result = [];
   for(i in cityIds) {
     let cityId = cityIds[i].CityID;
 
     let prices = JSON.parse(await numbeo.getItemPriceData(cityId)).prices;
     for(i in prices) {
       let price = prices[i];
-      ItemService.createPrice(cityId, price.item_id, price.lowest_price, price.average_price, price.highest_price);
+      result.push(ItemService.createPrice(cityId, price.item_id, price.lowest_price, price.average_price, price.highest_price));
     }
   }
+  await Promise.all(result);
 
   console.log("Done");
 
