@@ -20,6 +20,7 @@ class Dashboard extends Component {
     this.handleClose = this.handleClose.bind(this);
     // this.profileSubmit = this.profileSubmit.bind(this);
   }
+
   componentDidMount() {
     //getting the cards each time the component renders
     axios

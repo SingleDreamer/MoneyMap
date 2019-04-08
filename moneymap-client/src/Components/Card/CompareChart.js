@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import Table from "react-bootstrap/Table";
 import "./Card.css";
+
 let newSeries = [];
 
 class CompareCharts extends Component {
