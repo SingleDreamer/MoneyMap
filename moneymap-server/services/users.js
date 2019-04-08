@@ -6,11 +6,14 @@ const UserService = {};
 
 const AuthService = require('../services/auth');
 
-UserService.create = async (username, password) => {
+UserService.create = async (username, password, fname, lname, size) => {
   const request = new sql.Request(db);
 
   request.input('username', sql.Text, username);
   request.input('password', sql.Text, password);
+  request.input('fname', sql.Text, fname);
+  request.input('lname', sql.Text, password);
+  request.input('size', sql.Float, size);
 
   let result = await request.execute('sp_create_user');
 
@@ -51,10 +54,12 @@ UserService.get = async (username, password) => {
   return payload;
 }
 
-UserService.update = async (id, email, size, cardid, token) => {
+UserService.update = async (id, email, fname, lname, size, cardid, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
   request.input('email', sql.Text, password);
+  request.input('fname', sql.Text, fname);
+  request.input('lname', sql.Text, lname);
   request.input('size', sql.Float, password);
   request.input('token', sql.UniqueIdentifier, token);
   if(cardid != null) {
