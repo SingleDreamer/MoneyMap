@@ -36,12 +36,6 @@ CityService.getCityIds = async (type) => {
   return result.recordset;
 }
 
-CityService.getPrices = async (cityid) => {
-  return 1;
-	
-
-}
-
 CityService.getAverages = async (id, uid, token) => {
   const request = new sql.Request(db);
   request.input('cityid', sql.Int, id);
