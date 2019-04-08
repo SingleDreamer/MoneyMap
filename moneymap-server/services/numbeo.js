@@ -1,10 +1,24 @@
 const NumbeoService = {};
 
-const baseUrl = "https://numbeo.com:8080/api";
+const baseUrl = "https://numbeo.com/api";
 const key = "mig78v3toapc2s";
 
-NumbeoService.getCityData = async (cityName) => {
+const request = require('request-promise');
 
+NumbeoService.getCityData = async () => {
+  return await request(constructApiUrl("/cities"));
 };
+
+NumbeoService.getItemData = async () => {
+  return await request(constructApiUrl("/price_items"));
+};
+
+NumbeoService.getItemPriceData = async (cityid) => {
+  return await request(constructApiUrl("/city_prices") + "&city_id=" + cityid);
+};
+
+function constructApiUrl(url) {
+  return baseUrl + url + "?api_key=" + key;
+}
 
 module.exports = NumbeoService;

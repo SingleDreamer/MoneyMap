@@ -4,13 +4,16 @@ var db = require("../services/db")
 
 const UserService = {};
 
-const privateKey = "atestprivatekey";
+const AuthService = require('../services/auth');
 
-UserService.create = async (username, password) => {
+UserService.create = async (username, password, fname, lname, size) => {
   const request = new sql.Request(db);
 
   request.input('username', sql.Text, username);
   request.input('password', sql.Text, password);
+  request.input('fname', sql.Text, fname);
+  request.input('lname', sql.Text, password);
+  request.input('size', sql.Float, size);
 
   let result = await request.execute('sp_create_user');
 
@@ -44,20 +47,21 @@ UserService.get = async (username, password) => {
   } else {
     payload = {
       status: "success",
-      uid: result.recordset[0].UID
+      token: result.recordset[0].AuthToken
     };
   }
 
-  return {
-    token: jwt.sign(payload, privateKey)
-  };
+  return payload;
 }
 
-UserService.update = async (id, email, size, cardid) => {
+UserService.update = async (id, email, fname, lname, size, cardid, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
   request.input('email', sql.Text, password);
+  request.input('fname', sql.Text, fname);
+  request.input('lname', sql.Text, lname);
   request.input('size', sql.Float, password);
+  request.input('token', sql.UniqueIdentifier, token);
   if(cardid != null) {
     request.input('cardid', sql.UniqueIdentifier, password);
   }
@@ -67,9 +71,10 @@ UserService.update = async (id, email, size, cardid) => {
   return result;
 }
 
-UserService.getJOCs = async (id) => {
+UserService.getJOCs = async (id, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
+  request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_get_jocs');
   var output = {

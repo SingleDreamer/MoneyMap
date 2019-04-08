@@ -3,11 +3,12 @@ var db = require("../services/db")
 
 const JOCService = {};
 
-JOCService.create = async (uid, name, cityid, image) => {
+JOCService.create = async (uid, name, cityid, image, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, uid);
   request.input('name', sql.VarChar, name);
   request.input('cityid', sql.Int, cityid);
+  request.input('token', sql.UniqueIdentifier, token);
   if(image != null) {
     request.input('image', sql.VarChar, image);
   }
@@ -17,16 +18,17 @@ JOCService.create = async (uid, name, cityid, image) => {
   return result.recordset[0];
 };
 
-JOCService.delete = async (id) => {
+JOCService.delete = async (id, token) => {
   const request = new sql.Request(db);
-  request.input('cardid', sql.UniqueIdentifier, id);
+  request.input('cardid', sql.Int, id);
+  request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_delete_joc');
 
-  return result.recordset[0];
+  return result;
 };
 
-JOCService.addComponent = async (id, ctypid, cdesc, camt) => {
+JOCService.addComponent = async (id, ctypid, cdesc, camt, token) => {
   const request = new sql.Request(db);
   request.input('jocid', sql.Int, id);
   request.input('ctypeid', sql.Int, ctypid);
@@ -34,6 +36,7 @@ JOCService.addComponent = async (id, ctypid, cdesc, camt) => {
   if(cdesc != null) {
     request.input('cdesc', sql.VarChar, cdesc);
   }
+  request.input('token', sql.UniqueIdentifier, token);
   let result = await request.execute('sp_add_joc_component');
   const request2 = new sql.Request(db);
   request2.input('CardID', sql.Int, id);
@@ -41,16 +44,18 @@ JOCService.addComponent = async (id, ctypid, cdesc, camt) => {
   return result;
 };
 
-JOCService.getComponents = async (id) => {
+JOCService.getComponents = async (id, token) => {
   const request = new sql.Request(db);
   request.input('jocid', sql.Int, id);
+  request.input('token', sql.UniqueIdentifier, token);
   let result = await request.execute('sp_get_components');
 
   return result;
 };
 
-JOCService.getComponentTypes = async (id) => {
+JOCService.getComponentTypes = async (id, token) => {
   const request = new sql.Request(db);
+  request.input('token', sql.UniqueIdentifier, token);
   let result = await request.execute('sp_get_componenttypes');
 
   return result;
