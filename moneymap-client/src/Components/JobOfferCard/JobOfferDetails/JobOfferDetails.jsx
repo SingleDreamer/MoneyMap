@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Form, Button, Col } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import Select from "react-select";
 import "../JobOfferCard.css";
+import axios from "axios";
 
 class JobOfferDetails extends Component {
   constructor(props) {
@@ -16,6 +17,33 @@ class JobOfferDetails extends Component {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
   };
+
+  componentDidMount() {
+    axios
+      .get("/cities")
+      .then(response => {
+        // handle success
+        let temp = response.data.recordset;
+        //Had to filter it because if allowed all cities app will crash
+        let citiesObjects = temp.filter(
+          city => city.Country === "United States"
+        );
+        //This is for the form to be able to render the city
+        cities = citiesObjects.map(city => {
+          return {
+            value: city.CityID,
+            label: city.City + ", " + city.Country,
+            latitude: city.Latitude,
+            longitude: city.Longitude
+          };
+        });
+        console.log(cities);
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
+  }
 
   render() {
     const { selectedOption } = this.state;
@@ -42,10 +70,10 @@ class JobOfferDetails extends Component {
 
           <Select
             isClearable //handle this; breaks
-            defaultValue={selectedOption.value || ""}
             onChange={this.handleCityChange}
             options={cities}
           />
+
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
             Please enter a city name.
@@ -117,24 +145,6 @@ class JobOfferDetails extends Component {
   };
 }
 
-const cities = [
-  {
-    value: "NYC",
-    label: "NYC"
-  },
-  {
-    value: "NC",
-    label: "NC"
-  },
-  {
-    value: "NCR",
-    label: "NCR"
-  },
-  {
-    value: "NOO",
-    label: "NOO"
-  },
-  { value: "NCA", label: "NCA" }
-];
+let cities = [];
 
 export default JobOfferDetails;

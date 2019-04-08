@@ -7,9 +7,10 @@ export default class AuthService {
     this.forgotpw = this.baseurl + "/auth/forgot-password";
     this.resetpw = this.baseurl + "/auth/change-password";
     this.register = this.baseurl + "/auth/register";
+
     this.fetch = this.fetch.bind(this);
     this.login = this.login.bind(this);
-    this.register = this.register.bind(this);
+    //this.register = this.register.bind(this);
     this.getProfile = this.getProfile.bind(this);
   }
 
