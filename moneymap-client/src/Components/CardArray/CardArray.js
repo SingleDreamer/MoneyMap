@@ -116,6 +116,12 @@ class CardArray extends Component {
 
     return (
       <div>
+        {/* <img src="https://logo.clearbit.com/google.com" />
+        <img src="https://logo.clearbit.com/facebook.com" />
+        <img src="https://logo.clearbit.com/www.microsoft.com/" />
+        <img src="https://logo.clearbit.com/apple.com" />
+        <img src="https://logo.clearbit.com/uber.com" />
+        <img src="https://logo.clearbit.com/amazon.com" /> */}
         <div className="array">{cards}</div>
         <Modal
           show={this.state.show}

@@ -8,7 +8,8 @@ class JobOfferDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: { value: "", label: "" } //map this to the cityid in the database and pass over to joc
+      selectedOption: { value: "", label: "" }, //map this to the cityid in the database and pass over to joc
+      countries: []
     };
     this.handleCityChange = this.handleCityChange.bind(this);
   }
@@ -17,7 +18,14 @@ class JobOfferDetails extends Component {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
   };
-
+  handleCountryChange = selectedOption => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+    this.setState({
+      selectedCountry: selectedOption.value
+    });
+    this.selectCity(selectedOption.value);
+  };
   componentDidMount() {
     axios
       .get("/cities")
@@ -25,9 +33,30 @@ class JobOfferDetails extends Component {
         // handle success
         let temp = response.data.recordset;
         //Had to filter it because if allowed all cities app will crash
-        let citiesObjects = temp.filter(
-          city => city.Country === "United States"
-        );
+        let citiesObjects = temp.filter(city => city.Country);
+        //This is for the form to be able to render the city
+        let countries = citiesObjects.map(city => city.Country);
+        let uniqCountries = [...new Set(countries)];
+        let final = uniqCountries.map(country => {
+          return { label: country, value: country };
+        });
+        console.log(final);
+        this.setState({ countries: final });
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
+  }
+
+  selectCity = country => {
+    axios
+      .get("/cities")
+      .then(response => {
+        // handle success
+        let temp = response.data.recordset;
+        //Had to filter it because if allowed all cities app will crash
+        let citiesObjects = temp.filter(city => city.Country === country);
         //This is for the form to be able to render the city
         cities = citiesObjects.map(city => {
           return {
@@ -38,12 +67,13 @@ class JobOfferDetails extends Component {
           };
         });
         console.log(cities);
+        this.setState({ state: this.state });
       })
       .catch(error => {
         // handle error
         console.log(error);
       });
-  }
+  };
 
   render() {
     const { selectedOption } = this.state;
@@ -52,7 +82,7 @@ class JobOfferDetails extends Component {
     return (
       <div>
         <Form.Group controlId="name">
-          <Form.Label className="required">Job name</Form.Label>
+          <Form.Label className="required">Company name</Form.Label>
           <Form.Control
             required
             type="text"
@@ -63,6 +93,20 @@ class JobOfferDetails extends Component {
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
             Please enter a job name.
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group controlId="country">
+          <Form.Label className="required">Country</Form.Label>
+
+          <Select
+            //isClearable still breaks
+            onChange={this.handleCountryChange}
+            options={this.state.countries}
+          />
+
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            Please enter a Country
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="city">
@@ -145,6 +189,6 @@ class JobOfferDetails extends Component {
   };
 }
 
-let cities = [];
+let cities = [{ label: "Please Select A Country" }];
 
 export default JobOfferDetails;
