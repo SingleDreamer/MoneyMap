@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "@material/react-drawer/dist/drawer.css";
 import Drawer, { DrawerSubtitle } from "@material/react-drawer";
+import Navbar from "react-bootstrap/Navbar";
 
 class Sidebar extends Component {
   constructor(props, context) {
@@ -36,6 +37,13 @@ class Sidebar extends Component {
   render() {
     return (
       <div>
+        <Navbar bg="dark" variant="dark">
+          <i
+            class="fas fa-bars"
+            onClick={() => this.setState({ open: !this.state.open })}
+          />
+          <div className="title">Money Map</div>
+        </Navbar>
         <Drawer
           dismissible={false}
           modal
@@ -81,13 +89,6 @@ class Sidebar extends Component {
             </Link>
           </div>
         </Drawer>
-
-        <span className="icon">
-          <i
-            className="fas fa-chevron-circle-right"
-            onClick={() => this.setState({ open: !this.state.open })}
-          />
-        </span>
       </div>
     );
   }
