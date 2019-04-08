@@ -24,7 +24,11 @@ class JobOfferDetails2 extends Component {
         </Form.Group>
 
         <Form.Group controlId="Consumable Costs">
-          <Form.Label className="required"> Consumable Costs</Form.Label>
+          <Form.Label className="required">
+            {" "}
+           
+            Consumable Costs
+          </Form.Label>
           <Form.Control
             type="text"
             placeholder="Consumable Costs"

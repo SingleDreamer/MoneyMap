@@ -29,7 +29,7 @@ CityService.get = async (name) => {
 
 CityService.getCityIds = async (type) => {
   const request = new sql.Request(db);
-  request.input('type', sql.Bit, type);
+  request.input('type', sql.Int, type);
 
   let result = await request.execute('sp_get_city_ids');
 
@@ -38,6 +38,8 @@ CityService.getCityIds = async (type) => {
 
 CityService.getPrices = async (cityid) => {
   return 1;
+	
+
 }
 
 CityService.getAverages = async (id, uid, token) => {
