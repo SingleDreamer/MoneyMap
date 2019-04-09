@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Register from "./Register/Register";
 import LoginDetails from "./Login/LoginDetails";
+import AuthService from "../Components/AuthService/AuthService";
 import "./Home.css";
 
 class Home extends Component {
@@ -14,6 +15,7 @@ class Home extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleShowLogin = this.handleShowLogin.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.Auth = new AuthService();
   }
   render() {
     return (
@@ -79,6 +81,9 @@ class Home extends Component {
     });
   }
   componentWillMount = () => {
+    if (this.Auth.loggedIn()) {
+      this.props.history.replace("/dashboard");
+    }
     document.body.classList.add("HomeBg");
   };
 
