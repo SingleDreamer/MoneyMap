@@ -67,12 +67,11 @@ class LoginDetails extends Component {
       });
   }
 
-  componentWillMount = () => {
-    if (this.Auth.loggedIn()) {
-      this.props.history.replace("/dashboard");
-    }
-    document.body.classList.add("LoginBg");
-  };
+  // componentWillMount = () => {
+  //   if (this.Auth.loggedIn()) {
+  //     this.props.history.replace("/dashboard");
+  //   }
+  // };
 }
 
 export default LoginDetails;
