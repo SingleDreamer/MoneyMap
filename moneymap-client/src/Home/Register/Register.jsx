@@ -40,6 +40,8 @@ class Register extends Component {
         // />
         <Redirect to="/dashboard" />
       );
+    } else {
+      console.log("Registered: ", this.state.submit);
     }
 
     return (
@@ -84,7 +86,8 @@ class Register extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     console.log("Registration details: ", this.state.userInfo);
-    let url = "/";
+    let url =
+      "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/";
     let config = {
       headers: {
         "Content-Type": "application/json"
@@ -103,7 +106,7 @@ class Register extends Component {
       //        Username: ${username} \n
       //        Password: ${password}`);
     } catch (err) {
-      console.log(err.response);
+      console.log("Frontend error: ", err.response);
       this.setState({ hasError: true });
     }
   }
