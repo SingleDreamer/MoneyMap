@@ -4,7 +4,7 @@ import { Form, Col, Button } from "react-bootstrap";
 class UserDetails extends Component {
   render() {
     return (
-      <Form>
+      <Form onSubmit={e => this.props.handleSubmit(e)}>
         <Form.Row>
           <Col>
             <Form.Group controlId="fname">
@@ -71,7 +71,12 @@ class UserDetails extends Component {
           <Col>
             <Form.Group controlId="formBasicPassword">
               <Form.Label className="required">Password</Form.Label>
-              <Form.Control required type="password" placeholder="Password" />
+              <Form.Control
+                required
+                type="password"
+                placeholder="Password"
+                onChange={this.props.handleChange("password")}
+              />
             </Form.Group>
           </Col>
           <Col>
@@ -81,6 +86,7 @@ class UserDetails extends Component {
                 required
                 type="password"
                 placeholder="Re-enter Password"
+                onChange={this.props.handleChange("reenterPass")}
               />
             </Form.Group>
           </Col>
@@ -94,7 +100,7 @@ class UserDetails extends Component {
           />
           <a href="privacy">Privacy policy</a>
         </Form.Group>
-        <Button variant="primary" onSubmit={e => this.props.handleSubmit(e)}>
+        <Button variant="primary" type="submit">
           Submit
         </Button>
       </Form>
