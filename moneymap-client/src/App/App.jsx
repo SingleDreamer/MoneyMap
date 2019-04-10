@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Home from "../Home/Home.jsx";
 import Dashboard from "../Dashboard/Dashboard.jsx";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import withAuth from "../Components/AuthService/WithAuth.js";
+//import withAuth from "../Components/AuthService/WithAuth.js";
 class App extends Component {
   render() {
     return (

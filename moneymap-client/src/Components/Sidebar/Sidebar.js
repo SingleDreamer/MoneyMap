@@ -34,12 +34,16 @@ class Sidebar extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+  clearSession = () => {
+    console.log("cleared");
+    sessionStorage.clear();
+  };
   render() {
     return (
       <div>
         <Navbar bg="dark" variant="dark">
           <i
-            class="fas fa-bars"
+            className="fas fa-bars navIcon"
             onClick={() => this.setState({ open: !this.state.open })}
           />
           <div className="title">Money Map</div>
@@ -85,7 +89,9 @@ class Sidebar extends Component {
             <div className="content">{`$${this.state.userInfo.savings}`}</div>
             <br />
             <Link to="/">
-              <Button variant="danger">Log Out</Button>
+              <Button variant="danger" onClick={this.clearSession}>
+                Log Out
+              </Button>
             </Link>
           </div>
         </Drawer>

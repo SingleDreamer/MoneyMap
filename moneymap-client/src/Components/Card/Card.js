@@ -9,16 +9,15 @@ import {
 } from "react-bootstrap";
 import "./Card.css";
 import Chart from "react-apexcharts";
-// import axios from "axios";
 import Charts from "./AnalysisCharts.js";
 import axios from "axios";
+import AuthService from "../AuthService/AuthService";
 
 const popover = (
   <Popover id="popover-basic" title="Analysis">
     Click on the score to see a detailed breakdown
   </Popover>
 );
-
 
 class CardArray extends Component {
   constructor(props, context) {
@@ -27,14 +26,14 @@ class CardArray extends Component {
       show: false,
       jobOfferCardID: 0,
       jocDetails: {
-        UID: 1,
+        UID: 3023,
         JOCName: "",
-        CityID: 1,
+        CityID: 3023,
         CardImageSrc: ""
       },
 
       optionsRadial: {
-        colors:["#111111"],
+        colors: ["#111111"],
         plotOptions: {
           radialBar: {
             dataLabels: {
@@ -58,70 +57,75 @@ class CardArray extends Component {
         },
         labels: ["RFS"]
       }
-
     };
+    this.Auth = new AuthService();
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
 
   test = rfs => {
     let optionsRadial = {
-          colors:["#000000"],
-          plotOptions: {
-            radialBar: {
-              startAngle:0,
-              endAngle: 360,
-              dataLabels: {
-                name: {
-                  offsetY: -50,
-                  show: false,
-                  color: "#888",
-                  fontSize: "15px"
-                },
-                value: {
-                  formatter: function(val) {
-                    return val;
-                  },
-                  offsetY: 5,
-                  color: "#111",
-                  fontSize: "20px",
-                  show: true
-                }
-              }
+      colors: ["#000000"],
+      plotOptions: {
+        radialBar: {
+          startAngle: 0,
+          endAngle: 360,
+          dataLabels: {
+            name: {
+              offsetY: -50,
+              show: false,
+              color: "#888",
+              fontSize: "15px"
+            },
+            value: {
+              formatter: function(val) {
+                return val;
+              },
+              offsetY: 5,
+              color: "#111",
+              fontSize: "20px",
+              show: true
             }
-          },
-          labels: ["RFS"]
-    }
-    if (rfs >= 50){
+          }
+        }
+      },
+      labels: ["RFS"]
+    };
+    if (rfs >= 50) {
       optionsRadial.colors = ["#35ff53"];
-    }
-    else if (rfs < 50 && rfs >=0) {
+    } else if (rfs < 50 && rfs >= 0) {
       optionsRadial.colors = ["#fcf344"];
-    }
-    else if (rfs < 0 && rfs >=-50) {
-      optionsRadial.plotOptions.radialBar.startAngle = 360*(rfs/100);
+    } else if (rfs < 0 && rfs >= -50) {
+      optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
       optionsRadial.colors = ["#ffa434"];
-    }
-    else {
-      optionsRadial.plotOptions.radialBar.startAngle = 360*(rfs/100);
+    } else {
+      optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
       optionsRadial.colors = ["#f45042"];
     }
-    return (optionsRadial);
-  }
+    return optionsRadial;
+  };
 
   deleteJOC = jocid => {
     console.log(jocid);
-    axios.delete("/joc/" + jocid).catch(error => {
-      // handle error
-      console.log(error);
-    });
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+    axios
+      .delete(
+        "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
+          jocid,
+        config
+      )
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
   };
 
-
   render() {
-
-
-
     return (
       <div>
         <div className={this.props.cardType}>
@@ -138,7 +142,7 @@ class CardArray extends Component {
               >
                 <div className="chart">
                   <Chart
-                    options={this.test(this.props.info.jocrfc)}//{this.state.optionsRadial}
+                    options={this.test(this.props.info.jocrfc)} //{this.state.optionsRadial}
                     series={[Math.ceil(this.props.info.jocrfc)]}
                     type="radialBar"
                     width="100"
@@ -222,20 +226,15 @@ class CardArray extends Component {
     console.log("handleShow");
 
     e.preventDefault();
-    this.setState(
-      {
-        show: true,
-        jocDetails: {
-          UID: 1,
-          JOCName: this.props.info.name,
-          CityID: 1,
-          CardImageSrc: ""
-        }
-      },
-      () => {
-        // return this.sendRequest();
+    this.setState({
+      show: true,
+      jocDetails: {
+        UID: 1,
+        JOCName: this.props.info.name,
+        CityID: 1,
+        CardImageSrc: ""
       }
-    );
+    });
   };
 
   handleClose() {

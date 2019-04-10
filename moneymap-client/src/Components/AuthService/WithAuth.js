@@ -11,9 +11,10 @@ export default function withAuth(AuthComponent) {
       };
     }
 
-    componentWillMount() {
+    componentDidMount() {
+      console.log(Auth.loggedIn());
       if (!Auth.loggedIn()) {
-        this.props.history.replace("/");
+        //this.props.history.replace("/");
       } else {
         try {
           const profile = Auth.getProfile();
