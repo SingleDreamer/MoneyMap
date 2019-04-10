@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import UserDetails from "./UserDetails";
-// import { Form, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import AuthService from "../../Components/AuthService/AuthService";
+import axios from "axios";
 import "../Home.css";
 
 class Register extends Component {
@@ -22,10 +21,8 @@ class Register extends Component {
       submit: false,
       hasError: false
     };
-    this.add = this.add.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.Auth = new AuthService();
   }
 
   render() {
@@ -43,6 +40,8 @@ class Register extends Component {
         // />
         <Redirect to="/dashboard" />
       );
+    } else {
+      // console.log("Registered: ", this.state.submit);
     }
 
     return (
@@ -60,33 +59,56 @@ class Register extends Component {
     );
   }
 
-  add = () => {
-    const { adultFamSize, childFamSize } = this.state;
-    this.setState({
-      size: adultFamSize + childFamSize / 2
-    });
-  };
-
   handleChange = input => event => {
-    this.setState({ [input]: event.target.value });
+    const { adultFamSize, childFamSize } = this.state;
+    if (input === "adultFamSize" || input === "childFamSize") {
+      //fix to update size
+      this.setState({
+        ...this.state,
+        userInfo: {
+          ...this.state.userInfo,
+          size: adultFamSize + childFamSize / 2,
+
+          [input]: event.target.value
+        }
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        userInfo: {
+          ...this.state.userInfo,
+          [input]: event.target.value
+        }
+      });
+    }
   };
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
-    this.add();
     console.log("Registration details: ", this.state.userInfo);
-    this.Auth.register(this.state.userInfo)
-      .then(res => {
+    let url =
+      "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/";
+    let config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    try {
+      let result = await axios.post(url, this.state.userInfo, config);
+      console.log(result.data);
+      if (result.data.success) {
         this.setState({ submit: true });
-        // const {username, password } = this.state;
-        // alert(`Your registration detail: \n
-        //     Username: ${username} \n
-        //     Password: ${password}`);
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({ hasError: true });
-      });
+        alert("Successful reg");
+      }
+      // const { username, password } = this.state;
+      // alert(`Your registration detail: \n
+      //        Username: ${username} \n
+      //        Password: ${password}`);
+    } catch (err) {
+      console.log("Frontend error: ", err.response);
+      this.setState({ hasError: true });
+    }
   }
 }
 

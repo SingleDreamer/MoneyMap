@@ -59,6 +59,7 @@ class LoginDetails extends Component {
     e.preventDefault();
     this.Auth.login(this.state.email, this.state.password)
       .then(res => {
+        console.log("login: ", res);
         this.props.history.replace("/dashboard");
       })
       .catch(err => {
@@ -67,12 +68,11 @@ class LoginDetails extends Component {
       });
   }
 
-  componentWillMount = () => {
-    if (this.Auth.loggedIn()) {
-      this.props.history.replace("/dashboard");
-    }
-    document.body.classList.add("LoginBg");
-  };
+  // componentWillMount = () => {
+  //   if (this.Auth.loggedIn()) {
+  //     this.props.history.replace("/dashboard");
+  //   }
+  // };
 }
 
 export default LoginDetails;

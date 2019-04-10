@@ -6,15 +6,12 @@ export default class AuthService {
     this.domain = domain || this.baseurl + "/validate"; //this.baseurl = /users
     this.forgotpw = this.baseurl + "/auth/forgot-password"; //not active yet
     this.resetpw = this.baseurl + "/auth/change-password"; //not active yet
-    this.register = this.baseurl + "/";
     this.fetch = this.fetch.bind(this);
     this.login = this.login.bind(this);
-    // this.register = this.register.bind(this);
     this.getProfile = this.getProfile.bind(this);
   }
 
   async login(email, password) {
-    // Get a token from api server using the fetch api
     let payload = {
       email: email,
       password: password
@@ -71,31 +68,6 @@ export default class AuthService {
     } catch (err) {
       console.log(err.response);
       alert(err.response.data.message);
-    }
-  }
-
-  async register(userDetails) {
-    let body = [];
-    for (var key in userDetails) {
-      body.push(userDetails[key]);
-    }
-    console.log("registration details: ", body);
-    let payload = {
-      body
-    };
-
-    let config = {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-
-    try {
-      let response = await axios.post(this.register, payload, config);
-      console.log(response.data);
-      if (response.data.success) alert("Successful reg");
-    } catch (err) {
-      console.log(err.response);
     }
   }
 
