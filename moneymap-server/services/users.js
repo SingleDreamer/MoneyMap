@@ -9,10 +9,10 @@ const AuthService = require('../services/auth');
 UserService.create = async (username, password, fname, lname, size) => {
   const request = new sql.Request(db);
 
-  request.input('username', sql.Text, username);
-  request.input('password', sql.Text, password);
-  request.input('fname', sql.Text, fname);
-  request.input('lname', sql.Text, password);
+  request.input('username', sql.VarChar, username);
+  request.input('password', sql.VarChar, password);
+  request.input('fname', sql.VarChar, fname);
+  request.input('lname', sql.VarChar, lname);
   request.input('size', sql.Float, size);
 
   let result = await request.execute('sp_create_user');
