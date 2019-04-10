@@ -31,8 +31,8 @@ UserService.create = async (username, password, fname, lname, size) => {
 
 UserService.get = async (username, password) => {
   const request = new sql.Request(db);
-  request.input('username', sql.Text, username);
-  request.input('password', sql.Text, password);
+  request.input('username', sql.VarChar, username);
+  request.input('password', sql.VarChar, password);
 
   let result = await request.execute('sp_validate_user');
 
