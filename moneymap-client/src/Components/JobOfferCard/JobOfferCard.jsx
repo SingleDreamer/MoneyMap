@@ -10,7 +10,7 @@ class JobOfferCard extends Component {
     super(props);
     this.state = {
       step: 1,
-      uid: "11111111-1111-1111-1111-111111111111",
+      uid: sessionStorage.getItem("user"),
       name: "",
       cityid: 1,
       image: "",
@@ -58,6 +58,7 @@ class JobOfferCard extends Component {
           <JobOfferDetails
             nextStep={this.nextStep}
             handleChange={this.handleChange}
+            handleCitySelection={this.handleCitySelection}
             values={values}
           />
         );
@@ -86,6 +87,11 @@ class JobOfferCard extends Component {
     const { step } = this.state;
     this.setState({
       step: step - 1
+    });
+  };
+  handleCitySelection = cityid => {
+    this.setState({
+      cityid: cityid
     });
   };
 
@@ -145,8 +151,8 @@ class JobOfferCard extends Component {
   };
 
   sendRequest() {
-    let url = "/joc";
-    // "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc";
+    let url =
+      "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc";
 
     let config = {
       headers: {
@@ -154,6 +160,8 @@ class JobOfferCard extends Component {
         "Content-Type": "application/json"
       }
     };
+    console.log("CONFIG");
+    console.log(config.headers.authorization);
     const { uid, name, cityid, image, Components } = this.state;
     let payload1 = { uid, name, cityid, image };
 
@@ -169,12 +177,12 @@ class JobOfferCard extends Component {
 
         .then(response => {
           // console.log(".then() payload1: ", payload1);
-
+          console.log("Response: ", response.data);
           //something something response something
-          let url2 = "/joc/" + response.data.JobOfferCardID;
-          // "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc" +
-          // response.data.JobOfferCardID;
-          console.log("Response: ", response.data.JobOfferCardID);
+          let url2 =
+            "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
+            response.data.JobOfferCardID;
+          console.log("Response: ", response.data);
           const body2 = body.map(component => {
             return { ...component, JobOfferCardID: response.data };
           });

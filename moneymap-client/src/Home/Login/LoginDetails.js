@@ -26,6 +26,8 @@ class LoginDetails extends Component {
           <Form.Control
             type="email"
             placeholder="Email"
+            name="email"
+            value={this.state.email}
             onChange={e => this.handleChange(e)}
           />
         </Form.Group>
@@ -34,6 +36,8 @@ class LoginDetails extends Component {
           <Form.Control
             type="password"
             placeholder="Password"
+            name="password"
+            value={this.state.password}
             onChange={e => this.handleChange(e)}
           />
         </Form.Group>
@@ -41,7 +45,11 @@ class LoginDetails extends Component {
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
         <Link to="/Dashboard">
-          <Button variant="primary" type="submit">
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={() => this.handleSubmit()}
+          >
             Login
           </Button>
         </Link>
@@ -55,17 +63,11 @@ class LoginDetails extends Component {
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.Auth.login(this.state.email, this.state.password)
-      .then(res => {
-        console.log("login: ", res);
-        this.props.history.replace("/dashboard");
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({ hasError: true });
-      });
+  handleSubmit() {
+    this.Auth.login(this.state.email, this.state.password).catch(err => {
+      console.log(err);
+      this.setState({ hasError: true });
+    });
   }
 
   // componentWillMount = () => {

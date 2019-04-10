@@ -6,6 +6,8 @@ import { Modal, Button } from "react-bootstrap";
 import DashboardMap from "../Components/DashboardMap/DashboardMap.js";
 import "./Dashboard.css";
 import axios from "axios";
+import AuthService from "../Components/AuthService/AuthService";
+
 var perks = require("./test.json");
 
 class Dashboard extends Component {
@@ -17,17 +19,30 @@ class Dashboard extends Component {
       show: false,
       companies: []
     };
+    this.Auth = new AuthService();
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     // this.profileSubmit = this.profileSubmit.bind(this);
   }
 
   componentDidMount() {
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
     //getting the cards each time the component renders
     axios
-      .get("/users/11111111-1111-1111-1111-111111111111/jocs")
+      .get(
+        `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
+          "user"
+        )}/jocs`,
+        config
+      )
       .then(response => {
         // handle success
+        console.log(response);
         let jocs = response.data.result;
         jocs.forEach(company => {
           company.selected = false;

@@ -17,6 +17,7 @@ class JobOfferDetails extends Component {
   handleCityChange = selectedOption => {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
+    this.props.handleCitySelection(selectedOption.value);
   };
   handleCountryChange = selectedOption => {
     this.setState({ selectedOption });
@@ -28,7 +29,9 @@ class JobOfferDetails extends Component {
   };
   componentDidMount() {
     axios
-      .get("/cities")
+      .get(
+        "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/cities"
+      )
       .then(response => {
         // handle success
         let temp = response.data.recordset;
@@ -51,7 +54,9 @@ class JobOfferDetails extends Component {
 
   selectCity = country => {
     axios
-      .get("/cities")
+      .get(
+        "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/cities"
+      )
       .then(response => {
         // handle success
         let temp = response.data.recordset;

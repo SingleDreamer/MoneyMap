@@ -15,8 +15,8 @@ class Register extends Component {
         password: "",
         reenterPass: "",
         adultFamSize: 0,
-        childFamSize: 0.0,
-        size: 0.0 //float, change to adults + children and make children .5 person
+        childFamSize: 0.0
+        // size: 0.0 //float, change to adults + children and make children .5 person
       },
       submit: false,
       hasError: false
@@ -67,7 +67,7 @@ class Register extends Component {
         ...this.state,
         userInfo: {
           ...this.state.userInfo,
-          size: adultFamSize + childFamSize / 2,
+          size: Number(Number(adultFamSize) + Number(childFamSize) / 2),
 
           [input]: event.target.value
         }
@@ -86,6 +86,26 @@ class Register extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     console.log("Registration details: ", this.state.userInfo);
+
+    this.setState({
+      userInfo: {
+        ...this.state.userInfo,
+        adultFamSize: Number(this.state.adultFamSize),
+        childFamSize: Number(this.state.childFamSize),
+        size: Number(this.state.size)
+      }
+    });
+    let userInfo = this.state.userInfo;
+    console.log("Registration details: ", this.state.userInfo);
+
+    console.log(userInfo);
+    userInfo.adultFamSize = Number(userInfo.adultFamSize);
+    userInfo.childFamSize = 0;
+    userInfo.size = Number(userInfo.adultFamSize);
+    console.log("new");
+
+    console.log(userInfo);
+
     let url =
       "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/";
     let config = {
@@ -95,7 +115,7 @@ class Register extends Component {
     };
 
     try {
-      let result = await axios.post(url, this.state.userInfo, config);
+      let result = await axios.post(url, userInfo, config);
       console.log(result.data);
       if (result.data.success) {
         this.setState({ submit: true });

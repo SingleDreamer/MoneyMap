@@ -12,8 +12,9 @@ export default class AuthService {
   }
 
   async login(email, password) {
+    console.log("login " + email + password);
     let payload = {
-      email: email,
+      username: email,
       password: password
     };
 
@@ -24,9 +25,20 @@ export default class AuthService {
     };
 
     try {
-      let response = await axios.post(this.domain, payload, config);
-      console.log(response.data.token);
-      this.setToken(response.data.token);
+      console.log("...");
+      console.log(payload);
+      axios
+        .post(
+          "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/validate",
+          payload,
+          config
+        )
+        .then(response => {
+          console.log("...");
+          console.log(response.data);
+          this.setToken(response.data.token);
+          this.setUser(response.data.UID);
+        });
     } catch (err) {
       console.log(err.response);
       alert(err.response.data.message);
@@ -74,7 +86,7 @@ export default class AuthService {
   loggedIn() {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken(); // Getting token from localstorage
-    return !!token && !this.isTokenExpired(token); // handwaiving here
+    return !!token; //&& !this.isTokenExpired(token); // handwaiving here
   }
 
   isTokenExpired(token) {
@@ -91,17 +103,26 @@ export default class AuthService {
 
   setToken(idToken) {
     // Saves user token to localStorage
-    localStorage.setItem("id_token", idToken);
+    sessionStorage.setItem("id_token", idToken);
+  }
+  setUser(uid) {
+    // Saves user token to localStorage
+    sessionStorage.setItem("user", uid);
   }
 
   getToken() {
     // Retrieves the user token from localStorage
-    return localStorage.getItem("id_token");
+    return sessionStorage.getItem("id_token");
+  }
+  getUser() {
+    // Retrieves the user token from localStorage
+    return sessionStorage.getItem("user");
   }
 
   logout() {
     // Clear user token and profile data from localStorage
-    localStorage.removeItem("id_token");
+    sessionStorage.removeItem("id_token");
+    sessionStorage.removeItem("user");
   }
 
   getProfile() {
