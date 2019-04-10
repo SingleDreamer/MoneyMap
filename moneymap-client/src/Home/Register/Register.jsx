@@ -41,7 +41,7 @@ class Register extends Component {
         <Redirect to="/dashboard" />
       );
     } else {
-      console.log("Registered: ", this.state.submit);
+      // console.log("Registered: ", this.state.submit);
     }
 
     return (

@@ -3,7 +3,7 @@ import CardArray from "../Components/CardArray/CardArray.js";
 import Sidebar from "../Components/Sidebar/Sidebar.js";
 import { JobOfferCard } from "../Components/JobOfferCard";
 import { Modal, Button } from "react-bootstrap";
-import DashboardMap from "../Components/DashboardMap/DashboardMap.js"
+import DashboardMap from "../Components/DashboardMap/DashboardMap.js";
 import "./Dashboard.css";
 import axios from "axios";
 var perks = require("./test.json");

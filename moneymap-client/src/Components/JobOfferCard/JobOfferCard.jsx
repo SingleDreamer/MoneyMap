@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import JobOfferDetails from "./JobOfferDetails/JobOfferDetails";
 import JobOfferDetails2 from "./JobOfferDetails/JobOfferDetails2";
 import { Form } from "react-bootstrap";
+import AuthService from "../AuthService/AuthService";
 import axios from "axios";
 
 class JobOfferCard extends Component {
@@ -17,7 +18,7 @@ class JobOfferCard extends Component {
       submit: false,
       error: null
     };
-
+    this.Auth = new AuthService();
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -149,7 +150,7 @@ class JobOfferCard extends Component {
 
     let config = {
       headers: {
-        // Authorization: this.Auth.getToken(),
+        authorization: this.Auth.getToken(),
         "Content-Type": "application/json"
       }
     };
