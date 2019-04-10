@@ -59,6 +59,7 @@ class LoginDetails extends Component {
     e.preventDefault();
     this.Auth.login(this.state.email, this.state.password)
       .then(res => {
+        console.log("login: ", res);
         this.props.history.replace("/dashboard");
       })
       .catch(err => {
