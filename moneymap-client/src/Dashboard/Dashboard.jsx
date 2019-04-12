@@ -25,7 +25,7 @@ class Dashboard extends Component {
     // this.profileSubmit = this.profileSubmit.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     let config = {
       headers: {
         authorization: this.Auth.getToken(),

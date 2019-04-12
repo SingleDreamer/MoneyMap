@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Home from "../Home/Home.jsx";
 import Dashboard from "../Dashboard/Dashboard.jsx";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-//import withAuth from "../Components/AuthService/WithAuth.js";
+import withAuth from "../Components/AuthService/WithAuth.js";
 class App extends Component {
   render() {
     return (
@@ -10,8 +10,8 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/dashboard" component={Dashboard} />
-            {/* <Route exact path="/dashboard" component={withAuth(Dashboard)} /> */}
+            {/* <Route exact path="/dashboard" component={Dashboard} /> */}
+            <Route exact path="/dashboard" component={withAuth(Dashboard)} />
           </Switch>
         </Router>
       </div>

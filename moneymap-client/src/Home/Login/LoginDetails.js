@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "../Home.css";
 import { Form, Button } from "react-bootstrap";
 import AuthService from "../../Components/AuthService/AuthService";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+
 class LoginDetails extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +20,7 @@ class LoginDetails extends Component {
 
   render() {
     return (
-      <Form onSubmit={e => this.handleSubmit(e)}>
+      <Form onSubmit={this.handleSubmit}>
         <p className="required">Required field = </p>
         <Form.Group controlId="email">
           <Form.Label className="required">Email</Form.Label>
@@ -44,15 +45,9 @@ class LoginDetails extends Component {
         <Form.Group controlId="formBasicChecbox">
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
-        <Link to="/Dashboard">
-          <Button
-            variant="primary"
-            type="submit"
-            onClick={() => this.handleSubmit()}
-          >
-            Login
-          </Button>
-        </Link>
+        <Button variant="primary" type="submit">
+          Login
+        </Button>
       </Form>
     );
   }
@@ -63,11 +58,16 @@ class LoginDetails extends Component {
     });
   }
 
-  handleSubmit() {
-    this.Auth.login(this.state.email, this.state.password).catch(err => {
-      console.log(err);
-      this.setState({ hasError: true });
-    });
+  handleSubmit(e) {
+    e.preventDefault();
+    this.Auth.login(this.state.email, this.state.password)
+      .then(res => {
+        this.props.history.replace("/");
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ hasError: true });
+      });
   }
 
   // componentWillMount = () => {
@@ -77,4 +77,4 @@ class LoginDetails extends Component {
   // };
 }
 
-export default LoginDetails;
+export default withRouter(LoginDetails);

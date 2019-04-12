@@ -8,7 +8,7 @@ class JobOfferDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: { value: "", label: "" }, //map this to the cityid in the database and pass over to joc
+      selectedOption: { value: "", label: "" },
       countries: []
     };
     this.handleCityChange = this.handleCityChange.bind(this);
@@ -81,7 +81,7 @@ class JobOfferDetails extends Component {
   };
 
   render() {
-    const { selectedOption } = this.state;
+    // const { selectedOption } = this.state;
     const { values } = this.props;
 
     return (
