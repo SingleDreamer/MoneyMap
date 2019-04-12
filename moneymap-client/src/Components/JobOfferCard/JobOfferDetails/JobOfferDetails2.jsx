@@ -11,8 +11,9 @@ class JobOfferDetails2 extends Component {
         <Form.Group controlId="Mandatory Costs">
           <Form.Label className="required">Mandatory Costs</Form.Label>
           <Form.Control
-            required
-            type="text"
+            type="number"
+            min="0"
+            step="1"
             placeholder="Mandatory Costs"
             onChange={this.props.handleChange(
               "Components",
@@ -24,13 +25,11 @@ class JobOfferDetails2 extends Component {
         </Form.Group>
 
         <Form.Group controlId="Consumable Costs">
-          <Form.Label className="required">
-            {" "}
-           
-            Consumable Costs
-          </Form.Label>
+          <Form.Label className="required">Consumable Costs</Form.Label>
           <Form.Control
-            type="text"
+            type="number"
+            min="0"
+            step="1"
             placeholder="Consumable Costs"
             onChange={this.props.handleChange(
               "Components",
@@ -43,6 +42,8 @@ class JobOfferDetails2 extends Component {
           <Form.Label className="required">Entertainment Expenses</Form.Label>
           <Form.Control
             type="number"
+            min="0"
+            step="1"
             placeholder="Entertainment Expenses"
             onChange={this.props.handleChange(
               "Components",
@@ -55,6 +56,8 @@ class JobOfferDetails2 extends Component {
           <Form.Label className="required">Debt</Form.Label>
           <Form.Control
             type="number"
+            min="0"
+            step="1"
             placeholder="Debt"
             onChange={this.props.handleChange("Components", "Debt", 5)}
           />

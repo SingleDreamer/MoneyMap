@@ -91,6 +91,8 @@ class JobOfferDetails extends Component {
           <Form.Control
             required
             type="text"
+            minLength="1"
+            maxLength="20"
             placeholder="Job name"
             onChange={this.props.handleChange("name")}
             defaultValue={values.name}
@@ -131,8 +133,9 @@ class JobOfferDetails extends Component {
         <Form.Group controlId="income">
           <Form.Label className="required">Income</Form.Label>
           <Form.Control
-            required
             type="number"
+            min="0"
+            step="1"
             placeholder="Income"
             onChange={this.props.handleChange("Components", "Income", 1)}
             // defaultValue={values.Components["Income"].camt || null} //how to reference the object that was just created
@@ -152,45 +155,14 @@ class JobOfferDetails extends Component {
 
   next = e => {
     e.preventDefault();
-    //if (this.checkInput()) {
-    //     let fields = {};
-    //     fields["name"] = "";
-    //     fields["city"] = "";
-    //     fields["income"] = "";
-    //     this.setState({fields:fields});
-    //     alert("Form submitted");
+    // if (e.currentTarget.checkValidity() === false) {
+    //   console.log("Validation false");
+    //   e.stopPropagation();
+    // } else {
+    //   console.log("Validation true");
+    this.props.nextStep();
+    this.setState({ validated: true });
     // }
-    if (e.currentTarget.checkValidity() === false) {
-      console.log("Validation false");
-      e.stopPropagation();
-    } else {
-      console.log("Validation true");
-      this.props.nextStep();
-      this.setState({ validated: true });
-    }
-  };
-
-  checkInput = () => {
-    //   let fields = this.state.fields;
-    let errors = {};
-    //   let formIsValid = true;
-
-    //   if (!fields["name"]) {
-    //     formIsValid = false;
-    //     errors["name"] = "*Please enter your job name.";
-    //   }
-
-    //   if (typeof fields["name"] !== "undefined") {
-    //     if (!fields["name"].match(/^[a-zA-Z ]*$/)) {
-    //       formIsValid = false;
-    //       errors["name"] = "*Please enter alphabet characters only.";
-    //     }
-    //   }
-    this.setState({
-      errors: errors
-    });
-    return true;
-    //   return formIsValid;
   };
 }
 

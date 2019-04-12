@@ -25,6 +25,7 @@ class LoginDetails extends Component {
         <Form.Group controlId="email">
           <Form.Label className="required">Email</Form.Label>
           <Form.Control
+            required
             type="email"
             placeholder="Email"
             name="email"
@@ -35,6 +36,7 @@ class LoginDetails extends Component {
         <Form.Group controlId="formBasicPassword">
           <Form.Label className="required">Password</Form.Label>
           <Form.Control
+            required
             type="password"
             placeholder="Password"
             name="password"

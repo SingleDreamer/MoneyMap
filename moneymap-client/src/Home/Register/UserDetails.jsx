@@ -11,6 +11,8 @@ class UserDetails extends Component {
               <Form.Label className="required">First name</Form.Label>
               <Form.Control
                 required
+                minLength="1"
+                maxLength="20"
                 type="text"
                 placeholder="First name"
                 onChange={this.props.handleChange("fname")}
@@ -22,6 +24,8 @@ class UserDetails extends Component {
               <Form.Label className="required">Last name</Form.Label>
               <Form.Control
                 required
+                minLength="1"
+                maxLength="20"
                 type="text"
                 placeholder="Last name"
                 onChange={this.props.handleChange("lname")}
@@ -35,6 +39,7 @@ class UserDetails extends Component {
               <Form.Label className="required">Email</Form.Label>
               <Form.Control
                 required
+                minLength="3"
                 type="email"
                 placeholder="Email"
                 onChange={this.props.handleChange("username")}
@@ -49,6 +54,9 @@ class UserDetails extends Component {
               <Form.Control
                 type="number"
                 required
+                min="1"
+                max="10"
+                step="1"
                 placeholder="Adults in family"
                 onChange={this.props.handleChange("adultFamSize")}
               />
@@ -60,6 +68,9 @@ class UserDetails extends Component {
               <Form.Control
                 type="number"
                 required
+                min="0"
+                max="10"
+                step="1"
                 placeholder="Children in family"
                 onChange={this.props.handleChange("childFamSize")}
               />
@@ -73,8 +84,11 @@ class UserDetails extends Component {
               <Form.Label className="required">Password</Form.Label>
               <Form.Control
                 required
+                minLength="4"
+                maxLength="15"
                 type="password"
                 placeholder="Password"
+                onInput={this.checkPass}
                 onChange={this.props.handleChange("password")}
               />
             </Form.Group>
@@ -84,8 +98,11 @@ class UserDetails extends Component {
               <Form.Label className="required">Re-enter Password</Form.Label>
               <Form.Control
                 required
+                minLength="4"
+                maxLength="15"
                 type="password"
                 placeholder="Re-enter Password"
+                onInput={this.checkPass}
                 onChange={this.props.handleChange("reenterPass")}
               />
             </Form.Group>
@@ -107,21 +124,22 @@ class UserDetails extends Component {
     );
   }
 
-  checkInput = () => {
-    // if (this.props.firstName.length < 5) {
-    //   return false;
-    // }
-    // let inputs = [
-    //   { field: "firstName", errMsg: "Please enter first name" },
-    //   { field: "lastName", errMsg: "Please enter last name" },
-    //   { field: "email", errMsg: "Please enter email" }
-    //   // { field: "password", errMsg: "Please enter password" },
-    //   // { field: "reenterPassword", errMsg: "Please reenter password" }
-    // ];
-    // for (let input of inputs) {
-    //   if (!this.state[input.field]) return input;
-    // }
-    return true;
+  checkPass = () => {
+    var pass = document.getElementById("formBasicPassword");
+    var pass2 = document.getElementById("formBasicPassword2");
+
+    if (
+      pass.validity.valid &&
+      pass.validity.valid &&
+      pass.value !== pass2.value
+    ) {
+      console.log(pass.value, "2: ", pass2.value);
+      pass.setCustomValidity("Passwords do not match.");
+      pass2.setCustomValidity("Passwords do not match.");
+    } else {
+      pass.setCustomValidity("");
+      pass2.setCustomValidity("");
+    }
   };
 }
 

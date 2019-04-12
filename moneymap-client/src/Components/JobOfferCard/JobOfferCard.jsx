@@ -141,11 +141,6 @@ class JobOfferCard extends Component {
       submit: true
     });
     console.log("Components: ", this.state.Components);
-    let validation = this.checkInput();
-    if (validation) {
-      alert("Validation error: ", validation.errMsg);
-      return;
-    }
 
     return this.sendRequest();
   };
@@ -219,22 +214,6 @@ class JobOfferCard extends Component {
       // ${err}`);
     }
   }
-
-  checkInput = () => {
-    //   let inputs = [
-    //     { field: "name", errMsg: "Please enter a name" },
-    //     {
-    //       field: "cityid",
-    //       errMsg: "Please enter location"
-    //     },
-    //     { field: "image", errMsg: "Please enter your image" }
-    //   ];
-    //   for (let input of inputs) {
-    //     if (!this.state[input.field]) console.log("input: ", input);
-    //     return input;
-    //   }
-    //   return null;
-  };
 }
 
 export default JobOfferCard;
