@@ -1,7 +1,7 @@
 .png {
   position: relative;
   width: 65%;
-  background-image: url("home.png");
+  /* background-image: url("home.png"); */
   background-size: cover;
   left: 15vw;
   padding-bottom: calc(100% * 3 / 4);
