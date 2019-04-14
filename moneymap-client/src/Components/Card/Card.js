@@ -11,7 +11,7 @@ import "./Card.css";
 import Chart from "react-apexcharts";
 import Charts from "./AnalysisCharts.js";
 import axios from "axios";
-import AuthService from "../AuthService/AuthService";
+import AuthService from "../../AuthService/AuthService";
 
 const popover = (
   <Popover id="popover-basic" title="Analysis">

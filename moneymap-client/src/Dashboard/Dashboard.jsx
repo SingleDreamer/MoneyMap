@@ -6,7 +6,7 @@ import { Modal, Button } from "react-bootstrap";
 import DashboardMap from "../Components/DashboardMap/DashboardMap.js";
 import "./Dashboard.css";
 import axios from "axios";
-import AuthService from "../Components/AuthService/AuthService";
+import AuthService from "../AuthService/AuthService";
 
 var perks = require("./test.json");
 
@@ -70,7 +70,7 @@ class Dashboard extends Component {
     }
 
     return (
-      <div className="Dashboard">
+      <div className="App">
         {/*Need to tuen this into a component to update depending on the currently logged in user's info */}
         <Sidebar className="Sidebar" />
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}

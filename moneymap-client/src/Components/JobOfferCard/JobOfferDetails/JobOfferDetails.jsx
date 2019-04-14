@@ -81,7 +81,6 @@ class JobOfferDetails extends Component {
   };
 
   render() {
-    const { selectedOption } = this.state;
     const { values } = this.props;
 
     return (

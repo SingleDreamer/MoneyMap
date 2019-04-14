@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../Home.css";
 import { Form, Button } from "react-bootstrap";
-import AuthService from "../../Components/AuthService/AuthService";
+import AuthService from "../../AuthService/AuthService";
 import { Link } from "react-router-dom";
 class LoginDetails extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class LoginDetails extends Component {
         </Form.Group>
         <Link to="/Dashboard">
           <Button
-            variant="primary"
+            id="newPrimary"
             type="submit"
             onClick={() => this.handleSubmit()}
           >

@@ -1,7 +1,7 @@
 /*Need to plan the grid layout better*/
 .Dashboard {
   position: absolute;
-  background-color: #e8eef3;
+  background-color: #ffffff;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -22,7 +22,6 @@
   left: 10vw;
   height: 40vh;
   width: 80vw;
-  background-color: blue;
   color: white;
   font-size: 12vw;
   text-align: center;

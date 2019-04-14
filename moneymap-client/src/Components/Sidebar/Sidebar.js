@@ -38,18 +38,26 @@ class Sidebar extends Component {
     console.log("cleared");
     sessionStorage.clear();
   };
+
   render() {
     return (
       <div>
-        <Navbar bg="dark" variant="dark">
+        <Navbar id="app" className="justify-content-between">
           <i
             className="fas fa-bars navIcon"
-            onClick={() => this.setState({ open: !this.state.open })}
+            onClick={() => this.setState({ open: true })}
           />
           <div className="title">Money Map</div>
+          <div>
+            <Link to="/">
+              <Button variant="danger" onClick={this.clearSession}>
+                Log Out
+              </Button>
+            </Link>
+          </div>
         </Navbar>
-        <Drawer
-          dismissible={false}
+        {/* <Drawer
+          dismissible={true}
           modal
           open={this.state.open}
           onClose={this.handleClose}
@@ -88,13 +96,8 @@ class Sidebar extends Component {
             <DrawerSubtitle>Monthly Savings</DrawerSubtitle>
             <div className="content">{`$${this.state.userInfo.savings}`}</div>
             <br />
-            <Link to="/">
-              <Button variant="danger" onClick={this.clearSession}>
-                Log Out
-              </Button>
-            </Link>
           </div>
-        </Drawer>
+        </Drawer> */}
       </div>
     );
   }
