@@ -91,5 +91,10 @@ class Home extends Component {
       showLogin: false
     });
   };
+  componentWillMount = () => {
+    if (this.Auth.loggedIn()) {
+      this.props.history.replace("/dashboard");
+    }
+  };
 }
 export default Home;
