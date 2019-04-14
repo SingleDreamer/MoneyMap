@@ -5,6 +5,9 @@ import { JobOfferCard } from "../Components/JobOfferCard";
 import { Modal, Button } from "react-bootstrap";
 import "./Dashboard.css";
 import axios from "axios";
+import AuthService from "../AuthService/AuthService";
+
+var perks = require("./test.json");
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -50,7 +53,7 @@ class Dashboard extends Component {
     }
 
     return (
-      <div className="Dashboard">
+      <div className="App">
         {/*Need to tuen this into a component to update depending on the currently logged in user's info */}
         <Sidebar className="Sidebar" />
         {/* <Button

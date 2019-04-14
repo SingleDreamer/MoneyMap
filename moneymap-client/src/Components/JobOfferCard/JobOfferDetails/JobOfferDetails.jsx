@@ -39,7 +39,6 @@ class JobOfferDetails extends Component {
   }
 
   render() {
-    const { selectedOption } = this.state;
     const { values } = this.props;
     let row = (
       <Form.Row>
@@ -98,7 +97,6 @@ class JobOfferDetails extends Component {
 
           <Select
             isClearable //handle this; breaks
-            defaultValue={selectedOption.value || ""}
             onChange={this.handleThisChange}
             options={cities}
           />

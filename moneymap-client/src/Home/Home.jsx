@@ -2,22 +2,22 @@ import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Register from "./Register/Register";
 import LoginDetails from "./Login/LoginDetails";
+import AuthService from "../AuthService/AuthService";
 import "./Home.css";
 
 class Home extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      show: false,
+      showRegister: false,
       showLogin: false
     };
-    this.handleShow = this.handleShow.bind(this);
-    this.handleShowLogin = this.handleShowLogin.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+
+    this.Auth = new AuthService();
   }
   render() {
     return (
-      <div>
+      <div className="app">
         <h1
           align="center"
           style={{
@@ -25,22 +25,30 @@ class Home extends Component {
             marginBottom: "20px"
           }}
         >
-          Welcome to MoneyMap
+          MoneyMap
         </h1>
         <div align="center">
           <Button
             style={{
-              marginRight: "10px"
+              margin: "10px"
             }}
             onClick={this.handleShowLogin}
+            id="newPrimary"
           >
             Login
           </Button>
-          <Button variant="primary" onClick={this.handleShow}>
-            Register now
+          <Button
+            style={{
+              margin: "10px"
+            }}
+            id="newSecondary"
+            onClick={this.handleShowRegister}
+          >
+            Register
           </Button>
         </div>
-        <Modal show={this.state.show} onHide={this.handleClose}>
+
+        <Modal show={this.state.showRegister} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>
             <Modal.Title>Register</Modal.Title>
           </Modal.Header>
@@ -48,7 +56,9 @@ class Home extends Component {
             <Register />
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleClose}>Close</Button>
+            <Button onClick={this.handleClose} variant="danger">
+              Close
+            </Button>
           </Modal.Footer>
         </Modal>
 
@@ -60,30 +70,39 @@ class Home extends Component {
             <LoginDetails />
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleClose}>Close</Button>
+            <Button onClick={this.handleClose} variant="danger">
+              Close
+            </Button>
           </Modal.Footer>
         </Modal>
+        <div className="png" />
       </div>
     );
   }
-  handleShow() {
-    this.setState({ show: true });
-  }
-  handleShowLogin() {
+  handleShowRegister = () => {
+    this.setState({ showRegister: true });
+  };
+  handleShowLogin = () => {
     this.setState({ showLogin: true });
-  }
-  handleClose() {
+  };
+  handleClose = () => {
     this.setState({
-      show: false,
+      showRegister: false,
       showLogin: false
     });
-  }
+  };
   componentWillMount = () => {
+<<<<<<< Updated upstream
     document.body.classList.add("HomeBg");
   };
 
   componentWillUnmount = () => {
     document.body.classList.remove("HomeBg");
+=======
+    if (this.Auth.loggedIn()) {
+      this.props.history.replace("/dashboard");
+    }
+>>>>>>> Stashed changes
   };
 }
 export default Home;

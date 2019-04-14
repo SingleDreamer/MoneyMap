@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import JobOfferDetails from "./JobOfferDetails/JobOfferDetails";
 import JobOfferDetails2 from "./JobOfferDetails/JobOfferDetails2";
 import { Form } from "react-bootstrap";
+import AuthService from "../../AuthService/AuthService";
 import axios from "axios";
 
 class JobOfferCard extends Component {
