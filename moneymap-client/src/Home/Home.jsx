@@ -91,18 +91,5 @@ class Home extends Component {
       showLogin: false
     });
   };
-  componentWillMount = () => {
-<<<<<<< Updated upstream
-    document.body.classList.add("HomeBg");
-  };
-
-  componentWillUnmount = () => {
-    document.body.classList.remove("HomeBg");
-=======
-    if (this.Auth.loggedIn()) {
-      this.props.history.replace("/dashboard");
-    }
->>>>>>> Stashed changes
-  };
 }
 export default Home;
