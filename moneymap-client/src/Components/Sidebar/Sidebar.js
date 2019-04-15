@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import "./Sidebar.css";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "@material/react-drawer/dist/drawer.css";
 import Drawer, { DrawerSubtitle } from "@material/react-drawer";
 import Navbar from "react-bootstrap/Navbar";
+import AuthService from "../../AuthService/AuthService";
+import axios from "axios";
+const Auth = new AuthService();
 
 class Sidebar extends Component {
   constructor(props, context) {
@@ -22,6 +25,7 @@ class Sidebar extends Component {
       },
       open: false
     };
+    this.handleProfile = this.handleProfile.bind(this);
   }
 
   //what props will this recieve????
@@ -35,8 +39,35 @@ class Sidebar extends Component {
     this.setState({ open: false });
   };
   clearSession = () => {
+    Auth.logout();
     console.log("cleared");
-    sessionStorage.clear();
+    this.props.history.replace("/");
+    // sessionStorage.clear();
+  };
+  handleProfile(data) {
+    this.setState({ userInfo: data });
+    console.log("handleProfile data: " + data);
+  }
+
+  componentWillMount = () => {
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+
+    // return (
+    //   axios
+    //     // .get("hhttp://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/", config) //needs a route
+    //     .then(response => {
+    //       console.log("Sidebar profile data: " + response.data);
+    //       this.handleProfile(response.data);
+    //     })
+    //     .catch(function(error) {
+    //       console.log(error);
+    //     })
+    // );
   };
 
   render() {
@@ -102,4 +133,4 @@ class Sidebar extends Component {
     );
   }
 }
-export default Sidebar;
+export default withRouter(Sidebar);

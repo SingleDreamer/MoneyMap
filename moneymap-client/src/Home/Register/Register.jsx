@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import UserDetails from "./UserDetails";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "../Home.css";
+import { withRouter } from "react-router-dom";
 
 class Register extends Component {
   constructor(props) {
@@ -26,35 +27,29 @@ class Register extends Component {
   }
 
   render() {
-    let success;
+    // let success;
     if (this.state.submit === true) {
       console.log("Profile successfully created");
+      //   success = (
+      //     // <Redirect
+      //     //   to={{ pathname: "/dashboard", state: { fromRegister: true } }}
+      //     // />
 
-      success = (
-        // <h6 style={{ marginTop: "10px" }}>
-        //   Profile successfully created. Thank you for registering!
-        // </h6>
-
-        // <Redirect
-        //   to={{ pathname: "/dashboard", state: { fromRegister: true } }}
-        // />
-        <Redirect to="/dashboard" />
-      );
-    } else {
-      // console.log("Registered: ", this.state.submit);
+      //     <Redirect to="/dashboard" />
+      //   );
+      // } else {
+      //   // console.log("Registration: ", this.state.submit);
     }
 
     return (
       <div>
-        {/* <p>Step {this.state.step} </p> */}
         <p className="required">Required field = </p>
         <UserDetails
-          nextStep={this.nextStep}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           userInfo={this.state.userInfo}
         />
-        {success}
+        {/* {success} */}
       </div>
     );
   }
@@ -62,7 +57,6 @@ class Register extends Component {
   handleChange = input => event => {
     const { adultFamSize, childFamSize } = this.state;
     if (input === "adultFamSize" || input === "childFamSize") {
-      //fix to update size
       this.setState({
         ...this.state,
         userInfo: {
@@ -85,8 +79,6 @@ class Register extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    console.log("Registration details: ", this.state.userInfo);
-
     this.setState({
       userInfo: {
         ...this.state.userInfo,
@@ -96,15 +88,10 @@ class Register extends Component {
       }
     });
     let userInfo = this.state.userInfo;
-    console.log("Registration details: ", this.state.userInfo);
-
-    console.log(userInfo);
     userInfo.adultFamSize = Number(userInfo.adultFamSize);
     userInfo.childFamSize = 0;
     userInfo.size = Number(userInfo.adultFamSize);
-    console.log("new");
-
-    console.log(userInfo);
+    console.log("New registration: ", userInfo);
 
     let url =
       "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/";
@@ -119,17 +106,14 @@ class Register extends Component {
       console.log(result.data);
       if (result.data.success) {
         this.setState({ submit: true });
+        this.props.history.replace("/dashboard");
         alert("Successful reg");
       }
-      // const { username, password } = this.state;
-      // alert(`Your registration detail: \n
-      //        Username: ${username} \n
-      //        Password: ${password}`);
     } catch (err) {
-      console.log("Frontend error: ", err.response);
+      console.log("Registration error: ", err.response);
       this.setState({ hasError: true });
     }
   }
 }
 
-export default Register;
+export default withRouter(Register);

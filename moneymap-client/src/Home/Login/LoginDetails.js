@@ -19,11 +19,12 @@ class LoginDetails extends Component {
 
   render() {
     return (
-      <Form onSubmit={e => this.handleSubmit(e)}>
+      <Form onSubmit={this.handleSubmit}>
         <p className="required">Required field = </p>
         <Form.Group controlId="email">
           <Form.Label className="required">Email</Form.Label>
           <Form.Control
+            required
             type="email"
             placeholder="Email"
             name="email"
@@ -34,6 +35,7 @@ class LoginDetails extends Component {
         <Form.Group controlId="formBasicPassword">
           <Form.Label className="required">Password</Form.Label>
           <Form.Control
+            required
             type="password"
             placeholder="Password"
             name="password"
@@ -63,11 +65,16 @@ class LoginDetails extends Component {
     });
   }
 
-  handleSubmit() {
-    this.Auth.login(this.state.email, this.state.password).catch(err => {
-      console.log(err);
-      this.setState({ hasError: true });
-    });
+  handleSubmit(e) {
+    e.preventDefault();
+    this.Auth.login(this.state.email, this.state.password)
+      .then(res => {
+        this.props.history.replace("/");
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ hasError: true });
+      });
   }
 
   // componentWillMount = () => {
@@ -77,4 +84,4 @@ class LoginDetails extends Component {
   // };
 }
 
-export default LoginDetails;
+export default (LoginDetails);
