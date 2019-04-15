@@ -126,6 +126,7 @@ class CardArray extends Component {
   };
 
   render() {
+    console.log(this.props.image);
     return (
       <div>
         <div className={this.props.cardType}>
@@ -134,7 +135,12 @@ class CardArray extends Component {
         <Card className="joc">
           <Card.Body>
             <div className="header">
-              <Card.Title>{this.props.info.jocname}</Card.Title>
+              <Card.Title>
+                <img src={this.props.image} alt={"no logo"} width={"30px"} />
+                {this.props.info.jocname}
+              </Card.Title>
+              {/*need to make this actual city name*/}
+              {/* <Card.Title>{this.props.info.joccityid}</Card.Title> */}
               <OverlayTrigger
                 trigger="hover"
                 placement="right"

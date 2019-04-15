@@ -38,6 +38,7 @@ export default class AuthService {
           console.log(response.data);
           this.setToken(response.data.token);
           this.setUser(response.data.UID);
+          return "something";
         });
     } catch (err) {
       console.log(err.response);

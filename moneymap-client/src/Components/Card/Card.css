@@ -13,7 +13,7 @@
   top: 5px;
   left: 150px;
   font-size: 3em;
-  color: rgba(66, 134, 244, 0.5);
+  color: #45a29e;
   animation-name: checked;
   animation-duration: 0.5s;
   z-index: 2;
@@ -40,7 +40,7 @@
 }
 
 .joc:active {
-  box-shadow: 5px 5px 5px 5px rgba(66, 134, 244, 0.5);
+  box-shadow: 5px 5px 5px 5px #45a29e;
 }
 
 .header {

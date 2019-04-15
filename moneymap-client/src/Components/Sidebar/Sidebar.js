@@ -76,7 +76,7 @@ class Sidebar extends Component {
       <div>
         <Navbar id="app" className="justify-content-between">
           <i
-            className="fas fa-bars navIcon"
+            className="fas fa-map-signs navIcon"
             onClick={() => this.setState({ open: true })}
           />
           <div className="title">Money Map</div>
