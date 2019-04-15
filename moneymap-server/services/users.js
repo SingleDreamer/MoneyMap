@@ -35,9 +35,8 @@ UserService.get = async (username, password) => {
   request.input('password', sql.VarChar, password);
 
   let result = await request.execute('sp_validate_user');
-
+  
   let payload;
-
   if(result.recordsets[0].length == 0) {
     payload = {
       status: "error",
@@ -46,10 +45,10 @@ UserService.get = async (username, password) => {
   } else {
     payload = {
       status: "success",
+      UID: result.recordset[0].UID,
       token: result.recordset[0].AuthToken
     };
   }
-
   return payload;
 }
 
@@ -82,6 +81,7 @@ UserService.getJOCs = async (id, token) => {
 
   for(var row in result.recordset) {
     const comprequest = new sql.Request(db);
+    comprequest.input('token', sql.UniqueIdentifier, token);
     comprequest.input('jocid', sql.Int, result.recordset[row].JobOfferCardID);
     let components = await comprequest.execute('sp_get_components');
     var comps = components.recordset;
