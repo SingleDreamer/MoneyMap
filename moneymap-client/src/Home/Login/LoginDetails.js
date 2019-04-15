@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import "../Home.css";
 import { Form, Button } from "react-bootstrap";
-import AuthService from "../../Components/AuthService/AuthService";
-import { withRouter } from "react-router-dom";
-
+import AuthService from "../../AuthService/AuthService";
+import { Link } from "react-router-dom";
 class LoginDetails extends Component {
   constructor(props) {
     super(props);
@@ -47,9 +46,15 @@ class LoginDetails extends Component {
         <Form.Group controlId="formBasicChecbox">
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
-        <Button id="newPrimary" type="submit" onClick={this.handleSubmit}>
-          Login
-        </Button>
+        <Link to="/Dashboard">
+          <Button
+            id="newPrimary"
+            type="submit"
+            onClick={() => this.handleSubmit()}
+          >
+            Login
+          </Button>
+        </Link>
       </Form>
     );
   }
@@ -61,7 +66,7 @@ class LoginDetails extends Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    //e.preventDefault();
     this.Auth.login(this.state.email, this.state.password)
       .then(res => {
         this.props.history.replace("/");
@@ -79,4 +84,4 @@ class LoginDetails extends Component {
   // };
 }
 
-export default withRouter(LoginDetails);
+export default LoginDetails;

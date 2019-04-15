@@ -117,7 +117,7 @@ class UserDetails extends Component {
           />
           <a href="privacy">Privacy policy</a>
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button id="newPrimary" type="submit">
           Submit
         </Button>
       </Form>

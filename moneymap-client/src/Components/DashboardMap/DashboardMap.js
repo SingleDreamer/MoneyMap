@@ -13,10 +13,7 @@ class DashboardMap extends Component {
   }
 
   render() {
-    let coordinates = [
-      { lat: 40.7128, lng: -73.935242, rfs: -75 },
-      { lat: 38, lng: -70, rfs: -3 }
-    ];
+    let coordinates = [{ lat: 40.7128, lng: -73.935242, rfs: -75 }];
     let MapWithAMarker = withScriptjs(
       withGoogleMap(props => (
         <GoogleMap

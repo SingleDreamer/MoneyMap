@@ -116,8 +116,7 @@ class CompareCharts extends Component {
         tooltip: {
           custom: function({ seriesIndex, dataPointIndex }) {
             let string = newSeries[seriesIndex].desc[dataPointIndex];
-
-            string = string.replace(/.{30}/g, "$&" + "<br>");
+            string = string.replace(/.{30}/g, "$&<br>");
 
             return (
               '<div class="arrow_box">' +

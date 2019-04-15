@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import { Button } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 import "@material/react-drawer/dist/drawer.css";
-import Drawer, { DrawerSubtitle } from "@material/react-drawer";
+//import Drawer, { DrawerSubtitle } from "@material/react-drawer";
 import Navbar from "react-bootstrap/Navbar";
 import AuthService from "../AuthService/AuthService";
 import axios from "axios";
@@ -39,10 +39,10 @@ class Sidebar extends Component {
     this.setState({ open: false });
   };
   clearSession = () => {
-    this.Auth.logout();
+    //this.Auth.logout();
     console.log("cleared");
     this.props.history.replace("/");
-    // sessionStorage.clear();
+    sessionStorage.clear();
   };
   handleProfile(data) {
     this.setState({ userInfo: data });
@@ -74,15 +74,22 @@ class Sidebar extends Component {
   render() {
     return (
       <div>
-        <Navbar bg="dark" variant="dark">
+        <Navbar id="app" className="justify-content-between">
           <i
             className="fas fa-bars navIcon"
-            onClick={() => this.setState({ open: !this.state.open })}
+            onClick={() => this.setState({ open: true })}
           />
           <div className="title">Money Map</div>
+          <div>
+            <Link to="/">
+              <Button variant="danger" onClick={this.clearSession}>
+                Log Out
+              </Button>
+            </Link>
+          </div>
         </Navbar>
-        <Drawer
-          dismissible={false}
+        {/* <Drawer
+          dismissible={true}
           modal
           open={this.state.open}
           onClose={this.handleClose}
@@ -121,13 +128,8 @@ class Sidebar extends Component {
             <DrawerSubtitle>Monthly Savings</DrawerSubtitle>
             <div className="content">{`$${this.state.userInfo.savings}`}</div>
             <br />
-            <Link to="/">
-              <Button variant="danger" onClick={this.clearSession}>
-                Log Out
-              </Button>
-            </Link>
           </div>
-        </Drawer>
+        </Drawer> */}
       </div>
     );
   }
