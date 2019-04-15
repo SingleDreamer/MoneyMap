@@ -46,4 +46,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+setTimeout(function(){
+process.exit(0)
+}, 60 * 30 * 1000);
+
 module.exports = app;

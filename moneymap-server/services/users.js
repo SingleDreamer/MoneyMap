@@ -91,6 +91,7 @@ UserService.getJOCs = async (id, token) => {
     output.result.push({
       "jocid": result.recordset[row].JobOfferCardID,
       "jocname": result.recordset[row].JobOfferCardName,
+      "priority": result.recordset[row].Priority,
       "jocrfc": result.recordset[row].RFS,
       "joccityid": result.recordset[row].CityID,
       "jocimage": result.recordset[row].CardImageSrc,
