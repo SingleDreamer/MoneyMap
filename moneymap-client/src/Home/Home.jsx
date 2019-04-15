@@ -12,7 +12,6 @@ class Home extends Component {
       showRegister: false,
       showLogin: false
     };
-
     this.Auth = new AuthService();
   }
   render() {
@@ -29,6 +28,7 @@ class Home extends Component {
         </h1>
         <div align="center">
           <Button
+            id="newPrimary"
             style={{
               margin: "10px"
             }}

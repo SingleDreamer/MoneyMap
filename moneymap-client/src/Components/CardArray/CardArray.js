@@ -72,6 +72,7 @@ class CardArray extends Component {
   getCardType = () => {};
   render() {
     var cards = [];
+    console.log(this.state.companies);
     cards = this.state.companies.map((company, index) =>
       company.selected ? (
         <div
@@ -82,6 +83,7 @@ class CardArray extends Component {
           <Card
             key={company.jocid}
             cardType="selected"
+            image={`https://logo.clearbit.com/${company.jocname}.com`}
             id={index}
             info={company}
             selectCard={this.selectCard}
@@ -96,6 +98,7 @@ class CardArray extends Component {
           <Card
             key={company.jocid}
             cardType="notSelected"
+            image={`https://logo.clearbit.com/${company.jocname}.com`}
             id={index}
             info={company}
             selectCard={this.selectCard}
@@ -118,10 +121,11 @@ class CardArray extends Component {
       <div>
         {/* <img src="https://logo.clearbit.com/google.com" />
         <img src="https://logo.clearbit.com/facebook.com" />
-        <img src="https://logo.clearbit.com/www.microsoft.com/" />
+        <img src="https://logo.clearbit.com/microsoft.com/" />
         <img src="https://logo.clearbit.com/apple.com" />
         <img src="https://logo.clearbit.com/uber.com" />
         <img src="https://logo.clearbit.com/amazon.com" /> */}
+
         <div className="array">{cards}</div>
         <Modal
           show={this.state.show}

@@ -46,6 +46,7 @@ class LoginDetails extends Component {
         <Form.Group controlId="formBasicChecbox">
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
+        {/* remove link so it waits for server*/}
         <Link to="/Dashboard">
           <Button
             id="newPrimary"
@@ -66,10 +67,12 @@ class LoginDetails extends Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    //e.preventDefault();
+    console.log("somthing");
     this.Auth.login(this.state.email, this.state.password)
       .then(res => {
         this.props.history.replace("/");
+        console.log("somthing else");
       })
       .catch(err => {
         console.log(err);
@@ -84,4 +87,4 @@ class LoginDetails extends Component {
   // };
 }
 
-export default (LoginDetails);
+export default LoginDetails;

@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import AuthService from "./AuthService";
 
 export default function withAuth(AuthComponent) {
-  const Auth = new AuthService(
-    "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users"
-  );
+  const Auth = new AuthService("/");
   return class AuthWrapped extends Component {
     constructor() {
       super();
@@ -14,14 +12,13 @@ export default function withAuth(AuthComponent) {
     }
 
     componentDidMount() {
-      // console.log(Auth.loggedIn());
+      console.log(Auth.loggedIn());
       if (!Auth.loggedIn()) {
-        console.log("withAuth-not logged in");
-        this.props.history.replace("/");
+        //this.props.history.replace("/");
       } else {
         try {
           const profile = Auth.getProfile();
-          console.log("withAuth profile: " + profile);
+          console.log("Auth profile: " + profile);
           this.setState({
             user: profile
           });

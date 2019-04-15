@@ -3,9 +3,7 @@ import axios from "axios";
 
 export default class AuthService {
   constructor(domain) {
-    this.baseurl =
-      "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users";
-    this.domain = domain || this.baseurl + "/validate";
+    this.domain = domain || this.baseurl + "/validate"; //this.baseurl = /users
     this.forgotpw = this.baseurl + "/auth/forgot-password"; //not active yet
     this.resetpw = this.baseurl + "/auth/change-password"; //not active yet
     this.fetch = this.fetch.bind(this);
@@ -29,12 +27,19 @@ export default class AuthService {
     try {
       console.log("...");
       console.log(payload);
-      axios.post(this.domain, payload, config).then(response => {
-        console.log("...");
-        console.log(response.data);
-        this.setToken(response.data.token);
-        this.setUser(response.data.UID);
-      });
+      axios
+        .post(
+          "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/validate",
+          payload,
+          config
+        )
+        .then(response => {
+          console.log("...");
+          console.log(response.data);
+          this.setToken(response.data.token);
+          this.setUser(response.data.UID);
+          return "something";
+        });
     } catch (err) {
       console.log(err.response);
       alert(err.response.data.message);
