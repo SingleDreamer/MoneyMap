@@ -5,7 +5,7 @@ import { Link, withRouter } from "react-router-dom";
 import "@material/react-drawer/dist/drawer.css";
 //import Drawer, { DrawerSubtitle } from "@material/react-drawer";
 import Navbar from "react-bootstrap/Navbar";
-import AuthService from "../AuthService/AuthService";
+import AuthService from "../../AuthService/AuthService";
 import axios from "axios";
 
 class Sidebar extends Component {
