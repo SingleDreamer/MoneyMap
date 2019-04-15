@@ -56,7 +56,14 @@ class Charts extends Component {
         },
         {
           name: "City Average Values",
-          data: [76, 85, 101, 98, 87, 105]
+          data: [
+            this.props.company.components[0].ComponentAmount / 10,
+            this.props.company.components[1].ComponentAmount,
+            this.props.company.components[2].ComponentAmount,
+            this.props.company.components[3].ComponentAmount,
+            this.props.company.components[4].ComponentAmount,
+            this.props.company.jocrfc
+          ]
         }
       ]
     };

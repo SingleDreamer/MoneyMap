@@ -200,7 +200,12 @@ class CardArray extends Component {
             </Modal.Header>
             <Modal.Body>Job offer analysis</Modal.Body>
             <Modal.Body>
-              <Charts info={50} />
+              <Charts
+                info={50}
+                company={this.props.info}
+                profile={this.props.prof}
+              />
+              {/* get profile info */}
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={this.handleClose}>Close</Button>
@@ -211,10 +216,10 @@ class CardArray extends Component {
     );
   }
 
-  openModal(e, index) {
+  openModal = (e, index) => {
     console.log("openModal");
     this.setState({ currModal: index });
-  }
+  };
 
   closeModal = () => {
     console.log("closeModal");
