@@ -7,7 +7,6 @@ import Drawer, { DrawerSubtitle } from "@material/react-drawer";
 import Navbar from "react-bootstrap/Navbar";
 import AuthService from "../AuthService/AuthService";
 import axios from "axios";
-const Auth = new AuthService();
 
 class Sidebar extends Component {
   constructor(props, context) {
@@ -25,6 +24,7 @@ class Sidebar extends Component {
       },
       open: false
     };
+    this.Auth = new AuthService();
     this.handleProfile = this.handleProfile.bind(this);
   }
 
@@ -39,7 +39,7 @@ class Sidebar extends Component {
     this.setState({ open: false });
   };
   clearSession = () => {
-    Auth.logout();
+    this.Auth.logout();
     console.log("cleared");
     this.props.history.replace("/");
     // sessionStorage.clear();
@@ -57,17 +57,18 @@ class Sidebar extends Component {
       }
     };
 
-    return (
-      axios
-        // .get("hhttp://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/", config) //needs a route
-        .then(response => {
-          console.log("Sidebar profile data: " + response.data);
-          this.handleProfile(response.data);
-        })
-        .catch(function(error) {
-          console.log(error);
-        })
-    );
+    return axios
+      .get(
+        "hhttp://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/",
+        config
+      ) //needs a route
+      .then(response => {
+        console.log("Sidebar profile data: " + response.data);
+        this.handleProfile(response.data);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   render() {

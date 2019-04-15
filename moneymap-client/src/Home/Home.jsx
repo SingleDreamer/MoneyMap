@@ -31,6 +31,7 @@ class Home extends Component {
         </h1>
         <div align="center">
           <Button
+            id="newPrimary"
             style={{
               marginRight: "10px"
             }}
@@ -38,7 +39,7 @@ class Home extends Component {
           >
             Login
           </Button>
-          <Button variant="primary" onClick={this.handleShow}>
+          <Button id="newSecondary" onClick={this.handleShow}>
             Register now
           </Button>
         </div>
@@ -62,9 +63,12 @@ class Home extends Component {
             <LoginDetails />
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleClose}>Close</Button>
+            <Button onClick={this.handleClose} variant="danger">
+              Close
+            </Button>
           </Modal.Footer>
         </Modal>
+        <div className="png" />
       </div>
     );
   }
@@ -84,11 +88,6 @@ class Home extends Component {
     if (this.Auth.loggedIn()) {
       this.props.history.replace("/dashboard");
     }
-    document.body.classList.add("HomeBg");
-  };
-
-  componentWillUnmount = () => {
-    document.body.classList.remove("HomeBg");
   };
 }
 export default Home;

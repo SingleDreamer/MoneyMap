@@ -47,7 +47,7 @@ class LoginDetails extends Component {
         <Form.Group controlId="formBasicChecbox">
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button id="newPrimary" type="submit" onClick={this.handleSubmit}>
           Login
         </Button>
       </Form>

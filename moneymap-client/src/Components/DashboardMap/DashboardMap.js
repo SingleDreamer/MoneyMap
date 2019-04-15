@@ -24,10 +24,11 @@ class DashboardMap extends Component {
           defaultZoom={6}
           defaultCenter={{ lat: 40.7128, lng: -73.935242 }}
         >
-          {coordinates.map(i => {
+          {coordinates.map((i, index) => {
             if (i.rfs >= 50)
               return (
                 <Marker
+                  key={index}
                   icon={{
                     url:
                       "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
@@ -38,6 +39,7 @@ class DashboardMap extends Component {
             if (i.rfs < 50 && i.rfs >= 0)
               return (
                 <Marker
+                  key={index}
                   icon={{
                     url:
                       "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
@@ -48,6 +50,7 @@ class DashboardMap extends Component {
             if (i.rfs < 0 && i.rfs >= -50)
               return (
                 <Marker
+                  key={index}
                   icon={{
                     url:
                       "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
@@ -57,6 +60,7 @@ class DashboardMap extends Component {
               );
             return (
               <Marker
+                key={index}
                 icon={{
                   url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
                 }}

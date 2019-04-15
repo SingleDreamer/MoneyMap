@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-.HomeBg {
-  background-image: url("https://d1dh93s7n44ml6.cloudfront.net/blog/wp-content/uploads/2017/01/19090328/Automate-Your-Finances.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-=======
 .png {
   position: relative;
   width: 65%;
@@ -18,12 +10,13 @@
 }
 
 #newPrimary {
+  margin: 10px;
   background-color: #45a29e;
   border-color: #45a29e;
 }
->>>>>>> parent of 9ec2e6e... changing theme
-
-  /* background-color: rgb(74, 74, 121); */
+#newSecondary {
+  background-color: #45a29d00;
+  border-color: #45a29e;
 }
 
 .required:after {
