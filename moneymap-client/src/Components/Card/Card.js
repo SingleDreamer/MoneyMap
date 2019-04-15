@@ -125,8 +125,29 @@ class CardArray extends Component {
       });
   };
 
+  componentDidMount() {
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+    axios
+      .get(
+        "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/cities/" +
+          this.props.info.joccityid +
+          "/averages/" +
+          this.Auth.getUser(),
+        config
+      )
+      .then(res => console.log(res.data.recordsets))
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
+  }
+
   render() {
-    console.log(this.props.image);
     return (
       <div>
         <div className={this.props.cardType}>
@@ -224,12 +245,13 @@ class CardArray extends Component {
 
   openModal = (e, index) => {
     console.log("openModal");
+    //this.getCityAverages();
     this.setState({ currModal: index });
   };
 
   closeModal = () => {
     console.log("closeModal");
-
+    this.setState({ show: false });
     this.setState({ currModal: null });
   };
 
@@ -250,7 +272,7 @@ class CardArray extends Component {
 
   handleClose() {
     console.log("handleClose");
-
+    this.setState({ currModal: null });
     this.setState({ show: false });
   }
 }

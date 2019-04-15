@@ -33,7 +33,6 @@ class Home extends Component {
               margin: "10px"
             }}
             onClick={this.handleShowLogin}
-            id="newPrimary"
           >
             Login
           </Button>

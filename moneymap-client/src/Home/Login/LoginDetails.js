@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../Home.css";
 import { Form, Button } from "react-bootstrap";
 import AuthService from "../../AuthService/AuthService";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 class LoginDetails extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +10,8 @@ class LoginDetails extends Component {
       email: "",
       password: "",
       submit: false,
-      hasError: false
+      hasError: false,
+      isAuthed: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,8 +19,11 @@ class LoginDetails extends Component {
   }
 
   render() {
+    if (this.state.isAuthed) {
+      return <Redirect to="/Dashboard" />;
+    }
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form>
         <p className="required">Required field = </p>
         <Form.Group controlId="email">
           <Form.Label className="required">Email</Form.Label>
@@ -47,15 +51,11 @@ class LoginDetails extends Component {
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
         {/* remove link so it waits for server*/}
-        <Link to="/Dashboard">
-          <Button
-            id="newPrimary"
-            type="submit"
-            onClick={() => this.handleSubmit()}
-          >
-            Login
-          </Button>
-        </Link>
+        {/* <Link to="/Dashboard"> */}
+        <Button id="newPrimary" onClick={this.handleSubmit}>
+          Login
+        </Button>
+        {/* </Link> */}
       </Form>
     );
   }
@@ -68,11 +68,9 @@ class LoginDetails extends Component {
 
   handleSubmit(e) {
     //e.preventDefault();
-    console.log("somthing");
     this.Auth.login(this.state.email, this.state.password)
       .then(res => {
-        this.props.history.replace("/");
-        console.log("somthing else");
+        this.setState({ isAuthed: true });
       })
       .catch(err => {
         console.log(err);
