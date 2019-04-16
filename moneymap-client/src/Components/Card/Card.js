@@ -119,6 +119,7 @@ class CardArray extends Component {
           jocid,
         config
       )
+      .then(res => this.props.getCards("Deleted Cards"))
       .catch(error => {
         // handle error
         console.log(error);
@@ -157,7 +158,12 @@ class CardArray extends Component {
           <Card.Body>
             <div className="header">
               <Card.Title>
-                <img src={this.props.image} alt={"no logo"} width={"30px"} />
+                <img
+                  src={this.props.image}
+                  alt={"no logo"}
+                  width={"30px"}
+                  style={{ marginRight: "5px" }}
+                />
                 {this.props.info.jocname}
               </Card.Title>
               {/*need to make this actual city name*/}

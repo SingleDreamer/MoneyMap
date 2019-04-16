@@ -8,6 +8,7 @@
   overflow: scroll;
   margin-top: 1em;
 }
+
 .add {
   position: relative;
   top: 20px;
@@ -16,6 +17,7 @@
   transform: scale(0.8);
   height: 400px;
 }
+
 .add:hover {
   transform: scale(0.85);
   cursor: pointer;

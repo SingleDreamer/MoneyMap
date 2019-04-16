@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import CardArray from "../Components/CardArray/CardArray.js";
 import Sidebar from "../Components/Sidebar/Sidebar.js";
 import { JobOfferCard } from "../Components/JobOfferCard";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Spinner } from "react-bootstrap";
 import DashboardMap from "../Components/DashboardMap/DashboardMap.js";
 import "./Dashboard.css";
 import axios from "axios";
 import AuthService from "../AuthService/AuthService";
+import { Redirect } from "react-router-dom";
 
 var perks = require("./test.json");
 
@@ -17,6 +18,8 @@ class Dashboard extends Component {
       // fromRegister: false,
       profileSubmit: false,
       show: false,
+      isAuthed: true,
+      spinner: true,
       companies: []
     };
     this.Auth = new AuthService();
@@ -24,8 +27,22 @@ class Dashboard extends Component {
     this.handleClose = this.handleClose.bind(this);
     // this.profileSubmit = this.profileSubmit.bind(this);
   }
+  componentDidMount() {
+    this.setState({
+      isAuthed: true
+    });
+    setTimeout(() => {
+      if (!this.Auth.getToken()) {
+        this.setState({ isAuthed: false });
+      } else {
+        this.setState({ spinner: false });
+        this.getCards();
+      }
+    }, 500);
+  }
 
-  componentWillMount() {
+  getCards = (message = "default") => {
+    console.log(message);
     let config = {
       headers: {
         authorization: this.Auth.getToken(),
@@ -33,6 +50,7 @@ class Dashboard extends Component {
       }
     };
     //getting the cards each time the component renders
+
     axios
       .get(
         `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
@@ -60,7 +78,7 @@ class Dashboard extends Component {
         // handle error
         console.log(error);
       });
-  }
+  };
   render() {
     let cardType;
     if (this.state.profileSubmit === false) {
@@ -68,7 +86,26 @@ class Dashboard extends Component {
     } else {
       cardType = <Modal.Title>New JobOfferCard</Modal.Title>;
     }
-
+    if (!this.state.isAuthed) {
+      return <Redirect to="/" />;
+    } else if (this.state.spinner) {
+      return (
+        <div class="lds-spinner ">
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+      );
+    }
     return (
       <div className="App">
         {/*Need to tuen this into a component to update depending on the currently logged in user's info */}
@@ -80,7 +117,7 @@ class Dashboard extends Component {
             <JobOfferCard
               handleClose={this.handleClose}
               profileSubmit={this.profileSubmit}
-              updateCompanies={this.updateCompanies}
+              getCards={this.getCards}
             />
           </Modal.Body>
           <Modal.Footer>
@@ -89,6 +126,7 @@ class Dashboard extends Component {
         </Modal>
         <DashboardMap />
         <CardArray
+          getCards={this.getCards}
           companies={this.state.companies}
           handleShow={this.handleShow}
         />
