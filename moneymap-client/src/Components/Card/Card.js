@@ -157,7 +157,12 @@ class CardArray extends Component {
           <Card.Body>
             <div className="header">
               <Card.Title>
-                <img src={this.props.image} alt={"no logo"} width={"30px"} />
+                <img
+                  src={this.props.image}
+                  alt={"no logo"}
+                  width={"30px"}
+                  style={{ marginRight: "5px" }}
+                />
                 {this.props.info.jocname}
               </Card.Title>
               {/*need to make this actual city name*/}

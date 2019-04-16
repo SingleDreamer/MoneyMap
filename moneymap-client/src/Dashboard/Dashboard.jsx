@@ -24,8 +24,13 @@ class Dashboard extends Component {
     this.handleClose = this.handleClose.bind(this);
     // this.profileSubmit = this.profileSubmit.bind(this);
   }
+  componentDidMount() {
+    setTimeout(() => {
+      this.getCards();
+    }, 500);
+  }
 
-  componentWillMount() {
+  getCards() {
     let config = {
       headers: {
         authorization: this.Auth.getToken(),
@@ -33,6 +38,7 @@ class Dashboard extends Component {
       }
     };
     //getting the cards each time the component renders
+
     axios
       .get(
         `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
