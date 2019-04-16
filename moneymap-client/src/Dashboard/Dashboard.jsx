@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CardArray from "../Components/CardArray/CardArray.js";
 import Sidebar from "../Components/Sidebar/Sidebar.js";
 import { JobOfferCard } from "../Components/JobOfferCard";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Spinner } from "react-bootstrap";
 import DashboardMap from "../Components/DashboardMap/DashboardMap.js";
 import "./Dashboard.css";
 import axios from "axios";
@@ -19,6 +19,7 @@ class Dashboard extends Component {
       profileSubmit: false,
       show: false,
       isAuthed: true,
+      spinner: true,
       companies: []
     };
     this.Auth = new AuthService();
@@ -34,6 +35,7 @@ class Dashboard extends Component {
       if (!this.Auth.getToken()) {
         this.setState({ isAuthed: false });
       } else {
+        this.setState({ spinner: false });
         this.getCards();
       }
     }, 500);
@@ -86,6 +88,23 @@ class Dashboard extends Component {
     }
     if (!this.state.isAuthed) {
       return <Redirect to="/" />;
+    } else if (this.state.spinner) {
+      return (
+        <div class="lds-spinner ">
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+      );
     }
     return (
       <div className="App">
