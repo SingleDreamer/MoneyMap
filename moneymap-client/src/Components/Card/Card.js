@@ -24,6 +24,7 @@ class CardArray extends Component {
     super(props, context);
     this.state = {
       show: false,
+      cityAverages: [],
       jobOfferCardID: 0,
       jocDetails: {
         UID: 3023,
@@ -140,7 +141,25 @@ class CardArray extends Component {
           this.Auth.getUser(),
         config
       )
-      .then(res => console.log(res.data.recordsets))
+      .then(res => {
+        console.log(res.data.recordsets);
+        if (res.data.recordsets.length > 1) {
+          this.setState({ cityAverages: res.data.recordsets });
+          // console.log(this.state.cityAverages[0][0].Amount);
+        } else {
+          this.setState({
+            cityAverages: {
+              0: {
+                0: { Amount: 0 },
+                1: { Amount: 0 },
+                2: { Amount: 0 },
+                3: { Amount: 0 }
+              }
+            }
+          });
+          // console.log(this.state.cityAverages[0][0].Amount);
+        }
+      })
       .catch(error => {
         // handle error
         console.log(error);
@@ -223,13 +242,13 @@ class CardArray extends Component {
             size="lg"
           >
             <Modal.Header closeButton={false}>
-              <Modal.Title>{this.props.info.name}</Modal.Title>
+              <Modal.Title>Job offer analysis</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Job offer analysis</Modal.Body>
             <Modal.Body>
               <Charts
                 info={50}
                 company={this.props.info}
+                cityAverages={this.state.cityAverages}
                 profile={this.props.prof}
               />
               {/* get profile info */}
