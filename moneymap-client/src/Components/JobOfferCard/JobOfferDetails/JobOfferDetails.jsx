@@ -132,6 +132,7 @@ class JobOfferDetails extends Component {
         <Form.Group controlId="income">
           <Form.Label className="required">Income</Form.Label>
           <Form.Control
+            required
             type="number"
             min="0"
             step="1"

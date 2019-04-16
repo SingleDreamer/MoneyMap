@@ -51,11 +51,22 @@ class Charts extends Component {
       },
       series: [
         {
-          name: "User Values",
+          name: "User Values", //from profile
           data: [44, 55, 57, 56, 61, 58]
         },
         {
           name: "City Average Values",
+          data: [
+            this.props.cityAverages[0][3].Amount,
+            this.props.cityAverages[0][0].Amount,
+            this.props.cityAverages[0][1].Amount,
+            this.props.cityAverages[0][2].Amount,
+            0,
+            0
+          ]
+        },
+        {
+          name: "JOC Values",
           data: [
             this.props.company.components[0].ComponentAmount / 10,
             this.props.company.components[1].ComponentAmount,

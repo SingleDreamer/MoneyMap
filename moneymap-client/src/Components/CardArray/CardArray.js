@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Card from "../Card/Card.js";
-//import { Card as Bscard } from "react-bootstrap";
 import "./CardArray.css";
 import "../Card/Card.css";
 import logo from "./addJOC2.png";
