@@ -119,6 +119,7 @@ class CardArray extends Component {
           jocid,
         config
       )
+      .then(res => this.props.getCards("Deleted Cards"))
       .catch(error => {
         // handle error
         console.log(error);

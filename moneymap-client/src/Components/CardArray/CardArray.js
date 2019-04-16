@@ -69,7 +69,6 @@ class CardArray extends Component {
       show: true
     });
   };
-  getCardType = () => {};
   render() {
     var cards = [];
     console.log(this.state.companies);
@@ -81,6 +80,7 @@ class CardArray extends Component {
           //onClick={() => this.selectCard(company)}
         >
           <Card
+            getCards={this.props.getCards}
             key={company.jocid}
             cardType="selected"
             image={`https://logo.clearbit.com/${company.jocname}.com`}
@@ -96,6 +96,7 @@ class CardArray extends Component {
           //onClick={() => this.selectCard(company)}
         >
           <Card
+            getCards={this.props.getCards}
             key={company.jocid}
             cardType="notSelected"
             image={`https://logo.clearbit.com/${company.jocname}.com`}
@@ -119,13 +120,6 @@ class CardArray extends Component {
 
     return (
       <div>
-        {/* <img src="https://logo.clearbit.com/google.com" />
-        <img src="https://logo.clearbit.com/facebook.com" />
-        <img src="https://logo.clearbit.com/microsoft.com/" />
-        <img src="https://logo.clearbit.com/apple.com" />
-        <img src="https://logo.clearbit.com/uber.com" />
-        <img src="https://logo.clearbit.com/amazon.com" /> */}
-
         <div className="array">{cards}</div>
         <Modal
           show={this.state.show}

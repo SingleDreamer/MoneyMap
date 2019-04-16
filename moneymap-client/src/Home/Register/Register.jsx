@@ -3,7 +3,8 @@ import UserDetails from "./UserDetails";
 // import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "../Home.css";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
+import AuthService from "../../AuthService/AuthService";
 
 class Register extends Component {
   constructor(props) {
@@ -20,25 +21,31 @@ class Register extends Component {
         // size: 0.0 //float, change to adults + children and make children .5 person
       },
       submit: false,
-      hasError: false
+      hasError: false,
+      isAuthed: false
     };
+    this.Auth = new AuthService();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   render() {
     // let success;
-    if (this.state.submit === true) {
-      console.log("Profile successfully created");
-      //   success = (
-      //     // <Redirect
-      //     //   to={{ pathname: "/dashboard", state: { fromRegister: true } }}
-      //     // />
+    // if (this.state.submit === true) {
+    //   console.log("Profile successfully created");
+    //   return <Redirect to="/Dashboard" />;
+    //   success = (
+    //     // <Redirect
+    //     //   to={{ pathname: "/dashboard", state: { fromRegister: true } }}
+    //     // />
 
-      //     <Redirect to="/dashboard" />
-      //   );
-      // } else {
-      //   // console.log("Registration: ", this.state.submit);
+    //     <Redirect to="/dashboard" />
+    //   );
+    // } else {
+    //   // console.log("Registration: ", this.state.submit);
+    //}
+    if (this.state.isAuthed) {
+      return <Redirect to="/Dashboard" />;
     }
 
     return (
@@ -104,10 +111,20 @@ class Register extends Component {
     try {
       let result = await axios.post(url, userInfo, config);
       console.log(result.data);
-      if (result.data.success) {
+      if (result.data.status) {
+        console.log("success");
         this.setState({ submit: true });
-        this.props.history.replace("/dashboard");
-        alert("Successful reg");
+        this.Auth.login(
+          this.state.userInfo.username,
+          this.state.userInfo.password
+        )
+          .then(res => {
+            this.setState({ isAuthed: true });
+          })
+          .catch(err => {
+            console.log(err);
+            this.setState({ hasError: true });
+          });
       }
     } catch (err) {
       console.log("Registration error: ", err.response);

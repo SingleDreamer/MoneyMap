@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../Home.css";
 import { Form, Button } from "react-bootstrap";
 import AuthService from "../../AuthService/AuthService";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 class LoginDetails extends Component {
   constructor(props) {
     super(props);

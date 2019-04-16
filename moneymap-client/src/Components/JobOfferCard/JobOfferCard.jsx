@@ -188,8 +188,8 @@ class JobOfferCard extends Component {
             .then(response2 => {
               //something something response something
               console.log(response2);
-              alert(`Successfully submitted`);
-              this.props.updateCompanies();
+              //alert(`Successfully submitted`);
+              this.props.getCards("Created New Cards");
             })
             .catch(err => {
               this.setState({ error: err });
