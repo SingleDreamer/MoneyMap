@@ -50,12 +50,9 @@ class LoginDetails extends Component {
         <Form.Group controlId="formBasicChecbox">
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
-        {/* remove link so it waits for server*/}
-        {/* <Link to="/Dashboard"> */}
         <Button id="newPrimary" onClick={this.handleSubmit}>
           Login
         </Button>
-        {/* </Link> */}
       </Form>
     );
   }
@@ -85,4 +82,4 @@ class LoginDetails extends Component {
   // };
 }
 
-export default LoginDetails;
+export default withRouter(LoginDetails);

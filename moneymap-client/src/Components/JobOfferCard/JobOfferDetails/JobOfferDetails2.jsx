@@ -4,13 +4,12 @@ import "../JobOfferCard.css";
 
 class JobOfferDetails2 extends Component {
   render() {
-    // const { values } = this.props;
-
     return (
       <div>
         <Form.Group controlId="Mandatory Costs">
           <Form.Label className="required">Mandatory Costs</Form.Label>
           <Form.Control
+            required
             type="number"
             min="0"
             step="1"
@@ -27,6 +26,7 @@ class JobOfferDetails2 extends Component {
         <Form.Group controlId="Consumable Costs">
           <Form.Label className="required">Consumable Costs</Form.Label>
           <Form.Control
+            required
             type="number"
             min="0"
             step="1"
@@ -41,6 +41,7 @@ class JobOfferDetails2 extends Component {
         <Form.Group controlId="Entertainment Expenses">
           <Form.Label className="required">Entertainment Expenses</Form.Label>
           <Form.Control
+            required
             type="number"
             min="0"
             step="1"
@@ -55,6 +56,7 @@ class JobOfferDetails2 extends Component {
         <Form.Group controlId="Debt">
           <Form.Label className="required">Debt</Form.Label>
           <Form.Control
+            required
             type="number"
             min="0"
             step="1"
