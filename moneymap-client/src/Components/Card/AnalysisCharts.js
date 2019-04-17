@@ -25,11 +25,10 @@ class Charts extends Component {
         xaxis: {
           categories: [
             "Income",
-            "Rent",
-            "Consumables",
-            "Entertainment",
-            "Debt",
-            "Savings"
+            "Mandatory Costs",
+            "Consumable Costs",
+            "Entertainment Expenses",
+            "Debt"
           ]
         },
         yaxis: {
@@ -48,47 +47,89 @@ class Charts extends Component {
             }
           }
         }
-      },
-      series: [
-        {
-          name: "User Values", //from profile
-          data: [44, 55, 57, 56, 61, 58]
-        },
-        {
-          name: "City Average Values",
-          data: [
-            this.props.cityAverages[0][3].Amount,
-            this.props.cityAverages[0][0].Amount,
-            this.props.cityAverages[0][1].Amount,
-            this.props.cityAverages[0][2].Amount,
-            0,
-            0
-          ]
-        },
-        {
-          name: "JOC Values",
-          data: [
-            this.props.company.components[0].ComponentAmount / 10,
-            this.props.company.components[1].ComponentAmount,
-            this.props.company.components[2].ComponentAmount,
-            this.props.company.components[3].ComponentAmount,
-            this.props.company.components[4].ComponentAmount,
-            this.props.company.jocrfc
-          ]
-        }
-      ]
+      }
     };
   }
-
   render() {
+    const threeBar = [
+      {
+        name: "User Profile Values", //from profile
+        data: [
+          this.props.profile.components[0].ComponentAmount.toFixed(2),
+          this.props.profile.components[1].ComponentAmount.toFixed(2),
+          this.props.profile.components[2].ComponentAmount.toFixed(2),
+          this.props.profile.components[3].ComponentAmount.toFixed(2),
+          this.props.profile.components[4].ComponentAmount.toFixed(2)
+        ]
+      },
+      {
+        name: "City Average Values",
+        data: [
+          this.props.cityAverages[0][3].Amount.toFixed(2),
+          this.props.cityAverages[0][0].Amount.toFixed(2),
+          this.props.cityAverages[0][1].Amount.toFixed(2),
+          this.props.cityAverages[0][2].Amount.toFixed(2),
+          0
+        ]
+      },
+      {
+        name: "JOC Values",
+        data: [
+          (this.props.company.components[0].ComponentAmount / 10).toFixed(2),
+          this.props.company.components[1].ComponentAmount.toFixed(2),
+          this.props.company.components[2].ComponentAmount.toFixed(2),
+          this.props.company.components[3].ComponentAmount.toFixed(2),
+          this.props.company.components[4].ComponentAmount.toFixed(2)
+        ]
+      }
+    ];
+    const twoBar = [
+      {
+        name: "User Profile Values", //from profile
+        data: [
+          this.props.profile.components[0].ComponentAmount.toFixed(2),
+          this.props.profile.components[1].ComponentAmount.toFixed(2),
+          this.props.profile.components[2].ComponentAmount.toFixed(2),
+          this.props.profile.components[3].ComponentAmount.toFixed(2),
+          this.props.profile.components[4].ComponentAmount.toFixed(2)
+        ]
+      },
+
+      {
+        name: "JOC Values",
+        data: [
+          (this.props.company.components[0].ComponentAmount / 10).toFixed(2),
+          this.props.company.components[1].ComponentAmount.toFixed(2),
+          this.props.company.components[2].ComponentAmount.toFixed(2),
+          this.props.company.components[3].ComponentAmount.toFixed(2),
+          this.props.company.components[4].ComponentAmount.toFixed(2)
+        ]
+      }
+    ];
+    let seriesOption;
+    if (
+      this.props.cityAverages[0][0].Amount === 0 &&
+      this.props.cityAverages[0][1].Amount === 0 &&
+      this.props.cityAverages[0][2].Amount === 0 &&
+      this.props.cityAverages[0][3].Amount === 0
+    ) {
+      seriesOption = twoBar;
+    } else {
+      seriesOption = threeBar;
+    }
     return (
       <div id="chart">
         <Chart
           options={this.state.options}
-          series={this.state.series}
+          series={seriesOption}
           type="bar"
           height="350"
         />
+
+        <p>
+          **City Average data is not available for all cities and does not
+          include debt.{" "}
+        </p>
       </div>
     );
   }

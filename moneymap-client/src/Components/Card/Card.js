@@ -144,7 +144,7 @@ class CardArray extends Component {
       )
       .then(res => {
         console.log(res.data.recordsets);
-        if (res.data.recordsets.length > 1) {
+        if (res.data.recordsets[0].length > 0) {
           this.setState({ cityAverages: res.data.recordsets });
           // console.log(this.state.cityAverages[0][0].Amount);
         } else {
@@ -255,7 +255,7 @@ class CardArray extends Component {
                 info={50}
                 company={this.props.info}
                 cityAverages={this.state.cityAverages}
-                profile={this.props.prof}
+                profile={this.props.profile}
               />
               {/* get profile info */}
             </Modal.Body>
@@ -269,6 +269,7 @@ class CardArray extends Component {
   }
 
   openModal = (e, index) => {
+    // console.log("Card profile: ", this.props.profile);
     console.log("openModal");
     //this.getCityAverages();
     this.setState({ currModal: index });

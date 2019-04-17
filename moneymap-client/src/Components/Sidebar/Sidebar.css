@@ -5,6 +5,7 @@
 
 .content {
   margin-left: 10px;
+  margin-top: 10px;
   font-family: montserat;
   font-size: 1.2em;
 }
@@ -16,4 +17,8 @@
 .title {
   font-size: 2em;
   margin-left: 20px;
+}
+
+.icon {
+  margin: 5px;
 }

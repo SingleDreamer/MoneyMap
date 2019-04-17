@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CardArray from "../Components/CardArray/CardArray.js";
 import Sidebar from "../Components/Sidebar/Sidebar.js";
 import { JobOfferCard } from "../Components/JobOfferCard";
-import { Modal, Button, Spinner } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import DashboardMap from "../Components/DashboardMap/DashboardMap.js";
 import "./Dashboard.css";
 import axios from "axios";
@@ -17,10 +17,11 @@ class Dashboard extends Component {
     this.state = {
       // fromRegister: false,
       profileSubmit: false,
-      show: false,
+      show: true,
       isAuthed: true,
       spinner: true,
-      companies: []
+      companies: [],
+      profile: []
     };
     this.Auth = new AuthService();
     this.handleShow = this.handleShow.bind(this);
@@ -63,6 +64,15 @@ class Dashboard extends Component {
         console.log(response);
         let jocs = response.data.result;
         jocs.forEach(company => {
+          if (company.priority === 0) {
+            this.setState({
+              profile: company,
+              profileSubmit: true,
+              show: false
+            });
+            // console.log("Profile: ", this.state.profile);
+          }
+
           company.selected = false;
           if (company.jocname === "Google") {
             company.perks = perks.Google;
@@ -75,14 +85,14 @@ class Dashboard extends Component {
         });
       })
       .catch(error => {
-        // handle error
         console.log(error);
       });
   };
   render() {
+    console.log("profile submit: ", this.state.profileSubmit);
     let cardType;
     if (this.state.profileSubmit === false) {
-      cardType = <Modal.Title>Profile Card</Modal.Title>; //check if profile submission exists vs backend call
+      cardType = <Modal.Title>Profile Card</Modal.Title>;
     } else {
       cardType = <Modal.Title>New JobOfferCard</Modal.Title>;
     }
@@ -90,7 +100,7 @@ class Dashboard extends Component {
       return <Redirect to="/" />;
     } else if (this.state.spinner) {
       return (
-        <div class="lds-spinner ">
+        <div className="lds-spinner ">
           <div />
           <div />
           <div />
@@ -116,7 +126,7 @@ class Dashboard extends Component {
           <Modal.Body>
             <JobOfferCard
               handleClose={this.handleClose}
-              profileSubmit={this.profileSubmit}
+              // profileSubmit={this.state.profileSubmit}
               getCards={this.getCards}
             />
           </Modal.Body>
@@ -128,6 +138,7 @@ class Dashboard extends Component {
         <CardArray
           getCards={this.getCards}
           companies={this.state.companies}
+          profile={this.state.profile}
           handleShow={this.handleShow}
         />
       </div>
