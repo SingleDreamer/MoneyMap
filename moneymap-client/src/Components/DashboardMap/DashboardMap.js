@@ -5,13 +5,20 @@ import {
   GoogleMap,
   Marker
 } from "react-google-maps";
+import axios from "axios";
+
+
+let cities = [];
+var coordinates = [];
+
 
 class DashboardMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
       height: props.height,
-      companies: []
+      companies: [],
+      cities:[]
     };
 
   }
@@ -23,6 +30,36 @@ class DashboardMap extends Component {
     //console.log("array: ", this.state.companies);
   }
 
+  componentWillMount() {
+    axios
+      .get("http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/cities")
+      .then(response => {
+        // handle success
+        let citiesObjects = response.data.recordset;
+        //This is for the form to be able to render the city
+        //let
+        cities = citiesObjects.map(city => {
+          return {
+            value: city.CityID,
+            label: city.City + ", " + city.Country,
+            latitude: city.Latitude,
+            longitude: city.Longitude
+          };
+        });
+
+        console.log(cities);
+        this.setState(
+          { cities: cities }
+        );
+
+
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
+  }
+
   render() {
     let coordinates = [
       { lat: 40.7128, lng: -73.935242, rfs: -75 },
@@ -31,11 +68,28 @@ class DashboardMap extends Component {
 
     console.log("TEST",this.state.companies);
     var cityIDs = [];
-    cityIDs = this.state.companies.map((company, index) =>
-      company.joccityid
-    );
+    cityIDs = this.state.companies.map((company, index) => {
+      return {
+        cityid : company.joccityid,
+        rfs : company.jocrfc
+      };
+    });
     console.log(cityIDs);
+    console.log(this.state.cities);
 
+    if((this.state.cities).length > 0) {
+      coordinates = cityIDs.map(id => {
+            var city = (this.state.cities).find(element => element.value === id.cityid);
+            console.log("test");
+            console.log(city);
+            return {
+                lat: city.latitude,
+                lng: city.longitude,
+                rfs: id.rfs
+            };
+          });
+      console.log(coordinates);
+  };
 
     let MapWithAMarker = withScriptjs(
       withGoogleMap(props => (
