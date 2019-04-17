@@ -5,11 +5,63 @@ import {
   GoogleMap,
   Marker
 } from "react-google-maps";
+import axios from "axios";
+
+let cities = [];
+let coordinates = [];
 
 class DashboardMap extends Component {
   constructor(props) {
     super(props);
-    this.state = { height: props.height };
+    this.state = {
+      height: props.height,
+      companies: [],
+      coor:[]
+    };
+  }
+
+// componentWillMount
+// componentUpdate
+//  componentDidMount() {
+  componentWillMount() {
+    axios
+      .get("/cities")
+      .then(response => {
+        // handle success
+        let citiesObjects = response.data.recordset;
+        //This is for the form to be able to render the city
+        let cities = citiesObjects.map(city => {
+          return {
+            value: city.CityID,
+            label: city.City + ", " + city.Country,
+            latitude: city.Latitude,
+            longitude: city.Longitude
+          };
+        });
+
+        console.log(cities);
+
+        var cityIDs = [3,6,14,345, 23];
+        coordinates = cityIDs.map(id => {
+          var city = cities.find(element => element.value === id);
+          console.log("test");
+          console.log(city);
+          return {
+              lat: city.latitude,
+              lng: city.longitude,
+              rfs: 3
+          };
+        });
+        console.log(coordinates);
+        this.setState(
+          { coor: coordinates }
+        );
+
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
   }
 
   render() {
@@ -17,6 +69,19 @@ class DashboardMap extends Component {
       { lat: 40.7128, lng: -73.935242, rfs: -75 },
       { lat: 38, lng: -70, rfs: -3 }
     ];
+    //console.log(this.state.companies);
+    //var cityIDs = [];
+    //cityIDs = this.state.companies.map((company, index) =>
+    //  company.cityid
+    //);
+
+    //{coordinates.map(i => {
+
+    console.log("render");
+    //console.log(this.state.coor);
+    let coor = this.state.coor;
+    console.log(coor);
+
     let MapWithAMarker = withScriptjs(
       withGoogleMap(props => (
         <GoogleMap
@@ -24,7 +89,8 @@ class DashboardMap extends Component {
           defaultZoom={6}
           defaultCenter={{ lat: 40.7128, lng: -73.935242 }}
         >
-          {coordinates.map(i => {
+
+          {coor.map((i,index) => {
             if (i.rfs >= 50)
               return (
                 <Marker
@@ -38,6 +104,7 @@ class DashboardMap extends Component {
             if (i.rfs < 50 && i.rfs >= 0)
               return (
                 <Marker
+                  key={index}
                   icon={{
                     url:
                       "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
