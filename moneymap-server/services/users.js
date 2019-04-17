@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken")
 const sql = require("mssql")
 var db = require("../services/db")
 
@@ -6,11 +5,14 @@ const UserService = {};
 
 const AuthService = require('../services/auth');
 
-UserService.create = async (username, password) => {
+UserService.create = async (username, password, fname, lname, size) => {
   const request = new sql.Request(db);
 
-  request.input('username', sql.Text, username);
-  request.input('password', sql.Text, password);
+  request.input('username', sql.VarChar, username);
+  request.input('password', sql.VarChar, password);
+  request.input('fname', sql.VarChar, fname);
+  request.input('lname', sql.VarChar, lname);
+  request.input('size', sql.Float, size);
 
   let result = await request.execute('sp_create_user');
 
@@ -29,13 +31,12 @@ UserService.create = async (username, password) => {
 
 UserService.get = async (username, password) => {
   const request = new sql.Request(db);
-  request.input('username', sql.Text, username);
-  request.input('password', sql.Text, password);
+  request.input('username', sql.VarChar, username);
+  request.input('password', sql.VarChar, password);
 
   let result = await request.execute('sp_validate_user');
-
+  
   let payload;
-
   if(result.recordsets[0].length == 0) {
     payload = {
       status: "error",
@@ -44,17 +45,19 @@ UserService.get = async (username, password) => {
   } else {
     payload = {
       status: "success",
+      UID: result.recordset[0].UID,
       token: result.recordset[0].AuthToken
     };
   }
-
   return payload;
 }
 
-UserService.update = async (id, email, size, cardid, token) => {
+UserService.update = async (id, email, fname, lname, size, cardid, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
   request.input('email', sql.Text, password);
+  request.input('fname', sql.Text, fname);
+  request.input('lname', sql.Text, lname);
   request.input('size', sql.Float, password);
   request.input('token', sql.UniqueIdentifier, token);
   if(cardid != null) {
@@ -78,6 +81,7 @@ UserService.getJOCs = async (id, token) => {
 
   for(var row in result.recordset) {
     const comprequest = new sql.Request(db);
+    comprequest.input('token', sql.UniqueIdentifier, token);
     comprequest.input('jocid', sql.Int, result.recordset[row].JobOfferCardID);
     let components = await comprequest.execute('sp_get_components');
     var comps = components.recordset;
@@ -87,6 +91,7 @@ UserService.getJOCs = async (id, token) => {
     output.result.push({
       "jocid": result.recordset[row].JobOfferCardID,
       "jocname": result.recordset[row].JobOfferCardName,
+      "priority": result.recordset[row].Priority,
       "jocrfc": result.recordset[row].RFS,
       "joccityid": result.recordset[row].CityID,
       "jocimage": result.recordset[row].CardImageSrc,

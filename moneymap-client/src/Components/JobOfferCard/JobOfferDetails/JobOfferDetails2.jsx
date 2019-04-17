@@ -4,15 +4,15 @@ import "../JobOfferCard.css";
 
 class JobOfferDetails2 extends Component {
   render() {
-    // const { values } = this.props;
-
     return (
       <div>
         <Form.Group controlId="Mandatory Costs">
           <Form.Label className="required">Mandatory Costs</Form.Label>
           <Form.Control
             required
-            type="text"
+            type="number"
+            min="0"
+            step="1"
             placeholder="Mandatory Costs"
             onChange={this.props.handleChange(
               "Components",
@@ -24,9 +24,12 @@ class JobOfferDetails2 extends Component {
         </Form.Group>
 
         <Form.Group controlId="Consumable Costs">
-          <Form.Label className="required"> Consumable Costs</Form.Label>
+          <Form.Label className="required">Consumable Costs</Form.Label>
           <Form.Control
-            type="text"
+            required
+            type="number"
+            min="0"
+            step="1"
             placeholder="Consumable Costs"
             onChange={this.props.handleChange(
               "Components",
@@ -38,7 +41,10 @@ class JobOfferDetails2 extends Component {
         <Form.Group controlId="Entertainment Expenses">
           <Form.Label className="required">Entertainment Expenses</Form.Label>
           <Form.Control
+            required
             type="number"
+            min="0"
+            step="1"
             placeholder="Entertainment Expenses"
             onChange={this.props.handleChange(
               "Components",
@@ -50,7 +56,10 @@ class JobOfferDetails2 extends Component {
         <Form.Group controlId="Debt">
           <Form.Label className="required">Debt</Form.Label>
           <Form.Control
+            required
             type="number"
+            min="0"
+            step="1"
             placeholder="Debt"
             onChange={this.props.handleChange("Components", "Debt", 5)}
           />

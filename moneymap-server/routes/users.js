@@ -10,20 +10,20 @@ router.get('/:id/jocs', [AuthService.checkToken], async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-  const { username, password } = req.body;
-  let result = await UserService.create(username, password);
+  const { username, password, fname, lname, size } = req.body;
+  let result = await UserService.create(username, password, fname, lname, size);
   res.json(result);
 });
 
-router.post('/:username/validate', async (req, res, next) => {
-  const { password } = req.body;
-  let result = await UserService.get(req.params.username, password);
+router.post('/validate', async (req, res, next) => {
+  const { username, password } = req.body;
+  let result = await UserService.get(username, password);
   res.json(result);
 });
 
 router.post('/:id', [AuthService.checkToken], async (req, res, next) => {
-  const { email, size, cardid } = req.body;
-  let result = await UserService.update(req.params.id, email, size, cardid, req.params.token);
+  const { email, fname, lname, size, cardid } = req.body;
+  let result = await UserService.update(req.params.id, email, fname, lname, size, cardid, req.params.token);
   res.json(result);
 });
 

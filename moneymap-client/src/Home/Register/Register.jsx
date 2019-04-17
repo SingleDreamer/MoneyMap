@@ -1,89 +1,136 @@
 import React, { Component } from "react";
 import UserDetails from "./UserDetails";
-import { Form, Button } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
-import AuthService from "../../Components/AuthService/AuthService";
+// import { Redirect } from "react-router-dom";
+import axios from "axios";
 import "../Home.css";
+import { withRouter, Redirect } from "react-router-dom";
+import AuthService from "../../AuthService/AuthService";
 
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userInfo: {
-        firstName: "",
-        lastName: "",
-        email: "",
+        fname: "",
+        lname: "",
+        username: "", //email
         password: "",
         reenterPass: "",
-        famSize: null,
-        age: null
-        // city: "",
-        // state: "",
-        // country: ""
+        adultFamSize: 0,
+        childFamSize: 0.0
+        // size: 0.0 //float, change to adults + children and make children .5 person
       },
       submit: false,
-      hasError: false
+      hasError: false,
+      isAuthed: false
     };
-
+    this.Auth = new AuthService();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.Auth = new AuthService();
   }
 
   render() {
-    let success;
-    if (this.state.submit === true) {
-      console.log("Profile successfully created");
+    // let success;
+    // if (this.state.submit === true) {
+    //   console.log("Profile successfully created");
+    //   return <Redirect to="/Dashboard" />;
+    //   success = (
+    //     // <Redirect
+    //     //   to={{ pathname: "/dashboard", state: { fromRegister: true } }}
+    //     // />
 
-      success = (
-        // <h6 style={{ marginTop: "10px" }}>
-        //   Profile successfully created. Thank you for registering!
-        // </h6>
-
-        // <Redirect
-        //   to={{ pathname: "/dashboard", state: { fromRegister: true } }}
-        // />
-        <Redirect to="/dashboard" />
-      );
+    //     <Redirect to="/dashboard" />
+    //   );
+    // } else {
+    //   // console.log("Registration: ", this.state.submit);
+    //}
+    if (this.state.isAuthed) {
+      return <Redirect to="/Dashboard" />;
     }
 
     return (
-      <Form>
-        {/* <p>Step {this.state.step} </p> */}
+      <div>
         <p className="required">Required field = </p>
         <UserDetails
-          nextStep={this.nextStep}
           handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
           userInfo={this.state.userInfo}
         />
-        <Button variant="primary" onSubmit={e => this.handleSubmit(e)}>
-          Submit
-        </Button>
-        {success}
-      </Form>
+        {/* {success} */}
+      </div>
     );
   }
 
   handleChange = input => event => {
-    this.setState({ [input]: event.target.value });
+    const { adultFamSize, childFamSize } = this.state;
+    if (input === "adultFamSize" || input === "childFamSize") {
+      this.setState({
+        ...this.state,
+        userInfo: {
+          ...this.state.userInfo,
+          size: Number(Number(adultFamSize) + Number(childFamSize) / 2),
+
+          [input]: event.target.value
+        }
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        userInfo: {
+          ...this.state.userInfo,
+          [input]: event.target.value
+        }
+      });
+    }
   };
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
-    this.Auth.register(this.state.userInfo)
-      .then(res => {
+    this.setState({
+      userInfo: {
+        ...this.state.userInfo,
+        adultFamSize: Number(this.state.adultFamSize),
+        childFamSize: Number(this.state.childFamSize),
+        size: Number(this.state.size)
+      }
+    });
+    let userInfo = this.state.userInfo;
+    userInfo.adultFamSize = Number(userInfo.adultFamSize);
+    userInfo.childFamSize = 0;
+    userInfo.size = Number(userInfo.adultFamSize);
+    console.log("New registration: ", userInfo);
+
+    let url =
+      "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/";
+    let config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    try {
+      let result = await axios.post(url, userInfo, config);
+      console.log(result.data);
+      if (result.data.status) {
+        console.log("success");
         this.setState({ submit: true });
-        const { email, username, password } = this.state;
-        alert(`Your registration detail: \n 
-            Email: ${email} \n 
-            Username: ${username} \n
-            Password: ${password}`);
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({ hasError: true });
-      });
+        this.Auth.login(
+          this.state.userInfo.username,
+          this.state.userInfo.password
+        )
+          .then(res => {
+            this.setState({ isAuthed: true });
+          })
+          .catch(err => {
+            console.log(err);
+            this.setState({ hasError: true });
+          });
+      }
+    } catch (err) {
+      console.log("Registration error: ", err.response);
+      this.setState({ hasError: true });
+    }
   }
 }
 
-export default Register;
+export default withRouter(Register);

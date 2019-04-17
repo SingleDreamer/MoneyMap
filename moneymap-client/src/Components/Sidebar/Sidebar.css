@@ -5,17 +5,20 @@
 
 .content {
   margin-left: 10px;
+  margin-top: 10px;
   font-family: montserat;
   font-size: 1.2em;
 }
 
-i {
-  font-size: 3em;
-  color: aliceblue;
+.navIcon {
+  font-size: 2em;
 }
 
 .title {
-  font-size: 3em;
-  color: aliceblue;
+  font-size: 2em;
   margin-left: 20px;
+}
+
+.icon {
+  margin: 5px;
 }

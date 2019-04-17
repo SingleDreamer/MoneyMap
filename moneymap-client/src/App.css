@@ -1,0 +1,16 @@
+.App {
+  color: #c5c6c7;
+  font: sans-serif;
+  height: 100vh;
+  width: 100vw;
+  background-color: #1f2833;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .App {
+    height: 150vh;
+    overflow: visible;
+  }
+}

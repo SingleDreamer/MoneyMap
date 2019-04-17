@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Card from "../Card/Card.js";
-//import { Card as Bscard } from "react-bootstrap";
 import "./CardArray.css";
 import "../Card/Card.css";
 import logo from "./addJOC2.png";
@@ -12,6 +11,7 @@ class CardArray extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      profile: [],
       companies: [],
       compareCompanies: [],
       show: false
@@ -24,8 +24,10 @@ class CardArray extends Component {
   // it will rerender with the new list of Cards
   componentWillReceiveProps(nextProps) {
     this.setState({
+      profile: nextProps.profile,
       companies: nextProps.companies
     });
+    // console.log("array: ", this.state.profile);
   }
 
   selectCard = company => {
@@ -69,9 +71,9 @@ class CardArray extends Component {
       show: true
     });
   };
-  getCardType = () => {};
   render() {
     var cards = [];
+    console.log(this.state.companies);
     cards = this.state.companies.map((company, index) =>
       company.selected ? (
         <div
@@ -80,10 +82,13 @@ class CardArray extends Component {
           //onClick={() => this.selectCard(company)}
         >
           <Card
+            getCards={this.props.getCards}
             key={company.jocid}
             cardType="selected"
+            image={`https://logo.clearbit.com/${company.jocname}.com`}
             id={index}
             info={company}
+            profile={this.props.profile}
             selectCard={this.selectCard}
           />
         </div>
@@ -94,10 +99,13 @@ class CardArray extends Component {
           //onClick={() => this.selectCard(company)}
         >
           <Card
+            getCards={this.props.getCards}
             key={company.jocid}
             cardType="notSelected"
+            image={`https://logo.clearbit.com/${company.jocname}.com`}
             id={index}
             info={company}
+            profile={this.props.profile}
             selectCard={this.selectCard}
           />
         </div>

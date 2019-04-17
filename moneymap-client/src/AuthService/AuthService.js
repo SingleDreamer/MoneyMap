@@ -3,21 +3,18 @@ import axios from "axios";
 
 export default class AuthService {
   constructor(domain) {
-    this.domain = domain || "/auth/login"; // get routes from backend
-    this.forgotpw = this.baseurl + "/auth/forgot-password";
-    this.resetpw = this.baseurl + "/auth/change-password";
-    this.register = this.baseurl + "/auth/register";
-
+    this.domain = domain || this.baseurl + "/validate"; //this.baseurl = /users
+    this.forgotpw = this.baseurl + "/auth/forgot-password"; //not active yet
+    this.resetpw = this.baseurl + "/auth/change-password"; //not active yet
     this.fetch = this.fetch.bind(this);
     this.login = this.login.bind(this);
-    //this.register = this.register.bind(this);
     this.getProfile = this.getProfile.bind(this);
   }
 
   async login(email, password) {
-    // Get a token from api server using the fetch api
+    console.log("login " + email + password);
     let payload = {
-      email: email,
+      username: email,
       password: password
     };
 
@@ -28,9 +25,23 @@ export default class AuthService {
     };
 
     try {
-      let response = await axios.post(this.domain, payload, config);
-      console.log(response.data.token);
-      this.setToken(response.data.token);
+      console.log("...");
+      console.log(payload);
+      axios
+        .post(
+          "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/validate",
+          payload,
+          config
+        )
+        .then(response => {
+          console.log("...");
+          console.log(response.data);
+          this.setToken(response.data.token);
+          this.setUser(response.data.UID);
+        })
+        .then(success => {
+          return success;
+        });
     } catch (err) {
       console.log(err.response);
       alert(err.response.data.message);
@@ -75,35 +86,10 @@ export default class AuthService {
     }
   }
 
-  async register(userDetails) {
-    let body = [];
-    for (var key in userDetails) {
-      body.push(userDetails[key]);
-    }
-    console.log("registration details: ", body);
-    let payload = {
-      body
-    };
-
-    let config = {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-
-    try {
-      let response = await axios.post(this.register, payload, config);
-      console.log(response.data);
-      if (response.data.success) alert("Successful reg");
-    } catch (err) {
-      console.log(err.response);
-    }
-  }
-
   loggedIn() {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken(); // Getting token from localstorage
-    return !!token && !this.isTokenExpired(token); // handwaiving here
+    return !!token; //&& !this.isTokenExpired(token); // handwaiving here
   }
 
   isTokenExpired(token) {
@@ -120,17 +106,26 @@ export default class AuthService {
 
   setToken(idToken) {
     // Saves user token to localStorage
-    localStorage.setItem("id_token", idToken);
+    sessionStorage.setItem("id_token", idToken);
+  }
+  setUser(uid) {
+    // Saves user token to localStorage
+    sessionStorage.setItem("user", uid);
   }
 
   getToken() {
     // Retrieves the user token from localStorage
-    return localStorage.getItem("id_token");
+    return sessionStorage.getItem("id_token");
+  }
+  getUser() {
+    // Retrieves the user token from localStorage
+    return sessionStorage.getItem("user");
   }
 
   logout() {
     // Clear user token and profile data from localStorage
-    localStorage.removeItem("id_token");
+    sessionStorage.removeItem("id_token");
+    sessionStorage.removeItem("user");
   }
 
   getProfile() {

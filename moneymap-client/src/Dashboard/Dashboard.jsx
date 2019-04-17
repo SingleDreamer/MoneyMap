@@ -3,9 +3,12 @@ import CardArray from "../Components/CardArray/CardArray.js";
 import Sidebar from "../Components/Sidebar/Sidebar.js";
 import { JobOfferCard } from "../Components/JobOfferCard";
 import { Modal, Button } from "react-bootstrap";
-import DashboardMap from "../Components/DashboardMap/DashboardMap.js"
+import DashboardMap from "../Components/DashboardMap/DashboardMap.js";
 import "./Dashboard.css";
 import axios from "axios";
+import AuthService from "../AuthService/AuthService";
+import { Redirect } from "react-router-dom";
+
 var perks = require("./test.json");
 
 class Dashboard extends Component {
@@ -14,22 +17,62 @@ class Dashboard extends Component {
     this.state = {
       // fromRegister: false,
       profileSubmit: false,
-      show: false,
-      companies: []
+      show: true,
+      isAuthed: true,
+      spinner: true,
+      companies: [],
+      profile: []
     };
+    this.Auth = new AuthService();
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     // this.profileSubmit = this.profileSubmit.bind(this);
   }
-
   componentDidMount() {
+    this.setState({
+      isAuthed: true
+    });
+    setTimeout(() => {
+      if (!this.Auth.getToken()) {
+        this.setState({ isAuthed: false });
+      } else {
+        this.setState({ spinner: false });
+        this.getCards();
+      }
+    }, 500);
+  }
+
+  getCards = (message = "default") => {
+    console.log(message);
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
     //getting the cards each time the component renders
+
     axios
-      .get("/users/11111111-1111-1111-1111-111111111111/jocs")
+      .get(
+        `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
+          "user"
+        )}/jocs`,
+        config
+      )
       .then(response => {
         // handle success
+        console.log(response);
         let jocs = response.data.result;
         jocs.forEach(company => {
+          if (company.priority === 0) {
+            this.setState({
+              profile: company,
+              profileSubmit: true,
+              show: false
+            });
+            // console.log("Profile: ", this.state.profile);
+          }
+
           company.selected = false;
           if (company.jocname === "Google") {
             company.perks = perks.Google;
@@ -42,20 +85,39 @@ class Dashboard extends Component {
         });
       })
       .catch(error => {
-        // handle error
         console.log(error);
       });
-  }
+  };
   render() {
+    console.log("profile submit: ", this.state.profileSubmit);
     let cardType;
     if (this.state.profileSubmit === false) {
-      cardType = <Modal.Title>Profile Card</Modal.Title>; //check if profile submission exists vs backend call
+      cardType = <Modal.Title>Profile Card</Modal.Title>;
     } else {
       cardType = <Modal.Title>New JobOfferCard</Modal.Title>;
     }
-
+    if (!this.state.isAuthed) {
+      return <Redirect to="/" />;
+    } else if (this.state.spinner) {
+      return (
+        <div className="lds-spinner ">
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+      );
+    }
     return (
-      <div className="Dashboard">
+      <div className="App">
         {/*Need to tuen this into a component to update depending on the currently logged in user's info */}
         <Sidebar className="Sidebar" />
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
@@ -64,8 +126,8 @@ class Dashboard extends Component {
           <Modal.Body>
             <JobOfferCard
               handleClose={this.handleClose}
-              profileSubmit={this.profileSubmit}
-              updateCompanies={this.updateCompanies}
+              // profileSubmit={this.state.profileSubmit}
+              getCards={this.getCards}
             />
           </Modal.Body>
           <Modal.Footer>
@@ -76,7 +138,9 @@ class Dashboard extends Component {
           companies={this.state.companies}
         />
         <CardArray
+          getCards={this.getCards}
           companies={this.state.companies}
+          profile={this.state.profile}
           handleShow={this.handleShow}
         />
       </div>

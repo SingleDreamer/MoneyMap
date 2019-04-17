@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "../Home.css";
 import { Form, Button } from "react-bootstrap";
-import AuthService from "../../Components/AuthService/AuthService";
-import { Link } from "react-router-dom";
+import AuthService from "../../AuthService/AuthService";
+import { withRouter, Redirect } from "react-router-dom";
 class LoginDetails extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +10,8 @@ class LoginDetails extends Component {
       email: "",
       password: "",
       submit: false,
-      hasError: false
+      hasError: false,
+      isAuthed: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,33 +19,40 @@ class LoginDetails extends Component {
   }
 
   render() {
+    if (this.state.isAuthed) {
+      return <Redirect to="/Dashboard" />;
+    }
     return (
-      <Form onSubmit={e => this.handleSubmit(e)}>
+      <Form>
         <p className="required">Required field = </p>
         <Form.Group controlId="email">
           <Form.Label className="required">Email</Form.Label>
           <Form.Control
+            required
             type="email"
             placeholder="Email"
+            name="email"
+            value={this.state.email}
             onChange={e => this.handleChange(e)}
           />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label className="required">Password</Form.Label>
           <Form.Control
+            required
             type="password"
             placeholder="Password"
+            name="password"
+            value={this.state.password}
             onChange={e => this.handleChange(e)}
           />
         </Form.Group>
         <Form.Group controlId="formBasicChecbox">
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
-        <Link to="/Dashboard">
-          <Button variant="primary" type="submit">
-            Login
-          </Button>
-        </Link>
+        <Button id="newPrimary" onClick={this.handleSubmit}>
+          Login
+        </Button>
       </Form>
     );
   }
@@ -56,10 +64,10 @@ class LoginDetails extends Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    //e.preventDefault();
     this.Auth.login(this.state.email, this.state.password)
       .then(res => {
-        this.props.history.replace("/dashboard");
+        this.setState({ isAuthed: true });
       })
       .catch(err => {
         console.log(err);
@@ -67,12 +75,11 @@ class LoginDetails extends Component {
       });
   }
 
-  componentWillMount = () => {
-    if (this.Auth.loggedIn()) {
-      this.props.history.replace("/dashboard");
-    }
-    document.body.classList.add("LoginBg");
-  };
+  // componentWillMount = () => {
+  //   if (this.Auth.loggedIn()) {
+  //     this.props.history.replace("/dashboard");
+  //   }
+  // };
 }
 
-export default LoginDetails;
+export default withRouter(LoginDetails);

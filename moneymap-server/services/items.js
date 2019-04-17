@@ -35,4 +35,5 @@ ItemService.createPrice = async (cityid, itemid, lowestPrice, averagePrice, high
   return result;
 };
 
+5313
 module.exports = ItemService;

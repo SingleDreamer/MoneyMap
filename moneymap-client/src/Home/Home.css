@@ -1,11 +1,22 @@
-.HomeBg {
-  background-image: url("https://d1dh93s7n44ml6.cloudfront.net/blog/wp-content/uploads/2017/01/19090328/Automate-Your-Finances.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
+.png {
+  position: relative;
+  width: 65%;
+  background-image: url("home.png");
+  background-size: cover;
+  left: 15vw;
+  padding-bottom: calc(100% * 3 / 4);
+  transform: scale(0.8);
+  overflow: visible;
+}
 
-  /* background-color: rgb(74, 74, 121); */
+#newPrimary {
+  margin: 10px;
+  background-color: #45a29e;
+  border-color: #45a29e;
+}
+#newSecondary {
+  background-color: #45a29d00;
+  border-color: #45a29e;
 }
 
 .required:after {
