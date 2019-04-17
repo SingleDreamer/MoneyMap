@@ -27,4 +27,29 @@ router.post('/:id', [AuthService.checkToken], async (req, res, next) => {
   res.json(result);
 });
 
+router.get('/:id/items', [AuthService.checkToken], async (req, res, next) => {
+  let result = await UserService.getJOCs(req.params.id, req.params.token);
+  res.json(result);
+});
+
+router.get('/:id/preferences', [AuthService.checkToken], async (req, res, next) => {
+  let result = await UserService.getJOCs(req.params.id, req.params.token);
+  res.json(result);
+});
+
+router.post('/:id/preferences', [AuthService.checkToken], async (req, res, next) => {
+  let result = await UserService.getJOCs(req.params.id, req.params.token);
+  res.json(result);
+});
+
+router.get('/:id/preferences/city', [AuthService.checkToken], async (req, res, next) => {
+  let result = await UserService.getJOCs(req.params.id, req.params.token);
+  res.json(result);
+});
+
+router.get('/:id/preferences/costs', [AuthService.checkToken], async (req, res, next) => {
+  let result = await UserService.getJOCs(req.params.id, req.params.token);
+  res.json(result);
+});
+
 module.exports = router;

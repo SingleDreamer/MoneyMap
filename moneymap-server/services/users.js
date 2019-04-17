@@ -35,7 +35,7 @@ UserService.get = async (username, password) => {
   request.input('password', sql.VarChar, password);
 
   let result = await request.execute('sp_validate_user');
-  
+
   let payload;
   if(result.recordsets[0].length == 0) {
     payload = {
@@ -102,6 +102,10 @@ UserService.getJOCs = async (id, token) => {
   }
 
   return output;
+};
+
+UserService.createPreference = async () => {
+  
 };
 
 module.exports = UserService;
