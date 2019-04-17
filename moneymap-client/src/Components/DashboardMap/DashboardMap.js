@@ -5,87 +5,38 @@ import {
   GoogleMap,
   Marker
 } from "react-google-maps";
-import axios from "axios";
-
-let cities = [];
-let coordinates = [];
 
 class DashboardMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
       height: props.height,
-      companies: [],
-      coor:[]
+      companies: []
     };
+
   }
 
-// componentWillMount
-// componentUpdate
-//  componentDidMount() {
-  componentWillMount() {
-    axios
-      .get("/cities")
-      .then(response => {
-        // handle success
-        let citiesObjects = response.data.recordset;
-        //This is for the form to be able to render the city
-        let cities = citiesObjects.map(city => {
-          return {
-            value: city.CityID,
-            label: city.City + ", " + city.Country,
-            latitude: city.Latitude,
-            longitude: city.Longitude
-          };
-        });
-
-        console.log(cities);
-
-        var cityIDs = [3,6,14,345, 23];
-        coordinates = cityIDs.map(id => {
-          var city = cities.find(element => element.value === id);
-          console.log("test");
-          console.log(city);
-          return {
-              lat: city.latitude,
-              lng: city.longitude,
-              rfs: 3
-          };
-        });
-        console.log(coordinates);
-        this.setState(
-          { coor: coordinates }
-        );
-
-      })
-      .catch(error => {
-        // handle error
-        console.log(error);
-      });
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      companies: nextProps.companies
+    });
+    //console.log("array: ", this.state.companies);
   }
 
   render() {
-<<<<<<< HEAD
     let coordinates = [
       { lat: 40.7128, lng: -73.935242, rfs: -75 },
       { lat: 38, lng: -70, rfs: -3 }
     ];
-    //console.log(this.state.companies);
-    //var cityIDs = [];
-    //cityIDs = this.state.companies.map((company, index) =>
-    //  company.cityid
-    //);
 
-    //{coordinates.map(i => {
+    console.log("TEST",this.state.companies);
+    var cityIDs = [];
+    cityIDs = this.state.companies.map((company, index) =>
+      company.joccityid
+    );
+    console.log(cityIDs);
 
-    console.log("render");
-    //console.log(this.state.coor);
-    let coor = this.state.coor;
-    console.log(coor);
 
-=======
-    let coordinates = [{ lat: 40.7128, lng: -73.935242, rfs: -75 }];
->>>>>>> master
     let MapWithAMarker = withScriptjs(
       withGoogleMap(props => (
         <GoogleMap
@@ -93,16 +44,10 @@ class DashboardMap extends Component {
           defaultZoom={6}
           defaultCenter={{ lat: 40.7128, lng: -73.935242 }}
         >
-<<<<<<< HEAD
-
-          {coor.map((i,index) => {
-=======
-          {coordinates.map((i, index) => {
->>>>>>> master
+          {coordinates.map(i => {
             if (i.rfs >= 50)
               return (
                 <Marker
-                  key={index}
                   icon={{
                     url:
                       "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
@@ -113,7 +58,6 @@ class DashboardMap extends Component {
             if (i.rfs < 50 && i.rfs >= 0)
               return (
                 <Marker
-                  key={index}
                   icon={{
                     url:
                       "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
@@ -124,7 +68,6 @@ class DashboardMap extends Component {
             if (i.rfs < 0 && i.rfs >= -50)
               return (
                 <Marker
-                  key={index}
                   icon={{
                     url:
                       "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
@@ -134,7 +77,6 @@ class DashboardMap extends Component {
               );
             return (
               <Marker
-                key={index}
                 icon={{
                   url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
                 }}
@@ -148,16 +90,17 @@ class DashboardMap extends Component {
 
     // need to make it so it changes when window size changes?
     return (
-      <div className="map">
+      <div>
         <MapWithAMarker
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBri0VnZME5FkDLJrfYRrqAky6qy5JNXxo&v=3.exp&libraries=geometry,drawing,places"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={
             <div
               style={{
-                height: window.innerHeight * 0.45 + "px",
-                marginTop: "20px",
-                width: "80vw"
+                height: window.innerHeight * 0.4 + "px",
+                width: "80vw",
+                marginLeft: "10vw",
+                marginTop: "20px"
               }}
             />
           }
