@@ -20,22 +20,26 @@ class Sidebar extends Component {
       userInfo: {
         firstName: "FirstName",
         lastName: "LastName",
-        relativeScore: 84,
+        relativeScore: this.props.currentJob.jocrfc,
         currentCity: "Seattle, WA",
         monthlyIncome: 10950,
         familySize: 2,
         expenses: 8750,
         savings: 2200
       },
+      company: {},
       open: false
     };
+
     this.Auth = new AuthService();
-    this.handleProfile = this.handleProfile.bind(this);
   }
 
   handleClose = () => {
     this.setState({ open: false });
     console.log("handle close");
+  };
+  toggleDrawer = () => {
+    this.setState({ open: !this.state.open });
   };
   clearSession = () => {
     //this.Auth.logout();
@@ -43,40 +47,41 @@ class Sidebar extends Component {
     this.props.history.replace("/");
     sessionStorage.clear();
   };
-  handleProfile(data) {
+  handleProfile = data => {
     this.setState({ userInfo: data });
     console.log("handleProfile data: " + data);
+  };
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      company: nextProps.currentJob
+    });
+    console.log("company: ", this.state.company);
   }
-
   componentWillMount = () => {
-    let config = {
-      headers: {
-        authorization: this.Auth.getToken(),
-        "Content-Type": "application/json"
-      }
-    };
-
-    // return (
-    //   axios
-    //     // .get("hhttp://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/", config) //needs a route
-    //     .then(response => {
-    //       console.log("Sidebar profile data: " + response.data);
-    //       this.handleProfile(response.data);
-    //     })
-    //     .catch(function(error) {
-    //       console.log(error);
-    //     })
-    // );
+    // let config = {
+    //   headers: {
+    //     authorization: this.Auth.getToken(),
+    //     "Content-Type": "application/json"
+    //   }
+    // };
+    // // return (
+    // //   axios
+    // //     // .get("hhttp://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/", config) //needs a route
+    // //     .then(response => {
+    // //       console.log("Sidebar profile data: " + response.data);
+    // //       this.handleProfile(response.data);
+    // //     })
+    // //     .catch(function(error) {
+    // //       console.log(error);
+    // //     })
+    // // );
   };
 
   render() {
     return (
       <div>
-        <Navbar id="app" className="justify-content-between">
-          <i
-            className="fas fa-map-signs navIcon"
-            onClick={() => this.setState({ open: true })}
-          />
+        <Navbar className="justify-content-between">
+          <i className="fas fa-map-signs navIcon" onClick={this.toggleDrawer} />
           <div className="title">Money Map</div>
 
           <Button variant="danger" onClick={this.clearSession}>
@@ -86,7 +91,6 @@ class Sidebar extends Component {
         <Drawer dismissible open={this.state.open} onClose={this.handleClose}>
           <DrawerHeader className="header">
             <DrawerTitle>
-              {" "}
               <span className="icon">
                 <i className="fas fa-user-circle" />
               </span>
@@ -94,32 +98,40 @@ class Sidebar extends Component {
           ${this.state.userInfo.lastName}`}
             </DrawerTitle>
           </DrawerHeader>
-          <DrawerContent className="content">
-            <DrawerSubtitle>Relative Finance Score</DrawerSubtitle>
-            <div className="content">{`${
-              this.state.userInfo.relativeScore
-            }`}</div>
-            <br />
-            <DrawerSubtitle>Curent City</DrawerSubtitle>
-            <div className="content">{`${
-              this.state.userInfo.currentCity
-            }`}</div>
-            <br />
-            <DrawerSubtitle>Monthly Income</DrawerSubtitle>
-            <div className="content">{`$${
-              this.state.userInfo.monthlyIncome
-            }`}</div>
-            <br />
-            <DrawerSubtitle>Family Size</DrawerSubtitle>
-            <div className="content">{`${this.state.userInfo.familySize}`}</div>
-            <br />
-            <DrawerSubtitle>Monthly Expenses</DrawerSubtitle>
-            <div className="content">{`$${this.state.userInfo.expenses}`}</div>
-            <br />
-            <DrawerSubtitle>Monthly Savings</DrawerSubtitle>
-            <div className="content">{`$${this.state.userInfo.savings}`}</div>
-            <br />
-          </DrawerContent>
+          {this.state.open ? (
+            <DrawerContent className="content">
+              <DrawerSubtitle>Relative Finance Score</DrawerSubtitle>
+              <div className="content">{`${this.state.company.jocrfc}`}</div>
+              <br />
+              <DrawerSubtitle>Curent City</DrawerSubtitle>
+              <div className="content">{`${
+                this.state.userInfo.currentCity
+              }`}</div>
+              <br />
+              <DrawerSubtitle>Monthly Income</DrawerSubtitle>
+              <div className="content">{`$${
+                this.state.company.components[0].ComponentAmount
+              }`}</div>
+              <br />
+              <DrawerSubtitle>Family Size</DrawerSubtitle>
+              <div className="content">{`${
+                this.state.userInfo.familySize
+              }`}</div>
+              <br />
+              <DrawerSubtitle>Monthly Expenses</DrawerSubtitle>
+              <div className="content">{`$
+              ${this.state.company.components[1].ComponentAmount +
+                this.state.company.components[2].ComponentAmount +
+                this.state.company.components[3].ComponentAmount +
+                this.state.company.components[4].ComponentAmount}`}</div>
+              <br />
+              <DrawerSubtitle>Monthly Savings</DrawerSubtitle>
+              <div className="content">{`$${this.state.company.savings}`}</div>
+              <br />
+            </DrawerContent>
+          ) : (
+            <DrawerContent />
+          )}
         </Drawer>
       </div>
     );

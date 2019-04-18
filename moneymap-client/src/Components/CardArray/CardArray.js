@@ -27,7 +27,7 @@ class CardArray extends Component {
       profile: nextProps.profile,
       companies: nextProps.companies
     });
-    // console.log("array: ", this.state.profile);
+    console.log("array: ", this.state.profile);
   }
 
   selectCard = company => {

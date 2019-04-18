@@ -72,6 +72,7 @@ class JobOfferDetails extends Component {
           };
         });
         console.log(cities);
+        //this renders the cities after getting them from the country
         this.setState({ state: this.state });
       })
       .catch(error => {
@@ -160,8 +161,11 @@ class JobOfferDetails extends Component {
     //   e.stopPropagation();
     // } else {
     //   console.log("Validation true");
+
+    //This set state throws an error, component unmounts before setState finishes. If this is needed needs to be reworked
+    //this.setState({ validated: true });
+
     this.props.nextStep();
-    this.setState({ validated: true });
     // }
   };
 }
