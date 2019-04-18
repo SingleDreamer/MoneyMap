@@ -104,8 +104,51 @@ UserService.getJOCs = async (id, token) => {
   return output;
 };
 
-UserService.createPreference = async () => {
-  
+UserService.getItems = async () => {
+  const request = new sql.Request(db);
+
+  let result = await request.execute('sp_get_items');
+  return result;
+};
+
+UserService.getPreferences = async (id, token) => {
+  const request = new sql.Request(db);
+  request.input('uid', sql.UniqueIdentifier, id);
+  request.input('token', sql.UniqueIdentifier, token);
+
+  let result = await request.execute('sp_get_user_preferences');
+  return result;
+};
+
+UserService.createPreference = async (id, iid, amount, token) => {
+  const request = new sql.Request(db);
+  request.input('uid', sql.UniqueIdentifier, id);
+  request.input('itemid', sql.UniqueIdentifier, iid);
+  request.input('amount', sql.Int, amount);
+  request.input('token', sql.UniqueIdentifier, token);
+
+  let result = await request.execute('sp_add_user_preference');
+  return result;
+};
+
+UserService.getCityPreferences = async (id, cid, token) => {
+  const request = new sql.Request(db);
+  request.input('uid', sql.UniqueIdentifier, id);
+  request.input('cityid', sql.UniqueIdentifier, cid);
+  request.input('token', sql.UniqueIdentifier, token);
+
+  let result = await request.execute('sp_get_user_city_preferences');
+  return result;
+};
+
+UserService.getCityCosts = async (id, cid, token) => {
+  const request = new sql.Request(db);
+  request.input('uid', sql.UniqueIdentifier, id);
+  request.input('cityid', sql.UniqueIdentifier, cid);
+  request.input('token', sql.UniqueIdentifier, token);
+
+  let result = await request.execute('sp_get_user_city_costs');
+  return result;
 };
 
 module.exports = UserService;
