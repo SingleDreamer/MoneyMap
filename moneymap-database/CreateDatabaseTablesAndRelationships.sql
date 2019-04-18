@@ -1,0 +1,414 @@
+USE [master]
+GO
+
+/****** Object:  Database [MoneyMapDB]    Script Date: 4/17/2019 7:57:46 PM ******/
+CREATE DATABASE [MoneyMapDB]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'MoneyMapDB', FILENAME = N'D:\RDSDBDATA\DATA\MoneyMapDB.mdf' , SIZE = 28608KB , MAXSIZE = UNLIMITED, FILEGROWTH = 10%)
+ LOG ON 
+( NAME = N'MoneyMapDB_log', FILENAME = N'D:\RDSDBDATA\DATA\MoneyMapDB_log.ldf' , SIZE = 16576KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+GO
+
+ALTER DATABASE [MoneyMapDB] SET COMPATIBILITY_LEVEL = 140
+GO
+
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [MoneyMapDB].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+
+ALTER DATABASE [MoneyMapDB] SET ANSI_NULL_DEFAULT OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET ANSI_NULLS OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET ANSI_PADDING OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET ANSI_WARNINGS OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET ARITHABORT OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET AUTO_CLOSE OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET AUTO_SHRINK OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET AUTO_UPDATE_STATISTICS ON 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET CURSOR_DEFAULT  GLOBAL 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET NUMERIC_ROUNDABORT OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET QUOTED_IDENTIFIER OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET RECURSIVE_TRIGGERS OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET  DISABLE_BROKER 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET TRUSTWORTHY OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET PARAMETERIZATION SIMPLE 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET HONOR_BROKER_PRIORITY OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET RECOVERY FULL 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET  MULTI_USER 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET PAGE_VERIFY CHECKSUM  
+GO
+
+ALTER DATABASE [MoneyMapDB] SET DB_CHAINING OFF 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET DELAYED_DURABILITY = DISABLED 
+GO
+
+ALTER DATABASE [MoneyMapDB] SET QUERY_STORE = OFF
+GO
+
+ALTER DATABASE [MoneyMapDB] SET  READ_WRITE 
+GO
+
+
+USE [MoneyMapDB]
+GO
+
+/****** Object:  Table [dbo].[Users]    Script Date: 4/17/2019 8:04:54 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Users](
+	[UID] [uniqueidentifier] NOT NULL,
+	[UserName] [varchar](255) NOT NULL,
+	[PasswordHash] [varchar](4000) NOT NULL,
+	[ConcurrencyStamp] [datetime] NOT NULL,
+	[Salt] [varchar](4000) NOT NULL,
+	[AuthToken] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+	[UID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Users] ADD  DEFAULT (newid()) FOR [UID]
+GO
+
+USE [MoneyMapDB]
+GO
+
+/****** Object:  Table [dbo].[Cities]    Script Date: 4/17/2019 8:09:37 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Cities](
+	[CityID] [int] NOT NULL,
+	[Latitude] [float] NULL,
+	[Longitude] [float] NULL,
+	[Country] [varchar](255) NOT NULL,
+	[City] [varchar](255) NOT NULL,
+ CONSTRAINT [PK_Cities] PRIMARY KEY CLUSTERED 
+(
+	[CityID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+USE [MoneyMapDB]
+GO
+
+/****** Object:  Table [dbo].[ComponentTypes]    Script Date: 4/17/2019 8:10:16 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[ComponentTypes](
+	[ComponentTypeID] [int] IDENTITY(1,1) NOT NULL,
+	[ComponentTypeDescription] [varchar](255) NOT NULL,
+ CONSTRAINT [PK_ComponentTypes] PRIMARY KEY CLUSTERED 
+(
+	[ComponentTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [MoneyMapDB]
+GO
+
+/****** Object:  Table [dbo].[UserProfiles]    Script Date: 4/17/2019 8:05:47 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[UserProfiles](
+	[UID] [uniqueidentifier] NOT NULL,
+	[Email] [varchar](255) NOT NULL,
+	[FamilySize] [float] NOT NULL,
+	[ProfileCardID] [int] NULL,
+	[FirstName] [varchar](50) NOT NULL,
+	[LastName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_UserProfiles] PRIMARY KEY CLUSTERED 
+(
+	[UID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[UserProfiles] ADD  DEFAULT ('Bob') FOR [FirstName]
+GO
+
+ALTER TABLE [dbo].[UserProfiles] ADD  DEFAULT ('Bob') FOR [LastName]
+GO
+
+ALTER TABLE [dbo].[UserProfiles]  WITH CHECK ADD FOREIGN KEY([UID])
+REFERENCES [dbo].[Users] ([UID])
+GO
+
+
+USE [MoneyMapDB]
+GO
+
+/****** Object:  Table [dbo].[JobOfferCards]    Script Date: 4/17/2019 8:10:52 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[JobOfferCards](
+	[JobOfferCardID] [int] IDENTITY(1,1) NOT NULL,
+	[UID] [uniqueidentifier] NOT NULL,
+	[JobOfferCardName] [varchar](50) NOT NULL,
+	[Priority] [int] NOT NULL,
+	[RFS] [float] NOT NULL,
+	[CityID] [int] NOT NULL,
+	[CardImageSrc] [varchar](max) NULL,
+ CONSTRAINT [PK_JobOfferCards] PRIMARY KEY CLUSTERED 
+(
+	[JobOfferCardID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[JobOfferCards]  WITH CHECK ADD FOREIGN KEY([CityID])
+REFERENCES [dbo].[Cities] ([CityID])
+GO
+
+ALTER TABLE [dbo].[JobOfferCards]  WITH CHECK ADD FOREIGN KEY([UID])
+REFERENCES [dbo].[UserProfiles] ([UID])
+GO
+
+
+ALTER TABLE [dbo].[UserProfiles]  WITH CHECK ADD FOREIGN KEY([ProfileCardID])
+REFERENCES [dbo].[JobOfferCards] ([JobOfferCardID])
+GO
+
+USE [MoneyMapDB]
+GO
+
+/****** Object:  Table [dbo].[CardComponents]    Script Date: 4/17/2019 8:13:30 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[CardComponents](
+	[CardComponentID] [int] IDENTITY(1,1) NOT NULL,
+	[JobOfferCardID] [int] NOT NULL,
+	[ComponentTypeID] [int] NOT NULL,
+	[ComponentDescription] [varchar](255) NOT NULL,
+	[ComponentAmount] [money] NOT NULL,
+ CONSTRAINT [PK_CardComponents] PRIMARY KEY CLUSTERED 
+(
+	[CardComponentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[CardComponents]  WITH CHECK ADD FOREIGN KEY([ComponentTypeID])
+REFERENCES [dbo].[ComponentTypes] ([ComponentTypeID])
+GO
+
+ALTER TABLE [dbo].[CardComponents]  WITH CHECK ADD FOREIGN KEY([JobOfferCardID])
+REFERENCES [dbo].[JobOfferCards] ([JobOfferCardID])
+GO
+
+
+USE [MoneyMapDB]
+GO
+
+/****** Object:  Table [dbo].[Averages]    Script Date: 4/17/2019 8:14:21 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Averages](
+	[AverageID] [int] IDENTITY(1,1) NOT NULL,
+	[CityID] [int] NOT NULL,
+	[ComponentTypeID] [int] NOT NULL,
+	[Amount] [money] NOT NULL,
+ CONSTRAINT [PK_Averages] PRIMARY KEY CLUSTERED 
+(
+	[AverageID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Averages]  WITH CHECK ADD FOREIGN KEY([CityID])
+REFERENCES [dbo].[Cities] ([CityID])
+GO
+
+ALTER TABLE [dbo].[Averages]  WITH CHECK ADD FOREIGN KEY([ComponentTypeID])
+REFERENCES [dbo].[ComponentTypes] ([ComponentTypeID])
+GO
+
+USE [MoneyMapDB]
+GO
+
+/****** Object:  Table [dbo].[Items]    Script Date: 4/17/2019 8:14:51 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Items](
+	[Rent_Factor] [float] NOT NULL,
+	[Cpi_Factor] [float] NOT NULL,
+	[Item_ID] [int] NOT NULL,
+	[Name] [varchar](255) NOT NULL,
+	[Category] [varchar](50) NOT NULL,
+	[Type] [int] NULL,
+ CONSTRAINT [PK_Items] PRIMARY KEY CLUSTERED 
+(
+	[Item_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Items]  WITH CHECK ADD FOREIGN KEY([Type])
+REFERENCES [dbo].[ComponentTypes] ([ComponentTypeID])
+GO
+
+USE [MoneyMapDB]
+GO
+
+/****** Object:  Table [dbo].[ItemPrices]    Script Date: 4/17/2019 8:16:19 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[ItemPrices](
+	[ItemPriceID] [int] IDENTITY(1,1) NOT NULL,
+	[CityID] [int] NOT NULL,
+	[ItemID] [int] NOT NULL,
+	[LowestPrice] [money] NOT NULL,
+	[AveragePrice] [money] NOT NULL,
+	[HighestPrice] [money] NOT NULL,
+ CONSTRAINT [PK_ItemPrices] PRIMARY KEY CLUSTERED 
+(
+	[ItemPriceID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[ItemPrices]  WITH CHECK ADD FOREIGN KEY([CityID])
+REFERENCES [dbo].[Cities] ([CityID])
+GO
+
+ALTER TABLE [dbo].[ItemPrices]  WITH CHECK ADD FOREIGN KEY([ItemID])
+REFERENCES [dbo].[Items] ([Item_ID])
+GO
+
+USE [MoneyMapDB]
+GO
+
+/****** Object:  Table [dbo].[UserPreferences]    Script Date: 4/17/2019 8:16:59 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[UserPreferences](
+	[UID] [uniqueidentifier] NOT NULL,
+	[ItemID] [int] NOT NULL,
+	[Amount] [float] NOT NULL,
+ CONSTRAINT [PK_UserPreferences] PRIMARY KEY CLUSTERED 
+(
+	[UID] ASC,
+	[ItemID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[UserPreferences]  WITH CHECK ADD FOREIGN KEY([ItemID])
+REFERENCES [dbo].[Items] ([Item_ID])
+GO
+
+ALTER TABLE [dbo].[UserPreferences]  WITH CHECK ADD FOREIGN KEY([UID])
+REFERENCES [dbo].[UserProfiles] ([UID])
+GO
+
+
+
+
