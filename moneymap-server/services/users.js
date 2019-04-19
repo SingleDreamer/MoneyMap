@@ -111,6 +111,15 @@ UserService.getItems = async () => {
   return result;
 };
 
+UserService.getProfile = async (id, token) => {
+  const request = new sql.Request(db);
+  request.input('uid', sql.UniqueIdentifier, id);
+  request.input('token', sql.UniqueIdentifier, token);
+
+  let result = await request.execute('sp_get_profile');
+  return result;
+};
+
 UserService.getPreferences = async (id, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
