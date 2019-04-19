@@ -61,10 +61,7 @@ class DashboardMap extends Component {
   }
 
   render() {
-    let coordinates = [
-      { lat: 40.7128, lng: -73.935242, rfs: -75 },
-      { lat: 38, lng: -70, rfs: -3 }
-    ];
+    var coordinates = [];
 
     console.log("TEST",this.state.companies);
     var cityIDs = [];
@@ -103,8 +100,7 @@ class DashboardMap extends Component {
               return (
                 <Marker
                   icon={{
-                    url:
-                      "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+                    url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
                   }}
                   position={{ lat: i.lat, lng: i.lng }}
                 />
@@ -113,8 +109,7 @@ class DashboardMap extends Component {
               return (
                 <Marker
                   icon={{
-                    url:
-                      "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+                    url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
                   }}
                   position={{ lat: i.lat, lng: i.lng }}
                 />
@@ -123,8 +118,7 @@ class DashboardMap extends Component {
               return (
                 <Marker
                   icon={{
-                    url:
-                      "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
+                    url: "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
                   }}
                   position={{ lat: i.lat, lng: i.lng }}
                 />
