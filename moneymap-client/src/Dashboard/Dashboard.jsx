@@ -17,7 +17,7 @@ class Dashboard extends Component {
     this.state = {
       // fromRegister: false,
       profileSubmit: false,
-      show: true,
+      show: false,
       isAuthed: true,
       spinner: true,
       companies: [],
@@ -36,10 +36,10 @@ class Dashboard extends Component {
       if (!this.Auth.getToken()) {
         this.setState({ isAuthed: false });
       } else {
-        this.setState({ spinner: false });
         this.getCards();
+        this.setState({ spinner: false });
       }
-    }, 500);
+    }, 800);
   }
 
   getCards = (message = "default") => {
@@ -61,8 +61,8 @@ class Dashboard extends Component {
       )
       .then(response => {
         // handle success
-        console.log(response);
         let jocs = response.data.result;
+        console.log(jocs);
         jocs.forEach(company => {
           if (company.priority === 0) {
             this.setState({
@@ -70,9 +70,8 @@ class Dashboard extends Component {
               profileSubmit: true,
               show: false
             });
-            // console.log("Profile: ", this.state.profile);
+            console.log("Profile: ", this.state.profile);
           }
-
           company.selected = false;
           if (company.jocname === "Google") {
             company.perks = perks.Google;
@@ -88,6 +87,7 @@ class Dashboard extends Component {
         console.log(error);
       });
   };
+
   render() {
     console.log("profile submit: ", this.state.profileSubmit);
     let cardType;
@@ -119,7 +119,7 @@ class Dashboard extends Component {
     return (
       <div className="App">
         {/*Need to tuen this into a component to update depending on the currently logged in user's info */}
-        <Sidebar className="Sidebar" />
+        <Sidebar className="Sidebar" currentJob={this.state.profile} />
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>{cardType}</Modal.Header>
