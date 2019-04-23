@@ -27,6 +27,11 @@ router.post('/:id', [AuthService.checkToken], async (req, res, next) => {
   res.json(result);
 });
 
+router.get('/:id/profile', [AuthService.checkToken], async (req, res, next) => {
+  let result = await UserService.getProfile(req.params.id, req.params.token);
+  res.json(result);
+});
+
 router.get('/:id/items', async (req, res, next) => {
   let result = await UserService.getItems();
   res.json(result);
