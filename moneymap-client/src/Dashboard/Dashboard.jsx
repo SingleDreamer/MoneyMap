@@ -37,10 +37,91 @@ class Dashboard extends Component {
         this.setState({ isAuthed: false });
       } else {
         this.getCards();
+        this.getItems();
+        this.getPrefrences();
         this.setState({ spinner: false });
       }
     }, 800);
   }
+
+  // router.get('/:id/items', async (req, res, next) => {
+  //   let result = await UserService.getItems();
+  //   res.json(result);
+  // });
+
+  // router.get('/:id/preferences', [AuthService.checkToken], async (req, res, next) => {
+  //   let result = await UserService.getPreferences(req.params.id, req.params.token);
+  //   res.json(result);
+  // });
+
+  // router.post('/:id/preferences', [AuthService.checkToken], async (req, res, next) => {
+  //   let results = [];
+
+  //   for(i in req.body) {
+  //     let preference = req.body[i];
+  //     let result = await UserService.createPreference(req.params.id, preference.itemid, preference.amount, req.params.token);
+  //     results.push(result);
+  //   }
+  //   res.json(results);
+  // });
+
+  // router.get('/:id/preferences/city/:cid', [AuthService.checkToken], async (req, res, next) => {
+  //   let result = await UserService.getCityPreferences(req.params.id, req.params.token);
+  //   res.json(result);
+  // });
+
+  // router.get('/:id/preferences/costs/:cid', [AuthService.checkToken], async (req, res, next) => {
+  //   let result = await UserService.getCityCosts(req.params.id, req.params.token);
+  //   res.json(result);
+  // });
+
+  getItems = () => {
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+    //getting the cards each time the component renders
+
+    axios
+      .get(
+        `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
+          "user"
+        )}/items`,
+        config
+      )
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  
+  getPrefrences = () => {
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+    //getting the cards each time the component renders
+
+    axios
+      .get(
+        `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
+          "user"
+        )}/preferences`,
+        config
+      )
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   getCards = (message = "default") => {
     console.log(message);

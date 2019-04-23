@@ -20,12 +20,8 @@ class Sidebar extends Component {
       userInfo: {
         firstName: "FirstName",
         lastName: "LastName",
-        relativeScore: this.props.currentJob.jocrfc,
         currentCity: "Seattle, WA",
-        monthlyIncome: 10950,
-        familySize: 2,
-        expenses: 8750,
-        savings: 2200
+        familySize: 2
       },
       company: {},
       open: false

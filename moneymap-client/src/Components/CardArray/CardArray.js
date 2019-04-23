@@ -7,6 +7,7 @@ import { Button, Modal } from "react-bootstrap";
 import CompareCharts from "../Card/CompareChart";
 
 let amountSelected = 0;
+
 class CardArray extends Component {
   constructor(props, context) {
     super(props, context);

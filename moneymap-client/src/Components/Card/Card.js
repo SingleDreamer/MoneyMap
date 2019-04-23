@@ -95,7 +95,7 @@ class CardArray extends Component {
     if (rfs >= 50) {
       optionsRadial.colors = ["#35ff53"];
     } else if (rfs < 50 && rfs >= 0) {
-      optionsRadial.colors = ["#fcf344"];
+      optionsRadial.colors = ["#f48e00"];
     } else if (rfs < 0 && rfs >= -50) {
       optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
       optionsRadial.colors = ["#ffa434"];
