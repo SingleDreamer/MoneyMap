@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import "./Sidebar.css";
-import { Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import "@material/react-drawer/dist/drawer.css";
 import Drawer, {
@@ -10,8 +9,12 @@ import Drawer, {
   DrawerTitle
 } from "@material/react-drawer";
 import Navbar from "react-bootstrap/Navbar";
-import AuthService from "../../AuthService/AuthService";
 import axios from "axios";
+
+import AuthService from "../../AuthService/AuthService";
+import Preferences from "../PreferencesWorksheet/PreferencesWorksheet";
+
+import "./Sidebar.css";
 
 class Sidebar extends Component {
   constructor(props, context) {
@@ -24,7 +27,8 @@ class Sidebar extends Component {
         familySize: 2
       },
       company: {},
-      open: false
+      open: false,
+      show: false
     };
 
     this.Auth = new AuthService();
@@ -32,6 +36,10 @@ class Sidebar extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
+    console.log("handle close");
+  };
+  handleCloseModal = () => {
+    this.setState({ show: false });
     console.log("handle close");
   };
   toggleDrawer = () => {
@@ -47,12 +55,21 @@ class Sidebar extends Component {
     this.setState({ userInfo: data });
     console.log("handleProfile data: " + data);
   };
+
+  openPrefrenceWorksheet = () => {
+    this.toggleDrawer();
+    this.setState({ show: !this.state.show });
+  };
+  editProfile = () => {};
+
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     this.setState({
       company: nextProps.currentJob
     });
     console.log("company: ", this.state.company);
   }
+
   componentWillMount = () => {
     // let config = {
     //   headers: {
@@ -124,9 +141,49 @@ class Sidebar extends Component {
               <DrawerSubtitle>Monthly Savings</DrawerSubtitle>
               <div className="content">{`$${this.state.company.savings}`}</div>
               <br />
+              {/* <Modal show={this.state.show} onHide={this.handleCloseModal}>
+                <Modal.Header closeButton={false} />
+
+                <Modal.Body>
+                  <Preferences items={this.props.items} />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.handleCloseModal}>Close</Button>
+                </Modal.Footer>
+              </Modal> */}
+              <Button onClick={this.openPrefrenceWorksheet}>Prefrences</Button>
+              <br />
+              <br />
+
+              <Button onClick={this.editProfile}>Edit Profile</Button>
             </DrawerContent>
           ) : (
-            <DrawerContent />
+            <DrawerContent>
+              <Modal
+                size="lg"
+                show={this.state.show}
+                onHide={this.handleCloseModal}
+              >
+                <Modal.Header closeButton={false}>
+                  <Modal.Title>Adjust Preferences</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <p>
+                    <strong>
+                      Add your estimated monthly amounts for each category in
+                      order to get a more accurate report. If a field is left
+                      blank we will use the averages for that city.
+                    </strong>
+                  </p>
+                  <Preferences items={this.props.items} />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.handleCloseModal}>Close</Button>
+                </Modal.Footer>
+              </Modal>
+              <Button onClick={this.openPrefrenceWorksheet}>Prefrences</Button>
+              <Button onClick={this.editProfiles}>Edit Profile</Button>
+            </DrawerContent>
           )}
         </Drawer>
       </div>

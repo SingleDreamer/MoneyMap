@@ -74,7 +74,7 @@ class CardArray extends Component {
   };
   render() {
     var cards = [];
-    console.log(this.state.companies);
+    //console.log(this.state.companies);
     cards = this.state.companies.map((company, index) =>
       company.selected ? (
         <div

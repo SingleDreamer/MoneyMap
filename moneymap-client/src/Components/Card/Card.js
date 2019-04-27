@@ -143,7 +143,7 @@ class CardArray extends Component {
         config
       )
       .then(res => {
-        console.log(res.data.recordsets);
+        //console.log(res.data.recordsets);
         if (res.data.recordsets[0].length > 0) {
           this.setState({ cityAverages: res.data.recordsets });
           // console.log(this.state.cityAverages[0][0].Amount);
@@ -189,7 +189,7 @@ class CardArray extends Component {
               {/* <Card.Title>{this.props.info.joccityid}</Card.Title> */}
               <OverlayTrigger
                 trigger="hover"
-                placement="right"
+                placement="left"
                 overlay={popover}
               >
                 <div className="chart">

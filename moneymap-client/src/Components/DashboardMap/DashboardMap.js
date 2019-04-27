@@ -7,10 +7,8 @@ import {
 } from "react-google-maps";
 import axios from "axios";
 
-
 let cities = [];
 var coordinates = [];
-
 
 class DashboardMap extends Component {
   constructor(props) {
@@ -18,9 +16,8 @@ class DashboardMap extends Component {
     this.state = {
       height: props.height,
       companies: [],
-      cities:[]
+      cities: []
     };
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,7 +29,9 @@ class DashboardMap extends Component {
 
   componentWillMount() {
     axios
-      .get("http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/cities")
+      .get(
+        "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/cities"
+      )
       .then(response => {
         // handle success
         let citiesObjects = response.data.recordset;
@@ -47,12 +46,8 @@ class DashboardMap extends Component {
           };
         });
 
-        console.log(cities);
-        this.setState(
-          { cities: cities }
-        );
-
-
+        //console.log(cities);
+        this.setState({ cities: cities });
       })
       .catch(error => {
         // handle error
@@ -63,30 +58,34 @@ class DashboardMap extends Component {
   render() {
     var coordinates = [];
 
-    console.log("TEST",this.state.companies);
+    //console.log("TEST", this.state.companies);
     var cityIDs = [];
     cityIDs = this.state.companies.map((company, index) => {
       return {
-        cityid : company.joccityid,
-        rfs : company.jocrfc
+        cityid: company.joccityid,
+        rfs: company.jocrfc
       };
     });
-    console.log(cityIDs);
-    console.log(this.state.cities);
+    //console.log(cityIDs);
+    //console.log(this.state.cities);
 
-    if((this.state.cities).length > 0) {
+    if (this.state.cities.length > 0) {
       coordinates = cityIDs.map(id => {
-            var city = (this.state.cities).find(element => element.value === id.cityid);
-            console.log("test");
-            console.log(city);
-            return {
-                lat: city.latitude,
-                lng: city.longitude,
-                rfs: id.rfs
-            };
-          });
-      console.log(coordinates);
-  };
+        var city = this.state.cities.find(
+          element => element.value === id.cityid
+        );
+        // console.log("test");
+        // console.log(city);
+        if (city) {
+          return {
+            lat: city.latitude,
+            lng: city.longitude,
+            rfs: id.rfs
+          };
+        }
+      });
+      //console.log(coordinates);
+    }
 
     let MapWithAMarker = withScriptjs(
       withGoogleMap(props => (
@@ -95,43 +94,53 @@ class DashboardMap extends Component {
           defaultZoom={6}
           defaultCenter={{ lat: 40.7128, lng: -73.935242 }}
         >
-          {coordinates.map(i => {
-            if (i.rfs >= 50)
-              return (
-                <Marker
-                  icon={{
-                    url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-                  }}
-                  position={{ lat: i.lat, lng: i.lng }}
-                />
-              );
-            if (i.rfs < 50 && i.rfs >= 0)
-              return (
-                <Marker
-                  icon={{
-                    url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
-                  }}
-                  position={{ lat: i.lat, lng: i.lng }}
-                />
-              );
-            if (i.rfs < 0 && i.rfs >= -50)
-              return (
-                <Marker
-                  icon={{
-                    url: "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
-                  }}
-                  position={{ lat: i.lat, lng: i.lng }}
-                />
-              );
-            return (
-              <Marker
-                icon={{
-                  url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-                }}
-                position={{ lat: i.lat, lng: i.lng }}
-              />
-            );
-          })}
+          {coordinates
+            ? coordinates.map((i, index) => {
+                if (i.rfs >= 50)
+                  return (
+                    <Marker
+                      icon={{
+                        url:
+                          "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+                      }}
+                      position={{ lat: i.lat, lng: i.lng }}
+                      key={index}
+                    />
+                  );
+                if (i.rfs < 50 && i.rfs >= 0)
+                  return (
+                    <Marker
+                      icon={{
+                        url:
+                          "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+                      }}
+                      position={{ lat: i.lat, lng: i.lng }}
+                      key={index}
+                    />
+                  );
+                if (i.rfs < 0 && i.rfs >= -50)
+                  return (
+                    <Marker
+                      icon={{
+                        url:
+                          "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
+                      }}
+                      position={{ lat: i.lat, lng: i.lng }}
+                      key={index}
+                    />
+                  );
+                return (
+                  <Marker
+                    icon={{
+                      url:
+                        "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                    }}
+                    position={{ lat: i.lat, lng: i.lng }}
+                    key={index}
+                  />
+                );
+              })
+            : null}
         </GoogleMap>
       ))
     );

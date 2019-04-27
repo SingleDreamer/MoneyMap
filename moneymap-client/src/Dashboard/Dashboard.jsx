@@ -21,7 +21,8 @@ class Dashboard extends Component {
       isAuthed: true,
       spinner: true,
       companies: [],
-      profile: []
+      profile: [],
+      items: []
     };
     this.Auth = new AuthService();
     this.handleShow = this.handleShow.bind(this);
@@ -92,13 +93,16 @@ class Dashboard extends Component {
         config
       )
       .then(response => {
-        console.log(response);
+        console.log("items", response.data.recordset);
+        this.setState({
+          items: response.data.recordset
+        });
       })
       .catch(error => {
         console.log(error);
       });
   };
-  
+
   getPrefrences = () => {
     let config = {
       headers: {
@@ -116,7 +120,7 @@ class Dashboard extends Component {
         config
       )
       .then(response => {
-        console.log(response);
+        console.log("preferences", response);
       })
       .catch(error => {
         console.log(error);
@@ -170,7 +174,7 @@ class Dashboard extends Component {
   };
 
   render() {
-    console.log("profile submit: ", this.state.profileSubmit);
+    //console.log("profile submit: ", this.state.profileSubmit);
     let cardType;
     if (this.state.profileSubmit === false) {
       cardType = <Modal.Title>Profile Card</Modal.Title>;
@@ -200,7 +204,11 @@ class Dashboard extends Component {
     return (
       <div className="App">
         {/*Need to tuen this into a component to update depending on the currently logged in user's info */}
-        <Sidebar className="Sidebar" currentJob={this.state.profile} />
+        <Sidebar
+          className="Sidebar"
+          currentJob={this.state.profile}
+          items={this.state.items}
+        />
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>{cardType}</Modal.Header>
@@ -215,9 +223,7 @@ class Dashboard extends Component {
             <Button onClick={this.handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
-        <DashboardMap
-          companies={this.state.companies}
-        />
+        <DashboardMap companies={this.state.companies} />
         <CardArray
           getCards={this.getCards}
           companies={this.state.companies}
