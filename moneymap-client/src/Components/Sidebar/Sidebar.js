@@ -10,7 +10,7 @@ import Drawer, {
 } from "@material/react-drawer";
 import Navbar from "react-bootstrap/Navbar";
 import axios from "axios";
-
+import JobOfferCard from "../JobOfferCard/JobOfferCard";
 import AuthService from "../../AuthService/AuthService";
 import Preferences from "../PreferencesWorksheet/PreferencesWorksheet";
 
@@ -27,19 +27,21 @@ class Sidebar extends Component {
         familySize: 2
       },
       company: {},
+      profile: {},
       open: false,
-      show: false
+      show: false,
+      showProfile: false
     };
 
     this.Auth = new AuthService();
   }
 
-  handleClose = () => {
+  handleCloseSidebar = () => {
     this.setState({ open: false });
     console.log("handle close");
   };
   handleCloseModal = () => {
-    this.setState({ show: false });
+    this.setState({ show: false, showProfile: false });
     console.log("handle close");
   };
   toggleDrawer = () => {
@@ -60,7 +62,47 @@ class Sidebar extends Component {
     this.toggleDrawer();
     this.setState({ show: !this.state.show });
   };
-  editProfile = () => {};
+  editProfile = () => {
+    this.toggleDrawer();
+    this.setState({ showProfile: !this.state.showProfile });
+  };
+
+  deleteOldProfile = () => {
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+    axios
+      .get(
+        `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
+          "user"
+        )}/jocs`,
+        config
+      )
+      .then(response => {
+        let jocs = response.data.result;
+        console.log("JOCS array: ", jocs);
+        jocs.forEach(company => {
+          if (company.priority === 0) {
+            axios
+              .delete(
+                "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
+                  company.jocid,
+                config
+              )
+              .then(res => this.props.getCards("Deleted Cards"))
+              .catch(error => {
+                console.log(error);
+              });
+          }
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   componentWillReceiveProps(nextProps) {
     console.log(nextProps);
@@ -71,23 +113,47 @@ class Sidebar extends Component {
   }
 
   componentWillMount = () => {
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+    axios
+      .get(
+        `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
+          "user"
+        )}/profile`,
+        config
+      )
+      .then(response => {
+        let jocs = response.data.result;
+        console.log(jocs);
+        this.setState({
+          profile: jocs
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    // };
     // let config = {
     //   headers: {
     //     authorization: this.Auth.getToken(),
     //     "Content-Type": "application/json"
     //   }
     // };
-    // // return (
-    // //   axios
-    // //     // .get("hhttp://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/", config) //needs a route
-    // //     .then(response => {
-    // //       console.log("Sidebar profile data: " + response.data);
-    // //       this.handleProfile(response.data);
-    // //     })
-    // //     .catch(function(error) {
-    // //       console.log(error);
-    // //     })
-    // // );
+    // return (
+    //   axios
+    //     // .get("hhttp://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/", config) //needs a route
+    //     .then(response => {
+    //       console.log("Sidebar profile data: " + response.data);
+    //       this.handleProfile(response.data);
+    //     })
+    //     .catch(function(error) {
+    //       console.log(error);
+    //     })
+    // );
   };
 
   render() {
@@ -101,7 +167,11 @@ class Sidebar extends Component {
             Log Out
           </Button>
         </Navbar>
-        <Drawer dismissible open={this.state.open} onClose={this.handleClose}>
+        <Drawer
+          dismissible
+          open={this.state.open}
+          onClose={this.handleCloseSidebar}
+        >
           <DrawerHeader className="header">
             <DrawerTitle>
               <span className="icon">
@@ -116,7 +186,7 @@ class Sidebar extends Component {
               <DrawerSubtitle>Relative Finance Score</DrawerSubtitle>
               <div className="content">{`${this.state.company.jocrfc}`}</div>
               <br />
-              <DrawerSubtitle>Curent City</DrawerSubtitle>
+              <DrawerSubtitle>Current City</DrawerSubtitle>
               <div className="content">{`${
                 this.state.userInfo.currentCity
               }`}</div>
@@ -155,7 +225,7 @@ class Sidebar extends Component {
               <br />
               <br />
 
-              <Button onClick={this.editProfile}>Edit Profile</Button>
+              <Button onClick={this.editProfile}>Replace Profile</Button>
             </DrawerContent>
           ) : (
             <DrawerContent>
@@ -181,8 +251,29 @@ class Sidebar extends Component {
                   <Button onClick={this.handleCloseModal}>Close</Button>
                 </Modal.Footer>
               </Modal>
-              <Button onClick={this.openPrefrenceWorksheet}>Prefrences</Button>
-              <Button onClick={this.editProfiles}>Edit Profile</Button>
+              <Modal
+                show={this.state.showProfile}
+                onHide={this.handleCloseModal}
+              >
+                <Modal.Header closeButton={false}>
+                  <Modal.Title>New Profile Card</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <JobOfferCard
+                    newProfile={true}
+                    deleteOldProfile={this.deleteOldProfile}
+                    handleCloseModal={this.handleCloseModal}
+                    getCards={this.props.getCards}
+                    // show={this.state.showProfile}
+                    // onHide={this.handleCloseModal}
+                  />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.handleCloseModal}>Close</Button>
+                </Modal.Footer>
+              </Modal>
+              {/* delete current card/give priority 0 
+              get edit method from backend*/}
             </DrawerContent>
           )}
         </Drawer>

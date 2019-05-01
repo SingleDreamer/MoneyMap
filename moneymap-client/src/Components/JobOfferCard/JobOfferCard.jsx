@@ -16,12 +16,15 @@ class JobOfferCard extends Component {
       image: "",
       Components: {},
       submit: false,
-      error: null
+      error: null,
+      newProfile: false
     };
     this.Auth = new AuthService();
     this.handleChange = this.handleChange.bind(this);
   }
-
+  componentWillReceiveProps(nextProps) {
+    this.setState({ newProfile: nextProps.newProfile });
+  }
   render() {
     const { step } = this.state;
     const { name, cityid, image, Components } = this.state;
@@ -134,7 +137,11 @@ class JobOfferCard extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.handleClose();
+    if (this.state.newProfile === false) {
+      this.props.handleClose();
+    } else {
+      this.props.handleCloseModal();
+    }
     // this.props.profileSubmit();
 
     this.setState({
@@ -189,7 +196,12 @@ class JobOfferCard extends Component {
               //something something response something
               console.log(response2);
               //alert(`Successfully submitted`);
-              this.props.getCards("Created New Cards");
+              if (this.state.newProfile === true) {
+                this.props.deleteOldProfile();
+                console.log("deleted old profile");
+                // doesn't assign priority 0
+              }
+              this.props.getCards("Created New Profile");
             })
             .catch(err => {
               this.setState({ error: err });

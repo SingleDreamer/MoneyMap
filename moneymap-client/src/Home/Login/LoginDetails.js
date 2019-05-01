@@ -23,7 +23,7 @@ class LoginDetails extends Component {
       return <Redirect to="/Dashboard" />;
     }
     return (
-      <Form>
+      <Form onSubmit={e => this.handleSubmit(e)}>
         <p className="required">Required field = </p>
         <Form.Group controlId="email">
           <Form.Label className="required">Email</Form.Label>
@@ -47,10 +47,7 @@ class LoginDetails extends Component {
             onChange={e => this.handleChange(e)}
           />
         </Form.Group>
-        <Form.Group controlId="formBasicChecbox">
-          <Form.Check type="checkbox" label="Remember me" />
-        </Form.Group>
-        <Button id="newPrimary" onClick={this.handleSubmit}>
+        <Button id="newPrimary" type="submit">
           Login
         </Button>
       </Form>
@@ -64,7 +61,7 @@ class LoginDetails extends Component {
   }
 
   handleSubmit(e) {
-    //e.preventDefault();
+    e.preventDefault();
     this.Auth.login(this.state.email, this.state.password)
       .then(res => {
         this.setState({ isAuthed: true });

@@ -208,6 +208,7 @@ class Dashboard extends Component {
           className="Sidebar"
           currentJob={this.state.profile}
           items={this.state.items}
+          getCards={this.getCards}
         />
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
         <Modal show={this.state.show} onHide={this.handleClose}>

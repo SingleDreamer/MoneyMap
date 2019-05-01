@@ -97,10 +97,6 @@ class JobOfferDetails extends Component {
             onChange={this.props.handleChange("name")}
             defaultValue={values.name}
           />
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">
-            Please enter a job name.
-          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="country">
           <Form.Label className="required">Country</Form.Label>
@@ -110,11 +106,6 @@ class JobOfferDetails extends Component {
             onChange={this.handleCountryChange}
             options={this.state.countries}
           />
-
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">
-            Please enter a Country
-          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="city">
           <Form.Label className="required">Job city</Form.Label>
@@ -124,11 +115,6 @@ class JobOfferDetails extends Component {
             onChange={this.handleCityChange}
             options={cities}
           />
-
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">
-            Please enter a city name.
-          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="income">
           <Form.Label className="required">Income</Form.Label>
@@ -141,11 +127,6 @@ class JobOfferDetails extends Component {
             onChange={this.props.handleChange("Components", "Income", 1)}
             // defaultValue={values.Components["Income"].camt || null} //how to reference the object that was just created
           />
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          <Form.Control.Feedback type="invalid">
-            {" "}
-            Please enter your income.
-          </Form.Control.Feedback>{" "}
         </Form.Group>
         <Button variant="primary" onClick={this.next}>
           Next
@@ -156,17 +137,28 @@ class JobOfferDetails extends Component {
 
   next = e => {
     e.preventDefault();
-    // if (e.currentTarget.checkValidity() === false) {
-    //   console.log("Validation false");
-    //   e.stopPropagation();
-    // } else {
-    //   console.log("Validation true");
+    var name = document.getElementById("name");
+    // var country = document.getElementById("country");
+    // var city = document.getElementById("city");
+    var income = document.getElementById("income");
 
-    //This set state throws an error, component unmounts before setState finishes. If this is needed needs to be reworked
-    //this.setState({ validated: true });
+    if (
+      !(
+        name.validity.valid &&
+        // country.validity.valid &&
+        // city.validity.valid &&
+        income.validity.valid
+      )
+    ) {
+      console.log("Validation false");
 
-    this.props.nextStep();
-    // }
+      // city.setCustomValidity("Please enter valid city.");
+      // country.setCustomValidity("Please enter valid country.");
+    } else {
+      // city.setCustomValidity("");
+      // country.setCustomValidity("");
+      this.props.nextStep();
+    }
   };
 }
 

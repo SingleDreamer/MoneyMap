@@ -111,7 +111,7 @@ class Register extends Component {
     try {
       let result = await axios.post(url, userInfo, config);
       console.log(result.data);
-      if (result.data.status) {
+      if (result.data.status !== "error") {
         console.log("success");
         this.setState({ submit: true });
         this.Auth.login(
@@ -125,6 +125,8 @@ class Register extends Component {
             console.log(err);
             this.setState({ hasError: true });
           });
+      } else {
+        alert("The email you have entered is already in use.");
       }
     } catch (err) {
       console.log("Registration error: ", err.response);
