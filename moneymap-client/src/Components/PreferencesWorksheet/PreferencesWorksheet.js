@@ -167,70 +167,36 @@ class Preference extends Component {
   };
 
   sendRequest() {
-    //     let url =
-    //       "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc";
-    //     let config = {
-    //       headers: {
-    //         authorization: this.Auth.getToken(),
-    //         "Content-Type": "application/json"
-    //       }
-    //     };
-    //     console.log("CONFIG");
-    //     console.log(config.headers.authorization);
-    //     const { uid, name, cityid, image, Components } = this.state;
-    //     let payload1 = { uid, name, cityid, image };
-    //     console.log("Payload1: ", payload1);
-    //     let body = [];
-    //     for (var key in Components) {
-    //       body.push(Components[key]);
+    //   let url =
+    //     "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc";
+    //   let config = {
+    //     headers: {
+    //       authorization: this.Auth.getToken(),
+    //       "Content-Type": "application/json"
     //     }
-    //     console.log("bodyy: ", body);
+    //   };
     //     try {
-    //       axios
-    //         .post(url, payload1, config)
-    //         .then(response => {
-    //           // console.log(".then() payload1: ", payload1);
-    //           console.log("Response: ", response.data);
-    //           //something something response something
-    //           let url2 =
-    //             "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
-    //             response.data.JobOfferCardID;
-    //           console.log("Response: ", response.data);
-    //           const body2 = body.map(component => {
-    //             return { ...component, JobOfferCardID: response.data };
-    //           });
-    //           console.log("bodyy2: ", body2);
-    //           axios
-    //             .post(url2, body2, config)
-    //             .then(response2 => {
-    //               //something something response something
-    //               console.log(response2);
-    //               //alert(`Successfully submitted`);
-    //               this.props.getCards("Created New Cards");
-    //             })
-    //             .catch(err => {
-    //               this.setState({ error: err });
-    //               //   console.log("####");
-    //               console.log("Error1: ", err);
-    //               //   alert(`Ya got an error boy reponse2 \n
-    //               // ${err}`);
-    //             });
-    //         })
-    //         .catch(err => {
-    //           this.setState({ error: err });
-    //           //   console.log("####");
-    //           console.log("Error2: ", err);
-    //           //   alert(`Ya got an error boy \n
-    //           // ${err}`);
+    //     axios
+    //       .post(url, payload, config)
+    //       .then(response => {
+    //         console.log("Response: ", response.data);
+    //         //something something response something
+    //         let url2 =
+    //           "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
+    //           response.data.JobOfferCardID;
+    //         console.log("Response: ", response.data);
+    //         const body2 = body.map(component => {
+    //           return { ...component, JobOfferCardID: response.data };
     //         });
-    //     } catch (err) {
-    //       this.setState({ error: err });
-    //       console.log("####");
-    //       console.log(err);
-    //       // alert(`Ya got an error boy \n
-    //       // ${err}`);
-    //     }
+    //         console.log("bodyy2: ", body2);
+    //   }} catch (err) {
+    //     this.setState({ error: err });
+    //     console.log("####");
+    //     console.log(err);
+    //     // alert(`Ya got an error boy \n
+    //     // ${err}`);
     //   }
+    // }
   }
 }
 
