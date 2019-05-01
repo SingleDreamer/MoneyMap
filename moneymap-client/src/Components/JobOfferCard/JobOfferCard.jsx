@@ -15,9 +15,11 @@ class JobOfferCard extends Component {
       cityid: 1,
       image: "",
       Components: {},
+      cityAvgs: {},
       submit: false,
       error: null,
-      newProfile: false
+      newProfile: false,
+      temp: []
     };
     this.Auth = new AuthService();
     this.handleChange = this.handleChange.bind(this);
@@ -26,7 +28,7 @@ class JobOfferCard extends Component {
     this.setState({ newProfile: nextProps.newProfile });
   }
   render() {
-    const { step } = this.state;
+    const { step, cityAvgs } = this.state;
     const { name, cityid, image, Components } = this.state;
     const values = { name, cityid, image, Components };
 
@@ -48,13 +50,13 @@ class JobOfferCard extends Component {
       <Form onSubmit={this.handleSubmit}>
         {" "}
         <p>Step {step} </p>
-        {this.renderSwitch(step, values)}
+        {this.renderSwitch(step, values, cityAvgs)}
         {success}
       </Form>
     );
   }
 
-  renderSwitch(step, values) {
+  renderSwitch(step, values, cityAvgs) {
     switch (step) {
       case 1:
         return (
@@ -71,6 +73,8 @@ class JobOfferCard extends Component {
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             values={values}
+            cityAvgs={this.state.cityAvgs}
+            temp={this.state.temp}
           />
         );
       default:
@@ -96,6 +100,45 @@ class JobOfferCard extends Component {
     this.setState({
       cityid: cityid
     });
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+    axios
+      .get(
+        `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/cities/${cityid}/averages/${sessionStorage.getItem(
+          "user"
+        )}`,
+        config
+      )
+      .then(response => {
+        let avgs = response.data.recordset;
+        this.setState({
+          cityAvgs: avgs
+        });
+        for (var i = 0; i < this.state.cityAvgs.length; i++) {
+          if (this.state.cityAvgs[i].ComponentTypeID === 2) {
+            this.state.temp.push(this.state.cityAvgs[i].Amount);
+          }
+        }
+        for (var j = 0; j < this.state.cityAvgs.length; j++) {
+          if (this.state.cityAvgs[j].ComponentTypeID === 3) {
+            this.state.temp.push(this.state.cityAvgs[j].Amount);
+          }
+        }
+        for (var k = 0; k < this.state.cityAvgs.length; k++) {
+          if (this.state.cityAvgs[k].ComponentTypeID === 4) {
+            this.state.temp.push(this.state.cityAvgs[k].Amount);
+          }
+        }
+        console.log("temp: ", this.state.temp);
+        console.log("City averages: ", this.state.cityAvgs);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   handleChange = (input, input2, input3) => event => {

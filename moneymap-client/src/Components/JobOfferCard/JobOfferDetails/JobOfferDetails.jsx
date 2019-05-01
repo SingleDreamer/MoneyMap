@@ -125,6 +125,7 @@ class JobOfferDetails extends Component {
             step="1"
             placeholder="Income"
             onChange={this.props.handleChange("Components", "Income", 1)}
+            defaultValue={0}
             // defaultValue={values.Components["Income"].camt || null} //how to reference the object that was just created
           />
         </Form.Group>
