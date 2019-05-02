@@ -6,11 +6,13 @@ class JobOfferDetails2 extends Component {
   render() {
     return (
       <div>
+        <strong>*Please Enter Monthly Value for each Field*</strong>
+        <p />
         <Form.Group controlId="Mandatory Costs">
           <Form.Label className="required">Mandatory Costs</Form.Label>
           <Form.Control
             required
-            //type="number"
+            type="number"
             min="0"
             step="1"
             placeholder="Mandatory Costs"
@@ -22,7 +24,6 @@ class JobOfferDetails2 extends Component {
             defaultValue={this.props.temp[0] || 0}
           />
         </Form.Group>
-
         <Form.Group controlId="Consumable Costs">
           <Form.Label className="required">Consumable Costs</Form.Label>
           <Form.Control
