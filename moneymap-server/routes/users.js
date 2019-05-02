@@ -50,7 +50,6 @@ router.get('/:id/preferences', [AuthService.checkToken], async (req, res, next) 
 
 router.post('/:id/preferences', [AuthService.checkToken], async (req, res, next) => {
   let results = [];
-
   for(i in req.body) {
     let preference = req.body[i];
     let result = await UserService.createPreference(req.params.id, preference.itemid, preference.amount, req.params.token);
