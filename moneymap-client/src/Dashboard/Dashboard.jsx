@@ -147,7 +147,8 @@ class Dashboard extends Component {
       .then(response => {
         // handle success
         let jocs = response.data.result;
-        console.log(jocs);
+        let temp = [];
+        console.log("jocs", jocs);
         jocs.forEach(company => {
           if (company.priority === 0) {
             this.setState({
@@ -164,8 +165,10 @@ class Dashboard extends Component {
             company.perks = perks.Facebook;
           }
         });
+        temp = jocs.filter(company => company.priority !== 0);
+
         this.setState({
-          companies: jocs
+          companies: temp
         });
       })
       .catch(error => {
