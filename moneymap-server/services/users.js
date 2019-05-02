@@ -132,7 +132,7 @@ UserService.getPreferences = async (id, token) => {
 UserService.createPreference = async (id, iid, amount, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
-  request.input('itemid', sql.UniqueIdentifier, iid);
+  request.input('itemid', sql.Int, iid);
   request.input('amount', sql.Int, amount);
   request.input('token', sql.UniqueIdentifier, token);
 
