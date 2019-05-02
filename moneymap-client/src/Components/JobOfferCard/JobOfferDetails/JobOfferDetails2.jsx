@@ -6,6 +6,8 @@ class JobOfferDetails2 extends Component {
   render() {
     return (
       <div>
+        <strong>*Please Enter Monthly Value for each Field*</strong>
+        <p />
         <Form.Group controlId="Mandatory Costs">
           <Form.Label className="required">Mandatory Costs</Form.Label>
           <Form.Control
@@ -19,10 +21,9 @@ class JobOfferDetails2 extends Component {
               "Mandatory Costs",
               2
             )}
-            // defaultValue={values.Components["Mandatory Costs"].camt || null}
+            defaultValue={this.props.temp[0] || 0}
           />
         </Form.Group>
-
         <Form.Group controlId="Consumable Costs">
           <Form.Label className="required">Consumable Costs</Form.Label>
           <Form.Control
@@ -36,6 +37,7 @@ class JobOfferDetails2 extends Component {
               "Consumable Costs",
               3
             )}
+            defaultValue={this.props.temp[1] || 0}
           />
         </Form.Group>
         <Form.Group controlId="Entertainment Expenses">
@@ -51,6 +53,7 @@ class JobOfferDetails2 extends Component {
               "Entertainment Expenses",
               4
             )}
+            defaultValue={this.props.temp[2] || 0}
           />
         </Form.Group>
         <Form.Group controlId="Debt">
@@ -62,6 +65,7 @@ class JobOfferDetails2 extends Component {
             step="1"
             placeholder="Debt"
             onChange={this.props.handleChange("Components", "Debt", 5)}
+            defaultValue={0}
           />
         </Form.Group>
         <ButtonToolbar>

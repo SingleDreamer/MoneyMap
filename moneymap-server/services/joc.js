@@ -28,6 +28,31 @@ JOCService.delete = async (id, token) => {
   return result;
 };
 
+JOCService.deleteComponents = async (id, token) => {
+  const request = new sql.Request(db);
+  request.input('jocid', sql.Int, id);
+  request.input('token', sql.UniqueIdentifier, token);
+
+  let result = await request.execute('sp_delete_joc_components');
+
+  return result;
+};
+
+JOCService.update = async (id, name, cityid, image, token) => {
+  const request = new sql.Request(db);
+  request.input('jocid', sql.Int, id);
+  request.input('name', sql.VarChar, name);
+  request.input('cityid', sql.Int, cityid);
+  request.input('token', sql.UniqueIdentifier, token);
+  if(image != null) {
+    request.input('image', sql.VarChar, image);
+  }
+
+  let result = await request.execute('sp_update_joc');
+
+  return result.recordset[0];
+};
+
 JOCService.addComponent = async (id, ctypid, cdesc, camt, token) => {
   const request = new sql.Request(db);
   request.input('jocid', sql.Int, id);

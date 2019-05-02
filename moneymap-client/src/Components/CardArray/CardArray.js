@@ -3,7 +3,7 @@ import Card from "../Card/Card.js";
 import "./CardArray.css";
 import "../Card/Card.css";
 import logo from "./addJOC2.png";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import CompareCharts from "../Card/CompareChart";
 
 let amountSelected = 0;
@@ -114,13 +114,19 @@ class CardArray extends Component {
     );
 
     cards.unshift(
-      <img
-        key={"0"}
-        src={logo}
-        alt="logo"
-        className="add"
-        onClick={this.props.handleShow}
-      />
+      <OverlayTrigger
+        placement="top"
+        delay={{ show: 250, hide: 400 }}
+        overlay={<Tooltip id={"top"}>Click to Create New JobOfferCard</Tooltip>}
+      >
+        <img
+          key={"0"}
+          src={logo}
+          alt="logo"
+          className="add"
+          onClick={this.props.handleShow}
+        />
+      </OverlayTrigger>
     );
 
     return (

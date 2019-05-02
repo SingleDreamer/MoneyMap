@@ -32,6 +32,12 @@ router.get('/:id/profile', [AuthService.checkToken], async (req, res, next) => {
   res.json(result);
 });
 
+router.post('/:id/profile', [AuthService.checkToken], async (req, res, next) => {
+  const { fname, lname, size } = req.body;
+  let result = await UserService.updateProfile(req.params.id, fname, lname, size, req.params.token);
+  res.json(result);
+});
+
 router.get('/:id/items', async (req, res, next) => {
   let result = await UserService.getItems();
   res.json(result);
@@ -44,7 +50,6 @@ router.get('/:id/preferences', [AuthService.checkToken], async (req, res, next) 
 
 router.post('/:id/preferences', [AuthService.checkToken], async (req, res, next) => {
   let results = [];
-
   for(i in req.body) {
     let preference = req.body[i];
     let result = await UserService.createPreference(req.params.id, preference.itemid, preference.amount, req.params.token);
