@@ -32,6 +32,12 @@ router.get('/:id/profile', [AuthService.checkToken], async (req, res, next) => {
   res.json(result);
 });
 
+router.post('/:id/profile', [AuthService.checkToken], async (req, res, next) => {
+  const { fname, lname, size } = req.body;
+  let result = await UserService.updateProfile(req.params.id, fname, lname, size, req.params.token);
+  res.json(result);
+});
+
 router.get('/:id/items', async (req, res, next) => {
   let result = await UserService.getItems();
   res.json(result);

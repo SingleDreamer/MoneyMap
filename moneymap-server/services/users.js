@@ -69,6 +69,19 @@ UserService.update = async (id, email, fname, lname, size, cardid, token) => {
   return result;
 }
 
+UserService.updateProfile = async (id, fname, lname, size, token) => {
+  const request = new sql.Request(db);
+  request.input('uid', sql.UniqueIdentifier, id);
+  request.input('fname', sql.Text, fname);
+  request.input('lname', sql.Text, lname);
+  request.input('size', sql.Float, password);
+  request.input('token', sql.UniqueIdentifier, token);
+
+  let result = await request.execute('sp_update_user_profile');
+
+  return result;
+}
+
 UserService.getJOCs = async (id, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
