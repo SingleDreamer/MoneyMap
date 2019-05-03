@@ -280,7 +280,7 @@ class JobOfferCard extends Component {
     for (var key in Components) {
       body.push(Components[key]);
     }
-    console.log("bodyy: ", body);
+    console.log("body: ", body);
     try {
       axios
         .post(url, payload1, config)
