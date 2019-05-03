@@ -248,6 +248,7 @@ class Sidebar extends Component {
                   <Preferences
                     items={this.props.items}
                     profCity={this.props.profCity}
+                    profilePrefs={this.props.profilePrefs}
                   />
                 </Modal.Body>
                 <Modal.Footer>

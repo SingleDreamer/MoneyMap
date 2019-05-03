@@ -52,8 +52,7 @@ class JobOfferCard extends Component {
       profSubmit: false,
       submit: false,
       error: null,
-      newProfile: false,
-      temp: []
+      newProfile: false
     };
     this.Auth = new AuthService();
     this.handleChange = this.handleChange.bind(this);
@@ -110,7 +109,6 @@ class JobOfferCard extends Component {
             handleChange={this.handleChange}
             values={values}
             cityAvgs={cityAvgs}
-            temp={this.state.temp}
           />
         );
       default:
@@ -154,28 +152,24 @@ class JobOfferCard extends Component {
         this.setState({
           cityAvgs: avgs
         });
+
         for (var i = 0; i < this.state.cityAvgs.length; i++) {
           if (this.state.cityAvgs[i].ComponentTypeID === 2) {
-            this.state.temp.push(Math.round(this.state.cityAvgs[i].Amount));
             this.setState({
               ...this.state,
               Components: {
                 ...this.state.Components,
                 "Mandatory Costs": {
                   ...this.state.Components["Mandatory Costs"],
-
                   camt: Math.round(this.state.cityAvgs[i].Amount)
                 }
               }
             });
             break;
-          } else if (i === this.state.cityAvgs.length) {
-            this.state.temp.push(0);
           }
         }
         for (var j = 0; j < this.state.cityAvgs.length; j++) {
           if (this.state.cityAvgs[j].ComponentTypeID === 3) {
-            this.state.temp.push(Math.round(this.state.cityAvgs[j].Amount));
             this.setState({
               ...this.state,
               Components: {
@@ -187,13 +181,10 @@ class JobOfferCard extends Component {
               }
             });
             break;
-          } else if (j === this.state.cityAvgs.length) {
-            this.state.temp.push(0);
           }
         }
         for (var k = 0; k < this.state.cityAvgs.length; k++) {
           if (this.state.cityAvgs[k].ComponentTypeID === 4) {
-            this.state.temp.push(Math.round(this.state.cityAvgs[k].Amount));
             this.setState({
               ...this.state,
               Components: {
@@ -205,11 +196,8 @@ class JobOfferCard extends Component {
               }
             });
             break;
-          } else if (k === this.state.cityAvgs.length) {
-            this.state.temp.push(0);
           }
         }
-        console.log("temp: ", this.state.temp);
         console.log("City averages: ", this.state.cityAvgs);
       })
       .catch(error => {
@@ -350,50 +338,76 @@ class JobOfferCard extends Component {
       body.push(Components[key]);
     }
     console.log("bodyy: ", body);
-    try {
-      axios
-        .post(url, payload1, config)
 
-        .then(response => {
-          // console.log(".then() payload1: ", payload1);
-          console.log("Response: ", response.data);
-          let url2 =
-            "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
-            response.data.JobOfferCardID +
-            "/components";
-          console.log("Response: ", response.data);
-          const body2 = body.map(component => {
-            return { ...component, JobOfferCardID: response.data };
+    //update profile post
+    if (this.state.newProfile === true) {
+      let updateUrl = `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/${sessionStorage.getItem(
+        "user"
+      )}`;
+      let updatePayload = { name, cityid, image, body };
+      try {
+        axios
+          .post(updateUrl, updatePayload, config)
+          .then(response => {
+            // console.log(".then() payload1: ", payload1);
+            console.log("Response: ", response.data);
+          })
+          .catch(err => {
+            this.setState({ error: err });
+            //   console.log("####");
+            console.log("Error2: ", err);
           });
-          console.log("bodyy2: ", body2);
-
-          axios
-            .post(url2, body2, config)
-            .then(response2 => {
-              console.log(response2);
-              //alert(`Successfully submitted`);
-              if (this.state.newProfile === true) {
-                this.props.deleteOldProfile();
-                console.log("deleted old profile");
-                // doesn't assign priority 0
-              }
-              this.props.getCards("Created New Profile");
-            })
-            .catch(err => {
-              this.setState({ error: err });
-              //   console.log("####");
-              console.log("Error1: ", err);
+      } catch (err) {
+        this.setState({ error: err });
+        console.log("####");
+        console.log(err);
+      }
+    } else {
+      //normal joc post
+      try {
+        axios
+          .post(url, payload1, config)
+          .then(response => {
+            // console.log(".then() payload1: ", payload1);
+            console.log("Response: ", response.data);
+            let url2 =
+              "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
+              response.data.JobOfferCardID +
+              "/components";
+            console.log("Response: ", response.data);
+            const body2 = body.map(component => {
+              return { ...component, JobOfferCardID: response.data };
             });
-        })
-        .catch(err => {
-          this.setState({ error: err });
-          //   console.log("####");
-          console.log("Error2: ", err);
-        });
-    } catch (err) {
-      this.setState({ error: err });
-      console.log("####");
-      console.log(err);
+            console.log("bodyy2: ", body2);
+
+            axios
+              .post(url2, body2, config)
+              .then(response2 => {
+                console.log(response2);
+                //alert(`Successfully submitted`);
+                if (this.state.newProfile === true) {
+                  this.props.deleteOldProfile();
+                  console.log("deleted old profile");
+                  // doesn't assign priority 0
+                }
+                this.props.getCards("Created New Profile");
+              })
+              .catch(err => {
+                this.setState({ error: err });
+                //   console.log("####");
+                console.log("Error1: ", err);
+              });
+          })
+          .catch(err => {
+            this.setState({ error: err });
+            //   console.log("####");
+            console.log("Error2: ", err);
+          });
+      } catch (err) {
+        this.setState({ error: err });
+        console.log("####");
+        console.log(err);
+      }
     }
   }
 }

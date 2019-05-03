@@ -22,7 +22,8 @@ class Dashboard extends Component {
       spinner: true,
       companies: [],
       profile: {},
-      items: []
+      items: [],
+      profilePrefs: {}
     };
     this.Auth = new AuthService();
     this.handleShow = this.handleShow.bind(this);
@@ -110,8 +111,6 @@ class Dashboard extends Component {
         "Content-Type": "application/json"
       }
     };
-    //getting the cards each time the component renders
-
     axios
       .get(
         `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
@@ -120,7 +119,8 @@ class Dashboard extends Component {
         config
       )
       .then(response => {
-        console.log("preferences", response);
+        console.log("preferences", response.data);
+        this.setState({ profilePrefs: response.data });
       })
       .catch(error => {
         console.log(error);
@@ -213,6 +213,7 @@ class Dashboard extends Component {
           items={this.state.items}
           getCards={this.getCards}
           profCity={this.state.profile.joccityid}
+          profilePrefs={this.state.profilePrefs}
         />
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
         <Modal show={this.state.show} onHide={this.handleClose}>
