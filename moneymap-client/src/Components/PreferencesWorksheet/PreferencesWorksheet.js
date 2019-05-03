@@ -16,6 +16,7 @@ class Preference extends Component {
     this.Auth = new AuthService();
   }
   componentDidMount() {
+    this.getPrefilledPrefrences();
     let temp = this.props.items.filter(
       item => item.Category !== "Salaries And Financing"
     );
@@ -24,6 +25,29 @@ class Preference extends Component {
       items: temp
     });
   }
+
+  getPrefilledPrefrences = () => {
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+    axios
+      .get(
+        `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
+          "user"
+        )}/preferences/city/${this.props.profCity}`,
+        config
+      )
+      .then(response => {
+        console.log("City preferences: ", response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   sendRequest = () => {
     console.log("pay", this.state.payload);
     console.log("stringify", JSON.stringify(this.state.payload));
@@ -42,7 +66,7 @@ class Preference extends Component {
         this.state.payload,
         config
       )
-      .then(response => console.log(response))
+      .then(response => console.log("Preferences: ", response))
       .catch(error => {
         console.log(error);
       });

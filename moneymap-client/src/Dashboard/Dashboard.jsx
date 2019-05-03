@@ -21,7 +21,7 @@ class Dashboard extends Component {
       isAuthed: true,
       spinner: true,
       companies: [],
-      profile: [],
+      profile: {},
       items: []
     };
     this.Auth = new AuthService();
@@ -212,6 +212,7 @@ class Dashboard extends Component {
           currentJob={this.state.profile}
           items={this.state.items}
           getCards={this.getCards}
+          profCity={this.state.profile.joccityid}
         />
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
         <Modal show={this.state.show} onHide={this.handleClose}>

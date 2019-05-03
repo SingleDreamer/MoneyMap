@@ -245,7 +245,10 @@ class Sidebar extends Component {
                       blank we will use the averages for that city.
                     </strong>
                   </p>
-                  <Preferences items={this.props.items} />
+                  <Preferences
+                    items={this.props.items}
+                    profCity={this.props.profCity}
+                  />
                 </Modal.Body>
                 <Modal.Footer>
                   <Button onClick={this.handleCloseModal}>Close</Button>
