@@ -92,7 +92,6 @@ class JobOfferCard extends Component {
             handleCitySelection={this.handleCitySelection}
             values={values}
             cityid={this.state.cityid}
-
           />
         );
       case 2:
@@ -291,7 +290,8 @@ class JobOfferCard extends Component {
           console.log("Response: ", response.data);
           let url2 =
             "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
-            response.data.JobOfferCardID;
+            response.data.JobOfferCardID +
+            "/components";
           console.log("Response: ", response.data);
           const body2 = body.map(component => {
             return { ...component, JobOfferCardID: response.data };

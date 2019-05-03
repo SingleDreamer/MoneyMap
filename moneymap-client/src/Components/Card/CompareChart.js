@@ -18,7 +18,7 @@ class CompareCharts extends Component {
         seriesMixedChart: [
           {
             name: this.props.companies[0].jocname,
-            type: "area",
+            type: "line",
             data: [
               this.props.companies[0].components[0].ComponentAmount / 10,
               this.props.companies[0].components[1].ComponentAmount,

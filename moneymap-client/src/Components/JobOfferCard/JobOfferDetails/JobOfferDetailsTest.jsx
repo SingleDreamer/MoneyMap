@@ -253,24 +253,4 @@ class JobOfferDetails extends Component {
   };
 }
 
-const cities = [
-  {
-    value: "NYC",
-    label: "NYC"
-  },
-  {
-    value: "NC",
-    label: "NC"
-  },
-  {
-    value: "NCR",
-    label: "NCR"
-  },
-  {
-    value: "NOO",
-    label: "NOO"
-  },
-  { value: "NCA", label: "NCA" }
-];
-
 export default JobOfferDetails;
