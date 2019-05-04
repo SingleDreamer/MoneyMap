@@ -100,7 +100,10 @@ UserService.getJOCs = async (id, token) => {
     var comps = components.recordset;
     if(comps == null) {
       comps = [];
-    }
+      }
+      const cityrequest = new sql.Request(db);
+      cityrequest.input('cityid', sql.Int, result.recordset[row].CityID);
+      let city = await cityrequest.execute('sp_get_city');
     output.result.push({
       "jocid": result.recordset[row].JobOfferCardID,
       "jocname": result.recordset[row].JobOfferCardName,
@@ -109,7 +112,8 @@ UserService.getJOCs = async (id, token) => {
       "joccityid": result.recordset[row].CityID,
       "jocimage": result.recordset[row].CardImageSrc,
       "savings": result.recordset[row].savings,
-      "components": comps
+      "components": comps,
+      "city": city.recordset[0]
     });
 
   }
@@ -156,7 +160,7 @@ UserService.createPreference = async (id, iid, amount, token) => {
 UserService.getCityPreferences = async (id, cid, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
-  request.input('cityid', sql.UniqueIdentifier, cid);
+  request.input('cityid', sql.Int, cid);
   request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_get_user_city_preferences');
@@ -166,7 +170,7 @@ UserService.getCityPreferences = async (id, cid, token) => {
 UserService.getCityCosts = async (id, cid, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
-  request.input('cityid', sql.UniqueIdentifier, cid);
+  request.input('cityid', sql.Int, cid);
   request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_get_user_city_costs');

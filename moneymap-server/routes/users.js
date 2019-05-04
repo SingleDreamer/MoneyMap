@@ -60,12 +60,12 @@ router.post('/:id/preferences', [AuthService.checkToken], async (req, res, next)
 });
 
 router.get('/:id/preferences/city/:cid', [AuthService.checkToken], async (req, res, next) => {
-  let result = await UserService.getCityPreferences(req.params.id, req.params.token);
+  let result = await UserService.getCityPreferences(req.params.id, req.params.cid, req.params.token);
   res.json(result);
 });
 
 router.get('/:id/preferences/costs/:cid', [AuthService.checkToken], async (req, res, next) => {
-  let result = await UserService.getCityCosts(req.params.id, req.params.token);
+  let result = await UserService.getCityCosts(req.params.id, req.params.cid, req.params.token);
   res.json(result);
 });
 
