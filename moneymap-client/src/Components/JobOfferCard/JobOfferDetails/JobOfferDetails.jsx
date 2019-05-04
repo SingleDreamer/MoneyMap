@@ -46,7 +46,7 @@ class JobOfferDetails extends Component {
         let final = uniqCountries.map(country => {
           return { label: country, value: country };
         });
-        console.log(final);
+        //console.log(final);
         this.setState({ countries: final });
       })
       .catch(error => {
@@ -74,7 +74,7 @@ class JobOfferDetails extends Component {
             longitude: city.Longitude
           };
         });
-        console.log(cities);
+        //console.log(cities);
         //this renders the cities after getting them from the country
         this.setState({ state: this.state });
       })

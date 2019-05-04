@@ -115,12 +115,12 @@ class CardArray extends Component {
 
     cards.unshift(
       <OverlayTrigger
+        key={"0"}
         placement="top"
         delay={{ show: 250, hide: 400 }}
         overlay={<Tooltip id={"top"}>Click to Create New JobOfferCard</Tooltip>}
       >
         <img
-          key={"0"}
           src={logo}
           alt="logo"
           className="add"

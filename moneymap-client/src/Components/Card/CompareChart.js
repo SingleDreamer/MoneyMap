@@ -50,7 +50,7 @@ class CompareCharts extends Component {
         },
         labels: [
           "Income",
-          "Rent",
+          "Mandatory",
           "Consumables",
           "Entertainment",
           "Debt",
@@ -60,19 +60,19 @@ class CompareCharts extends Component {
         markers: {
           size: 0
         },
-        yaxis: [
-          {
-            title: {
-              text: "Series A"
-            }
-          },
-          {
-            opposite: true,
-            title: {
-              text: "Series B"
-            }
-          }
-        ],
+        // yaxis: [
+        //   {
+        //     title: {
+        //       text: "Series A"
+        //     }
+        //   },
+        //   {
+        //     opposite: true,
+        //     title: {
+        //       text: "Series B"
+        //     }
+        //   }
+        // ],
         tooltip: {
           shared: true,
           intersect: false,
@@ -157,19 +157,6 @@ class CompareCharts extends Component {
     };
   }
 
-  // series: [{
-  //   name: 'PRODUCT A',
-  //   data: [44, 55, 41, 67, 22, 43]
-  // }, {
-  //   name: 'PRODUCT B',
-  //   data: [13, 23, 20, 8, 13, 27]
-  // }, {
-  //   name: 'PRODUCT C',
-  //   data: [11, 17, 15, 15, 21, 14]
-  // }, {
-  //   name: 'PRODUCT D',
-  //   data: [21, 7, 25, 13, 22, 8]
-  // }],
   componentDidMount() {
     if (
       typeof this.props.companies[0].perks !== "undefined" &&

@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
+import axios from "axios";
+import AuthService from "../../AuthService/AuthService";
+import Table from "react-bootstrap/Table";
 
 class Charts extends Component {
   constructor(props) {
@@ -47,8 +50,50 @@ class Charts extends Component {
             }
           }
         }
+      },
+      items: [],
+      MandatoryItems: [],
+      ConsumableItems: [],
+      EntertainmentItems: []
+    };
+    this.Auth = new AuthService();
+  }
+  componentDidMount() {
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
       }
     };
+    axios
+      .get(
+        `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
+          "user"
+        )}/preferences/city/${this.props.company.joccityid}`,
+        config
+      )
+      .then(response => {
+        let temp = response.data.recordset;
+        console.log(temp);
+        let MandatoryItems = temp.filter(item => {
+          return item.ComponentTypeID === 2;
+        });
+        let ConsumableItems = temp.filter(item => {
+          return item.ComponentTypeID === 3;
+        });
+        let EntertainmentItems = temp.filter(item => {
+          return item.ComponentTypeID === 4;
+        });
+        // console.log("Mandatory:", MandatoryItems);
+        // console.log("Consumable:", ConsumableItems);
+        // console.log("Entertainment:", EntertainmentItems);
+        this.setState({
+          items: temp,
+          MandatoryItems: MandatoryItems,
+          ConsumableItems: ConsumableItems,
+          EntertainmentItems: EntertainmentItems
+        });
+      });
   }
   render() {
     const threeBar = [
@@ -75,7 +120,7 @@ class Charts extends Component {
       {
         name: "JOC Values",
         data: [
-          (this.props.company.components[0].ComponentAmount / 10).toFixed(2),
+          this.props.company.components[0].ComponentAmount.toFixed(2),
           this.props.company.components[1].ComponentAmount.toFixed(2),
           this.props.company.components[2].ComponentAmount.toFixed(2),
           this.props.company.components[3].ComponentAmount.toFixed(2),
@@ -98,7 +143,7 @@ class Charts extends Component {
       {
         name: "JOC Values",
         data: [
-          (this.props.company.components[0].ComponentAmount / 10).toFixed(2),
+          this.props.company.components[0].ComponentAmount.toFixed(2),
           this.props.company.components[1].ComponentAmount.toFixed(2),
           this.props.company.components[2].ComponentAmount.toFixed(2),
           this.props.company.components[3].ComponentAmount.toFixed(2),
@@ -128,8 +173,99 @@ class Charts extends Component {
 
         <p>
           **City Average data is not available for all cities and does not
-          include debt.{" "}
+          include debt.
         </p>
+        <h2>Monthly Savings: ${this.props.company.savings.toFixed(2)}</h2>
+        <h2>
+          Mandatory Expenses: $
+          {this.props.company.components[1].ComponentAmount.toFixed(2)}
+        </h2>
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Lowest Price</th>
+              <th>Average Price</th>
+              <th>Highest Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.MandatoryItems.map((item, index) => (
+              <tr key={index}>
+                <td>
+                  <strong>{`${item.Name}`}</strong>
+                </td>
+                <td>{item.Quantity}</td>
+                <td>{item.LowestPrice.toFixed(2)}</td>
+                <td>{item.AveragePrice.toFixed(2)}</td>
+                <td>{item.HighestPrice.toFixed(2)}</td>
+                <td>{item.Price.toFixed(2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <h2>
+          Comsumables: $
+          {this.props.company.components[2].ComponentAmount.toFixed(2)}
+        </h2>
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Lowest Price</th>
+              <th>Average Price</th>
+              <th>Highest Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.ConsumableItems.map((item, index) => (
+              <tr key={index}>
+                <td>
+                  <strong>{`${item.Name}`}</strong>
+                </td>
+                <td>{item.Quantity}</td>
+                <td>{item.LowestPrice.toFixed(2)}</td>
+                <td>{item.AveragePrice.toFixed(2)}</td>
+                <td>{item.HighestPrice.toFixed(2)}</td>
+                <td>{item.Price.toFixed(2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <h2>
+          Entertainment: $
+          {this.props.company.components[3].ComponentAmount.toFixed(2)}
+        </h2>
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Lowest Price</th>
+              <th>Average Price</th>
+              <th>Highest Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.EntertainmentItems.map((item, index) => (
+              <tr key={index}>
+                <td>
+                  <strong>{`${item.Name}`}</strong>
+                </td>
+                <td>{item.Quantity}</td>
+                <td>{item.LowestPrice.toFixed(2)}</td>
+                <td>{item.AveragePrice.toFixed(2)}</td>
+                <td>{item.HighestPrice.toFixed(2)}</td>
+                <td>{item.Price.toFixed(2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </div>
     );
   }

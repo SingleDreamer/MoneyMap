@@ -102,7 +102,7 @@ class JobOfferDetails extends Component {
 
   render() {
     const { selectedOption, inputs } = this.state;
-    const { values } = this.props;
+    const { values, cities } = this.props;
 
     let row = (
       <Form.Row>

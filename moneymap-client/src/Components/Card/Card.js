@@ -204,6 +204,7 @@ class CardArray extends Component {
                 </div>
               </OverlayTrigger>
             </div>
+            <Card.Text>{this.props.info.city.City}</Card.Text>
             {this.props.info.components.length ? (
               this.props.info.components.map((component, index) => (
                 <Card.Text key={index}>
@@ -252,7 +253,6 @@ class CardArray extends Component {
             </Modal.Header>
             <Modal.Body>
               <Charts
-                info={50}
                 company={this.props.info}
                 cityAverages={this.state.cityAverages}
                 profile={this.props.profile}
