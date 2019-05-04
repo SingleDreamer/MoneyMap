@@ -156,7 +156,7 @@ UserService.createPreference = async (id, iid, amount, token) => {
 UserService.getCityPreferences = async (id, cid, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
-  request.input('cityid', sql.UniqueIdentifier, cid);
+  request.input('cityid', sql.Int, cid);
   request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_get_user_city_preferences');
@@ -166,7 +166,7 @@ UserService.getCityPreferences = async (id, cid, token) => {
 UserService.getCityCosts = async (id, cid, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
-  request.input('cityid', sql.UniqueIdentifier, cid);
+  request.input('cityid', sql.Int, cid);
   request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_get_user_city_costs');
