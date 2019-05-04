@@ -19,14 +19,44 @@ class Preference extends Component {
     let temp = this.props.items.filter(
       item => item.Category !== "Salaries And Financing"
     );
-
-    this.setState({
-      items: temp
-    });
+    console.log("temp: ", temp);
+    for (var i = 0; i < temp.length; i++) {
+      for (var j = 0; j < this.props.profilePrefs.recordset.length; j++) {
+        if (temp[i].Name === this.props.profilePrefs.recordset[j].Name) {
+          this.addToItems(
+            temp[i].Item_ID,
+            temp[i].Name,
+            this.props.profilePrefs.recordset[j].Amount
+          );
+          break;
+        } else if (j === this.props.profilePrefs.recordset.length - 1) {
+          this.addToItems(temp[i].Item_ID, temp[i].Name, 0);
+        }
+      }
+    }
   }
-  sendRequest = () => {
-    console.log("pay", this.state.payload);
-    console.log("stringify", JSON.stringify(this.state.payload));
+  addToItems = (id, name, amount) => {
+    let newItems = this.state.items;
+    newItems.push({ itemid: id, name: name, amount: amount });
+    this.setState(
+      {
+        ...this.state,
+        items: newItems
+      },
+      () => {
+        // console.log("Item: ", name);
+      }
+    );
+  };
+
+  sendRequest = e => {
+    e.preventDefault();
+    let payload = [];
+    for (let key in this.state.prefrences) {
+      payload.push(this.state.prefrences[key]);
+    }
+
+    console.log("pay", payload);
     let config = {
       headers: {
         authorization: this.Auth.getToken(),
@@ -39,28 +69,28 @@ class Preference extends Component {
         `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
           "user"
         )}/preferences`,
-        this.state.payload,
+        payload,
         config
       )
-      .then(response => console.log(response))
+      .then(response => console.log("Preferences: ", response))
       .catch(error => {
         console.log(error);
       });
   };
 
   addToList = (id, name) => event => {
-    this.setState({
-      prefrences: {
-        ...this.state.prefrences,
-        [name]: { itemid: id, amount: Number(event.target.value) }
+    this.setState(
+      {
+        ...this.state,
+        prefrences: {
+          ...this.state.prefrences,
+          [name]: { itemid: id, amount: Number(event.target.value) }
+        }
+      },
+      () => {
+        console.log("Item: ", id);
       }
-    });
-    let payload = [];
-    for (let key in this.state.prefrences) {
-      //console.log(key);
-      payload.push(this.state.prefrences[key]);
-    }
-    this.setState({ payload: payload });
+    );
   };
   render() {
     return (
@@ -75,13 +105,13 @@ class Preference extends Component {
                 controlId="formPlaintextPassword"
               >
                 <Form.Label column sm="10">
-                  {item.Name}
+                  {item.name}
                 </Form.Label>
                 <Col sm="2">
                   <Form.Control
                     type="text"
-                    placeholder={0}
-                    onChange={this.addToList(item.Item_ID, item.Name)}
+                    onChange={this.addToList(item.itemid, item.name)}
+                    defaultValue={item.amount || 0}
                   />
                 </Col>
               </Form.Group>

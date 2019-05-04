@@ -1,22 +1,15 @@
 import React, { Component } from "react";
-import ProfileDetails from "../Sidebar/ProfileDetails";
 import JobOfferDetails from "./JobOfferDetails/JobOfferDetails";
 import JobOfferDetails2 from "./JobOfferDetails/JobOfferDetails2";
 import { Form } from "react-bootstrap";
 import AuthService from "../../AuthService/AuthService";
 import axios from "axios";
 
-class JobOfferCard extends Component {
+class JobOfferCardOLD extends Component {
   constructor(props) {
     super(props);
     this.state = {
       step: 1,
-      userInfo: {
-        fname: "",
-        lname: "",
-        adultFamSize: 0,
-        childFamSize: 0.0
-      },
       uid: sessionStorage.getItem("user"),
       name: "",
       cityid: 0,
@@ -49,14 +42,13 @@ class JobOfferCard extends Component {
         }
       },
       cityAvgs: {},
-      profSubmit: false,
       submit: false,
       error: null,
-      newProfile: false
+      newProfile: false,
+      temp: []
     };
     this.Auth = new AuthService();
     this.handleChange = this.handleChange.bind(this);
-    this.handleProfChange = this.handleProfChange.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ newProfile: nextProps.newProfile });
@@ -66,26 +58,27 @@ class JobOfferCard extends Component {
     const { name, cityid, image, Components } = this.state;
     const values = { name, cityid, image, Components };
 
-    let joc = (
-      <Form onSubmit={this.handleSubmit}>
-        <p>Step {step} </p>
-        {this.renderSwitch(step, values, cityAvgs)}
-      </Form>
-    );
+    let success;
+    if (
+      this.state.submit === true &&
+      !this.state.error &&
+      this.state.page === 2
+    ) {
+      //add other checks for post response
+      success = (
+        <h6 style={{ marginTop: "10px" }}>
+          JobOfferCard Successfully created.!
+        </h6>
+      );
+    }
 
     return (
-      <div>
-        {this.state.profSubmit === true || this.state.newProfile === false ? (
-          joc
-        ) : (
-          <ProfileDetails
-            nextStep={this.nextStep}
-            handleProfChange={this.handleProfChange}
-            sendProfile={this.sendProfile}
-            userInfo={this.state.userInfo}
-          />
-        )}
-      </div>
+      <Form onSubmit={this.handleSubmit}>
+        {" "}
+        <p>Step {step} </p>
+        {this.renderSwitch(step, values, cityAvgs)}
+        {success}
+      </Form>
     );
   }
 
@@ -94,7 +87,6 @@ class JobOfferCard extends Component {
       case 1:
         return (
           <JobOfferDetails
-            prevStep={this.prevStep}
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             handleCitySelection={this.handleCitySelection}
@@ -109,6 +101,7 @@ class JobOfferCard extends Component {
             handleChange={this.handleChange}
             values={values}
             cityAvgs={cityAvgs}
+            temp={this.state.temp}
           />
         );
       default:
@@ -117,7 +110,7 @@ class JobOfferCard extends Component {
   }
 
   nextStep = () => {
-    // console.log("Values: ", this.state.Components);
+    console.log("Values: ", this.state.Components);
     const { step } = this.state;
     this.setState({
       step: step + 1
@@ -152,24 +145,28 @@ class JobOfferCard extends Component {
         this.setState({
           cityAvgs: avgs
         });
-
         for (var i = 0; i < this.state.cityAvgs.length; i++) {
           if (this.state.cityAvgs[i].ComponentTypeID === 2) {
+            this.state.temp.push(Math.round(this.state.cityAvgs[i].Amount));
             this.setState({
               ...this.state,
               Components: {
                 ...this.state.Components,
                 "Mandatory Costs": {
                   ...this.state.Components["Mandatory Costs"],
+
                   camt: Math.round(this.state.cityAvgs[i].Amount)
                 }
               }
             });
             break;
+          } else if (i === this.state.cityAvgs.length) {
+            this.state.temp.push(0);
           }
         }
         for (var j = 0; j < this.state.cityAvgs.length; j++) {
           if (this.state.cityAvgs[j].ComponentTypeID === 3) {
+            this.state.temp.push(Math.round(this.state.cityAvgs[j].Amount));
             this.setState({
               ...this.state,
               Components: {
@@ -181,10 +178,13 @@ class JobOfferCard extends Component {
               }
             });
             break;
+          } else if (j === this.state.cityAvgs.length) {
+            this.state.temp.push(0);
           }
         }
         for (var k = 0; k < this.state.cityAvgs.length; k++) {
           if (this.state.cityAvgs[k].ComponentTypeID === 4) {
+            this.state.temp.push(Math.round(this.state.cityAvgs[k].Amount));
             this.setState({
               ...this.state,
               Components: {
@@ -196,23 +196,16 @@ class JobOfferCard extends Component {
               }
             });
             break;
+          } else if (k === this.state.cityAvgs.length) {
+            this.state.temp.push(0);
           }
         }
+        console.log("temp: ", this.state.temp);
         console.log("City averages: ", this.state.cityAvgs);
       })
       .catch(error => {
         console.log(error);
       });
-  };
-
-  handleProfChange = input => event => {
-    this.setState({
-      ...this.state,
-      userInfo: {
-        ...this.state.userInfo,
-        [input]: event.target.value
-      }
-    });
   };
 
   handleChange = (input, input2, input3) => event => {
@@ -274,49 +267,6 @@ class JobOfferCard extends Component {
     return this.sendRequest();
   };
 
-  sendProfile = e => {
-    e.preventDefault();
-    console.log("Send profile");
-    this.setState({ profSubmit: true });
-    this.setState({
-      userInfo: {
-        ...this.state.userInfo,
-        adultFamSize: Number(this.state.adultFamSize),
-        childFamSize: Number(this.state.childFamSize),
-        size: Number(this.state.size)
-      }
-    });
-    let userInfo = this.state.userInfo;
-    userInfo.adultFamSize = Number(userInfo.adultFamSize);
-    userInfo.childFamSize = 0;
-    userInfo.size = Number(userInfo.adultFamSize);
-    let url = `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
-      "user"
-    )}/profile`;
-    let config = {
-      headers: {
-        authorization: this.Auth.getToken(),
-        "Content-Type": "application/json"
-      }
-    };
-    console.log("userInfo ", userInfo);
-    try {
-      axios
-        .post(url, userInfo, config)
-        .then(response => {
-          console.log("edit profilesuccess");
-          console.log("Response: ", response.data);
-        })
-        .catch(err => {
-          this.setState({ error: err });
-          //   console.log("####");
-          console.log("Error1: ", err);
-        });
-    } catch (err) {
-      console.log("Edit Profile error: ", err.response);
-    }
-  };
-
   sendRequest() {
     let url =
       "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc";
@@ -338,78 +288,51 @@ class JobOfferCard extends Component {
       body.push(Components[key]);
     }
     console.log("bodyy: ", body);
+    try {
+      axios
+        .post(url, payload1, config)
 
-    //update profile post
-    if (this.state.newProfile === true) {
-      let updateUrl = `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/${sessionStorage.getItem(
-        "user"
-      )}`;
-      let updatePayload = { name, cityid, image, body };
-      try {
-        axios
-          .post(updateUrl, updatePayload, config)
-          .then(response => {
-            // console.log(".then() payload1: ", payload1);
-            console.log("Response: ", response.data);
-          })
-          .catch(err => {
-            this.setState({ error: err });
-            //   console.log("####");
-            console.log("Error2: ", err);
+        .then(response => {
+          // console.log(".then() payload1: ", payload1);
+          console.log("Response: ", response.data);
+          let url2 =
+            "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
+            response.data.JobOfferCardID;
+          console.log("Response: ", response.data);
+          const body2 = body.map(component => {
+            return { ...component, JobOfferCardID: response.data };
           });
-      } catch (err) {
-        this.setState({ error: err });
-        console.log("####");
-        console.log(err);
-      }
-    } else {
-      //normal joc post
-      try {
-        axios
-          .post(url, payload1, config)
-          .then(response => {
-            // console.log(".then() payload1: ", payload1);
-            console.log("Response: ", response.data);
-            let url2 =
-              "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
-              response.data.JobOfferCardID +
-              "/components";
-            console.log("Response: ", response.data);
-            const body2 = body.map(component => {
-              return { ...component, JobOfferCardID: response.data };
+          console.log("bodyy2: ", body2);
+
+          axios
+            .post(url2, body2, config)
+            .then(response2 => {
+              console.log(response2);
+              //alert(`Successfully submitted`);
+              if (this.state.newProfile === true) {
+                this.props.deleteOldProfile();
+                console.log("deleted old profile");
+                // doesn't assign priority 0
+              }
+              this.props.getCards("Created New Profile");
+            })
+            .catch(err => {
+              this.setState({ error: err });
+              //   console.log("####");
+              console.log("Error1: ", err);
             });
-            console.log("bodyy2: ", body2);
-
-            axios
-              .post(url2, body2, config)
-              .then(response2 => {
-                console.log(response2);
-                //alert(`Successfully submitted`);
-                if (this.state.newProfile === true) {
-                  this.props.deleteOldProfile();
-                  console.log("deleted old profile");
-                  // doesn't assign priority 0
-                }
-                this.props.getCards("Created New Profile");
-              })
-              .catch(err => {
-                this.setState({ error: err });
-                //   console.log("####");
-                console.log("Error1: ", err);
-              });
-          })
-          .catch(err => {
-            this.setState({ error: err });
-            //   console.log("####");
-            console.log("Error2: ", err);
-          });
-      } catch (err) {
-        this.setState({ error: err });
-        console.log("####");
-        console.log(err);
-      }
+        })
+        .catch(err => {
+          this.setState({ error: err });
+          //   console.log("####");
+          console.log("Error2: ", err);
+        });
+    } catch (err) {
+      this.setState({ error: err });
+      console.log("####");
+      console.log(err);
     }
   }
 }
 
-export default JobOfferCard;
+export default JobOfferCardOLD;

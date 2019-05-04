@@ -4,6 +4,8 @@ import "../JobOfferCard.css";
 
 class JobOfferDetails2 extends Component {
   render() {
+    const { values } = this.props;
+
     return (
       <div>
         <strong>*Please Enter Monthly Value for each Field*</strong>
@@ -21,7 +23,7 @@ class JobOfferDetails2 extends Component {
               "Mandatory Costs",
               2
             )}
-            defaultValue={this.props.temp[0] || 0}
+            defaultValue={values.Components["Mandatory Costs"].camt || 0}
           />
         </Form.Group>
         <Form.Group controlId="Consumable Costs">
@@ -37,7 +39,8 @@ class JobOfferDetails2 extends Component {
               "Consumable Costs",
               3
             )}
-            defaultValue={this.props.temp[1] || 0}
+            defaultValue={values.Components["Consumable Costs"].camt || 0}
+            // value if i put everything on  same page bc autofill things
           />
         </Form.Group>
         <Form.Group controlId="Entertainment Expenses">
@@ -53,7 +56,7 @@ class JobOfferDetails2 extends Component {
               "Entertainment Expenses",
               4
             )}
-            defaultValue={this.props.temp[2] || 0}
+            defaultValue={values.Components["Entertainment Expenses"].camt || 0}
           />
         </Form.Group>
         <Form.Group controlId="Debt">

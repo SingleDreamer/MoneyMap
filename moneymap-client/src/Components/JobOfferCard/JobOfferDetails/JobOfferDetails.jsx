@@ -22,9 +22,12 @@ class JobOfferDetails extends Component {
   handleCountryChange = selectedOption => {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
-    this.setState({
-      selectedCountry: selectedOption.value
-    });
+    this.setState(
+      {
+        selectedCountry: selectedOption.value
+      },
+      () => {}
+    );
     this.selectCity(selectedOption.value);
   };
   componentDidMount() {
@@ -134,7 +137,7 @@ class JobOfferDetails extends Component {
             />
           </Form.Group>
         </OverlayTrigger>
-        <Button variant="primary" onClick={this.next}>
+        <Button variant="primary" type="submit" onClick={this.next}>
           Next
         </Button>
       </div>
@@ -148,31 +151,29 @@ class JobOfferDetails extends Component {
     // var city = document.getElementById("city");
     var income = document.getElementById("income");
 
-    if (!name.validity.valid){
-      console.log("Name invalid")
-      name.setCustomValidity("Please enter company name.");
-    }
-      else if(
-      !(
-        name.validity.valid &&
-        // country.validity.valid &&
-        // city.validity.valid &&
-        income.validity.valid &&
-        this.props.cityid !== 0
-      )
-    ) {
-      console.log("Validation false");      
-      console.log("City id: ", this.props.cityid)
+    // if (!name.validity.valid) {
+    //   console.log("Name invalid");
+    //   name.setCustomValidity("Please enter company name.");
+    // } else if (
+    //   !(
+    //     name.validity.valid &&
+    //     // country.validity.valid &&
+    //     // city.validity.valid &&
+    //     income.validity.valid &&
+    //     this.props.cityid !== 0
+    //   )
+    // ) {
+    //   console.log("Validation false");
+    //   console.log("City id: ", this.props.cityid);
 
-
-      // city.setCustomValidity("Please enter valid city.");
-      // country.setCustomValidity("Please enter valid country.");
-    } else {
-      console.log("City id: ", this.props.cityid)
-      // city.setCustomValidity("");
-      // country.setCustomValidity("");
-      this.props.nextStep();
-    }
+    //   // city.setCustomValidity("Please enter valid city.");
+    //   // country.setCustomValidity("Please enter valid country.");
+    // } else {
+    //   console.log("City id: ", this.props.cityid);
+    //   // city.setCustomValidity("");
+    // country.setCustomValidity("");
+    this.props.nextStep();
+    // }
   };
 }
 
