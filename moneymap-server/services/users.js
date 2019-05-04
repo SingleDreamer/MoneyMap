@@ -100,7 +100,10 @@ UserService.getJOCs = async (id, token) => {
     var comps = components.recordset;
     if(comps == null) {
       comps = [];
-    }
+      }
+      const cityrequest = new sql.Request(db);
+      cityrequest.input('cityid', sql.Int, result.recordset[row].CityID);
+      let city = await cityrequest.execute('sp_get_city');
     output.result.push({
       "jocid": result.recordset[row].JobOfferCardID,
       "jocname": result.recordset[row].JobOfferCardName,
@@ -109,7 +112,8 @@ UserService.getJOCs = async (id, token) => {
       "joccityid": result.recordset[row].CityID,
       "jocimage": result.recordset[row].CardImageSrc,
       "savings": result.recordset[row].savings,
-      "components": comps
+      "components": comps,
+      "city": city.recordset[0]
     });
 
   }
