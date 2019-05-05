@@ -181,104 +181,104 @@ class Sidebar extends Component {
           ${this.state.userInfo.lastName}`}
             </DrawerTitle>
           </DrawerHeader>
-          {this.state.open ? (
-            <DrawerContent className="content">
-              <DrawerSubtitle>Relative Finance Score</DrawerSubtitle>
-              <div className="content">{`${this.state.company.jocrfc}`}</div>
-              <br />
-              <DrawerSubtitle>Current City</DrawerSubtitle>
-              <div className="content">{`${
-                this.state.userInfo.currentCity
-              }`}</div>
-              <br />
-              <DrawerSubtitle>Monthly Income</DrawerSubtitle>
-              <div className="content">{`$${
-                this.state.company.components[0].ComponentAmount
-              }`}</div>
-              <br />
-              <DrawerSubtitle>Family Size</DrawerSubtitle>
-              <div className="content">{`${
-                this.state.userInfo.familySize
-              }`}</div>
-              <br />
-              <DrawerSubtitle>Monthly Expenses</DrawerSubtitle>
-              <div className="content">{`$
+          {this.state.company.jocrfc !== undefined ? (
+            <div>
+              {this.state.open ? (
+                <DrawerContent className="content">
+                  <DrawerSubtitle>Relative Finance Score</DrawerSubtitle>
+                  <div className="content">{`${
+                    this.state.company.jocrfc
+                  }`}</div>
+                  <br />
+                  <DrawerSubtitle>Current City</DrawerSubtitle>
+                  <div className="content">{`${
+                    this.state.company.city.City
+                  }`}</div>
+                  <br />
+                  <DrawerSubtitle>Monthly Income</DrawerSubtitle>
+                  <div className="content">{`$${
+                    this.state.company.components[0].ComponentAmount
+                  }`}</div>
+                  <br />
+                  <DrawerSubtitle>Family Size</DrawerSubtitle>
+                  <div className="content">{`${"Needs update"}`}</div>
+                  <br />
+                  <DrawerSubtitle>Monthly Expenses</DrawerSubtitle>
+                  <div className="content">{`$
               ${this.state.company.components[1].ComponentAmount +
                 this.state.company.components[2].ComponentAmount +
                 this.state.company.components[3].ComponentAmount +
                 this.state.company.components[4].ComponentAmount}`}</div>
-              <br />
-              <DrawerSubtitle>Monthly Savings</DrawerSubtitle>
-              <div className="content">{`$${this.state.company.savings}`}</div>
-              <br />
-              {/* <Modal show={this.state.show} onHide={this.handleCloseModal}>
-                <Modal.Header closeButton={false} />
+                  <br />
+                  <DrawerSubtitle>Monthly Savings</DrawerSubtitle>
+                  <div className="content">{`$${
+                    this.state.company.savings
+                  }`}</div>
+                  <br />
+                  <Button onClick={this.openPrefrenceWorksheet}>
+                    Prefrences
+                  </Button>
+                  <br />
+                  <br />
 
-                <Modal.Body>
-                  <Preferences items={this.props.items} />
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button onClick={this.handleCloseModal}>Close</Button>
-                </Modal.Footer>
-              </Modal> */}
-              <Button onClick={this.openPrefrenceWorksheet}>Prefrences</Button>
-              <br />
-              <br />
-
-              <Button onClick={this.editProfile}>Replace Profile</Button>
-            </DrawerContent>
-          ) : (
-            <DrawerContent>
-              <Modal
-                size="lg"
-                show={this.state.show}
-                onHide={this.handleCloseModal}
-              >
-                <Modal.Header closeButton={false}>
-                  <Modal.Title>Adjust Preferences</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <p>
-                    <strong>
-                      Add your estimated monthly amounts for each category in
-                      order to get a more accurate report. If a field is left
-                      blank we will use the averages for that city.
-                    </strong>
-                  </p>
-                  <Preferences
-                    items={this.props.items}
-                    profCity={this.props.profCity}
-                    profilePrefs={this.props.profilePrefs}
-                  />
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button onClick={this.handleCloseModal}>Close</Button>
-                </Modal.Footer>
-              </Modal>
-              <Modal
-                show={this.state.showProfile}
-                onHide={this.handleCloseModal}
-              >
-                <Modal.Header closeButton={false}>
-                  <Modal.Title>New Profile Card</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <JobOfferCard
-                    newProfile={true}
-                    deleteOldProfile={this.deleteOldProfile}
-                    handleCloseModal={this.handleCloseModal}
-                    getCards={this.props.getCards}
-                    // show={this.state.showProfile}
-                    // onHide={this.handleCloseModal}
-                  />
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button onClick={this.handleCloseModal}>Close</Button>
-                </Modal.Footer>
-              </Modal>
-              {/* delete current card/give priority 0 
+                  <Button onClick={this.editProfile}>Replace Profile</Button>
+                </DrawerContent>
+              ) : (
+                <DrawerContent>
+                  <Modal
+                    size="lg"
+                    show={this.state.show}
+                    onHide={this.handleCloseModal}
+                  >
+                    <Modal.Header closeButton={false}>
+                      <Modal.Title>Adjust Preferences</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <p>
+                        <strong>
+                          Add your estimated monthly amounts for each category
+                          in order to get a more accurate report. If a field is
+                          left blank we will use the averages for that city.
+                        </strong>
+                      </p>
+                      <Preferences
+                        items={this.props.items}
+                        profCity={this.props.profCity}
+                        profilePrefs={this.props.profilePrefs}
+                      />
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button onClick={this.handleCloseModal}>Close</Button>
+                    </Modal.Footer>
+                  </Modal>
+                  <Modal
+                    show={this.state.showProfile}
+                    onHide={this.handleCloseModal}
+                  >
+                    <Modal.Header closeButton={false}>
+                      <Modal.Title>New Profile Card</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <JobOfferCard
+                        newProfile={true}
+                        deleteOldProfile={this.deleteOldProfile}
+                        handleCloseModal={this.handleCloseModal}
+                        getCards={this.props.getCards}
+                        // show={this.state.showProfile}
+                        // onHide={this.handleCloseModal}
+                      />
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button onClick={this.handleCloseModal}>Close</Button>
+                    </Modal.Footer>
+                  </Modal>
+                  {/* delete current card/give priority 0 
               get edit method from backend*/}
-            </DrawerContent>
+                </DrawerContent>
+              )}
+            </div>
+          ) : (
+            <p>Make your first card</p>
           )}
         </Drawer>
       </div>

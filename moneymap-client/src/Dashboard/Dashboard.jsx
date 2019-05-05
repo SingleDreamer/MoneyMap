@@ -46,37 +46,6 @@ class Dashboard extends Component {
     }, 800);
   }
 
-  // router.get('/:id/items', async (req, res, next) => {
-  //   let result = await UserService.getItems();
-  //   res.json(result);
-  // });
-
-  // router.get('/:id/preferences', [AuthService.checkToken], async (req, res, next) => {
-  //   let result = await UserService.getPreferences(req.params.id, req.params.token);
-  //   res.json(result);
-  // });
-
-  // router.post('/:id/preferences', [AuthService.checkToken], async (req, res, next) => {
-  //   let results = [];
-
-  //   for(i in req.body) {
-  //     let preference = req.body[i];
-  //     let result = await UserService.createPreference(req.params.id, preference.itemid, preference.amount, req.params.token);
-  //     results.push(result);
-  //   }
-  //   res.json(results);
-  // });
-
-  // router.get('/:id/preferences/city/:cid', [AuthService.checkToken], async (req, res, next) => {
-  //   let result = await UserService.getCityPreferences(req.params.id, req.params.token);
-  //   res.json(result);
-  // });
-
-  // router.get('/:id/preferences/costs/:cid', [AuthService.checkToken], async (req, res, next) => {
-  //   let result = await UserService.getCityCosts(req.params.id, req.params.token);
-  //   res.json(result);
-  // });
-
   getItems = () => {
     let config = {
       headers: {

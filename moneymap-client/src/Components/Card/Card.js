@@ -208,21 +208,16 @@ class CardArray extends Component {
             <Card.Text>{this.props.info.city.City}</Card.Text>
             {this.props.info.components.length ? (
               this.props.info.components.map((component, index) => (
-                <div>
-                  <Card.Text key={index}>
-                    {`${component.ComponentDescription}: $${
-                      component.ComponentAmount
-                    }`}
-                    {/*Testing this out maybe? */}
-                    <ProgressBar now={Math.random() * 100} key={index} />
-                  </Card.Text>
-                </div>
+                <Card.Text key={index}>
+                  {`${component.ComponentDescription}: $${
+                    component.ComponentAmount
+                  }`}
+                  {/*Testing this out maybe? <ProgressBar now={Math.random() * 100} key={index} />*/}
+                </Card.Text>
               ))
             ) : (
               <Card.Text>Empty Card</Card.Text>
             )}
-            <br />
-
             <div className="buttons">
               <OverlayTrigger
                 placement="bottom"
