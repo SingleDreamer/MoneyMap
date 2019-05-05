@@ -231,12 +231,45 @@ class CompareCharts extends Component {
                 ))}
               </tbody>
             </Table>
+
             <Chart
               options={this.state.optionsBarChart}
               series={this.state.optionsBarChart.seriesMixedChart}
               type="line"
               height="auto"
             />
+             <Table striped bordered hover responsive>
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>City</th>
+                  <th>Income</th>
+                  <th>RFS</th>
+                  <th>Rent</th>
+                  <th>Consumable</th>
+                  <th>Entertainment</th>
+                  <th>Debt</th>
+                  <th>Savings</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.props.companies.map(company => (
+                  <tr key={company.jocid}>
+                    <td>
+                      <strong>{`${company.jocname}`}</strong>
+                    </td>
+                    <td>NYC</td>
+                    <td>{company.components[0].ComponentAmount}</td>
+                    <td>{company.jocrfc}</td>
+                    <td>{company.components[1].ComponentAmount}</td>
+                    <td>{company.components[1].ComponentAmount}</td>
+                    <td>{company.components[2].ComponentAmount}</td>
+                    <td>{company.components[3].ComponentAmount}</td>
+                    <td>{company.components[4].ComponentAmount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
             {typeof this.props.companies[0].perks !== "undefined" &&
             typeof this.props.companies[1].perks !== "undefined" ? (
               <Chart

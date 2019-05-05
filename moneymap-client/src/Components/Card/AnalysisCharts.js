@@ -198,9 +198,19 @@ class Charts extends Component {
                   <strong>{`${item.Name}`}</strong>
                 </td>
                 <td>{item.Quantity}</td>
-                <td>{item.LowestPrice.toFixed(2)}</td>
-                <td>{item.AveragePrice.toFixed(2)}</td>
-                <td>{item.HighestPrice.toFixed(2)}</td>
+                <td>
+                  {item.LowestPrice === 0 ? "N/A" : item.LowestPrice.toFixed(2)}
+                </td>
+                <td>
+                  {item.AveragePrice === 0
+                    ? "N/A"
+                    : item.AveragePrice.toFixed(2)}
+                </td>
+                <td>
+                  {item.HighestPrice === 0
+                    ? "N/A"
+                    : item.HighestPrice.toFixed(2)}
+                </td>
                 <td>{item.Price.toFixed(2)}</td>
               </tr>
             ))}
@@ -228,9 +238,19 @@ class Charts extends Component {
                   <strong>{`${item.Name}`}</strong>
                 </td>
                 <td>{item.Quantity}</td>
-                <td>{item.LowestPrice.toFixed(2)}</td>
-                <td>{item.AveragePrice.toFixed(2)}</td>
-                <td>{item.HighestPrice.toFixed(2)}</td>
+                <td>
+                  {item.LowestPrice === 0 ? "N/A" : item.LowestPrice.toFixed(2)}
+                </td>
+                <td>
+                  {item.AveragePrice === 0
+                    ? "N/A"
+                    : item.AveragePrice.toFixed(2)}
+                </td>
+                <td>
+                  {item.HighestPrice === 0
+                    ? "N/A"
+                    : item.HighestPrice.toFixed(2)}
+                </td>
                 <td>{item.Price.toFixed(2)}</td>
               </tr>
             ))}
@@ -258,9 +278,19 @@ class Charts extends Component {
                   <strong>{`${item.Name}`}</strong>
                 </td>
                 <td>{item.Quantity}</td>
-                <td>{item.LowestPrice.toFixed(2)}</td>
-                <td>{item.AveragePrice.toFixed(2)}</td>
-                <td>{item.HighestPrice.toFixed(2)}</td>
+                <td>
+                  {item.LowestPrice === 0 ? "N/A" : item.LowestPrice.toFixed(2)}
+                </td>
+                <td>
+                  {item.AveragePrice === 0
+                    ? "N/A"
+                    : item.AveragePrice.toFixed(2)}
+                </td>
+                <td>
+                  {item.HighestPrice === 0
+                    ? "N/A"
+                    : item.HighestPrice.toFixed(2)}
+                </td>
                 <td>{item.Price.toFixed(2)}</td>
               </tr>
             ))}
