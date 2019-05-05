@@ -45,6 +45,7 @@ class CardArray extends Component {
       ? this.setState({ companies: temp, show: true })
       : this.setState({ companies: temp });
   };
+  
   addToCompare = company => {
     console.log("added", company);
     amountSelected++;
@@ -66,15 +67,18 @@ class CardArray extends Component {
   handleClose() {
     this.setState({ show: false });
   }
+
   handleShow = e => {
     e.preventDefault();
     this.setState({
       show: true
     });
   };
+
   render() {
     var cards = [];
     //console.log(this.state.companies);
+
     cards = this.state.companies.map((company, index) =>
       company.selected ? (
         <div
@@ -131,7 +135,23 @@ class CardArray extends Component {
 
     return (
       <div>
-        <div className="array">{cards}</div>
+        {cards.length === 1 ? (
+          <div className="array">
+            {cards}
+            <h1
+              style={{ color: "#45a29e", position: "relative", top: "200px" }}
+            >
+              <i
+                className="fas fa-arrow-left"
+                style={{ marginRight: "20px" }}
+              />
+              Add A Job Offer
+            </h1>
+          </div>
+        ) : (
+          <div className="array">{cards}</div>
+        )}
+
         <Modal
           show={this.state.show}
           onHide={this.handleClose}

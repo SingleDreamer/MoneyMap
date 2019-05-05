@@ -186,8 +186,6 @@ class CardArray extends Component {
                 />
                 {this.props.info.jocname}
               </Card.Title>
-              {/*need to make this actual city name*/}
-              {/* <Card.Title>{this.props.info.joccityid}</Card.Title> */}
               <OverlayTrigger
                 trigger="hover"
                 placement="left"

@@ -96,8 +96,8 @@ class Register extends Component {
     });
     let userInfo = this.state.userInfo;
     userInfo.adultFamSize = Number(userInfo.adultFamSize);
-    userInfo.childFamSize = 0;
-    userInfo.size = Number(userInfo.adultFamSize);
+    userInfo.childFamSize = Number(userInfo.childFamSize);
+    userInfo.size = Number(userInfo.adultFamSize + userInfo.childFamSize);
     console.log("New registration: ", userInfo);
 
     let url =

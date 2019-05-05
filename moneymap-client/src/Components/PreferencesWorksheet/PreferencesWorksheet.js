@@ -76,7 +76,7 @@ class Preference extends Component {
         payload,
         config
       )
-      .then(response => console.log("Preferences: ", response))
+      .then(response => this.props.close())
       .catch(error => {
         console.log(error);
       });

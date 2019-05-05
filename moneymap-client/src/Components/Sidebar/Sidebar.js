@@ -21,10 +21,9 @@ class Sidebar extends Component {
     super(props, context);
     this.state = {
       userInfo: {
-        firstName: "FirstName",
-        lastName: "LastName",
-        currentCity: "Seattle, WA",
-        familySize: 2
+        FirstName: "",
+        LastName: "",
+        FamilySize: 0
       },
       company: {},
       profile: {},
@@ -107,7 +106,8 @@ class Sidebar extends Component {
   componentWillReceiveProps(nextProps) {
     console.log(nextProps);
     this.setState({
-      company: nextProps.currentJob
+      company: nextProps.currentJob,
+      userInfo: nextProps.user
     });
     console.log("company: ", this.state.company);
   }
@@ -177,8 +177,8 @@ class Sidebar extends Component {
               <span className="icon">
                 <i className="fas fa-user-circle" />
               </span>
-              {`${this.state.userInfo.firstName}
-          ${this.state.userInfo.lastName}`}
+              {`${this.state.userInfo.FirstName}
+          ${this.state.userInfo.LastName}`}
             </DrawerTitle>
           </DrawerHeader>
           {this.state.company.jocrfc !== undefined ? (
@@ -201,7 +201,9 @@ class Sidebar extends Component {
                   }`}</div>
                   <br />
                   <DrawerSubtitle>Family Size</DrawerSubtitle>
-                  <div className="content">{`${"Needs update"}`}</div>
+                  <div className="content">{`${
+                    this.state.userInfo.FamilySize
+                  }`}</div>
                   <br />
                   <DrawerSubtitle>Monthly Expenses</DrawerSubtitle>
                   <div className="content">{`$
@@ -245,6 +247,7 @@ class Sidebar extends Component {
                         items={this.props.items}
                         profCity={this.props.profCity}
                         profilePrefs={this.props.profilePrefs}
+                        close={this.handleCloseModal}
                       />
                     </Modal.Body>
                     <Modal.Footer>
@@ -278,7 +281,43 @@ class Sidebar extends Component {
               )}
             </div>
           ) : (
-            <p>Make your first card</p>
+            <DrawerContent className="content">
+              <Modal
+                size="lg"
+                show={this.state.show}
+                onHide={this.handleCloseModal}
+              >
+                <Modal.Header closeButton={false}>
+                  <Modal.Title>Adjust Preferences</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <p>
+                    <strong>
+                      Add your estimated monthly amounts for each category in
+                      order to get a more accurate report. If a field is left
+                      blank we will use the averages for that city.
+                    </strong>
+                  </p>
+                  <Preferences
+                    items={this.props.items}
+                    profCity={this.props.profCity}
+                    profilePrefs={this.props.profilePrefs}
+                    close={this.handleCloseModal}
+                  />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.handleCloseModal}>Close</Button>
+                </Modal.Footer>
+              </Modal>
+              <p>The next job offer you create will become your Profile</p>
+              <br />
+              <p>AND</p>
+              <br />
+              <p>Set/Adjust your monthly purchases and expenses below</p>
+              <i className="fas fa-arrow-down" style={{ fontSize: "2.5em" }} />
+              <br />
+              <Button onClick={this.openPrefrenceWorksheet}>Prefrences</Button>
+            </DrawerContent>
           )}
         </Drawer>
       </div>

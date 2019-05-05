@@ -103,9 +103,7 @@ class JobOfferDetails extends Component {
         </Form.Group>
         <Form.Group controlId="country">
           <Form.Label className="required">Country</Form.Label>
-
           <Select
-            //isClearable still breaks
             onChange={this.handleCountryChange}
             options={this.state.countries}
           />
@@ -114,7 +112,7 @@ class JobOfferDetails extends Component {
           <Form.Label className="required">Job city</Form.Label>
 
           <Select
-            isClearable //handle this; breaks
+            // isClearable //handle this; breaks
             onChange={this.handleCityChange}
             options={cities}
           />

@@ -22,6 +22,7 @@ class Dashboard extends Component {
       spinner: true,
       companies: [],
       profile: {},
+      user: {},
       items: [],
       profilePrefs: {}
     };
@@ -41,10 +42,33 @@ class Dashboard extends Component {
         this.getCards();
         this.getItems();
         this.getPrefrences();
+        this.getUserInfo();
         this.setState({ spinner: false });
       }
     }, 800);
   }
+  getUserInfo = () => {
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+    axios
+      .get(
+        `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
+          "user"
+        )}/profile`,
+        config
+      )
+      .then(response => {
+        console.log("user", response.data.recordset[0]);
+        this.setState({ user: response.data.recordset[0] });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   getItems = () => {
     let config = {
@@ -97,7 +121,7 @@ class Dashboard extends Component {
   };
 
   getCards = (message = "default") => {
-    console.log(message);
+    //console.log(message);
     let config = {
       headers: {
         authorization: this.Auth.getToken(),
@@ -183,6 +207,7 @@ class Dashboard extends Component {
           getCards={this.getCards}
           profCity={this.state.profile.joccityid}
           profilePrefs={this.state.profilePrefs}
+          user={this.state.user}
         />
         {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
         <Modal show={this.state.show} onHide={this.handleClose}>
@@ -198,7 +223,10 @@ class Dashboard extends Component {
             <Button onClick={this.handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
-        <DashboardMap companies={this.state.companies} />
+        <DashboardMap
+          companies={this.state.companies}
+          profile={this.state.profile}
+        />
         <CardArray
           getCards={this.getCards}
           companies={this.state.companies}
