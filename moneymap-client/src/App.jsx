@@ -11,8 +11,8 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
-            {/* <Route exact path="/dashboard" component={Dashboard} /> */}
-            <Route exact path="/dashboard" component={withAuth(Dashboard)} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            {/* <Route exact path="/dashboard" component={withAuth(Dashboard)} /> */}
           </Switch>
         </Router>
       </div>
