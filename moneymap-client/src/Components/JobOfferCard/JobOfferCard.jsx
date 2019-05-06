@@ -259,11 +259,20 @@ class JobOfferCard extends Component {
 
     //console.log("Components: ", this.state.Components);
   };
-  
+
   editJoc = () => {
     const { name, cityid, image, Components } = this.state;
-    let payload = { name, cityid, image, Components };
-
+    let body = [];
+    for (var key in Components) {
+      body.push(Components[key]);
+    }
+    const components = body.map(component => {
+      return {
+        ...component
+      };
+    });
+    let payload = { name, cityid, image, components };
+    console.log("body: ", payload);
     let url =
       "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
       this.props.jocid;
@@ -296,7 +305,9 @@ class JobOfferCard extends Component {
     for (var key in Components) {
       body.push(Components[key]);
     }
+
     console.log("body: ", body);
+
     try {
       axios
         .post(url, payload1, config)

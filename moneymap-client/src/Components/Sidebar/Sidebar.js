@@ -200,7 +200,7 @@ class Sidebar extends Component {
                   }`}</div>
                   <br />
                   <Button onClick={this.openPrefrenceWorksheet}>
-                    Prefrences
+                    Edit Basket Of Goods
                   </Button>
                   <br />
                   <br />
@@ -267,7 +267,7 @@ class Sidebar extends Component {
                 onHide={this.handleCloseModal}
               >
                 <Modal.Header closeButton={false}>
-                  <Modal.Title>Adjust Preferences</Modal.Title>
+                  <Modal.Title>Basket Of Goods</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                   <p>
