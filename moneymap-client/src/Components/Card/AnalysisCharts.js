@@ -3,7 +3,12 @@ import Chart from "react-apexcharts";
 import axios from "axios";
 import AuthService from "../../AuthService/AuthService";
 import Table from "react-bootstrap/Table";
+<<<<<<< HEAD
 import Button from "react-bootstrap/Button";
+=======
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+
+>>>>>>> joc
 class Charts extends Component {
   constructor(props) {
     super(props);
@@ -173,12 +178,23 @@ class Charts extends Component {
     }
     return (
       <div id="chart">
-        <Chart
-          options={this.state.options}
-          series={seriesOption}
-          type="bar"
-          height="350"
-        />
+        <OverlayTrigger
+          placement="right"
+          delay={{ show: 250, hide: 400 }}
+          overlay={
+            <Tooltip id={"top"}>
+              **City Average data is not available for all cities and does not
+              include debt.
+            </Tooltip>
+          }
+        >
+          <Chart
+            options={this.state.options}
+            series={seriesOption}
+            type="bar"
+            height="350"
+          />
+        </OverlayTrigger>
 
         <p>
           **City Average data is not available for all cities and does not

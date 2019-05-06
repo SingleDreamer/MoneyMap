@@ -47,7 +47,8 @@ class JobOfferCard extends Component {
       profSubmit: false,
       submit: false,
       error: null,
-      newProfile: false
+      newProfile: false,
+      noCard: false
     };
     this.Auth = new AuthService();
     this.handleChange = this.handleChange.bind(this);
@@ -55,7 +56,7 @@ class JobOfferCard extends Component {
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      newProfile: nextProps.newProfile,
+      noCard: nextProps.noCard,
       profSubmit: nextProps.profSubmit
     });
   }
@@ -84,7 +85,9 @@ class JobOfferCard extends Component {
 
     return (
       <div>
-        {this.state.profSubmit === true || this.state.newProfile === false ? (
+        {this.state.profSubmit === true ||
+        this.state.newProfile === false ||
+        this.state.noCard === false ? (
           joc
         ) : (
           <ProfileDetails
@@ -161,6 +164,7 @@ class JobOfferCard extends Component {
       .then(response => {
         console.log(response);
         let avgs = response.data.recordset;
+        console.log("AVGS: ", response);
         this.setState({
           cityAvgs: avgs
         });
@@ -286,7 +290,7 @@ class JobOfferCard extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    if (this.state.newProfile === false) {
+    if (this.state.newProfile === false || this.state.noCard === false) {
       this.props.handleClose();
       return this.sendRequest();
     } else {

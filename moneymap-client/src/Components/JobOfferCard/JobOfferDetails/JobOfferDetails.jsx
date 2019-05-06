@@ -127,8 +127,8 @@ class JobOfferDetails extends Component {
         <div hidden={!values.name || !values.cityid}>
           <strong>*Please Enter Monthly Value for each Field*</strong>
           <p>
-            *Averages for Costs per City are Given if Applicable; Please change
-            Values as Needed*
+            *Averages for Costs per City are Given if Applicable, Based on Your
+            Preferences; Please change Values as Needed*
           </p>
           <p />
           <OverlayTrigger
