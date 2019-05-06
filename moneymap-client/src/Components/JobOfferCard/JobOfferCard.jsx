@@ -123,6 +123,7 @@ class JobOfferCard extends Component {
       step: step - 1
     });
   };
+
   handleCitySelection = cityid => {
     this.setState({
       cityid: cityid
@@ -133,7 +134,7 @@ class JobOfferCard extends Component {
         "Content-Type": "application/json"
       }
     };
-    
+
     axios
       .get(
         `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
@@ -249,20 +250,34 @@ class JobOfferCard extends Component {
     e.preventDefault();
     if (this.state.newProfile === false) {
       this.props.handleClose();
+      return this.sendRequest();
     } else {
       this.props.handleCloseModal();
+      return this.editJoc();
     }
     // this.props.profileSubmit();
 
-    this.setState({
-      submit: true
-    });
-    console.log("Components: ", this.state.Components);
+    //console.log("Components: ", this.state.Components);
+  };
+  editJoc = () => {
+    console.log("TESTTESTE TSTESTELAJS");
+    const { name, cityid, image, Components } = this.state;
+    let payload = { name, cityid, image, Components };
 
-    return this.sendRequest();
+    let url =
+      "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
+      this.props.jocid;
+
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+    axios.post(url, payload, config).then(res => console.log(res));
   };
 
-  sendRequest() {
+  sendRequest = () => {
     let url =
       "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc";
 
@@ -272,8 +287,7 @@ class JobOfferCard extends Component {
         "Content-Type": "application/json"
       }
     };
-    // console.log("CONFIG");
-    // console.log(config.headers.authorization);
+
     const { uid, name, cityid, image, Components } = this.state;
     let payload1 = { uid, name, cityid, image };
 
@@ -294,7 +308,6 @@ class JobOfferCard extends Component {
             "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
             response.data.JobOfferCardID +
             "/components";
-          console.log("Response: ", response.data);
           const body2 = body.map(component => {
             return { ...component, JobOfferCardID: response.data };
           });
@@ -305,11 +318,11 @@ class JobOfferCard extends Component {
             .then(response2 => {
               console.log(response2);
               //alert(`Successfully submitted`);
-              if (this.state.newProfile === true) {
-                this.props.deleteOldProfile();
-                console.log("deleted old profile");
-                // doesn't assign priority 0
-              }
+              // if (this.state.newProfile === true) {
+              //   // this.props.deleteOldProfile();
+              //   // console.log("deleted old profile");
+              //   // // doesn't assign priority 0
+              // }
               this.props.getCards("Created New Profile");
             })
             .catch(err => {
@@ -328,7 +341,7 @@ class JobOfferCard extends Component {
       console.log("####");
       console.log(err);
     }
-  }
+  };
 }
 
 export default JobOfferCard;

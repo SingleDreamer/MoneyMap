@@ -45,7 +45,7 @@ class CardArray extends Component {
       ? this.setState({ companies: temp, show: true })
       : this.setState({ companies: temp });
   };
-  
+
   addToCompare = company => {
     console.log("added", company);
     amountSelected++;
@@ -163,7 +163,7 @@ class CardArray extends Component {
           </Modal.Header>
           <Modal.Body>Job offer comparison</Modal.Body>
           <Modal.Body>
-            <CompareCharts info={50} companies={this.state.compareCompanies} />
+            <CompareCharts companies={this.state.compareCompanies} />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Close</Button>

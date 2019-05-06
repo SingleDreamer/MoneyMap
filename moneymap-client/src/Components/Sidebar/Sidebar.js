@@ -66,42 +66,42 @@ class Sidebar extends Component {
     this.setState({ showProfile: !this.state.showProfile });
   };
 
-  deleteOldProfile = () => {
-    let config = {
-      headers: {
-        authorization: this.Auth.getToken(),
-        "Content-Type": "application/json"
-      }
-    };
-    axios
-      .get(
-        `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
-          "user"
-        )}/jocs`,
-        config
-      )
-      .then(response => {
-        let jocs = response.data.result;
-        console.log("JOCS array: ", jocs);
-        jocs.forEach(company => {
-          if (company.priority === 0) {
-            axios
-              .delete(
-                "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
-                  company.jocid,
-                config
-              )
-              .then(res => this.props.getCards("Deleted Cards"))
-              .catch(error => {
-                console.log(error);
-              });
-          }
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
+  // deleteOldProfile = () => {
+  //   let config = {
+  //     headers: {
+  //       authorization: this.Auth.getToken(),
+  //       "Content-Type": "application/json"
+  //     }
+  //   };
+  //   axios
+  //     .get(
+  //       `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
+  //         "user"
+  //       )}/jocs`,
+  //       config
+  //     )
+  //     .then(response => {
+  //       let jocs = response.data.result;
+  //       console.log("JOCS array: ", jocs);
+  //       jocs.forEach(company => {
+  //         if (company.priority === 0) {
+  //           axios
+  //             .delete(
+  //               "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
+  //                 company.jocid,
+  //               config
+  //             )
+  //             .then(res => this.props.getCards("Deleted Cards"))
+  //             .catch(error => {
+  //               console.log(error);
+  //             });
+  //         }
+  //       });
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // };
 
   componentWillReceiveProps(nextProps) {
     console.log(nextProps);
@@ -136,24 +136,6 @@ class Sidebar extends Component {
       .catch(error => {
         console.log(error);
       });
-    // };
-    // let config = {
-    //   headers: {
-    //     authorization: this.Auth.getToken(),
-    //     "Content-Type": "application/json"
-    //   }
-    // };
-    // return (
-    //   axios
-    //     // .get("hhttp://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/", config) //needs a route
-    //     .then(response => {
-    //       console.log("Sidebar profile data: " + response.data);
-    //       this.handleProfile(response.data);
-    //     })
-    //     .catch(function(error) {
-    //       console.log(error);
-    //     })
-    // );
   };
 
   render() {
@@ -222,7 +204,6 @@ class Sidebar extends Component {
                   </Button>
                   <br />
                   <br />
-
                   <Button onClick={this.editProfile}>Replace Profile</Button>
                 </DrawerContent>
               ) : (
@@ -264,11 +245,9 @@ class Sidebar extends Component {
                     <Modal.Body>
                       <JobOfferCard
                         newProfile={true}
-                        deleteOldProfile={this.deleteOldProfile}
                         handleCloseModal={this.handleCloseModal}
                         getCards={this.props.getCards}
-                        // show={this.state.showProfile}
-                        // onHide={this.handleCloseModal}
+                        jocid={this.state.company.jocid}
                       />
                     </Modal.Body>
                     <Modal.Footer>

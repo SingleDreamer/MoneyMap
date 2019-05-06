@@ -27,13 +27,6 @@ class CardArray extends Component {
       show: false,
       cityAverages: [],
       jobOfferCardID: 0,
-      jocDetails: {
-        UID: 3023,
-        JOCName: "",
-        CityID: 3023,
-        CardImageSrc: ""
-      },
-
       optionsRadial: {
         colors: ["#111111"],
         plotOptions: {
@@ -231,7 +224,12 @@ class CardArray extends Component {
                   Compare
                 </Button>
               </OverlayTrigger>
-
+              <Button
+                variant="primary"
+                //onClick={}
+              >
+                Edit
+              </Button>
               <Button
                 variant="danger"
                 onClick={() => this.deleteJOC(this.props.info.jocid)}
@@ -286,13 +284,7 @@ class CardArray extends Component {
 
     e.preventDefault();
     this.setState({
-      show: true,
-      jocDetails: {
-        UID: 1,
-        JOCName: this.props.info.name,
-        CityID: 1,
-        CardImageSrc: ""
-      }
+      show: true
     });
   };
 
