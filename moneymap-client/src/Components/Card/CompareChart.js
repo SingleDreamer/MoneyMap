@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import Table from "react-bootstrap/Table";
+import Badge from "react-bootstrap/Badge";
+
 import "./Card.css";
 
 let newSeries = [];
@@ -87,71 +89,6 @@ class CompareCharts extends Component {
         }
       },
       optionsPerksChart: {
-        chart: {
-          type: "bar",
-          stacked: true,
-          toolbar: {
-            show: true
-          }
-        },
-        columnWidth: "40%",
-        responsive: [
-          {
-            breakpoint: 400,
-            options: {
-              legend: {
-                position: "bottom",
-                offsetX: -10,
-                offsetY: 0
-              }
-            }
-          }
-        ],
-        distributed: true,
-        plotOptions: {
-          bar: {
-            horizontal: false
-          }
-        },
-        tooltip: {
-          custom: function({ seriesIndex, dataPointIndex }) {
-            let string = newSeries[seriesIndex].desc[dataPointIndex];
-            string = string.replace(/.{30}/g, "$&<br>");
-
-            return (
-              '<div class="arrow_box">' +
-              "<strong>" +
-              newSeries[seriesIndex].name +
-              "<br>" +
-              newSeries[seriesIndex].Rating[dataPointIndex] +
-              "</strong>" +
-              " <br> " +
-              string +
-              "</div>"
-            );
-          }
-        },
-        xaxis: {
-          categories: [
-            this.props.companies[0].jocname,
-            this.props.companies[1].jocname
-          ]
-        },
-        dataLabels: {
-          //maybe do something with this... for now its just disabled
-          enabled: false,
-          textAnchor: "start",
-          formatter: function(val, { seriesIndex, dataPointIndex }) {
-            return newSeries[seriesIndex].name + ":  " + val;
-          }
-        },
-        legend: {
-          position: "right",
-          offsetY: 40
-        },
-        fill: {
-          opacity: 1
-        },
         series: []
       }
     };
@@ -193,6 +130,27 @@ class CompareCharts extends Component {
       }
     });
   }
+  getBadge = Rating => {
+    if (Rating === "Excellent") {
+      return (
+        <Badge pill variant="success">
+          {Rating}
+        </Badge>
+      );
+    } else if (Rating === "Horrible" || Rating === "Bad") {
+      return (
+        <Badge pill variant="danger">
+          {Rating}
+        </Badge>
+      );
+    } else {
+      return (
+        <Badge pill variant="warning">
+          {Rating}
+        </Badge>
+      );
+    }
+  };
 
   render() {
     return (
@@ -219,9 +177,9 @@ class CompareCharts extends Component {
                     <td>
                       <strong>{`${company.jocname}`}</strong>
                     </td>
-                    <td>NYC</td>
+                    <td>{company.city.City}</td>
                     <td>{company.components[0].ComponentAmount}</td>
-                    <td>{company.jocrfc}</td>
+                    <td>{Math.round(company.jocrfc)}</td>
                     <td>{company.components[1].ComponentAmount}</td>
                     <td>{company.components[1].ComponentAmount}</td>
                     <td>{company.components[2].ComponentAmount}</td>
@@ -238,46 +196,58 @@ class CompareCharts extends Component {
               type="line"
               height="auto"
             />
-             <Table striped bordered hover responsive>
+            <h2>Benefits Breakdown</h2>
+            <Table striped bordered hover responsive>
               <thead>
                 <tr>
-                  <th>Company</th>
-                  <th>City</th>
-                  <th>Income</th>
-                  <th>RFS</th>
-                  <th>Rent</th>
-                  <th>Consumable</th>
-                  <th>Entertainment</th>
-                  <th>Debt</th>
-                  <th>Savings</th>
+                  <th>Benefit</th>
+                  <th>
+                    {/* {this.props.companies[0].jocname} */}
+                    <img
+                      src={`https://logo.clearbit.com/${
+                        this.props.companies[0].jocname
+                      }.com`}
+                      alt={this.props.companies[0].jocname}
+                    />
+                  </th>
+                  <th>
+                    {/* {this.props.companies[1].jocname} */}
+                    <img
+                      src={`https://logo.clearbit.com/${
+                        this.props.companies[1].jocname
+                      }.com`}
+                      alt={this.props.companies[1].jocname}
+                    />
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {this.props.companies.map(company => (
-                  <tr key={company.jocid}>
+                {this.state.optionsPerksChart.series.map((benefit, index) => (
+                  <tr key={index}>
                     <td>
-                      <strong>{`${company.jocname}`}</strong>
+                      <strong>{`${benefit.name}`}</strong>
                     </td>
-                    <td>NYC</td>
-                    <td>{company.components[0].ComponentAmount}</td>
-                    <td>{company.jocrfc}</td>
-                    <td>{company.components[1].ComponentAmount}</td>
-                    <td>{company.components[1].ComponentAmount}</td>
-                    <td>{company.components[2].ComponentAmount}</td>
-                    <td>{company.components[3].ComponentAmount}</td>
-                    <td>{company.components[4].ComponentAmount}</td>
+                    <td>
+                      {this.getBadge(benefit.Rating[0])}
+                      <br />
+                      {benefit.desc[0]}
+                    </td>
+                    <td>
+                      {this.getBadge(benefit.Rating[1])}
+                      <br />
+                      {benefit.desc[1]}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </Table>
             {typeof this.props.companies[0].perks !== "undefined" &&
             typeof this.props.companies[1].perks !== "undefined" ? (
-              <Chart
-                options={this.state.optionsPerksChart}
-                series={this.state.optionsPerksChart.series}
-                type="bar"
-                height="auto"
-              />
+              console.log(
+                "THIS",
+                this.state.optionsPerksChart.series,
+                this.props.companies
+              )
             ) : (
               <div />
             )}

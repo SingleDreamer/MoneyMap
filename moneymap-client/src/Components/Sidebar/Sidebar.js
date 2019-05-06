@@ -168,9 +168,9 @@ class Sidebar extends Component {
               {this.state.open ? (
                 <DrawerContent className="content">
                   <DrawerSubtitle>Relative Finance Score</DrawerSubtitle>
-                  <div className="content">{`${
+                  <div className="content">{`${Math.round(
                     this.state.company.jocrfc
-                  }`}</div>
+                  )}`}</div>
                   <br />
                   <DrawerSubtitle>Current City</DrawerSubtitle>
                   <div className="content">{`${
