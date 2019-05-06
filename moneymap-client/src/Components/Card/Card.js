@@ -25,7 +25,30 @@ class CardArray extends Component {
     super(props, context);
     this.state = {
       show: false,
-      cityAverages: [],
+      cityAverages: {
+        0: {
+          0: {
+            ComponentTypeID: 2,
+            ComponentTypeDescription: "Mandatory Costs",
+            Amount: 0
+          },
+          1: {
+            ComponentTypeID: 3,
+            ComponentTypeDescription: "Consumable Costs",
+            Amount: 0
+          },
+          2: {
+            ComponentTypeID: 4,
+            ComponentTypeDescription: "Entertainment Expenses",
+            Amount: 0
+          },
+          3: {
+            ComponentTypeID: 1,
+            ComponentTypeDescription: "Income",
+            Amount: 0
+          }
+        }
+      },
       jobOfferCardID: 0,
       optionsRadial: {
         colors: ["#111111"],
@@ -137,8 +160,51 @@ class CardArray extends Component {
         config
       )
       .then(res => {
-        //console.log(res.data.recordsets);
-        if (res.data.recordsets[0].length > 0) {
+        console.log("City averages:", res.data.recordsets);
+        if (
+          (res.data.recordsets[0].length > 0 &&
+            res.data.recordsets[0].length < 4) ||
+          res.data.recordsets[0].length > 4
+        ) {
+          this.setState(
+            {
+              cityAverages: {
+                0: {
+                  ...this.state.cityAverages[0],
+                  0: !!res.data.recordsets[0].find(amount => {
+                    return amount.ComponentTypeID === 2;
+                  })
+                    ? res.data.recordsets[0].find(amount => {
+                        return amount.ComponentTypeID === 2;
+                      })
+                    : { ...this.state.cityAverages[0][0] },
+                  1: !!res.data.recordsets[0].find(amount => {
+                    return amount.ComponentTypeID === 3;
+                  })
+                    ? res.data.recordsets[0].find(amount => {
+                        return amount.ComponentTypeID === 3;
+                      })
+                    : { ...this.state.cityAverages[0][1] },
+                  2: !!res.data.recordsets[0].find(amount => {
+                    return amount.ComponentTypeID === 4;
+                  })
+                    ? res.data.recordsets[0].find(amount => {
+                        return amount.ComponentTypeID === 4;
+                      })
+                    : { ...this.state.cityAverages[0][2] },
+                  3: !!res.data.recordsets[0].find(amount => {
+                    return amount.ComponentTypeID === 1;
+                  })
+                    ? res.data.recordsets[0].find(amount => {
+                        return amount.ComponentTypeID === 1;
+                      })
+                    : { ...this.state.cityAverages[0][3] }
+                }
+              }
+            },
+            () => console.log("This is the state ::: ", this.state.cityAverages)
+          );
+        } else if (res.data.recordsets[0].length === 4) {
           this.setState({ cityAverages: res.data.recordsets });
           // console.log(this.state.cityAverages[0][0].Amount);
         } else {

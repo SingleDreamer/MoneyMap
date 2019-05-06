@@ -18,6 +18,7 @@ class Dashboard extends Component {
       // fromRegister: false,
       profileSubmit: false,
       show: false,
+      noCard: false,
       isAuthed: true,
       spinner: true,
       companies: [],
@@ -142,12 +143,16 @@ class Dashboard extends Component {
         let jocs = response.data.result;
         let temp = [];
         console.log("jocs", jocs);
+        // console.log("joc len", jocs.length);
+        if (jocs.length === 0) {
+          this.setState({ noCard: true, show: true });
+        }
         jocs.forEach(company => {
           if (company.priority === 0) {
             this.setState({
               profile: company,
-              profileSubmit: true,
-              show: false
+              profileSubmit: true
+              // show: false
             });
             console.log("Profile: ", this.state.profile);
           }
@@ -217,6 +222,7 @@ class Dashboard extends Component {
               handleClose={this.handleClose}
               // profileSubmit={this.state.profileSubmit}
               getCards={this.getCards}
+              profSubmit={this.state.noCard}
             />
           </Modal.Body>
           <Modal.Footer>
