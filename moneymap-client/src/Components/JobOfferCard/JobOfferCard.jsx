@@ -255,12 +255,12 @@ class JobOfferCard extends Component {
       this.props.handleCloseModal();
       return this.editJoc();
     }
-    // this.props.profileSubmit();
+    //this.props.profileSubmit();
 
     //console.log("Components: ", this.state.Components);
   };
+  
   editJoc = () => {
-    console.log("TESTTESTE TSTESTELAJS");
     const { name, cityid, image, Components } = this.state;
     let payload = { name, cityid, image, Components };
 
