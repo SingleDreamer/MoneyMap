@@ -290,12 +290,12 @@ class CardArray extends Component {
                   Compare
                 </Button>
               </OverlayTrigger>
-              <Button
+              {/* <Button
                 variant="primary"
                 //onClick={}
               >
                 Edit
-              </Button>
+              </Button> */}
               <Button
                 variant="danger"
                 onClick={() => this.deleteJOC(this.props.info.jocid)}

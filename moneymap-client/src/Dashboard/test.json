@@ -242,5 +242,127 @@
       "Score": 2,
       "Description": "250$ FB ad credit to use or give away. Laundry and drycleaning onsite or reimbursement. Free valet parking."
     }
+  },
+  "Amazon": {
+    "Compensation Philosophy": {
+      "Rating": "Bad",
+      "Score": 1,
+      "Description": "Your comp should fall in a certain band. If you fall into that band, then your yearly raise will be very little ~1%-3%. Raises happen if you get promoted (10% - 30%). If your stocks increase in value then they will not give you a raise since you technically are reaching a target. There are no yearly cash bonuses or stock refreshers. Salary capped at $160k"
+    },
+    "Vacation/Time Off": {
+      "Rating": "Good",
+      "Score": 3,
+      "Description": "Between years: 0-1: 10 days/year 1-6: 15 days/year 6+: 20 days/year"
+    },
+    "PTO/Sick Days": {
+      "Rating": "Good",
+      "Score": 3,
+      "Description": "6 days/year of PTO + 3 sick days"
+    },
+    "Meals/Food": {
+      "Rating": "Horrible",
+      "Score": 0,
+      "Description": "None"
+    },
+    "Snacks": {
+      "Rating": "Horrible",
+      "Score": 0,
+      "Description": "None"
+    },
+    "Coffee/Drinks": {
+      "Rating": "Bad",
+      "Score": 1,
+      "Description": "Starbucks drip coffee A variety of teas Hot chocolate mix Cider mix"
+    },
+    "401k Matching": {
+      "Rating": "Bad",
+      "Score": 1,
+      "Description": "50% match up to 4% of your base pay. ie. $2000 on $4000 contribution with a base salary of $100,000. Matches only vest after 3 years. Unvested matches are forfeited"
+    },
+    "Health/Fitness": {
+      "Rating": "Horrible",
+      "Score": 0,
+      "Description": "None"
+    },
+    "Mental Health/Therapy": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Free 24/7 access to counselling services through ComPsych GuidanceResources"
+    },
+    "Green Card Sponsorship": {
+      "Rating": "Okay",
+      "Score": 2,
+      "Description": "Will not sponsor SDE1's for greencard however they can begin the process when you're an SDE1. You must be an SDE2+ to finish the process. For SDE2+ they will sponsor immediately"
+    },
+    "Company Holidays": {
+      "Rating": "Horrible",
+      "Score": 0,
+      "Description": "6 Days (New Year's Day, Memorial Day, Independence Day, Labor Day, Thanksgiving, Christmas Day)"
+    },
+    "Cell Phone Allowance": {
+      "Rating": "Good",
+      "Score": 3,
+      "Description": "50$/month"
+    },
+    "Charity Donation Match": {
+      "Rating": "Horrible",
+      "Score": 0,
+      "Description": "None"
+    },
+    "Ridesharing benefits": {
+      "Rating": "Good",
+      "Score": 3,
+      "Description": "160$/month rideshare reimbursement (vanpool, uber pool, waze, etc.) to work"
+    },
+    "Parking": {
+      "Rating": "Okay",
+      "Score": 2,
+      "Description": "160$/month parking reimbursement (does not fully covers parking costs, still have to pay about $150/month)"
+    },
+    "Maternity/Paternity Leave": {
+      "Rating": "Okay",
+      "Score": 2,
+      "Description": "4 weeks paid pre-birth maternity leave, 10 weeks, post birth maternity leave. 6 weeks parental leave(can be taken by mother or father). Without exception, you must complete one year of continuous employment with Amazon on or before the baby’s date of birth to be eligible for Parental Leave"
+    },
+    "Childcare": {
+      "Rating": "Bad",
+      "Score": 1,
+      "Description": "Free membership to Bright Horizons child care centers ($250 value)"
+    },
+    "Adoption Assistance": {
+      "Rating": "Okay",
+      "Score": 2,
+      "Description": "$5000 for fees related to adoption"
+    },
+    "Onsite Facilities": {
+      "Rating": "Okay",
+      "Score": 2,
+      "Description": "Some buildings have showers Most building have bike racks Open office or cubicles depend on your building"
+    },
+    "Dog friendly Policy": {
+      "Rating": "Excellent",
+      "Score": 4,
+      "Description": "Yes"
+    },
+    "Break time activities": {
+      "Rating": "Good",
+      "Score": 3,
+      "Description": "Some buildings have ping pong and foosball"
+    },
+    "Tuition": {
+      "Rating": "Horrible",
+      "Score": 0,
+      "Description": "None"
+    },
+    "Health Insurance": {
+      "Rating": "Okay",
+      "Score": 2,
+      "Description": "Basic Vision: $3/month; (Deductable: Frames: 10$, Eye Exam: 0$, $130-$150 for frames or contacts depends on brand) Dental: $7/month; (Deductable: Single: $50, Family: $150, Preventitive Care: $0) General: $27/month; (Deductable: Single: $1000, Couple: $2000, Single with children: $2000, Family: $3000)"
+    },
+    "Other": {
+      "Rating": "Bad",
+      "Score": 1,
+      "Description": "10% off of 1000$ of purchases from amazon retail website/year"
+    }
   }
 }

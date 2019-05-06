@@ -161,6 +161,8 @@ class Dashboard extends Component {
             company.perks = perks.Google;
           } else if (company.jocname === "Facebook") {
             company.perks = perks.Facebook;
+          } else if (company.jocname === "Amazon") {
+            company.perks = perks.Amazon;
           }
         });
         temp = jocs.filter(company => company.priority !== 0);

@@ -3,7 +3,7 @@ import Chart from "react-apexcharts";
 import axios from "axios";
 import AuthService from "../../AuthService/AuthService";
 import Table from "react-bootstrap/Table";
-
+import Button from "react-bootstrap/Button";
 class Charts extends Component {
   constructor(props) {
     super(props);
@@ -54,10 +54,22 @@ class Charts extends Component {
       items: [],
       MandatoryItems: [],
       ConsumableItems: [],
-      EntertainmentItems: []
+      EntertainmentItems: [],
+      showMandatory: false,
+      showConsumable: false,
+      showEntertainment: false
     };
     this.Auth = new AuthService();
   }
+  toggleMandatoryChart = () => {
+    this.setState({ showMandatory: !this.state.showMandatory });
+  };
+  toggleConsumableChart = () => {
+    this.setState({ showConsumable: !this.state.showConsumable });
+  };
+  toggleEntertainmentChart = () => {
+    this.setState({ showEntertainment: !this.state.showEntertainment });
+  };
   componentDidMount() {
     let config = {
       headers: {
@@ -84,9 +96,6 @@ class Charts extends Component {
         let EntertainmentItems = temp.filter(item => {
           return item.ComponentTypeID === 4;
         });
-        // console.log("Mandatory:", MandatoryItems);
-        // console.log("Consumable:", ConsumableItems);
-        // console.log("Entertainment:", EntertainmentItems);
         this.setState({
           items: temp,
           MandatoryItems: MandatoryItems,
@@ -176,11 +185,23 @@ class Charts extends Component {
           include debt.
         </p>
         <h2>Monthly Savings: ${this.props.company.savings.toFixed(2)}</h2>
+        <br />
         <h2>
           Mandatory Expenses: $
           {this.props.company.components[1].ComponentAmount.toFixed(2)}
+          <Button onClick={() => this.toggleMandatoryChart()}>
+            {" "}
+            {this.state.showMandatory ? "Hide" : "Show"}
+          </Button>
         </h2>
-        <Table striped bordered hover responsive>
+        <br />
+        <Table
+          hidden={!this.state.showMandatory}
+          striped
+          bordered
+          hover
+          responsive
+        >
           <thead>
             <tr>
               <th>Item</th>
@@ -219,48 +240,73 @@ class Charts extends Component {
         <h2>
           Comsumables: $
           {this.props.company.components[2].ComponentAmount.toFixed(2)}
+          <Button onClick={() => this.toggleConsumableChart()}>
+            {this.state.showConsumable ? "Hide" : "Show"}
+          </Button>
         </h2>
-        <Table striped bordered hover responsive>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Quantity</th>
-              <th>Lowest Price</th>
-              <th>Average Price</th>
-              <th>Highest Price</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.ConsumableItems.map((item, index) => (
-              <tr key={index}>
-                <td>
-                  <strong>{`${item.Name}`}</strong>
-                </td>
-                <td>{item.Quantity}</td>
-                <td>
-                  {item.LowestPrice === 0 ? "N/A" : item.LowestPrice.toFixed(2)}
-                </td>
-                <td>
-                  {item.AveragePrice === 0
-                    ? "N/A"
-                    : item.AveragePrice.toFixed(2)}
-                </td>
-                <td>
-                  {item.HighestPrice === 0
-                    ? "N/A"
-                    : item.HighestPrice.toFixed(2)}
-                </td>
-                <td>{item.Price.toFixed(2)}</td>
+        <br />
+        <div>
+          <Table
+            hidden={!this.state.showConsumable}
+            striped
+            bordered
+            hover
+            responsive
+          >
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Lowest Price</th>
+                <th>Average Price</th>
+                <th>Highest Price</th>
+                <th>Total</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {this.state.ConsumableItems.map((item, index) => (
+                <tr key={index}>
+                  <td>
+                    <strong>{`${item.Name}`}</strong>
+                  </td>
+                  <td>{item.Quantity}</td>
+                  <td>
+                    {item.LowestPrice === 0
+                      ? "N/A"
+                      : item.LowestPrice.toFixed(2)}
+                  </td>
+                  <td>
+                    {item.AveragePrice === 0
+                      ? "N/A"
+                      : item.AveragePrice.toFixed(2)}
+                  </td>
+                  <td>
+                    {item.HighestPrice === 0
+                      ? "N/A"
+                      : item.HighestPrice.toFixed(2)}
+                  </td>
+                  <td>{item.Price.toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+
         <h2>
           Entertainment: $
           {this.props.company.components[3].ComponentAmount.toFixed(2)}
+          <Button onClick={() => this.toggleEntertainmentChart()}>
+            {this.state.showEntertainment ? "Hide" : "Show"}
+          </Button>
         </h2>
-        <Table striped bordered hover responsive>
+        <br />
+        <Table
+          hidden={!this.state.showEntertainment}
+          striped
+          bordered
+          hover
+          responsive
+        >
           <thead>
             <tr>
               <th>Item</th>
