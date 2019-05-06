@@ -9,13 +9,17 @@ class JobOfferDetails extends Component {
     super(props);
     this.state = {
       selectedOption: { value: "", label: "" },
+      selectedCity: null,
       countries: []
     };
     this.handleCityChange = this.handleCityChange.bind(this);
   }
 
   handleCityChange = selectedOption => {
-    this.setState({ selectedOption });
+    this.setState({
+      selectedOption,
+      selectedCity: selectedOption
+    });
     console.log(`Option selected:`, selectedOption);
     this.props.handleCitySelection(selectedOption.value);
   };
@@ -24,9 +28,10 @@ class JobOfferDetails extends Component {
     console.log(`Option selected:`, selectedOption);
     this.setState(
       {
-        selectedCountry: selectedOption.value
+        selectedCountry: selectedOption.value,
+        selectedCity: null
       },
-      () => {}
+      this.props.handleCitySelection(0)
     );
     this.selectCity(selectedOption.value);
   };
@@ -113,6 +118,7 @@ class JobOfferDetails extends Component {
 
           <Select
             // isClearable //handle this; breaks
+            value={this.state.selectedCity}
             onChange={this.handleCityChange}
             options={cities}
           />
