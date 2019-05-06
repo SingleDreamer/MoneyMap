@@ -192,10 +192,10 @@ class Charts extends Component {
           />
         </OverlayTrigger>
 
-        <p>
+        {/* <p>
           **City Average data is not available for all cities and does not
           include debt.
-        </p>
+        </p> */}
         <h2>Monthly Savings: ${this.props.company.savings.toFixed(2)}</h2>
         <br />
         <h2>

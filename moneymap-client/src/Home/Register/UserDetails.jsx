@@ -108,7 +108,7 @@ class UserDetails extends Component {
             </Form.Group>
           </Col>
         </Form.Row>
-        <Form.Group controlId="formBasicCheckbox">
+        {/* <Form.Group controlId="formBasicCheckbox">
           <Form.Check
             required
             type="checkbox"
@@ -116,7 +116,7 @@ class UserDetails extends Component {
             className="required"
           />
           <a href="privacy">Privacy policy</a>
-        </Form.Group>
+        </Form.Group> */}
         <Button id="newPrimary" type="submit">
           Submit
         </Button>
