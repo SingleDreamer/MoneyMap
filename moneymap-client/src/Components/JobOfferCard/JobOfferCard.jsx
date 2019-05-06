@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import ProfileDetails from "../Sidebar/ProfileDetails";
 import JobOfferDetails from "./JobOfferDetails/JobOfferDetails";
-import JobOfferDetails2 from "./JobOfferDetails/JobOfferDetails2";
-import { Form } from "react-bootstrap";
+// import JobOfferDetails2 from "./JobOfferDetails/JobOfferDetails2";
+// import { Form } from "react-bootstrap";
 import AuthService from "../../AuthService/AuthService";
 import axios from "axios";
 
@@ -42,87 +43,102 @@ class JobOfferCard extends Component {
         }
       },
       cityAvgs: {},
+      userInfo: {},
+      profSubmit: false,
       submit: false,
       error: null,
-      newProfile: false,
-      temp: []
+      newProfile: false
     };
     this.Auth = new AuthService();
     this.handleChange = this.handleChange.bind(this);
+    this.handleProfChange = this.handleProfChange.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({ newProfile: nextProps.newProfile });
+    this.setState({
+      newProfile: nextProps.newProfile,
+      profSubmit: nextProps.profSubmit
+    });
   }
   render() {
-    const { step, cityAvgs } = this.state;
+    const { step } = this.state;
     const { name, cityid, image, Components } = this.state;
     const values = { name, cityid, image, Components };
 
-    let success;
-    if (
-      this.state.submit === true &&
-      !this.state.error &&
-      this.state.page === 2
-    ) {
-      //add other checks for post response
-      success = (
-        <h6 style={{ marginTop: "10px" }}>
-          JobOfferCard Successfully created.!
-        </h6>
-      );
-    }
+    let joc = (
+      // <Form onSubmit={this.handleSubmit}>
+      //   <p>Step {step} </p>
+      //   {this.renderSwitch(step, values, cityAvgs)}
+      // </Form>
+      <div>
+        <p>Step {step} </p>
+        <JobOfferDetails
+          nextStep={this.nextStep}
+          handleChange={this.handleChange}
+          handleCitySelection={this.handleCitySelection}
+          handleSubmit={this.handleSubmit}
+          values={values}
+          cityid={this.state.cityid}
+        />{" "}
+      </div>
+    );
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        {" "}
-        <p>Step {step} </p>
-        {this.renderSwitch(step, values, cityAvgs)}
-        {success}
-      </Form>
+      <div>
+        {this.state.profSubmit === true || this.state.newProfile === false ? (
+          joc
+        ) : (
+          <ProfileDetails
+            nextStep={this.nextStep}
+            handleProfChange={this.handleProfChange}
+            sendProfile={this.sendProfile}
+            userInfo={this.state.userInfo}
+          />
+        )}
+      </div>
     );
   }
 
-  renderSwitch(step, values, cityAvgs) {
-    switch (step) {
-      case 1:
-        return (
-          <JobOfferDetails
-            nextStep={this.nextStep}
-            handleChange={this.handleChange}
-            handleCitySelection={this.handleCitySelection}
-            values={values}
-            cityid={this.state.cityid}
-          />
-        );
-      case 2:
-        return (
-          <JobOfferDetails2
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            values={values}
-            cityAvgs={cityAvgs}
-            temp={this.state.temp}
-          />
-        );
-      default:
-        return;
-    }
-  }
+  // renderSwitch(step, values, cityAvgs) {
+  //   switch (step) {
+  //     case 1:
+  //       return (
+  //         <JobOfferDetails
+  //           nextStep={this.nextStep}
+  //           handleChange={this.handleChange}
+  //           handleCitySelection={this.handleCitySelection}
+  //           handleSubmit={this.handleSubmit}
+  //           values={values}
+  //           cityid={this.state.cityid}
+  //         />
+  //       );
+  //     case 2:
+  //       return (
+  //         <JobOfferDetails2
+  //           prevStep={this.prevStep}
+  //           handleChange={this.handleChange}
+  //           values={values}
+  //           cityAvgs={cityAvgs}
+  //         />
+  //       );
+  //     default:
+  //       return;
+  //   }
+  // }
 
-  nextStep = () => {
-    console.log("Values: ", this.state.Components);
-    const { step } = this.state;
-    this.setState({
-      step: step + 1
-    });
-  };
+  // nextStep = () => {
+  //   // console.log("Values: ", this.state.Components);
+  //   const { step } = this.state;
+  //   this.setState({
+  //     step: step + 1
+  //   });
+  // };
 
-  prevStep = () => {
-    const { step } = this.state;
-    this.setState({
-      step: step - 1
-    });
-  };
+  // prevStep = () => {
+  //   const { step } = this.state;
+  //   this.setState({
+  //     step: step - 1
+  //   });
+  // };
 
   handleCitySelection = cityid => {
     this.setState({
@@ -148,65 +164,90 @@ class JobOfferCard extends Component {
         this.setState({
           cityAvgs: avgs
         });
-        for (var i = 0; i < this.state.cityAvgs.length; i++) {
-          if (this.state.cityAvgs[i].ComponentTypeID === 2) {
-            this.state.temp.push(Math.round(this.state.cityAvgs[i].Cost));
-            this.setState({
+        if (avgs.length === 0) {
+          this.setState(
+            {
               ...this.state,
               Components: {
                 ...this.state.Components,
                 "Mandatory Costs": {
                   ...this.state.Components["Mandatory Costs"],
-
-                  camt: Math.round(this.state.cityAvgs[i].Cost)
-                }
-              }
-            });
-            break;
-          } else if (i === this.state.cityAvgs.length) {
-            this.state.temp.push(0);
-          }
-        }
-        for (var j = 0; j < this.state.cityAvgs.length; j++) {
-          if (this.state.cityAvgs[j].ComponentTypeID === 3) {
-            this.state.temp.push(Math.round(this.state.cityAvgs[j].Cost));
-            this.setState({
-              ...this.state,
-              Components: {
-                ...this.state.Components,
+                  camt: 0
+                },
                 "Consumable Costs": {
                   ...this.state.Components["Consumable Costs"],
-                  camt: Math.round(this.state.cityAvgs[j].Cost)
-                }
-              }
-            });
-          } else if (j === this.state.cityAvgs.length) {
-            this.state.temp.push(0);
-          }
-        }
-        for (var k = 0; k < this.state.cityAvgs.length; k++) {
-          if (this.state.cityAvgs[k].ComponentTypeID === 4) {
-            this.state.temp.push(Math.round(this.state.cityAvgs[k].Cost));
-            this.setState({
-              ...this.state,
-              Components: {
-                ...this.state.Components,
+                  camt: 0
+                },
                 "Entertainment Expenses": {
                   ...this.state.Components["Entertainment Expenses"],
-                  camt: Math.round(this.state.cityAvgs[k].Cost)
+                  camt: 0
                 }
               }
-            });
-          } else if (k === this.state.cityAvgs.length) {
-            this.state.temp.push(0);
+            },
+            console.log("update: ", this.state.Components)
+          );
+        } else {
+          for (var i = 0; i < this.state.cityAvgs.length; i++) {
+            if (this.state.cityAvgs[i].ComponentTypeID === 2) {
+              this.setState({
+                ...this.state,
+                Components: {
+                  ...this.state.Components,
+                  "Mandatory Costs": {
+                    ...this.state.Components["Mandatory Costs"],
+                    camt: Math.round(this.state.cityAvgs[i].Cost)
+                  }
+                }
+              });
+              break;
+            }
           }
+          for (var j = 0; j < this.state.cityAvgs.length; j++) {
+            if (this.state.cityAvgs[j].ComponentTypeID === 3) {
+              this.setState({
+                ...this.state,
+                Components: {
+                  ...this.state.Components,
+                  "Consumable Costs": {
+                    ...this.state.Components["Consumable Costs"],
+                    camt: Math.round(this.state.cityAvgs[j].Cost)
+                  }
+                }
+              });
+              break;
+            }
+          }
+          for (var k = 0; k < this.state.cityAvgs.length; k++) {
+            if (this.state.cityAvgs[k].ComponentTypeID === 4) {
+              this.setState({
+                ...this.state,
+                Components: {
+                  ...this.state.Components,
+                  "Entertainment Expenses": {
+                    ...this.state.Components["Entertainment Expenses"],
+                    camt: Math.round(this.state.cityAvgs[k].Cost)
+                  }
+                }
+              });
+              break;
+            }
+          }
+          console.log("City averages: ", this.state.cityAvgs);
         }
-        console.log("temp: ", this.state.temp);
-        console.log("City averages: ", this.state.cityAvgs);
       })
       .catch(error => {
         console.log(error);
       });
+  };
+
+  handleProfChange = input => event => {
+    this.setState({
+      ...this.state,
+      userInfo: {
+        ...this.state.userInfo,
+        [input]: event.target.value
+      }
+    });
   };
 
   handleChange = (input, input2, input3) => event => {
@@ -223,10 +264,7 @@ class JobOfferCard extends Component {
               ctype: input3
             }
           }
-        },
-        () => {
-          //console.log("Components: ", this.state.Components);
-        }
+        } //console.log("Components: ", this.state.Components);
       );
     } else if (!!input2) {
       this.setState({
@@ -255,9 +293,53 @@ class JobOfferCard extends Component {
       this.props.handleCloseModal();
       return this.editJoc();
     }
-    //this.props.profileSubmit();
-
     //console.log("Components: ", this.state.Components);
+  };
+
+  sendProfile = e => {
+    e.preventDefault();
+    console.log("Send profile");
+    this.setState({
+      profSubmit: true,
+      userInfo: {
+        ...this.state.userInfo,
+        adultFamSize: Number(this.state.adultFamSize),
+        childFamSize: Number(this.state.childFamSize),
+        size: Number(this.state.size)
+      }
+    });
+    let userInfo = this.state.userInfo;
+    userInfo.adultFamSize = Number(userInfo.adultFamSize);
+    userInfo.childFamSize = 0;
+    userInfo.size = Number(userInfo.adultFamSize);
+    let url = `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
+      "user"
+    )}/profile`;
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+    console.log("userInfo ", userInfo);
+    const { fname, lname, size } = this.state.userInfo;
+    let payload = { fname, lname, size };
+    console.log("userInfo payload: ", payload);
+    try {
+      axios
+        .post(url, payload, config)
+        .then(response => {
+          console.log("edit profilesuccess");
+          console.log("Response: ", response.data);
+        })
+        .catch(err => {
+          this.setState({ error: err });
+          //   console.log("####");
+          console.log("Error1: ", err);
+        });
+    } catch (err) {
+      console.log("Edit Profile error: ", err.response);
+    }
   };
 
   editJoc = () => {
@@ -328,12 +410,7 @@ class JobOfferCard extends Component {
             .post(url2, body2, config)
             .then(response2 => {
               console.log(response2);
-              //alert(`Successfully submitted`);
-              // if (this.state.newProfile === true) {
-              //   // this.props.deleteOldProfile();
-              //   // console.log("deleted old profile");
-              //   // // doesn't assign priority 0
-              // }
+
               this.props.getCards("Created New Profile");
             })
             .catch(err => {

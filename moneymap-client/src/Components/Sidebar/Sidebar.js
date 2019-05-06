@@ -172,6 +172,11 @@ class Sidebar extends Component {
                     this.state.company.jocrfc
                   )}`}</div>
                   <br />
+                  <DrawerSubtitle>Current Company</DrawerSubtitle>
+                  <div className="content">{`${
+                    this.state.company.jocname
+                  }`}</div>
+                  <br />
                   <DrawerSubtitle>Current City</DrawerSubtitle>
                   <div className="content">{`${
                     this.state.company.city.City
