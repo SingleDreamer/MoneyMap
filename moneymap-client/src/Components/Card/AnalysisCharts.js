@@ -3,12 +3,8 @@ import Chart from "react-apexcharts";
 import axios from "axios";
 import AuthService from "../../AuthService/AuthService";
 import Table from "react-bootstrap/Table";
-<<<<<<< HEAD
-import Button from "react-bootstrap/Button";
-=======
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { OverlayTrigger, Tooltip, Button } from "react-bootstrap";
 
->>>>>>> joc
 class Charts extends Component {
   constructor(props) {
     super(props);
