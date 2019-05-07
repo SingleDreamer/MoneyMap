@@ -160,7 +160,7 @@ class CardArray extends Component {
         config
       )
       .then(res => {
-        console.log("City averages:", res.data.recordsets);
+        // console.log("City averages:", res.data.recordsets);
         if (
           (res.data.recordsets[0].length > 0 &&
             res.data.recordsets[0].length < 4) ||
@@ -201,8 +201,8 @@ class CardArray extends Component {
                     : { ...this.state.cityAverages[0][3] }
                 }
               }
-            },
-            () => console.log("This is the state ::: ", this.state.cityAverages)
+            }
+            // () => console.log("This is the state ::: ", this.state.cityAverages)
           );
         } else if (res.data.recordsets[0].length === 4) {
           this.setState({ cityAverages: res.data.recordsets });

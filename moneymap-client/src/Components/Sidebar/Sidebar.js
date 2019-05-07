@@ -37,24 +37,22 @@ class Sidebar extends Component {
 
   handleCloseSidebar = () => {
     this.setState({ open: false });
-    console.log("handle close");
+    // console.log("handle close");
   };
   handleCloseModal = () => {
     this.setState({ show: false, showProfile: false });
-    console.log("handle close");
+    // console.log("handle close");
   };
   toggleDrawer = () => {
     this.setState({ open: !this.state.open });
   };
   clearSession = () => {
-    //this.Auth.logout();
-    console.log("cleared");
     this.props.history.replace("/");
     sessionStorage.clear();
   };
   handleProfile = data => {
     this.setState({ userInfo: data });
-    console.log("handleProfile data: " + data);
+    // console.log("handleProfile data: " + data);
   };
 
   openPrefrenceWorksheet = () => {
@@ -66,50 +64,12 @@ class Sidebar extends Component {
     this.setState({ showProfile: !this.state.showProfile });
   };
 
-  // deleteOldProfile = () => {
-  //   let config = {
-  //     headers: {
-  //       authorization: this.Auth.getToken(),
-  //       "Content-Type": "application/json"
-  //     }
-  //   };
-  //   axios
-  //     .get(
-  //       `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
-  //         "user"
-  //       )}/jocs`,
-  //       config
-  //     )
-  //     .then(response => {
-  //       let jocs = response.data.result;
-  //       console.log("JOCS array: ", jocs);
-  //       jocs.forEach(company => {
-  //         if (company.priority === 0) {
-  //           axios
-  //             .delete(
-  //               "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
-  //                 company.jocid,
-  //               config
-  //             )
-  //             .then(res => this.props.getCards("Deleted Cards"))
-  //             .catch(error => {
-  //               console.log(error);
-  //             });
-  //         }
-  //       });
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // };
-
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.setState({
       company: nextProps.currentJob,
       userInfo: nextProps.user
     });
-    console.log("company: ", this.state.company);
+    // console.log("company: ", this.state.company);
   }
 
   componentWillMount = () => {
@@ -249,7 +209,7 @@ class Sidebar extends Component {
                     </Modal.Header>
                     <Modal.Body>
                       <JobOfferCard
-                        newProfile={true}
+                        changeProf={true}
                         handleCloseModal={this.handleCloseModal}
                         getCards={this.props.getCards}
                         jocid={this.state.company.jocid}
@@ -259,8 +219,6 @@ class Sidebar extends Component {
                       <Button onClick={this.handleCloseModal}>Close</Button>
                     </Modal.Footer>
                   </Modal>
-                  {/* delete current card/give priority 0 
-              get edit method from backend*/}
                 </DrawerContent>
               )}
             </div>
