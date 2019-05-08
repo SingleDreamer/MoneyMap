@@ -141,8 +141,9 @@ UserService.getPreferences = async (id, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
   request.input('token', sql.UniqueIdentifier, token);
-
+  console.log(id);
   let result = await request.execute('sp_get_user_preferences');
+  console.log(result);
   return result;
 };
 

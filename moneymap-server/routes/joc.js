@@ -26,16 +26,16 @@ router.post('/:id/components', [AuthService.checkToken], async (req, res, next) 
 router.post('/:id', [AuthService.checkToken], async (req, res, next) => {
   const { name, cityid, image, components } = req.body;
 
-  let result;
-
+  let result = {};
+  
   result.update = await JOCService.update(req.params.id, name, cityid, image, req.params.token);
 
   result.delete = await JOCService.deleteComponents(req.params.id, req.params.token);
 
   result.addComponents = [];
 
-  for(i in req.body) {
-    let component = req.body[i];
+  for(i in req.body.components) {
+    let component = req.body.components[i];
     let addComponentResult = await JOCService.addComponent(req.params.id, component.ctype, component.cdesc, component.camt, req.params.token);
     result.addComponents.push(addComponentResult);
   }
