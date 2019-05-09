@@ -10,8 +10,8 @@ router.get('/:id/jocs', [AuthService.checkToken], async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-  const { username, password, fname, lname, size } = req.body;
-  let result = await UserService.create(username, password, fname, lname, size);
+  const { username, password, fname, lname, adults, children } = req.body;
+  let result = await UserService.create(username, password, fname, lname, adults, children);
   res.json(result);
 });
 

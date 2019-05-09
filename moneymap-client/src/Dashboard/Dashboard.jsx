@@ -224,7 +224,7 @@ class Dashboard extends Component {
               handleClose={this.handleClose}
               // profileSubmit={this.state.profileSubmit}
               getCards={this.getCards}
-              profSubmit={this.state.noCard}
+              noCard={this.state.noCard}
             />
           </Modal.Body>
           <Modal.Footer>
