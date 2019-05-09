@@ -4,6 +4,8 @@ import axios from "axios";
 import AuthService from "../../AuthService/AuthService";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+
+import "./Card.css";
 class Charts extends Component {
   constructor(props) {
     super(props);
@@ -189,8 +191,10 @@ class Charts extends Component {
         <h2>
           Mandatory Expenses: $
           {this.props.company.components[1].ComponentAmount.toFixed(2)}
-          <Button onClick={() => this.toggleMandatoryChart()}>
-            {" "}
+          <Button
+            className="divider"
+            onClick={() => this.toggleMandatoryChart()}
+          >
             {this.state.showMandatory ? "Hide" : "Show"}
           </Button>
         </h2>
@@ -240,7 +244,10 @@ class Charts extends Component {
         <h2>
           Comsumables: $
           {this.props.company.components[2].ComponentAmount.toFixed(2)}
-          <Button onClick={() => this.toggleConsumableChart()}>
+          <Button
+            className="divider"
+            onClick={() => this.toggleConsumableChart()}
+          >
             {this.state.showConsumable ? "Hide" : "Show"}
           </Button>
         </h2>
@@ -295,7 +302,10 @@ class Charts extends Component {
         <h2>
           Entertainment: $
           {this.props.company.components[3].ComponentAmount.toFixed(2)}
-          <Button onClick={() => this.toggleEntertainmentChart()}>
+          <Button
+            className="divider"
+            onClick={() => this.toggleEntertainmentChart()}
+          >
             {this.state.showEntertainment ? "Hide" : "Show"}
           </Button>
         </h2>

@@ -122,7 +122,7 @@ class CardArray extends Component {
         key={"0"}
         placement="top"
         delay={{ show: 250, hide: 400 }}
-        overlay={<Tooltip id={"top"}>Click to Create New JobOfferCard</Tooltip>}
+        overlay={<Tooltip id={"top"}>Click to Create New Job Offer</Tooltip>}
       >
         <img
           src={logo}
