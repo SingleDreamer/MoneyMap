@@ -1,44 +1,25 @@
 import React, { Component } from "react";
-// import PrefrenceDetails1 from "./PrefrenceDetails1.js";
-// import PrefrenceDetails2 from "./PrefrenceDetails2.js";
-import { Form, Col, Row } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import AuthService from "../../AuthService/AuthService";
 import { Button } from "react-bootstrap";
 import axios from "axios";
+import PreferenceDetails from "./PrefrenceDetails.js";
+
 class Preference extends Component {
   constructor(props) {
     super(props);
     this.state = {
       items: [],
       prefrences: [],
-      payload: []
+      payload: [],
+      step: 1
     };
     this.Auth = new AuthService();
   }
-  componentDidMount() {
-    let temp = this.props.items.filter(
-      item => item.Category !== "Salaries And Financing"
-    );
-    console.log("temp: ", temp);
-    if (this.props.profilePrefs.recordset.length) {
-      for (var i = 0; i < temp.length; i++) {
-        for (var j = 0; j < this.props.profilePrefs.recordset.length; j++) {
-          if (temp[i].Name === this.props.profilePrefs.recordset[j].Name) {
-            this.addToItems(
-              temp[i].Item_ID,
-              temp[i].Name,
-              this.props.profilePrefs.recordset[j].Amount
-            );
-            break;
-          } else if (j === this.props.profilePrefs.recordset.length - 1) {
-            this.addToItems(temp[i].Item_ID, temp[i].Name, 0);
-          }
-        }
-      }
-    } else {
-      temp.forEach(item => this.addToItems(item.Item_ID, item.Name, 0));
-    }
+  componentWillMount() {
+    console.log("prop items: ", this.props);
   }
+
   addToItems = (id, name, amount) => {
     let newItems = this.state.items;
     newItems.push({ itemid: id, name: name, amount: amount });
@@ -67,7 +48,6 @@ class Preference extends Component {
         "Content-Type": "application/json"
       }
     };
-    //console.log(config);
     axios
       .post(
         `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
@@ -96,35 +76,102 @@ class Preference extends Component {
       }
     );
   };
+
+  renderSwitch(step, items) {
+    switch (step) {
+      case 1:
+        return (
+          <Form onSubmit={this.handleSubmit}>
+            <PreferenceDetails
+              items={this.props.items}
+              profilePrefs={this.props.profilePrefs}
+              addToList={this.addToList}
+              addToItems={this.addToItems}
+            />
+            <Button onClick={this.nextStep}>Next</Button>
+          </Form>
+        );
+      case 2:
+        return (
+          <Form onSubmit={this.handleSubmit}>
+            <PreferenceDetails
+              items={this.props.items}
+              profilePrefs={this.props.profilePrefs}
+              addToList={this.addToList}
+              addToItems={this.addToItems}
+            />
+            <Button onClick={this.nextStep}>Next</Button>
+            <Button onClick={this.prevStep}>Back</Button>
+          </Form>
+        );
+      case 3:
+        return (
+          <Form onSubmit={this.handleSubmit}>
+            <PreferenceDetails
+              nextStep={this.nextStep}
+              prevStep={this.prevStep}
+              items={this.props.items}
+              profilePrefs={this.props.profilePrefs}
+              addToList={this.addToList}
+              addToItems={this.addToItems}
+            />
+            <Button onClick={this.nextStep}>Next</Button>
+            <Button onClick={this.prevStep}>Back</Button>
+          </Form>
+        );
+      case 4:
+        return (
+          <Form onSubmit={this.handleSubmit}>
+            <PreferenceDetails
+              nextStep={this.nextStep}
+              prevStep={this.prevStep}
+              items={this.props.items}
+              profilePrefs={this.props.profilePrefs}
+              addToList={this.addToList}
+              addToItems={this.addToItems}
+            />
+            <Button onClick={this.nextStep}>Next</Button>
+            <Button onClick={this.prevStep}>Back</Button>
+          </Form>
+        );
+      case 5:
+        return (
+          <Form onSubmit={this.handleSubmit}>
+            <PreferenceDetails
+              prevStep={this.prevStep}
+              items={this.props.items}
+              profilePrefs={this.props.profilePrefs}
+              addToList={this.addToList}
+              addToItems={this.addToItems}
+            />
+            <Button onClick={this.prevStep}>Back</Button>
+            <Button onClick={this.sendRequest}>Submit</Button>
+          </Form>
+        );
+      default:
+        return;
+    }
+  }
+
+  nextStep = () => {
+    console.log("Values: ", this.state.Components);
+    const { step } = this.state;
+    this.setState({
+      step: step + 1
+    });
+  };
+
+  prevStep = () => {
+    const { step } = this.state;
+    this.setState({
+      step: step - 1
+    });
+  };
+
   render() {
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <ul>
-          {this.state.items.map((item, index) => {
-            //console.log(item);
-            return (
-              <Form.Group
-                key={index}
-                as={Row}
-                controlId="formPlaintextPassword"
-              >
-                <Form.Label column sm="10">
-                  {item.name}
-                </Form.Label>
-                <Col sm="2">
-                  <Form.Control
-                    type="text"
-                    onChange={this.addToList(item.itemid, item.name)}
-                    defaultValue={item.amount || 0}
-                  />
-                </Col>
-              </Form.Group>
-            );
-          })}
-        </ul>
-        <Button onClick={this.sendRequest}>Submit</Button>
-      </Form>
-    );
+    const { step, items } = this.state;
+
+    return this.renderSwitch(step, items);
   }
 }
 

@@ -25,7 +25,12 @@ class Dashboard extends Component {
       profile: {},
       user: {},
       items: [],
-      profilePrefs: {}
+      profilePrefs: {},
+      marketItems: [],
+      transportationItems: [],
+      housingItems: [],
+      restuartantItems: [],
+      entertainmentItems: []
     };
     this.Auth = new AuthService();
     this.handleShow = this.handleShow.bind(this);
@@ -88,9 +93,44 @@ class Dashboard extends Component {
         config
       )
       .then(response => {
-        console.log("items", response.data.recordset);
+        let marketItems = response.data.recordset.filter(item => {
+          return item.Category === "Markets";
+        });
+        let transportationItems = response.data.recordset.filter(item => {
+          return item.Category === "Transportation";
+        });
+        let housingItems = response.data.recordset.filter(item => {
+          return (
+            item.Category === "Utilities (Monthly)" ||
+            item.Category === "Rent Per Month" ||
+            item.Category === "Buy Apartment Price"
+          );
+        });
+
+        let restuartantItems = response.data.recordset.filter(item => {
+          return item.Category === "Restaurants";
+        });
+
+        let entertainmentItems = response.data.recordset.filter(item => {
+          return (
+            item.Category === "Clothing And Shoes" ||
+            item.Category === "Sports And Leisure"
+          );
+        });
+
+        console.log("MarketItems", marketItems);
+        console.log("TransportationItem", transportationItems);
+        console.log("housingItems", housingItems);
+        console.log("restuartantItems", restuartantItems);
+        console.log("entertainmentItems", entertainmentItems);
+
         this.setState({
-          items: response.data.recordset
+          items: response.data.recordset,
+          marketItems: marketItems,
+          transportationItems: transportationItems,
+          housingItems: housingItems,
+          restuartantItems: restuartantItems,
+          entertainmentItems: entertainmentItems
         });
       })
       .catch(error => {
@@ -143,7 +183,6 @@ class Dashboard extends Component {
         let jocs = response.data.result;
         let temp = [];
         console.log("jocs", jocs);
-        // console.log("joc len", jocs.length);
         if (jocs.length === 0) {
           this.setState({ noCard: true, show: true });
         }
@@ -210,7 +249,11 @@ class Dashboard extends Component {
         <Sidebar
           className="Sidebar"
           currentJob={this.state.profile}
-          items={this.state.items}
+          entertainmentItems={this.state.entertainmentItems}
+          housingItems={this.state.housingItems}
+          marketItems={this.state.marketItems}
+          transportationItems={this.state.transportationItems}
+          restuartantItems={this.state.restuartantItems}
           getCards={this.getCards}
           profCity={this.state.profile.joccityid}
           profilePrefs={this.state.profilePrefs}
@@ -222,7 +265,6 @@ class Dashboard extends Component {
           <Modal.Body>
             <JobOfferCard
               handleClose={this.handleClose}
-              // profileSubmit={this.state.profileSubmit}
               getCards={this.getCards}
               noCard={this.state.noCard}
             />

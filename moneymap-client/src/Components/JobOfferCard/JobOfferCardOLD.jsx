@@ -74,7 +74,6 @@ class JobOfferCardOLD extends Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        {" "}
         <p>Step {step} </p>
         {this.renderSwitch(step, values, cityAvgs)}
         {success}
