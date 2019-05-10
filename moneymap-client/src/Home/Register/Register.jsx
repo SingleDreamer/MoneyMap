@@ -18,7 +18,6 @@ class Register extends Component {
         reenterPass: "",
         adultFamSize: 0,
         childFamSize: 0.0
-        // size: 0.0 //float, change to adults + children and make children .5 person
       },
       submit: false,
       hasError: false,
@@ -62,26 +61,13 @@ class Register extends Component {
   }
 
   handleChange = input => event => {
-    const { adultFamSize, childFamSize } = this.state;
-    if (input === "adultFamSize" || input === "childFamSize") {
-      this.setState({
-        ...this.state,
-        userInfo: {
-          ...this.state.userInfo,
-          size: Number(Number(adultFamSize) + Number(childFamSize) / 2),
-
-          [input]: event.target.value
-        }
-      });
-    } else {
-      this.setState({
-        ...this.state,
-        userInfo: {
-          ...this.state.userInfo,
-          [input]: event.target.value
-        }
-      });
-    }
+    this.setState({
+      ...this.state,
+      userInfo: {
+        ...this.state.userInfo,
+        [input]: event.target.value
+      }
+    });
   };
 
   async handleSubmit(e) {

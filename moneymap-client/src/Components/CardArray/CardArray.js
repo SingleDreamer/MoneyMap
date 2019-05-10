@@ -7,8 +7,6 @@ import {
   ButtonGroup,
   Button,
   Modal,
-  OverlayTrigger,
-  Tooltip,
   Col,
   Row,
   Card as Ca
@@ -155,6 +153,7 @@ class CardArray extends Component {
             info={company}
             profile={this.props.profile}
             selectCard={this.selectCard}
+            test={this.test}
           />
         </div>
       ) : (
@@ -172,6 +171,7 @@ class CardArray extends Component {
             info={company}
             profile={this.props.profile}
             selectCard={this.selectCard}
+            test={this.test}
           />
         </div>
       )

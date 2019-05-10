@@ -34,11 +34,12 @@ class ProfileDetails extends Component {
           <Form.Control
             required
             as="select"
-            defaultValue="Choose..."
+            defaultValue=""
             onChange={this.props.handleProfChange("MartialStatus")}
           >
-            <option>Single</option>
-            <option>Married</option>
+            <option disabled hidden value="" />
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
           </Form.Control>
         </Form.Group>
 

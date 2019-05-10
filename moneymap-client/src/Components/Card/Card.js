@@ -4,7 +4,6 @@ import {
   Button,
   Modal,
   OverlayTrigger,
-  Popover,
   Tooltip,
   ProgressBar
 } from "react-bootstrap";
@@ -74,48 +73,6 @@ class CardArray extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
-
-  test = rfs => {
-    let optionsRadial = {
-      colors: ["#000000"],
-      plotOptions: {
-        radialBar: {
-          startAngle: 0,
-          endAngle: 360,
-          dataLabels: {
-            name: {
-              offsetY: -50,
-              show: false,
-              color: "#888",
-              fontSize: "15px"
-            },
-            value: {
-              formatter: function(val) {
-                return val;
-              },
-              offsetY: 5,
-              color: "#111",
-              fontSize: "20px",
-              show: true
-            }
-          }
-        }
-      },
-      labels: ["RFS"]
-    };
-    if (rfs >= 50) {
-      optionsRadial.colors = ["#35ff53"];
-    } else if (rfs < 50 && rfs >= 0) {
-      optionsRadial.colors = ["#f48e00"];
-    } else if (rfs < 0 && rfs >= -50) {
-      optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
-      optionsRadial.colors = ["#ffa434"];
-    } else {
-      optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
-      optionsRadial.colors = ["#f45042"];
-    }
-    return optionsRadial;
-  };
 
   deleteJOC = jocid => {
     console.log(jocid);
@@ -251,7 +208,7 @@ class CardArray extends Component {
 
               <div className="chart">
                 <Chart
-                  options={this.test(this.props.info.jocrfc)} //{this.state.optionsRadial}
+                  options={this.props.test(this.props.info.jocrfc)} //{this.state.optionsRadial}
                   series={[Math.ceil(this.props.info.jocrfc)]}
                   type="radialBar"
                   width="100"
@@ -276,10 +233,12 @@ class CardArray extends Component {
 
             <div className="buttons">
               <OverlayTrigger
-                placement="bottom"
+                placement="right"
                 delay={{ show: 250, hide: 400 }}
                 overlay={
-                  <Tooltip id={"top"}>Select two Job Offers to Compare</Tooltip>
+                  <Tooltip id={"right"}>
+                    Select two Job Offers to Compare
+                  </Tooltip>
                 }
               >
                 <Button

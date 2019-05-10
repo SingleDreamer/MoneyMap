@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ProfileDetails from "../Sidebar/ProfileDetails";
 import JobOfferDetails from "./JobOfferDetails/JobOfferDetails";
 import AuthService from "../../AuthService/AuthService";
 import axios from "axios";
@@ -41,52 +40,31 @@ class JobOfferCard extends Component {
         }
       },
       cityAvgs: {},
-      userInfo: {},
       profSubmit: false,
-      changeProf: false,
       edit: false,
       submit: false,
       error: null
     };
     this.Auth = new AuthService();
     this.handleChange = this.handleChange.bind(this);
-    this.handleProfChange = this.handleProfChange.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      profSubmit: nextProps.profSubmit,
-      changeProf: nextProps.changeProf
+      profSubmit: nextProps.profSubmit
     });
-    console.log("Change prof: ", this.state.changeProf);
   }
   render() {
     const { name, cityid, image, Components } = this.state;
     const values = { name, cityid, image, Components };
 
-    let joc = (
-      <div>
-        <JobOfferDetails
-          handleChange={this.handleChange}
-          handleCitySelection={this.handleCitySelection}
-          handleSubmit={this.handleSubmit}
-          values={values}
-          cityid={this.state.cityid}
-        />
-      </div>
-    );
-
     return (
-      <div>
-        {this.state.changeProf === false ? (
-          joc
-        ) : (
-          <ProfileDetails
-            handleProfChange={this.handleProfChange}
-            sendProfile={this.sendProfile}
-            userInfo={this.state.userInfo}
-          />
-        )}
-      </div>
+      <JobOfferDetails
+        handleChange={this.handleChange}
+        handleCitySelection={this.handleCitySelection}
+        handleSubmit={this.handleSubmit}
+        values={values}
+        cityid={this.state.cityid}
+      />
     );
   }
 
@@ -114,27 +92,24 @@ class JobOfferCard extends Component {
           cityAvgs: avgs
         });
         if (avgs.length === 0) {
-          this.setState(
-            {
-              ...this.state,
-              Components: {
-                ...this.state.Components,
-                "Mandatory Costs": {
-                  ...this.state.Components["Mandatory Costs"],
-                  camt: 0
-                },
-                "Consumable Costs": {
-                  ...this.state.Components["Consumable Costs"],
-                  camt: 0
-                },
-                "Entertainment Expenses": {
-                  ...this.state.Components["Entertainment Expenses"],
-                  camt: 0
-                }
+          this.setState({
+            ...this.state,
+            Components: {
+              ...this.state.Components,
+              "Mandatory Costs": {
+                ...this.state.Components["Mandatory Costs"],
+                camt: 0
+              },
+              "Consumable Costs": {
+                ...this.state.Components["Consumable Costs"],
+                camt: 0
+              },
+              "Entertainment Expenses": {
+                ...this.state.Components["Entertainment Expenses"],
+                camt: 0
               }
             }
-            // console.log("update: ", this.state.Components)
-          );
+          });
         } else {
           for (var i = 0; i < this.state.cityAvgs.length; i++) {
             if (this.state.cityAvgs[i].ComponentTypeID === 2) {
@@ -181,7 +156,6 @@ class JobOfferCard extends Component {
               break;
             }
           }
-          // console.log("City averages: ", this.state.cityAvgs);
         }
       })
       .catch(error => {
@@ -189,32 +163,19 @@ class JobOfferCard extends Component {
       });
   };
 
-  handleProfChange = input => event => {
-    this.setState({
-      ...this.state,
-      userInfo: {
-        ...this.state.userInfo,
-        [input]: event.target.value
-      }
-    });
-  };
-
   handleChange = (input, input2, input3) => event => {
-    // console.log("input: ", input, input2, input3);
     if (!!input2 && !!this.state.Components[input2]) {
-      this.setState(
-        {
-          ...this.state,
-          Components: {
-            ...this.state.Components,
-            [input2]: {
-              cdesc: input2,
-              camt: event.target.value,
-              ctype: input3
-            }
+      this.setState({
+        ...this.state,
+        Components: {
+          ...this.state.Components,
+          [input2]: {
+            cdesc: input2,
+            camt: event.target.value,
+            ctype: input3
           }
-        } //console.log("Components: ", this.state.Components);
-      );
+        }
+      });
     } else if (!!input2) {
       this.setState({
         ...this.state,
@@ -241,51 +202,6 @@ class JobOfferCard extends Component {
     } else {
       this.props.handleCloseModal();
       return this.editJoc();
-    }
-    //console.log("Components: ", this.state.Components);
-  };
-
-  sendProfile = e => {
-    e.preventDefault();
-    console.log("Send profile");
-    this.setState({
-      profSubmit: true,
-      changeProf: false,
-      edit: true,
-      userInfo: {
-        ...this.state.userInfo,
-        adultFamSize: Number(this.state.adultFamSize),
-        childFamSize: Number(this.state.childFamSize),
-        size: Number(this.state.size)
-      }
-    });
-    let userInfo = this.state.userInfo;
-    userInfo.adultFamSize = Number(userInfo.adultFamSize);
-    userInfo.childFamSize = 0;
-    userInfo.size = Number(userInfo.adultFamSize);
-    let url = `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
-      "user"
-    )}/profile`;
-    let config = {
-      headers: {
-        authorization: this.Auth.getToken(),
-        "Content-Type": "application/json"
-      }
-    };
-    console.log("userInfo ", userInfo);
-
-    try {
-      axios
-        .post(url, userInfo, config)
-        .then(response => {
-          console.log("Edit Profile Response: ", response.data);
-        })
-        .catch(err => {
-          this.setState({ error: err });
-          console.log("Error1: ", err);
-        });
-    } catch (err) {
-      console.log("Edit Profile error: ", err.response);
     }
   };
 
@@ -329,12 +245,10 @@ class JobOfferCard extends Component {
     const { uid, name, cityid, image, Components } = this.state;
     let payload1 = { uid, name, cityid, image };
 
-    // console.log("Payload1: ", payload1);
     let body = [];
     for (var key in Components) {
       body.push(Components[key]);
     }
-    // console.log("body: ", body);
     try {
       axios
         .post(url, payload1, config)
@@ -347,12 +261,10 @@ class JobOfferCard extends Component {
           const body2 = body.map(component => {
             return { ...component, JobOfferCardID: response.data };
           });
-          // console.log("bodyy2: ", body2);
 
           axios
             .post(url2, body2, config)
             .then(response2 => {
-              // console.log(response2);
               this.props.getCards("Created New Profile");
             })
             .catch(err => {
