@@ -57,6 +57,7 @@ class JobOfferCard extends Component {
       profSubmit: nextProps.profSubmit,
       changeProf: nextProps.changeProf
     });
+    console.log("Change prof: ", this.state.changeProf);
   }
   render() {
     const { name, cityid, image, Components } = this.state;

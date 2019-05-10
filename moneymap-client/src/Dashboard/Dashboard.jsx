@@ -221,6 +221,9 @@ class Dashboard extends Component {
           profile={this.state.profile}
         />
         <CardArray
+          currentJob={this.state.profile}
+          items={this.state.items}
+          profilePrefs={this.state.profilePrefs}
           getCards={this.getCards}
           companies={this.state.companies}
           profile={this.state.profile}

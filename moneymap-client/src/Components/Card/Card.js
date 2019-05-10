@@ -14,12 +14,6 @@ import Charts from "./AnalysisCharts.js";
 import axios from "axios";
 import AuthService from "../../AuthService/AuthService";
 
-const popover = (
-  <Popover id="popover-basic" title="Analysis">
-    Click on the score to see a detailed breakdown
-  </Popover>
-);
-
 class CardArray extends Component {
   constructor(props, context) {
     super(props, context);
@@ -245,22 +239,25 @@ class CardArray extends Component {
                 />
                 {this.props.info.jocname}
               </Card.Title>
-              <OverlayTrigger
-                trigger="hover"
-                placement="left"
-                overlay={popover}
+              <button
+                type="button"
+                className="close"
+                aria-label="Close"
+                style={{ position: "absolute", top: "0px", left: "260px" }}
+                onClick={() => this.deleteJOC(this.props.info.jocid)}
               >
-                <div className="chart">
-                  <Chart
-                    options={this.test(this.props.info.jocrfc)} //{this.state.optionsRadial}
-                    series={[Math.ceil(this.props.info.jocrfc)]}
-                    type="radialBar"
-                    width="100"
-                    height="130"
-                    onClick={e => this.openModal(e, this.props.id)}
-                  />
-                </div>
-              </OverlayTrigger>
+                <span aria-hidden="true">×</span>
+              </button>
+
+              <div className="chart">
+                <Chart
+                  options={this.test(this.props.info.jocrfc)} //{this.state.optionsRadial}
+                  series={[Math.ceil(this.props.info.jocrfc)]}
+                  type="radialBar"
+                  width="100"
+                  height="130"
+                />
+              </div>
             </div>
             <Card.Text>{this.props.info.city.City}</Card.Text>
             {this.props.info.components.length ? (
@@ -275,6 +272,8 @@ class CardArray extends Component {
             ) : (
               <Card.Text>Empty Card</Card.Text>
             )}
+            <Card.Text>Savings: ${this.props.info.savings}</Card.Text>
+
             <div className="buttons">
               <OverlayTrigger
                 placement="bottom"
@@ -290,17 +289,12 @@ class CardArray extends Component {
                   Compare
                 </Button>
               </OverlayTrigger>
-              {/* <Button
-                variant="primary"
-                //onClick={}
-              >
-                Edit
-              </Button> */}
+
               <Button
-                variant="danger"
-                onClick={() => this.deleteJOC(this.props.info.jocid)}
+                variant="secondary"
+                onClick={e => this.openModal(e, this.props.id)}
               >
-                Delete
+                Analysis
               </Button>
             </div>
           </Card.Body>

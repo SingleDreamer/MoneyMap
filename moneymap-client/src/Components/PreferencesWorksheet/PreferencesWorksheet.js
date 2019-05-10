@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-// import PrefrenceDetails1 from "./PrefrenceDetails1.js";
-// import PrefrenceDetails2 from "./PrefrenceDetails2.js";
 import { Form, Col, Row } from "react-bootstrap";
 import AuthService from "../../AuthService/AuthService";
 import { Button } from "react-bootstrap";
