@@ -15,10 +15,8 @@ class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      // fromRegister: false,
       profileSubmit: false,
       show: false,
-      noCard: false,
       isAuthed: true,
       spinner: true,
       companies: [],
@@ -35,7 +33,6 @@ class Dashboard extends Component {
     this.Auth = new AuthService();
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    // this.profileSubmit = this.profileSubmit.bind(this);
   }
   componentDidMount() {
     this.setState({
@@ -83,8 +80,6 @@ class Dashboard extends Component {
         "Content-Type": "application/json"
       }
     };
-    //getting the cards each time the component renders
-
     axios
       .get(
         `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
@@ -162,15 +157,12 @@ class Dashboard extends Component {
   };
 
   getCards = (message = "default") => {
-    //console.log(message);
     let config = {
       headers: {
         authorization: this.Auth.getToken(),
         "Content-Type": "application/json"
       }
     };
-    //getting the cards each time the component renders
-
     axios
       .get(
         `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
@@ -179,19 +171,17 @@ class Dashboard extends Component {
         config
       )
       .then(response => {
-        // handle success
         let jocs = response.data.result;
         let temp = [];
         console.log("jocs", jocs);
         if (jocs.length === 0) {
-          this.setState({ noCard: true, show: true });
+          this.setState({ profileSubmit: false, show: true });
         }
         jocs.forEach(company => {
           if (company.priority === 0) {
             this.setState({
               profile: company,
               profileSubmit: true
-              // show: false
             });
             console.log("Profile: ", this.state.profile);
           }
@@ -216,12 +206,11 @@ class Dashboard extends Component {
   };
 
   render() {
-    //console.log("profile submit: ", this.state.profileSubmit);
     let cardType;
     if (this.state.profileSubmit === false) {
-      cardType = <Modal.Title>Profile Card</Modal.Title>;
+      cardType = <Modal.Title>Profile </Modal.Title>;
     } else {
-      cardType = <Modal.Title>New JobOfferCard</Modal.Title>;
+      cardType = <Modal.Title>New Job Offer </Modal.Title>;
     }
     if (!this.state.isAuthed) {
       return <Redirect to="/" />;
@@ -245,7 +234,6 @@ class Dashboard extends Component {
     }
     return (
       <div className="App">
-        {/*Need to tuen this into a component to update depending on the currently logged in user's info */}
         <Sidebar
           className="Sidebar"
           currentJob={this.state.profile}
@@ -259,14 +247,13 @@ class Dashboard extends Component {
           profilePrefs={this.state.profilePrefs}
           user={this.state.user}
         />
-        {/*When this.state.companies changes with the addJOC button the state is mutated which causes new props to be passed and rerenders the CARDARRAY*/}
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>{cardType}</Modal.Header>
           <Modal.Body>
             <JobOfferCard
               handleClose={this.handleClose}
+              profSubmit={this.state.profileSubmit}
               getCards={this.getCards}
-              noCard={this.state.noCard}
             />
           </Modal.Body>
           <Modal.Footer>
@@ -278,6 +265,9 @@ class Dashboard extends Component {
           profile={this.state.profile}
         />
         <CardArray
+          currentJob={this.state.profile}
+          items={this.state.items}
+          profilePrefs={this.state.profilePrefs}
           getCards={this.getCards}
           companies={this.state.companies}
           profile={this.state.profile}
@@ -286,27 +276,12 @@ class Dashboard extends Component {
       </div>
     );
   }
-
-  // profileSubmit() {
-  //   this.setState({ profileSubmit: true });
-  // }
-
   handleShow() {
     this.setState({ show: true });
   }
 
   handleClose() {
-    this.setState({ fromRegister: false, show: false });
-    console.log("Profile submit: ", this.profileSubmit);
+    this.setState({ show: false });
   }
-
-  // componentWillMount = () => {
-  //   console.log("prop from register: ", this.props.location.state.fromRegister);
-  //   console.log("fromRegister: ", this.state.fromRegister);
-  //   console.log("show: ", this.state.show);
-  //   if (this.props.location.state.fromRegister === true) {
-  //     this.setState({ fromRegister: true, show: true });
-  //   }
-  // };
 }
 export default Dashboard;

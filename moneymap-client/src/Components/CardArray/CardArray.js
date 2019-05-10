@@ -3,8 +3,18 @@ import Card from "../Card/Card.js";
 import "./CardArray.css";
 import "../Card/Card.css";
 import logo from "./addJOC2.png";
-import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  ButtonGroup,
+  Button,
+  Modal,
+  Col,
+  Row,
+  Card as Ca
+} from "react-bootstrap";
+import Chart from "react-apexcharts";
+import JobOfferCard from "../JobOfferCard/JobOfferCard";
 import CompareCharts from "../Card/CompareChart";
+import Preferences from "../PreferencesWorksheet/PreferencesWorksheet";
 
 let amountSelected = 0;
 
@@ -12,10 +22,12 @@ class CardArray extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      profile: [],
+      profile: {},
       companies: [],
       compareCompanies: [],
-      show: false
+      show: false,
+      showProfile: false,
+      showPrefs: false
     };
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -28,7 +40,6 @@ class CardArray extends Component {
       profile: nextProps.profile,
       companies: nextProps.companies
     });
-    console.log("array: ", this.state.profile);
   }
 
   selectCard = company => {
@@ -65,7 +76,7 @@ class CardArray extends Component {
   };
 
   handleClose() {
-    this.setState({ show: false });
+    this.setState({ show: false, showProfile: false, showPrefs: false });
   }
 
   handleShow = e => {
@@ -75,9 +86,56 @@ class CardArray extends Component {
     });
   };
 
+  handleShowProfile = () => {
+    this.setState({ showProfile: !this.state.showProfile });
+  };
+  handleShowPrefs = () => {
+    this.setState({ showPrefs: true });
+  };
+  test = rfs => {
+    let optionsRadial = {
+      colors: ["#000000"],
+      plotOptions: {
+        radialBar: {
+          startAngle: 0,
+          endAngle: 360,
+          dataLabels: {
+            name: {
+              offsetY: -50,
+              show: false,
+              color: "#888",
+              fontSize: "15px"
+            },
+            value: {
+              formatter: function(val) {
+                return val;
+              },
+              offsetY: 5,
+              color: "#111",
+              fontSize: "20px",
+              show: true
+            }
+          }
+        }
+      },
+      labels: ["RFS"]
+    };
+    if (rfs >= 50) {
+      optionsRadial.colors = ["#35ff53"];
+    } else if (rfs < 50 && rfs >= 0) {
+      optionsRadial.colors = ["#f48e00"];
+    } else if (rfs < 0 && rfs >= -50) {
+      optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
+      optionsRadial.colors = ["#ffa434"];
+    } else {
+      optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
+      optionsRadial.colors = ["#f45042"];
+    }
+    return optionsRadial;
+  };
+
   render() {
     var cards = [];
-    //console.log(this.state.companies);
 
     cards = this.state.companies.map((company, index) =>
       company.selected ? (
@@ -95,6 +153,7 @@ class CardArray extends Component {
             info={company}
             profile={this.props.profile}
             selectCard={this.selectCard}
+            test={this.test}
           />
         </div>
       ) : (
@@ -112,45 +171,154 @@ class CardArray extends Component {
             info={company}
             profile={this.props.profile}
             selectCard={this.selectCard}
+            test={this.test}
           />
         </div>
       )
     );
+    let prof;
+    if (Object.keys(this.state.profile).length > 0) {
+      // console.log("test: ", this.state.profile.city);
+      prof = (
+        <div>
+          <div className="notSelected">
+            {/* <i className="fas fa-check" /> */}
+          </div>
+          <h3 style={{ textAlign: "center" }}>Profile</h3>
 
-    cards.unshift(
-      <OverlayTrigger
-        key={"0"}
-        placement="top"
-        delay={{ show: 250, hide: 400 }}
-        overlay={<Tooltip id={"top"}>Click to Create New Job Offer</Tooltip>}
-      >
-        <img
-          src={logo}
-          alt="logo"
-          className="add"
-          onClick={this.props.handleShow}
-        />
-      </OverlayTrigger>
+          <Ca className="joc">
+            {" "}
+            <Ca.Body>
+              <div className="header">
+                <Ca.Title>
+                  <img
+                    src={`https://logo.clearbit.com/${
+                      this.state.profile.jocname
+                    }.com`}
+                    alt={"no logo"}
+                    width={"30px"}
+                    style={{ marginRight: "5px" }}
+                  />
+                  {this.state.profile.jocname}
+                </Ca.Title>
+
+                <div className="chart">
+                  <Chart
+                    options={this.test(this.state.profile.jocrfc)}
+                    series={[Math.ceil(this.state.profile.jocrfc)]}
+                    type="radialBar"
+                    width="100"
+                    height="130"
+                  />
+                </div>
+              </div>
+              <Ca.Text>{this.state.profile.city.City}</Ca.Text>
+              {this.state.profile.components.length ? (
+                this.state.profile.components.map((component, index) => (
+                  <Ca.Text key={index}>
+                    {`${component.ComponentDescription}: $${
+                      component.ComponentAmount
+                    }`}
+                  </Ca.Text>
+                ))
+              ) : (
+                <Ca.Text>Empty Card</Ca.Text>
+              )}{" "}
+              <Ca.Text>Savings: ${this.state.profile.savings}</Ca.Text>
+              <div className="buttons">
+                <Button variant="primary" onClick={this.handleShowProfile}>
+                  Replace Profile
+                </Button>
+              </div>
+            </Ca.Body>
+          </Ca>
+
+          <Modal show={this.state.showProfile} onHide={this.handleClose}>
+            <Modal.Header closeButton={false}>
+              <Modal.Title>New Profile Card</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <JobOfferCard
+                changeProf={true}
+                handleCloseModal={this.handleClose}
+                getCards={this.props.getCards}
+                jocid={this.state.profile.jocid}
+              />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.handleClose}>Close</Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
+      );
+    }
+    let buttons = (
+      <ButtonGroup vertical size="sm" className="button">
+        <Button onClick={this.props.handleShow}>Add New Job Offer</Button>
+        <p />
+        <Button onClick={this.handleShowPrefs}>Edit Basket of Goods</Button>
+      </ButtonGroup>
     );
-
     return (
       <div>
-        {cards.length === 1 ? (
-          <div className="array">
-            {cards}
-            <h1
-              style={{ color: "#45a29e", position: "relative", top: "200px" }}
-            >
-              <i
-                className="fas fa-arrow-left"
-                style={{ marginRight: "20px" }}
-              />
-              Add A Job Offer
-            </h1>
-          </div>
+        {cards.length === 0 ? (
+          <Row>
+            <Col className="profile" md={5}>
+              {prof}
+              {buttons}
+            </Col>
+            <Col className="array" md={5}>
+              {cards}
+              <h1
+                style={{
+                  color: "#45a29e",
+                  position: "relative",
+                  top: "200px"
+                }}
+              >
+                <i
+                  className="fas fa-arrow-left"
+                  style={{ marginRight: "20px" }}
+                />
+                Add A Job Offer
+              </h1>
+            </Col>
+          </Row>
         ) : (
-          <div className="array">{cards}</div>
+          <Row>
+            <Col className="profile" md={3}>
+              {prof}
+              {buttons}
+            </Col>
+            <Col className="array" md={6}>
+              {cards}
+            </Col>
+          </Row>
         )}
+
+        <Modal size="lg" show={this.state.showPrefs} onHide={this.handleClose}>
+          <Modal.Header closeButton={false}>
+            <Modal.Title>Edit Basket of Goods</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>
+              <strong>
+                Add your estimated monthly amounts for each category in order to
+                get a more accurate report. If a field is left blank we will use
+                the averages for that city.
+              </strong>
+            </p>
+            <Preferences
+              items={this.props.items}
+              profCity={this.props.profCity}
+              profilePrefs={this.props.profilePrefs}
+              close={this.handleClose}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleClose}>Close</Button>
+          </Modal.Footer>
+        </Modal>
 
         <Modal
           show={this.state.show}

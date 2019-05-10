@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Col, Row } from "react-bootstrap";
 import AuthService from "../../AuthService/AuthService";
 import { Button } from "react-bootstrap";
 import axios from "axios";

@@ -9,12 +9,37 @@ router.get('/:id/jocs', [AuthService.checkToken], async (req, res, next) => {
   res.json(result);
 });
 
+/*
+  Create user
+  Takes in JSON with following format:
+  {
+  	"username": "user35",
+  	"password": "pass",
+  	"fname": "User",
+  	"lname": "User",
+  	"adults": 2,
+  	"children": 1,
+  	"married": 1
+  }
+
+  If successful, returns uid of newly created user and authentication token
+*/
 router.post('/', async (req, res, next) => {
-  const { username, password, fname, lname, adults, children } = req.body;
-  let result = await UserService.create(username, password, fname, lname, adults, children);
+  const { username, password, fname, lname, adults, children, married } = req.body;
+  let result = await UserService.create(username, password, fname, lname, adults, children, married);
   res.json(result);
 });
 
+/*
+  Get user authentication token
+  Takes in JSON with following format:
+  {
+  	"username": "user35",
+  	"password": "pass"
+  }
+
+  If successful, returns nothing
+*/
 router.post('/validate', async (req, res, next) => {
   const { username, password } = req.body;
   let result = await UserService.get(username, password);
@@ -22,8 +47,8 @@ router.post('/validate', async (req, res, next) => {
 });
 
 router.post('/:id', [AuthService.checkToken], async (req, res, next) => {
-  const { email, fname, lname, size, cardid } = req.body;
-  let result = await UserService.update(req.params.id, email, fname, lname, size, cardid, req.params.token);
+  const { email, fname, lname, adults, children, married, cardid } = req.body;
+  let result = await UserService.update(req.params.id, email, fname, lname, adults, children, married, cardid, req.params.token);
   res.json(result);
 });
 
@@ -32,9 +57,23 @@ router.get('/:id/profile', [AuthService.checkToken], async (req, res, next) => {
   res.json(result);
 });
 
+/*
+  Get user authentication token
+  Takes in JSON with following format:
+  {
+  	"username": "user35",
+  	"fname": "User",
+  	"lname": "User",
+  	"adults": 2,
+  	"children": 1,
+  	"married": 1
+  }
+
+  If successful, returns uid of newly created user and authentication token
+*/
 router.post('/:id/profile', [AuthService.checkToken], async (req, res, next) => {
-  const { fname, lname, size } = req.body;
-  let result = await UserService.updateProfile(req.params.id, fname, lname, size, req.params.token);
+  const { fname, lname, adults, children, married } = req.body;
+  let result = await UserService.updateProfile(req.params.id, fname, lname, adults, children, married, req.params.token);
   res.json(result);
 });
 
