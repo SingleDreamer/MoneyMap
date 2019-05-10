@@ -29,6 +29,19 @@ class ProfileDetails extends Component {
             onChange={this.props.handleProfChange("lname")}
           />
         </Form.Group>
+        <Form.Group controlId="MartialStatus">
+          <Form.Label className="required">Marital Status</Form.Label>
+          <Form.Control
+            required
+            as="select"
+            defaultValue=""
+            onChange={this.props.handleProfChange("MartialStatus")}
+          >
+            <option disabled hidden value="" />
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+          </Form.Control>
+        </Form.Group>
 
         <Form.Group controlId="adultFamSize">
           <Form.Label className="required">Adults in family</Form.Label>
@@ -56,17 +69,11 @@ class ProfileDetails extends Component {
           />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Submit Profile Details and Continue
+          Submit Profile Details
         </Button>
       </Form>
     );
   }
-
-  next = e => {
-    e.preventDefault();
-
-    this.props.nextStep();
-  };
 }
 
 export default ProfileDetails;
