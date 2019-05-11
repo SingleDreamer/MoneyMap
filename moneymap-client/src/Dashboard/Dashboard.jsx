@@ -24,22 +24,14 @@ class Dashboard extends Component {
       user: {},
       items: [],
       profilePrefs: {}
-      // marketItems: [],
-      // transportationItems: [],
-      // housingItems: [],
-      // restuartantItems: [],
-      // entertainmentItems: []
     };
     this.Auth = new AuthService();
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
   componentDidMount() {
-    this.setState({
-      isAuthed: true
-    });
     setTimeout(() => {
-      if (!this.Auth.getToken()) {
+      if (this.Auth.getToken() === undefined || this.Auth.getToken() === null) {
         this.setState({ isAuthed: false });
       } else {
         this.getCards();
@@ -122,11 +114,6 @@ class Dashboard extends Component {
 
         this.setState({
           items: items
-          // marketItems: marketItems,
-          // transportationItems: transportationItems,
-          // housingItems: housingItems,
-          // restuartantItems: restuartantItems,
-          // entertainmentItems: entertainmentItems
         });
       })
       .catch(error => {
@@ -235,19 +222,13 @@ class Dashboard extends Component {
     }
     return (
       <div className="App">
-        {/* <Sidebar
+        <Sidebar
           className="Sidebar"
-          currentJob={this.state.profile}
-          entertainmentItems={this.state.entertainmentItems}
-          housingItems={this.state.housingItems}
-          marketItems={this.state.marketItems}
-          transportationItems={this.state.transportationItems}
-          restuartantItems={this.state.restuartantItems}
           getCards={this.getCards}
           profCity={this.state.profile.joccityid}
           profilePrefs={this.state.profilePrefs}
           user={this.state.user}
-        /> */}
+        />
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>{cardType}</Modal.Header>
           <Modal.Body>

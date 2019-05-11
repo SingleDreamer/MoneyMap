@@ -15,9 +15,6 @@ class Preference extends Component {
     };
     this.Auth = new AuthService();
   }
-  componentWillMount() {
-    console.log("prop items: ", this.props);
-  }
 
   sendRequest = e => {
     e.preventDefault();

@@ -12,19 +12,9 @@ class PreferenceDetails extends Component {
     this.Auth = new AuthService();
   }
 
-  componentDidMount() {}
-
-  addToItems = (id, name, amount) => {
-    let newItems = this.state.items;
-    newItems.push({ itemid: id, Name: name, amount: amount });
-    this.setState({
-      ...this.state,
-      items: newItems
-    });
-  };
-  componentWillReceiveProps(nextProps) {
-    let temp = nextProps.items;
-    this.setState({ items: nextProps.items });
+  componentDidMount() {
+    let temp = this.props.items;
+    //this.setState({ items: nextProps.items });
     if (this.props.profilePrefs.recordset.length) {
       for (var i = 0; i < temp.length; i++) {
         for (var j = 0; j < this.props.profilePrefs.recordset.length; j++) {
@@ -44,6 +34,15 @@ class PreferenceDetails extends Component {
       temp.forEach(item => this.addToItems(item.Item_ID, item.Name, 0));
     }
   }
+
+  addToItems = (id, name, amount) => {
+    let newItems = this.state.items;
+    newItems.push({ itemid: id, Name: name, amount: amount });
+    this.setState({
+      ...this.state,
+      items: newItems
+    });
+  };
 
   render() {
     return (

@@ -17,6 +17,11 @@ class LoginDetails extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.Auth = new AuthService();
   }
+  componentDidMount() {
+    if (this.Auth.getToken() !== null) {
+      this.setState({ isAuthed: true });
+    }
+  }
 
   render() {
     if (this.state.isAuthed) {
@@ -62,14 +67,13 @@ class LoginDetails extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.Auth.login(this.state.email, this.state.password)
-      .then(res => {
-        this.setState({ isAuthed: true });
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({ hasError: true });
-      });
+    this.Auth.login(this.state.email, this.state.password).then(res => {
+      this.setState({ isAuthed: true });
+    });
+    // .catch(err => {
+    //   console.log(err);
+    //   this.setState({ hasError: true });
+    // });
   }
 
   // componentWillMount = () => {
