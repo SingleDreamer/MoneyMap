@@ -23,12 +23,12 @@ class Dashboard extends Component {
       profile: {},
       user: {},
       items: [],
-      profilePrefs: {},
-      marketItems: [],
-      transportationItems: [],
-      housingItems: [],
-      restuartantItems: [],
-      entertainmentItems: []
+      profilePrefs: {}
+      // marketItems: [],
+      // transportationItems: [],
+      // housingItems: [],
+      // restuartantItems: [],
+      // entertainmentItems: []
     };
     this.Auth = new AuthService();
     this.handleShow = this.handleShow.bind(this);
@@ -112,20 +112,21 @@ class Dashboard extends Component {
             item.Category === "Sports And Leisure"
           );
         });
+        let items = {};
 
-        console.log("MarketItems", marketItems);
-        console.log("TransportationItem", transportationItems);
-        console.log("housingItems", housingItems);
-        console.log("restuartantItems", restuartantItems);
-        console.log("entertainmentItems", entertainmentItems);
+        items["MarketItems"] = marketItems;
+        items["TransportationItems"] = transportationItems;
+        items["HousingItems"] = housingItems;
+        items["RestuartantItems"] = restuartantItems;
+        items["EntertainmentItems"] = entertainmentItems;
 
         this.setState({
-          items: response.data.recordset,
-          marketItems: marketItems,
-          transportationItems: transportationItems,
-          housingItems: housingItems,
-          restuartantItems: restuartantItems,
-          entertainmentItems: entertainmentItems
+          items: items
+          // marketItems: marketItems,
+          // transportationItems: transportationItems,
+          // housingItems: housingItems,
+          // restuartantItems: restuartantItems,
+          // entertainmentItems: entertainmentItems
         });
       })
       .catch(error => {
@@ -234,7 +235,7 @@ class Dashboard extends Component {
     }
     return (
       <div className="App">
-        <Sidebar
+        {/* <Sidebar
           className="Sidebar"
           currentJob={this.state.profile}
           entertainmentItems={this.state.entertainmentItems}
@@ -246,7 +247,7 @@ class Dashboard extends Component {
           profCity={this.state.profile.joccityid}
           profilePrefs={this.state.profilePrefs}
           user={this.state.user}
-        />
+        /> */}
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>{cardType}</Modal.Header>
           <Modal.Body>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Col, Row } from "react-bootstrap";
+import { Tab, Tabs } from "react-bootstrap";
 import AuthService from "../../AuthService/AuthService";
 import { Button } from "react-bootstrap";
 import axios from "axios";
@@ -11,28 +11,13 @@ class Preference extends Component {
     this.state = {
       items: [],
       prefrences: [],
-      payload: [],
-      step: 1
+      payload: []
     };
     this.Auth = new AuthService();
   }
   componentWillMount() {
     console.log("prop items: ", this.props);
   }
-
-  addToItems = (id, name, amount) => {
-    let newItems = this.state.items;
-    newItems.push({ itemid: id, name: name, amount: amount });
-    this.setState(
-      {
-        ...this.state,
-        items: newItems
-      },
-      () => {
-        // console.log("Item: ", name);
-      }
-    );
-  };
 
   sendRequest = e => {
     e.preventDefault();
@@ -77,101 +62,54 @@ class Preference extends Component {
     );
   };
 
-  renderSwitch(step, items) {
-    switch (step) {
-      case 1:
-        return (
-          <Form onSubmit={this.handleSubmit}>
-            <PreferenceDetails
-              items={this.props.items}
-              profilePrefs={this.props.profilePrefs}
-              addToList={this.addToList}
-              addToItems={this.addToItems}
-            />
-            <Button onClick={this.nextStep}>Next</Button>
-          </Form>
-        );
-      case 2:
-        return (
-          <Form onSubmit={this.handleSubmit}>
-            <PreferenceDetails
-              items={this.props.items}
-              profilePrefs={this.props.profilePrefs}
-              addToList={this.addToList}
-              addToItems={this.addToItems}
-            />
-            <Button onClick={this.nextStep}>Next</Button>
-            <Button onClick={this.prevStep}>Back</Button>
-          </Form>
-        );
-      case 3:
-        return (
-          <Form onSubmit={this.handleSubmit}>
-            <PreferenceDetails
-              nextStep={this.nextStep}
-              prevStep={this.prevStep}
-              items={this.props.items}
-              profilePrefs={this.props.profilePrefs}
-              addToList={this.addToList}
-              addToItems={this.addToItems}
-            />
-            <Button onClick={this.nextStep}>Next</Button>
-            <Button onClick={this.prevStep}>Back</Button>
-          </Form>
-        );
-      case 4:
-        return (
-          <Form onSubmit={this.handleSubmit}>
-            <PreferenceDetails
-              nextStep={this.nextStep}
-              prevStep={this.prevStep}
-              items={this.props.items}
-              profilePrefs={this.props.profilePrefs}
-              addToList={this.addToList}
-              addToItems={this.addToItems}
-            />
-            <Button onClick={this.nextStep}>Next</Button>
-            <Button onClick={this.prevStep}>Back</Button>
-          </Form>
-        );
-      case 5:
-        return (
-          <Form onSubmit={this.handleSubmit}>
-            <PreferenceDetails
-              prevStep={this.prevStep}
-              items={this.props.items}
-              profilePrefs={this.props.profilePrefs}
-              addToList={this.addToList}
-              addToItems={this.addToItems}
-            />
-            <Button onClick={this.prevStep}>Back</Button>
-            <Button onClick={this.sendRequest}>Submit</Button>
-          </Form>
-        );
-      default:
-        return;
-    }
-  }
-
-  nextStep = () => {
-    console.log("Values: ", this.state.Components);
-    const { step } = this.state;
-    this.setState({
-      step: step + 1
-    });
-  };
-
-  prevStep = () => {
-    const { step } = this.state;
-    this.setState({
-      step: step - 1
-    });
-  };
-
   render() {
-    const { step, items } = this.state;
-
-    return this.renderSwitch(step, items);
+    return (
+      <div>
+        <Tabs defaultActiveKey="Market">
+          <Tab eventKey="Market" title="Groceries">
+            <PreferenceDetails
+              items={this.props.items["MarketItems"]}
+              category="Groceries"
+              profilePrefs={this.props.profilePrefs}
+              addToList={this.addToList}
+            />
+          </Tab>
+          <Tab eventKey="Transportation" title="Transportation">
+            <PreferenceDetails
+              items={this.props.items["TransportationItems"]}
+              category="Transportation"
+              profilePrefs={this.props.profilePrefs}
+              addToList={this.addToList}
+            />
+          </Tab>
+          <Tab eventKey="Housing and Utilities" title="Housing and Utilities">
+            <PreferenceDetails
+              items={this.props.items["HousingItems"]}
+              category="Housing and Utilities"
+              profilePrefs={this.props.profilePrefs}
+              addToList={this.addToList}
+            />
+          </Tab>
+          <Tab eventKey="Restuartants" title="Restuartants">
+            <PreferenceDetails
+              items={this.props.items["RestuartantItems"]}
+              category="Restuartants"
+              profilePrefs={this.props.profilePrefs}
+              addToList={this.addToList}
+            />
+          </Tab>
+          <Tab eventKey="Liesure and Entertainment" title="Entertainment">
+            <PreferenceDetails
+              items={this.props.items["EntertainmentItems"]}
+              category="Liesure and Entertainment"
+              profilePrefs={this.props.profilePrefs}
+              addToList={this.addToList}
+            />
+          </Tab>
+        </Tabs>
+        <Button onClick={this.sendRequest}>Submit</Button>
+      </div>
+    );
   }
 }
 
