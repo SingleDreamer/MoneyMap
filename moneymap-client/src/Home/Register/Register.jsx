@@ -46,7 +46,6 @@ class Register extends Component {
     if (this.state.isAuthed) {
       return <Redirect to="/Dashboard" />;
     }
-
     return (
       <div>
         <p className="required">Required field = </p>
@@ -81,9 +80,8 @@ class Register extends Component {
       }
     });
     let userInfo = this.state.userInfo;
-    userInfo.adultFamSize = Number(userInfo.adultFamSize);
-    userInfo.childFamSize = Number(userInfo.childFamSize);
-    userInfo.size = Number(userInfo.adultFamSize + userInfo.childFamSize);
+    userInfo.adults = Number(userInfo.adultFamSize);
+    userInfo.children = Number(userInfo.childFamSize);
     console.log("New registration: ", userInfo);
 
     let url =
@@ -112,7 +110,7 @@ class Register extends Component {
             this.setState({ hasError: true });
           });
       } else {
-        alert("The email you have entered is already in use.");
+        alert("There was an error with your registration.");
       }
     } catch (err) {
       console.log("Registration error: ", err.response);

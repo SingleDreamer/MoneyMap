@@ -49,17 +49,19 @@ class UserDetails extends Component {
         </Form.Row>
         <Form.Row>
           <Col>
-            <Form.Group controlId="MartialStatus">
+            <Form.Group controlId="married">
               <Form.Label className="required">Marital Status</Form.Label>
               <Form.Control
                 required
                 as="select"
                 defaultValue=""
-                onChange={this.props.handleChange("MartialStatus")}
+                onChange={this.props.handleChange("married")}
               >
                 <option disabled hidden value="" />
-                <option value="Single">Single</option>
-                <option value="Married">Married</option>
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="married_separately">Married Separately</option>
+                <option value="head_of_household">Head Of Household</option>
               </Form.Control>
             </Form.Group>
           </Col>

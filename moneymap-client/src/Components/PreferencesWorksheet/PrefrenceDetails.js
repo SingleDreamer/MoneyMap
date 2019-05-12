@@ -62,7 +62,7 @@ class PreferenceDetails extends Component {
                 <Col sm="2">
                   <Form.Control
                     type="text"
-                    onChange={this.props.addToList(item.itemid, item.name)}
+                    onChange={this.props.addToList(item.itemid, item.Name)}
                     defaultValue={item.amount || 0}
                   />
                 </Col>

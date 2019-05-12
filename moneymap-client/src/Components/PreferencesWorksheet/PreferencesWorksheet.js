@@ -45,9 +45,9 @@ class Preference extends Component {
   };
 
   addToList = (id, name) => event => {
+    console.log(this.state.prefrences);
     this.setState(
       {
-        ...this.state,
         prefrences: {
           ...this.state.prefrences,
           [name]: { itemid: id, amount: Number(event.target.value) }
