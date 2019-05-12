@@ -88,6 +88,20 @@ class JobOfferDetails extends Component {
 
   render() {
     const { values } = this.props;
+    let toggle;
+    if (this.props.monthly) {
+      toggle = (
+        <Button variant="danger" onClick={this.props.handleMonthly}>
+          Switch to YEARLY amounts
+        </Button>
+      );
+    } else {
+      toggle = (
+        <Button variant="danger" onClick={this.props.handleMonthly}>
+          Switch to MONTHLY amounts
+        </Button>
+      );
+    }
 
     return (
       <Form onSubmit={this.props.handleSubmit}>
@@ -120,11 +134,8 @@ class JobOfferDetails extends Component {
           />
         </Form.Group>
         {/* <div hidden={!values.name || !values.cityid}> */}
-        <Button show={false} variant="danger">
-          Switch to YEARLY amounts
-        </Button>{" "}
+        {toggle}
         <p />
-        <Button variant="danger">Switch to MONTHLY amounts</Button> <p />
         <strong>
           *Averages for Costs per City are Given if Applicable, Based on Your
           Preferences; Please change Values as Needed*

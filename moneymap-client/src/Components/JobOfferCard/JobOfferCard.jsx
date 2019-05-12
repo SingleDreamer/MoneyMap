@@ -43,6 +43,7 @@ class JobOfferCard extends Component {
       profSubmit: false,
       edit: false,
       submit: false,
+      monthly: true,
       error: null
     };
     this.Auth = new AuthService();
@@ -60,10 +61,12 @@ class JobOfferCard extends Component {
     return (
       <JobOfferDetails
         handleChange={this.handleChange}
+        handleMonthly={this.handleMonthly}
         handleCitySelection={this.handleCitySelection}
         handleSubmit={this.handleSubmit}
         values={values}
         cityid={this.state.cityid}
+        monthly={this.state.monthly}
       />
     );
   }
@@ -191,6 +194,62 @@ class JobOfferCard extends Component {
       });
     } else {
       this.setState({ ...this.state, [input]: event.target.value });
+    }
+  };
+  handleMonthly = e => {
+    e.preventDefault();
+    this.setState(
+      {
+        monthly: !this.state.monthly
+      },
+      () => {
+        this.toggle();
+      }
+      // if yearly values, multiply by 12 for avg components and set state??
+    );
+  };
+  toggle = () => {
+    let man = this.state.Components["Mandatory Costs"].camt;
+    let con = this.state.Components["Consumable Costs"].camt;
+    let ent = this.state.Components["Entertainment Expenes"].camt;
+    if (this.state.monthly) {
+      this.setState({
+        ...this.state,
+        Components: {
+          ...this.state.Components,
+          "Mandatory Costs": {
+            ...this.state.Components["Mandatory Costs"],
+            camt: man / 12
+          },
+          "Consumable Costs": {
+            ...this.state.Components["Consumable Costs"],
+            camt: con / 12
+          },
+          "Entertainment Expenses": {
+            ...this.state.Components["Entertainment Expenses"],
+            camt: ent / 12
+          }
+        }
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        Components: {
+          ...this.state.Components,
+          "Mandatory Costs": {
+            ...this.state.Components["Mandatory Costs"],
+            camt: man * 12
+          },
+          "Consumable Costs": {
+            ...this.state.Components["Consumable Costs"],
+            camt: con * 12
+          },
+          "Entertainment Expenses": {
+            ...this.state.Components["Entertainment Expenses"],
+            camt: ent * 12
+          }
+        }
+      });
     }
   };
 
