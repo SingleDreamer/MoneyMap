@@ -17,3 +17,5 @@ npm start
 ```
 
 In your preferred browser, go to: http://localhost:3001
+
+Backend is located at: http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/
