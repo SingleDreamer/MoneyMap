@@ -32,12 +32,13 @@ export default class AuthService {
           config
         )
         .then(response => {
-          console.log(response.data);
+          //console.log(response.data);
           if (response.data.status === "error") {
             alert("Wrong username or email");
           } else {
+            console.log(response.data.uid);
             this.setToken(response.data.token);
-            this.setUser(response.data.uidƒ);
+            this.setUser(response.data.uid);
           }
         })
         .then(success => {
