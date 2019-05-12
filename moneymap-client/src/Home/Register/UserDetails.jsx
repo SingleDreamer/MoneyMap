@@ -66,7 +66,7 @@ class UserDetails extends Component {
             </Form.Group>
           </Col>
           <Col>
-            <Form.Group controlId="adultFamSize">
+            <Form.Group controlId="adults">
               <Form.Label className="required">Adults in family</Form.Label>
               <Form.Control
                 type="number"
@@ -75,12 +75,12 @@ class UserDetails extends Component {
                 max="10"
                 step="1"
                 placeholder="#Adults"
-                onChange={this.props.handleChange("adultFamSize")}
+                onChange={this.props.handleChange("adults")}
               />
             </Form.Group>
           </Col>
           <Col>
-            <Form.Group controlId="childFamSize">
+            <Form.Group controlId="children">
               <Form.Label className="required">Children in family</Form.Label>
               <Form.Control
                 type="number"
@@ -89,7 +89,7 @@ class UserDetails extends Component {
                 max="10"
                 step="1"
                 placeholder="#Children"
-                onChange={this.props.handleChange("childFamSize")}
+                onChange={this.props.handleChange("children")}
               />
             </Form.Group>
           </Col>

@@ -49,15 +49,28 @@ class JobOfferCard extends Component {
     this.Auth = new AuthService();
     this.handleChange = this.handleChange.bind(this);
   }
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      profSubmit: nextProps.profSubmit
-    });
+
+  componentDidUpdate(prevProps) {
+    if (this.state.edit !== prevProps.edit) {
+      if (prevProps.edit !== undefined) {
+        this.setState({
+          edit: prevProps.edit
+        });
+      }
+    }
+    if (this.state.profSubmit !== prevProps.profSubmit) {
+      if (prevProps.profSubmit !== undefined) {
+        this.setState({
+          profSubmit: prevProps.profSubmit
+        });
+      }
+    }
   }
+
   render() {
     const { name, cityid, image, Components } = this.state;
     const values = { name, cityid, image, Components };
-
+    // console.log("or", this.state.edit, this.state.profSubmit);
     return (
       <JobOfferDetails
         handleChange={this.handleChange}
@@ -205,37 +218,48 @@ class JobOfferCard extends Component {
       () => {
         this.toggle();
       }
-      // if yearly values, multiply by 12 for avg components and set state??
     );
   };
-  toggle = () => {
-    let man = this.state.Components["Mandatory Costs"].camt;
-    let con = this.state.Components["Consumable Costs"].camt;
-    let ent = this.state.Components["Entertainment Expenses"].camt;
-    if (this.state.monthly) {
-      this.setState({
-        ...this.state,
-        Components: {
-          ...this.state.Components,
-          "Mandatory Costs": {
-            ...this.state.Components["Mandatory Costs"],
-            camt: man / 12
-          },
-          "Consumable Costs": {
-            ...this.state.Components["Consumable Costs"],
-            camt: con / 12
-          },
-          "Entertainment Expenses": {
-            ...this.state.Components["Entertainment Expenses"],
-            camt: ent / 12
-          }
+
+  changeToMonthly = (inc, man, con, ent, debt) => {
+    this.setState({
+      ...this.state,
+      Components: {
+        ...this.state.Components,
+        Income: {
+          ...this.state.Components["Income"],
+          camt: inc / 12
+        },
+        "Mandatory Costs": {
+          ...this.state.Components["Mandatory Costs"],
+          camt: man / 12
+        },
+        "Consumable Costs": {
+          ...this.state.Components["Consumable Costs"],
+          camt: con / 12
+        },
+        "Entertainment Expenses": {
+          ...this.state.Components["Entertainment Expenses"],
+          camt: ent / 12
+        },
+        Debt: {
+          ...this.state.Components["Debt"],
+          camt: debt / 12
         }
-      });
-    } else {
-      this.setState({
+      }
+    });
+  };
+
+  changeToYearly = (inc, man, con, ent, debt) => {
+    this.setState(
+      {
         ...this.state,
         Components: {
           ...this.state.Components,
+          Income: {
+            ...this.state.Components["Income"],
+            camt: inc * 12
+          },
           "Mandatory Costs": {
             ...this.state.Components["Mandatory Costs"],
             camt: man * 12
@@ -247,25 +271,90 @@ class JobOfferCard extends Component {
           "Entertainment Expenses": {
             ...this.state.Components["Entertainment Expenses"],
             camt: ent * 12
+          },
+          Debt: {
+            ...this.state.Components["Debt"],
+            camt: debt * 12
           }
         }
-      });
+      }
+      // () => console.log("change to year: ", this.state.Components)
+    );
+  };
+
+  toggle = () => {
+    let inc = this.state.Components["Income"].camt;
+    let man = this.state.Components["Mandatory Costs"].camt;
+    let con = this.state.Components["Consumable Costs"].camt;
+    let ent = this.state.Components["Entertainment Expenses"].camt;
+    let debt = this.state.Components["Debt"].camt;
+    if (this.state.monthly) {
+      this.changeToMonthly(inc, man, con, ent, debt);
+    } else {
+      this.changeToYearly(inc, man, con, ent, debt);
     }
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    if (this.state.edit === false) {
-      this.props.handleClose();
-      return this.sendRequest();
+    if (this.state.monthly) {
+      let inc = this.state.Components["Income"].camt;
+      let man = this.state.Components["Mandatory Costs"].camt;
+      let con = this.state.Components["Consumable Costs"].camt;
+      let ent = this.state.Components["Entertainment Expenses"].camt;
+      let debt = this.state.Components["Debt"].camt;
+
+      this.setState(
+        {
+          ...this.state,
+          Components: {
+            ...this.state.Components,
+            Income: {
+              ...this.state.Components["Income"],
+              camt: inc * 12
+            },
+            "Mandatory Costs": {
+              ...this.state.Components["Mandatory Costs"],
+              camt: man * 12
+            },
+            "Consumable Costs": {
+              ...this.state.Components["Consumable Costs"],
+              camt: con * 12
+            },
+            "Entertainment Expenses": {
+              ...this.state.Components["Entertainment Expenses"],
+              camt: ent * 12
+            },
+            Debt: {
+              ...this.state.Components["Debt"],
+              camt: debt * 12
+            }
+          }
+        },
+        () => {
+          if (this.state.edit === false) {
+            this.props.handleClose();
+            return this.sendRequest();
+          } else {
+            this.props.handleCloseModal();
+            return this.editJoc();
+          }
+        }
+      );
     } else {
-      this.props.handleCloseModal();
-      return this.editJoc();
+      if (this.state.edit === false) {
+        this.props.handleClose();
+        return this.sendRequest();
+      } else {
+        this.props.handleCloseModal();
+        return this.editJoc();
+      }
     }
   };
 
   editJoc = () => {
     const { name, cityid, image, Components } = this.state;
+
     let body = [];
     for (var key in Components) {
       body.push(Components[key]);

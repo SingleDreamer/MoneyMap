@@ -213,6 +213,7 @@ class CardArray extends Component {
                 </div>
               </div>
               <Ca.Text>{this.state.profile.city.City}</Ca.Text>
+              <strong>Yearly Values</strong>
               {this.state.profile.components.length ? (
                 this.state.profile.components.map((component, index) => (
                   <Ca.Text key={index}>
@@ -224,7 +225,9 @@ class CardArray extends Component {
               ) : (
                 <Ca.Text>Empty Card</Ca.Text>
               )}{" "}
-              <Ca.Text>Savings: ${this.state.profile.savings}</Ca.Text>
+              <Ca.Text>
+                Savings: ${Math.round(this.state.profile.savings)}
+              </Ca.Text>
               <div className="buttons">
                 <Button variant="primary" onClick={this.handleShowProfile}>
                   Replace Profile
@@ -239,7 +242,7 @@ class CardArray extends Component {
             </Modal.Header>
             <Modal.Body>
               <JobOfferCard
-                changeProf={true}
+                edit={true}
                 handleCloseModal={this.handleClose}
                 getCards={this.props.getCards}
                 jocid={this.state.profile.jocid}

@@ -217,6 +217,8 @@ class CardArray extends Component {
               </div>
             </div>
             <Card.Text>{this.props.info.city.City}</Card.Text>
+            <strong>Yearly Values</strong>
+
             {this.props.info.components.length ? (
               this.props.info.components.map((component, index) => (
                 <Card.Text key={index}>
@@ -229,7 +231,9 @@ class CardArray extends Component {
             ) : (
               <Card.Text>Empty Card</Card.Text>
             )}
-            <Card.Text>Savings: ${this.props.info.savings}</Card.Text>
+            <Card.Text>
+              Savings: ${Math.round(this.props.info.savings)}
+            </Card.Text>
 
             <div className="buttons">
               <OverlayTrigger

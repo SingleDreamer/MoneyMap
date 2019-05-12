@@ -29,21 +29,23 @@ class ProfileDetails extends Component {
             onChange={this.props.handleProfChange("lname")}
           />
         </Form.Group>
-        <Form.Group controlId="MartialStatus">
+        <Form.Group controlId="married">
           <Form.Label className="required">Marital Status</Form.Label>
           <Form.Control
             required
             as="select"
             defaultValue=""
-            onChange={this.props.handleProfChange("MartialStatus")}
+            onChange={this.props.handleProfChange("married")}
           >
             <option disabled hidden value="" />
-            <option value="Single">Single</option>
-            <option value="Married">Married</option>
+            <option value="single">Single</option>
+            <option value="married">Married</option>
+            <option value="married_separately">Married Separately</option>
+            <option value="head_of_household">Head Of Household</option>
           </Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="adultFamSize">
+        <Form.Group controlId="adults">
           <Form.Label className="required">Adults in family</Form.Label>
           <Form.Control
             type="number"
@@ -52,11 +54,11 @@ class ProfileDetails extends Component {
             max="10"
             step="1"
             placeholder="Adults in family"
-            onChange={this.props.handleProfChange("adultFamSize")}
+            onChange={this.props.handleProfChange("adults")}
           />
         </Form.Group>
 
-        <Form.Group controlId="childFamSize">
+        <Form.Group controlId="children">
           <Form.Label className="required">Children in family</Form.Label>
           <Form.Control
             type="number"
@@ -65,7 +67,7 @@ class ProfileDetails extends Component {
             max="10"
             step="1"
             placeholder="Children in family"
-            onChange={this.props.handleProfChange("childFamSize")}
+            onChange={this.props.handleProfChange("children")}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
