@@ -134,7 +134,7 @@ class JobOfferDetails extends Component {
           <OverlayTrigger
             placement="right"
             delay={{ show: 250, hide: 400 }}
-            overlay={<Tooltip id={"top"}>Please Enter Monthly Income</Tooltip>}
+            overlay={<Tooltip id={"top"}>Please Enter Yearly Income</Tooltip>}
           >
             <Form.Group controlId="income">
               <Form.Label className="required">Income</Form.Label>
