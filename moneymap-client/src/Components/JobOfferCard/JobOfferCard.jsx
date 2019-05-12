@@ -211,7 +211,7 @@ class JobOfferCard extends Component {
   toggle = () => {
     let man = this.state.Components["Mandatory Costs"].camt;
     let con = this.state.Components["Consumable Costs"].camt;
-    let ent = this.state.Components["Entertainment Expenes"].camt;
+    let ent = this.state.Components["Entertainment Expenses"].camt;
     if (this.state.monthly) {
       this.setState({
         ...this.state,
