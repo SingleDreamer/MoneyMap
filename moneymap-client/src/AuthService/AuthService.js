@@ -37,7 +37,7 @@ export default class AuthService {
             alert("Wrong username or email");
           } else {
             this.setToken(response.data.token);
-            this.setUser(response.data.UID);
+            this.setUser(response.data.uidƒ);
           }
         })
         .then(success => {
