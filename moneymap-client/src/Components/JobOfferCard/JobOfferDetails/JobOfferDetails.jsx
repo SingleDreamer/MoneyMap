@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import Select from "react-select";
 import "../JobOfferCard.css";
 import axios from "axios";
@@ -41,7 +41,6 @@ class JobOfferDetails extends Component {
         "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/cities"
       )
       .then(response => {
-        // handle success
         let temp = response.data.recordset;
         //Had to filter it because if allowed all cities app will crash
         let citiesObjects = temp.filter(city => city.Country);
@@ -55,7 +54,6 @@ class JobOfferDetails extends Component {
         this.setState({ countries: final });
       })
       .catch(error => {
-        // handle error
         console.log(error);
       });
   }
@@ -66,7 +64,6 @@ class JobOfferDetails extends Component {
         "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/cities"
       )
       .then(response => {
-        // handle success
         let temp = response.data.recordset;
         //Had to filter it because if allowed all cities app will crash
         let citiesObjects = temp.filter(city => city.Country === country);
@@ -117,25 +114,24 @@ class JobOfferDetails extends Component {
           <Form.Label className="required">Job city</Form.Label>
 
           <Select
-            // isClearable //handle this; breaks
             value={this.state.selectedCity}
             onChange={this.handleCityChange}
             options={cities}
           />
         </Form.Group>
-
-        <div hidden={!values.name || !values.cityid}>
-          <strong>*Please Enter Monthly Value for each Field*</strong>
-          <p>
-            *Averages for Costs per City are Given if Applicable, Based on Your
-            Preferences; Please change Values as Needed*
-          </p>
-          <p />
-          <OverlayTrigger
-            placement="right"
-            delay={{ show: 250, hide: 400 }}
-            overlay={<Tooltip id={"top"}>Please Enter Yearly Income</Tooltip>}
-          >
+        {/* <div hidden={!values.name || !values.cityid}> */}
+        <Button show={false} variant="danger">
+          Switch to YEARLY amounts
+        </Button>{" "}
+        <p />
+        <Button variant="danger">Switch to MONTHLY amounts</Button> <p />
+        <strong>
+          *Averages for Costs per City are Given if Applicable, Based on Your
+          Preferences; Please change Values as Needed*
+        </strong>
+        <p />
+        <Row>
+          <Col>
             <Form.Group controlId="income">
               <Form.Label className="required">Income</Form.Label>
               <Form.Control
@@ -148,77 +144,76 @@ class JobOfferDetails extends Component {
                 defaultValue={0}
               />
             </Form.Group>
-          </OverlayTrigger>
-
-          <Form.Group controlId="Mandatory Costs">
-            <Form.Label className="required">Mandatory Costs</Form.Label>
-            <Form.Control
-              required
-              type="number"
-              min="0"
-              step="1"
-              placeholder="Mandatory Costs"
-              onChange={this.props.handleChange(
-                "Components",
-                "Mandatory Costs",
-                2
-              )}
-              value={values.Components["Mandatory Costs"].camt || 0}
-            />
-          </Form.Group>
-          <Form.Group controlId="Consumable Costs">
-            <Form.Label className="required">Consumable Costs</Form.Label>
-            <Form.Control
-              required
-              type="number"
-              min="0"
-              step="1"
-              placeholder="Consumable Costs"
-              onChange={this.props.handleChange(
-                "Components",
-                "Consumable Costs",
-                3
-              )}
-              value={values.Components["Consumable Costs"].camt || 0}
-              // value if i put everything on  same page bc autofill things
-            />
-          </Form.Group>
-          <Form.Group controlId="Entertainment Expenses">
-            <Form.Label className="required">Entertainment Expenses</Form.Label>
-            <Form.Control
-              required
-              type="number"
-              min="0"
-              step="1"
-              placeholder="Entertainment Expenses"
-              onChange={this.props.handleChange(
-                "Components",
-                "Entertainment Expenses",
-                4
-              )}
-              value={values.Components["Entertainment Expenses"].camt || 0}
-            />
-          </Form.Group>
-          <Form.Group controlId="Debt">
-            <Form.Label className="required">Debt</Form.Label>
-            <Form.Control
-              required
-              type="number"
-              min="0"
-              step="1"
-              placeholder="Debt"
-              onChange={this.props.handleChange("Components", "Debt", 5)}
-              defaultValue={0}
-            />
-          </Form.Group>
-          <Button
-            variant="primary"
-            type="submit"
-            disabled={!values.name || !values.cityid || !values.Components}
-          >
-            Submit
-          </Button>
-        </div>
+          </Col>
+        </Row>
+        <Form.Group controlId="Mandatory Costs">
+          <Form.Label className="required">Mandatory Costs</Form.Label>
+          <Form.Control
+            required
+            type="number"
+            min="0"
+            step="1"
+            placeholder="Mandatory Costs"
+            onChange={this.props.handleChange(
+              "Components",
+              "Mandatory Costs",
+              2
+            )}
+            value={values.Components["Mandatory Costs"].camt || 0}
+          />
+        </Form.Group>
+        <Form.Group controlId="Consumable Costs">
+          <Form.Label className="required">Consumable Costs</Form.Label>
+          <Form.Control
+            required
+            type="number"
+            min="0"
+            step="1"
+            placeholder="Consumable Costs"
+            onChange={this.props.handleChange(
+              "Components",
+              "Consumable Costs",
+              3
+            )}
+            value={values.Components["Consumable Costs"].camt || 0}
+          />
+        </Form.Group>
+        <Form.Group controlId="Entertainment Expenses">
+          <Form.Label className="required">Entertainment Expenses</Form.Label>
+          <Form.Control
+            required
+            type="number"
+            min="0"
+            step="1"
+            placeholder="Entertainment Expenses"
+            onChange={this.props.handleChange(
+              "Components",
+              "Entertainment Expenses",
+              4
+            )}
+            value={values.Components["Entertainment Expenses"].camt || 0}
+          />
+        </Form.Group>
+        <Form.Group controlId="Debt">
+          <Form.Label className="required">Debt</Form.Label>
+          <Form.Control
+            required
+            type="number"
+            min="0"
+            step="1"
+            placeholder="Debt"
+            onChange={this.props.handleChange("Components", "Debt", 5)}
+            defaultValue={0}
+          />
+        </Form.Group>
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={!values.name || !values.cityid || !values.Components}
+        >
+          Submit
+        </Button>
+        {/* </div> */}
       </Form>
     );
   }
