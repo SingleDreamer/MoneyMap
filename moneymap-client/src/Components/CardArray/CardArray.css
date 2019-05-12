@@ -9,6 +9,23 @@
   margin-top: 1em;
 }
 
+.profile {
+  position: relative;
+  left: 10vw;
+  width: 80vw;
+  height: 480px;
+  display: flex;
+  margin-top: 1em;
+}
+
+.button {
+  position: relative;
+  /* left: 1vw; */
+  width: 80vw;
+  height: 80px;
+  display: flex;
+  margin-top: 12em;
+}
 .add {
   position: relative;
   top: 20px;

@@ -141,7 +141,7 @@ class JobOfferDetails extends Component {
               <Form.Control
                 required
                 type="number"
-                min="1"
+                min="0"
                 step="1"
                 placeholder="Income"
                 onChange={this.props.handleChange("Components", "Income", 1)}
@@ -211,57 +211,17 @@ class JobOfferDetails extends Component {
               defaultValue={0}
             />
           </Form.Group>
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={!values.name || !values.cityid || !values.Components}
+          >
+            Submit
+          </Button>
         </div>
-        {/* <ButtonToolbar>
-          <Button variant="secondary" onClick={this.prev}>
-            Previous
-          </Button> */}
-        <Button
-          variant="primary"
-          type="submit"
-          disabled={!values.name || !values.cityid || !values.Components}
-        >
-          Submit
-        </Button>
-        {/* </ButtonToolbar>
-        <Button variant="primary" type="submit" onClick={this.next}>
-          Next
-        </Button> */}
       </Form>
     );
   }
-
-  // next = e => {
-  //   e.preventDefault();
-  //   var name = document.getElementById("name");
-  //   // var country = document.getElementById("country");
-  //   // var city = document.getElementById("city");
-  //   var income = document.getElementById("income");
-
-  //   // if (!name.validity.valid) {
-  //   //   console.log("Name invalid");
-  //   //   name.setCustomValidity("Please enter company name.");
-  //   // } else if (
-  //   //   !(
-  //   //     name.validity.valid &&
-  //   //     // country.validity.valid &&
-  //   //     // city.validity.valid &&
-  //   //     income.validity.valid &&
-  //   //     this.props.cityid !== 0
-  //   //   )
-  //   // ) {
-  //   //   console.log("Validation false");
-  //   //   console.log("City id: ", this.props.cityid);
-
-  //   //   // city.setCustomValidity("Please enter valid city.");
-  //   //   // country.setCustomValidity("Please enter valid country.");
-  //   // } else {
-  //   //   console.log("City id: ", this.props.cityid);
-  //   //   // city.setCustomValidity("");
-  //   // country.setCustomValidity("");
-  //   this.props.nextStep();
-  //   // }
-  // };
 }
 
 let cities = [{ label: "Please Select A Country" }];

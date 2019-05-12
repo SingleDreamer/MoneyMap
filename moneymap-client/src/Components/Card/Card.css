@@ -15,7 +15,9 @@
   animation-duration: 0.5s;
   z-index: 2;
 }
-
+.divider {
+  margin-left: 10px;
+}
 .arrow_box {
   z-index: 300;
   position: relative;
@@ -51,9 +53,10 @@
 
 .chart {
   position: relative;
-  top: -30px;
+  top: 0px;
   left: 20px;
 }
+
 .buttons {
   display: flex;
   justify-content: space-between;

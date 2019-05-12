@@ -4,7 +4,6 @@ import {
   Button,
   Modal,
   OverlayTrigger,
-  Popover,
   Tooltip,
   ProgressBar
 } from "react-bootstrap";
@@ -13,12 +12,6 @@ import Chart from "react-apexcharts";
 import Charts from "./AnalysisCharts.js";
 import axios from "axios";
 import AuthService from "../../AuthService/AuthService";
-
-const popover = (
-  <Popover id="popover-basic" title="Analysis">
-    Click on the score to see a detailed breakdown
-  </Popover>
-);
 
 class CardArray extends Component {
   constructor(props, context) {
@@ -81,48 +74,6 @@ class CardArray extends Component {
     this.handleClose = this.handleClose.bind(this);
   }
 
-  test = rfs => {
-    let optionsRadial = {
-      colors: ["#000000"],
-      plotOptions: {
-        radialBar: {
-          startAngle: 0,
-          endAngle: 360,
-          dataLabels: {
-            name: {
-              offsetY: -50,
-              show: false,
-              color: "#888",
-              fontSize: "15px"
-            },
-            value: {
-              formatter: function(val) {
-                return val;
-              },
-              offsetY: 5,
-              color: "#111",
-              fontSize: "20px",
-              show: true
-            }
-          }
-        }
-      },
-      labels: ["RFS"]
-    };
-    if (rfs >= 50) {
-      optionsRadial.colors = ["#35ff53"];
-    } else if (rfs < 50 && rfs >= 0) {
-      optionsRadial.colors = ["#f48e00"];
-    } else if (rfs < 0 && rfs >= -50) {
-      optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
-      optionsRadial.colors = ["#ffa434"];
-    } else {
-      optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
-      optionsRadial.colors = ["#f45042"];
-    }
-    return optionsRadial;
-  };
-
   deleteJOC = jocid => {
     console.log(jocid);
     let config = {
@@ -160,7 +111,7 @@ class CardArray extends Component {
         config
       )
       .then(res => {
-        console.log("City averages:", res.data.recordsets);
+        // console.log("City averages:", res.data.recordsets);
         if (
           (res.data.recordsets[0].length > 0 &&
             res.data.recordsets[0].length < 4) ||
@@ -201,8 +152,8 @@ class CardArray extends Component {
                     : { ...this.state.cityAverages[0][3] }
                 }
               }
-            },
-            () => console.log("This is the state ::: ", this.state.cityAverages)
+            }
+            // () => console.log("This is the state ::: ", this.state.cityAverages)
           );
         } else if (res.data.recordsets[0].length === 4) {
           this.setState({ cityAverages: res.data.recordsets });
@@ -245,22 +196,25 @@ class CardArray extends Component {
                 />
                 {this.props.info.jocname}
               </Card.Title>
-              <OverlayTrigger
-                trigger="hover"
-                placement="left"
-                overlay={popover}
+              <button
+                type="button"
+                className="close"
+                aria-label="Close"
+                style={{ position: "absolute", top: "0px", left: "260px" }}
+                onClick={() => this.deleteJOC(this.props.info.jocid)}
               >
-                <div className="chart">
-                  <Chart
-                    options={this.test(this.props.info.jocrfc)} //{this.state.optionsRadial}
-                    series={[Math.ceil(this.props.info.jocrfc)]}
-                    type="radialBar"
-                    width="100"
-                    height="130"
-                    onClick={e => this.openModal(e, this.props.id)}
-                  />
-                </div>
-              </OverlayTrigger>
+                <span aria-hidden="true">×</span>
+              </button>
+
+              <div className="chart">
+                <Chart
+                  options={this.props.test(this.props.info.jocrfc)} //{this.state.optionsRadial}
+                  series={[Math.ceil(this.props.info.jocrfc)]}
+                  type="radialBar"
+                  width="100"
+                  height="130"
+                />
+              </div>
             </div>
             <Card.Text>{this.props.info.city.City}</Card.Text>
             {this.props.info.components.length ? (
@@ -275,12 +229,16 @@ class CardArray extends Component {
             ) : (
               <Card.Text>Empty Card</Card.Text>
             )}
+            <Card.Text>Savings: ${this.props.info.savings}</Card.Text>
+
             <div className="buttons">
               <OverlayTrigger
-                placement="bottom"
+                placement="right"
                 delay={{ show: 250, hide: 400 }}
                 overlay={
-                  <Tooltip id={"top"}>Select two Job Offers to Compare</Tooltip>
+                  <Tooltip id={"right"}>
+                    Select two Job Offers to Compare
+                  </Tooltip>
                 }
               >
                 <Button
@@ -290,17 +248,12 @@ class CardArray extends Component {
                   Compare
                 </Button>
               </OverlayTrigger>
-              {/* <Button
-                variant="primary"
-                //onClick={}
-              >
-                Edit
-              </Button> */}
+
               <Button
-                variant="danger"
-                onClick={() => this.deleteJOC(this.props.info.jocid)}
+                variant="secondary"
+                onClick={e => this.openModal(e, this.props.id)}
               >
-                Delete
+                Analysis
               </Button>
             </div>
           </Card.Body>

@@ -12,7 +12,7 @@ export default class AuthService {
   }
 
   async login(email, password) {
-    console.log("login " + email + password);
+    //console.log("login " + email + password);
     let payload = {
       username: email,
       password: password
@@ -25,8 +25,6 @@ export default class AuthService {
     };
 
     try {
-      console.log("...");
-      console.log(payload);
       axios
         .post(
           "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/validate",
@@ -34,10 +32,13 @@ export default class AuthService {
           config
         )
         .then(response => {
-          console.log("...");
           console.log(response.data);
-          this.setToken(response.data.token);
-          this.setUser(response.data.UID);
+          if (response.data.status === "error") {
+            alert("Wrong username or email");
+          } else {
+            this.setToken(response.data.token);
+            this.setUser(response.data.UID);
+          }
         })
         .then(success => {
           return success;

@@ -49,6 +49,21 @@ class UserDetails extends Component {
         </Form.Row>
         <Form.Row>
           <Col>
+            <Form.Group controlId="MartialStatus">
+              <Form.Label className="required">Marital Status</Form.Label>
+              <Form.Control
+                required
+                as="select"
+                defaultValue=""
+                onChange={this.props.handleChange("MartialStatus")}
+              >
+                <option disabled hidden value="" />
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
+          <Col>
             <Form.Group controlId="adultFamSize">
               <Form.Label className="required">Adults in family</Form.Label>
               <Form.Control
@@ -57,7 +72,7 @@ class UserDetails extends Component {
                 min="1"
                 max="10"
                 step="1"
-                placeholder="Adults in family"
+                placeholder="#Adults"
                 onChange={this.props.handleChange("adultFamSize")}
               />
             </Form.Group>
@@ -71,7 +86,7 @@ class UserDetails extends Component {
                 min="0"
                 max="10"
                 step="1"
-                placeholder="Children in family"
+                placeholder="#Children"
                 onChange={this.props.handleChange("childFamSize")}
               />
             </Form.Group>
@@ -133,7 +148,6 @@ class UserDetails extends Component {
       pass.validity.valid &&
       pass.value !== pass2.value
     ) {
-      console.log(pass.value, "2: ", pass2.value);
       pass.setCustomValidity("Passwords do not match.");
       pass2.setCustomValidity("Passwords do not match.");
     } else {
