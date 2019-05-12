@@ -16,4 +16,4 @@ Start the server. In your terminal, run:
 npm start
 ```
 
-In your preferred broswer, go to: http://localhost:3001
+In your preferred browser, go to: http://localhost:3001
