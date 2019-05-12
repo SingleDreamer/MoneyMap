@@ -12,7 +12,7 @@ UserService.create = async (username, password, fname, lname, adults, children, 
   request.input('lname', sql.VarChar, lname);
   request.input('adults', sql.Int, adults);
   request.input('children', sql.Int, children);
-  request.input('married', sql.Bit, married);
+  request.input('married', sql.VarChar, married);
 
   let result = await request.execute('sp_create_user');
 
@@ -61,7 +61,7 @@ UserService.update = async (id, email, fname, lname, adults, children, married, 
   request.input('lname', sql.Text, lname);
   request.input('adults', sql.Int, adults);
   request.input('children', sql.Int, children);
-  request.input('married', sql.Bit, married);
+  request.input('married', sql.VarChar, married);
   request.input('token', sql.UniqueIdentifier, token);
   if(cardid != null) {
     request.input('cardid', sql.UniqueIdentifier, password);
@@ -79,7 +79,7 @@ UserService.updateProfile = async (id, fname, lname, adults, children, married, 
   request.input('lname', sql.Text, lname);
   request.input('adults', sql.Int, adults);
   request.input('children', sql.Int, children);
-  request.input('married', sql.Bit, married);
+  request.input('married', sql.VarChar, married);
   request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_update_user_profile');
