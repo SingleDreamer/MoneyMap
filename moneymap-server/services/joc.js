@@ -1,6 +1,8 @@
 const sql = require("mssql")
 var db = require("../services/db")
 
+const request = require('request-promise-native');
+
 const JOCService = {};
 
 JOCService.create = async (uid, name, cityid, image, token) => {
@@ -62,11 +64,24 @@ JOCService.addComponent = async (id, ctypid, cdesc, camt, token) => {
     request.input('cdesc', sql.VarChar, cdesc);
   }
   request.input('token', sql.UniqueIdentifier, token);
+
+  // Get tax information
+  if(ctypeid == 1) {
+    request({
+      url: "https://taxee.io/api/v2/calculate/2019",
+      headers: {
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUElfS0VZX01BTkFHRVIiLCJodHRwOi8vdGF4ZWUuaW8vdXNlcl9pZCI6IjVjZDEyMTRkNGU5ZjIxNTMzNDQyZjBmOCIsImh0dHA6Ly90YXhlZS5pby9zY29wZXMiOlsiYXBpIl0sImlhdCI6MTU1NzIwOTQyMX0.R1PxmgK0t8Z9UCHJsIGVdtb8pzofaCC2H_I3wWhqbvU"
+      }
+    });
+  }
+
   let result = await request.execute('sp_add_joc_component');
   const request2 = new sql.Request(db);
   request2.input('token', sql.UniqueIdentifier, token);
   request2.input('CardID', sql.Int, id);
+
   await request2.execute('sp_update_rfs');
+
   return result;
 };
 

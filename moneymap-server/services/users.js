@@ -3,6 +3,14 @@ var db = require("../services/db")
 
 const UserService = {};
 
+function isAuthFailure(recordset) {
+  if(recordset != undefined && recordset[0].hasOwnProperty('AuthFailed')) {
+    return true;
+  }
+
+  return false;
+}
+
 UserService.create = async (username, password, fname, lname, adults, children, married) => {
   const request = new sql.Request(db);
 
@@ -84,9 +92,7 @@ UserService.updateProfile = async (id, fname, lname, adults, children, married, 
 
   let result = await request.execute('sp_update_user_profile');
 
-  console.log(result);
-
-  if(result.recordset != undefined && result.recordset[0].hasOwnProperty('AuthFailed')) {
+  if(isAuthFailure(result.recordset)) {
     return {
       status: "error",
       message: "Invalid auth token"
@@ -104,6 +110,14 @@ UserService.getJOCs = async (id, token) => {
   request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_get_jocs');
+
+  if(isAuthFailure(result.recordset)) {
+    return {
+      status: "error",
+      message: "Invalid auth token"
+    };
+  }
+
   var output = {
     "result": []
   };
@@ -141,7 +155,10 @@ UserService.getItems = async () => {
   const request = new sql.Request(db);
 
   let result = await request.execute('sp_get_items');
-  return result;
+  return {
+    status: "success",
+    items: result.recordset
+  };
 };
 
 UserService.getProfile = async (id, token) => {
@@ -150,17 +167,38 @@ UserService.getProfile = async (id, token) => {
   request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_get_profile');
-  return result;
+
+  if(isAuthFailure(result.recordset)) {
+    return {
+      status: "error",
+      message: "Invalid auth token"
+    };
+  }
+
+  return {
+    status: "success",
+    profile: result.recordset[0]
+  };
 };
 
 UserService.getPreferences = async (id, token) => {
   const request = new sql.Request(db);
   request.input('uid', sql.UniqueIdentifier, id);
   request.input('token', sql.UniqueIdentifier, token);
-  console.log(id);
+
   let result = await request.execute('sp_get_user_preferences');
-  console.log(result);
-  return result;
+
+  if(isAuthFailure(result.recordset)) {
+    return {
+      status: "error",
+      message: "Invalid auth token"
+    };
+  }
+
+  return {
+    status: "success",
+    preferences: result.recordset
+  };
 };
 
 UserService.createPreference = async (id, iid, amount, token) => {
@@ -171,7 +209,17 @@ UserService.createPreference = async (id, iid, amount, token) => {
   request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_add_user_preference');
-  return result;
+
+  if(isAuthFailure(result.recordset)) {
+    return {
+      status: "error",
+      message: "Invalid auth token"
+    };
+  }
+
+  return {
+    status: "success"
+  };
 };
 
 UserService.getCityPreferences = async (id, cid, token) => {
@@ -181,7 +229,18 @@ UserService.getCityPreferences = async (id, cid, token) => {
   request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_get_user_city_preferences');
-  return result;
+
+  if(isAuthFailure(result.recordset)) {
+    return {
+      status: "error",
+      message: "Invalid auth token"
+    };
+  }
+
+  return {
+    status: "success",
+    preferences: result.recordset
+  };
 };
 
 UserService.getCityCosts = async (id, cid, token) => {
@@ -191,7 +250,18 @@ UserService.getCityCosts = async (id, cid, token) => {
   request.input('token', sql.UniqueIdentifier, token);
 
   let result = await request.execute('sp_get_user_city_costs');
-  return result;
+
+  if(isAuthFailure(result.recordset)) {
+    return {
+      status: "error",
+      message: "Invalid auth token"
+    };
+  }
+
+  return {
+    status: "success",
+    costs: result.recordset
+  };
 };
 
 module.exports = UserService;

@@ -52,6 +52,21 @@ router.post('/:id', [AuthService.checkToken], async (req, res, next) => {
   res.json(result);
 });
 
+/*
+  Get user profile values
+
+  If successful, returns profile in the following format:
+  {
+    "status": "success",
+    "profile": {
+        "FirstName": "User",
+        "LastName": "User",
+        "Adults": 2,
+        "Children": 1,
+        "MaritalStatus": "1"
+    }
+  }
+*/
 router.get('/:id/profile', [AuthService.checkToken], async (req, res, next) => {
   let result = await UserService.getProfile(req.params.id, req.params.token);
   res.json(result);
@@ -77,6 +92,26 @@ router.post('/:id/profile', [AuthService.checkToken], async (req, res, next) => 
   res.json(result);
 });
 
+/*
+  Get user items
+
+  If successful, returns items in the following format:
+  {
+    "status": "success",
+    "items": [
+        {
+            "Rent_Factor": 0,
+            "Cpi_Factor": 0,
+            "Item_ID": 105,
+            "Name": "Average Monthly Net Salary (After Tax)",
+            "Category": "Salaries And Financing",
+            "Type": 1,
+            "ComponentTypeDescription": "Net Income"
+        },
+        ...
+    ]
+  }
+*/
 router.get('/:id/items', async (req, res, next) => {
   let result = await UserService.getItems();
   res.json(result);
