@@ -7,7 +7,7 @@ This is the final report for the web application MoneyMap, created for the Compu
 <b>Project Developers</b>: Jessica Ng (lead), David Belinsky, Eunice Hew, Cris Jimenez, Riyadh Rahman
 
 
-
+<b><u>You do not need to install if you just want to try the web app; use the link above.</b></u>
 
 ## Installation Guide (only for running frontend locally, with our server):
 
