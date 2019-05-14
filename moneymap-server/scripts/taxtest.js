@@ -6,12 +6,14 @@ const request = require('request-promise-native');
 request("https://google.com").then(async function(unused) {
   const request = new sql.Request(db);
   // request.input('uid', sql.UniqueIdentifier, "599DAFEE-D337-4DC3-8F83-B932B4837AB6");
-  // request.input('token', sql.UniqueIdentifier, "7611A60E-B027-47E8-80AB-A248D1AA1AA0");
+  // request.input('token', sql.UniqueIdentifier, "204EB0A8-1914-4CDE-8686-32A8D1C4230B");
   request.input('cityid', sql.Int, "10107");
 
   let result = await request.execute('sp_get_city');
 
-  console.log(result);
+  let region = result.recordset[0];
+
+  console.log();
 
   request({
     method: "POST",
