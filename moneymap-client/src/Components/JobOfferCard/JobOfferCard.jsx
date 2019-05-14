@@ -229,23 +229,23 @@ class JobOfferCard extends Component {
         Income: {
           ...this.state.Components["Income"],
           camt: inc / 12
-        },
-        "Mandatory Costs": {
-          ...this.state.Components["Mandatory Costs"],
-          camt: man / 12
-        },
-        "Consumable Costs": {
-          ...this.state.Components["Consumable Costs"],
-          camt: con / 12
-        },
-        "Entertainment Expenses": {
-          ...this.state.Components["Entertainment Expenses"],
-          camt: ent / 12
-        },
-        Debt: {
-          ...this.state.Components["Debt"],
-          camt: debt / 12
         }
+        // "Mandatory Costs": {
+        //   ...this.state.Components["Mandatory Costs"],
+        //   camt: man / 12
+        // },
+        // "Consumable Costs": {
+        //   ...this.state.Components["Consumable Costs"],
+        //   camt: con / 12
+        // },
+        // "Entertainment Expenses": {
+        //   ...this.state.Components["Entertainment Expenses"],
+        //   camt: ent / 12
+        // },
+        // Debt: {
+        //   ...this.state.Components["Debt"],
+        //   camt: debt / 12
+        // }
       }
     });
   };
@@ -259,23 +259,23 @@ class JobOfferCard extends Component {
           Income: {
             ...this.state.Components["Income"],
             camt: inc * 12
-          },
-          "Mandatory Costs": {
-            ...this.state.Components["Mandatory Costs"],
-            camt: man * 12
-          },
-          "Consumable Costs": {
-            ...this.state.Components["Consumable Costs"],
-            camt: con * 12
-          },
-          "Entertainment Expenses": {
-            ...this.state.Components["Entertainment Expenses"],
-            camt: ent * 12
-          },
-          Debt: {
-            ...this.state.Components["Debt"],
-            camt: debt * 12
           }
+          // "Mandatory Costs": {
+          //   ...this.state.Components["Mandatory Costs"],
+          //   camt: man * 12
+          // },
+          // "Consumable Costs": {
+          //   ...this.state.Components["Consumable Costs"],
+          //   camt: con * 12
+          // },
+          // "Entertainment Expenses": {
+          //   ...this.state.Components["Entertainment Expenses"],
+          //   camt: ent * 12
+          // },
+          // Debt: {
+          //   ...this.state.Components["Debt"],
+          //   camt: debt * 12
+          // }
         }
       }
       // () => console.log("change to year: ", this.state.Components)
@@ -312,23 +312,23 @@ class JobOfferCard extends Component {
             Income: {
               ...this.state.Components["Income"],
               camt: inc * 12
-            },
-            "Mandatory Costs": {
-              ...this.state.Components["Mandatory Costs"],
-              camt: man * 12
-            },
-            "Consumable Costs": {
-              ...this.state.Components["Consumable Costs"],
-              camt: con * 12
-            },
-            "Entertainment Expenses": {
-              ...this.state.Components["Entertainment Expenses"],
-              camt: ent * 12
-            },
-            Debt: {
-              ...this.state.Components["Debt"],
-              camt: debt * 12
             }
+            // "Mandatory Costs": {
+            //   ...this.state.Components["Mandatory Costs"],
+            //   camt: man * 12
+            // },
+            // "Consumable Costs": {
+            //   ...this.state.Components["Consumable Costs"],
+            //   camt: con * 12
+            // },
+            // "Entertainment Expenses": {
+            //   ...this.state.Components["Entertainment Expenses"],
+            //   camt: ent * 12
+            // },
+            // Debt: {
+            //   ...this.state.Components["Debt"],
+            //   camt: debt * 12
+            // }
           }
         },
         () => {
