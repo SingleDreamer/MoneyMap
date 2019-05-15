@@ -63,11 +63,15 @@ JOCService.addComponent = async (id, ctypid, cdesc, camt, token) => {
   }
   request.input('token', sql.UniqueIdentifier, token);
   let result = await request.execute('sp_add_joc_component');
-  const request2 = new sql.Request(db);
-  request2.input('token', sql.UniqueIdentifier, token);
-  request2.input('CardID', sql.Int, id);
-  await request2.execute('sp_update_rfs');
   return result;
+};
+
+JOCService.updateRFS = async (id, token) => {
+  const request = new sql.Request(db);
+  request.input('CardID', sql.Int, id);
+  request.input('token', sql.UniqueIdentifier, token);
+  let result = await request.execute('sp_update_rfs');
+  return result
 };
 
 JOCService.getComponents = async (id, token) => {
