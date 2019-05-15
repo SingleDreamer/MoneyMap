@@ -16,8 +16,8 @@ class Register extends Component {
         username: "", //email
         password: "",
         reenterPass: "",
-        adultFamSize: 0,
-        childFamSize: 0.0
+        adults: 0,
+        children: 0
       },
       submit: false,
       hasError: false,
@@ -74,14 +74,13 @@ class Register extends Component {
     this.setState({
       userInfo: {
         ...this.state.userInfo,
-        adultFamSize: Number(this.state.adultFamSize),
-        childFamSize: Number(this.state.childFamSize),
-        size: Number(this.state.size)
+        adults: Number(this.state.adults),
+        children: Number(this.state.children)
       }
     });
     let userInfo = this.state.userInfo;
-    userInfo.adults = Number(userInfo.adultFamSize);
-    userInfo.children = Number(userInfo.childFamSize);
+    userInfo.adults = Number(this.state.userInfo.adults);
+    userInfo.children = Number(this.state.userInfo.children);
     console.log("New registration: ", userInfo);
 
     let url =
