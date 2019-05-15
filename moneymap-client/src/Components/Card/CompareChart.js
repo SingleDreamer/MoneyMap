@@ -48,7 +48,7 @@ class CompareCharts extends Component {
         },
         fill: {
           type: "solid",
-          opacity: [0.35, 1]
+          opacity: [1, 1]
         },
         labels: [
           "Income",
