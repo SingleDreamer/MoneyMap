@@ -13,7 +13,9 @@ CityService.create = async (cityid, latitude, longitude, country, name) => {
 
   let result = await request.execute('sp_add_city');
 
-  return result;
+  return {
+    status: "success"
+  };
 };
 
 CityService.get = async (name) => {
@@ -23,6 +25,18 @@ CityService.get = async (name) => {
   }
 
   let result = await request.execute('sp_get_cities');
+
+  return {
+    status: "success",
+    "cities": result.recordset
+  };
+};
+
+CityService.getById = async (id) => {
+  const request = new sql.Request(db);
+  request.input('cityid', sql.Int, id);
+
+  let result = await request.execute('sp_get_city');
 
   return result;
 };
