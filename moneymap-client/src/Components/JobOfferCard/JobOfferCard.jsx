@@ -299,10 +299,10 @@ class JobOfferCard extends Component {
     e.preventDefault();
     if (this.state.monthly) {
       let inc = this.state.Components["Income"].camt;
-      let man = this.state.Components["Mandatory Costs"].camt;
-      let con = this.state.Components["Consumable Costs"].camt;
-      let ent = this.state.Components["Entertainment Expenses"].camt;
-      let debt = this.state.Components["Debt"].camt;
+      // let man = this.state.Components["Mandatory Costs"].camt;
+      // let con = this.state.Components["Consumable Costs"].camt;
+      // let ent = this.state.Components["Entertainment Expenses"].camt;
+      // let debt = this.state.Components["Debt"].camt;
 
       this.setState(
         {
