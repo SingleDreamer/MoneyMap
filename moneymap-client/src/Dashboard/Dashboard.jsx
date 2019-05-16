@@ -244,35 +244,29 @@ class Dashboard extends Component {
             <Button onClick={this.handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
-        <Row className="grid">
-          <Col lg={3}>
-            <Profile
-              profile={this.state.profile}
-              user={this.state.user}
-              handleShow={this.handleShow}
-            />
-          </Col>
-          <Col>
-            <DashboardMap
-              companies={this.state.companies}
-              profile={this.state.profile}
-              profilePrefs={this.state.profilePrefs}
-            />
-          </Col>
-        </Row>
-        <Row className="grid">
-          <Col>
-            <CardArray
-              currentJob={this.state.profile}
-              items={this.state.items}
-              profilePrefs={this.state.profilePrefs}
-              getCards={this.getCards}
-              companies={this.state.companies}
-              profile={this.state.profile}
-              handleShow={this.handleShow}
-            />
-          </Col>
-        </Row>
+        <div id="container">
+          <Profile
+            profile={this.state.profile}
+            user={this.state.user}
+            handleShow={this.handleShow}
+          />
+
+          <DashboardMap
+            companies={this.state.companies}
+            profile={this.state.profile}
+            profilePrefs={this.state.profilePrefs}
+          />
+
+          <CardArray
+            currentJob={this.state.profile}
+            items={this.state.items}
+            profilePrefs={this.state.profilePrefs}
+            getCards={this.getCards}
+            companies={this.state.companies}
+            profile={this.state.profile}
+            handleShow={this.handleShow}
+          />
+        </div>
       </div>
     );
   }

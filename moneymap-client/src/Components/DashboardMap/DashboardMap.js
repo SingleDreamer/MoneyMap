@@ -151,16 +151,7 @@ class DashboardMap extends Component {
         <MapWithAMarker
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBri0VnZME5FkDLJrfYRrqAky6qy5JNXxo&v=3.exp&libraries=geometry,drawing,places"
           loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={
-            <div
-              style={{
-                height: window.innerHeight * 0.4 + "px",
-                width: window.innerLength,
-                marginLeft: "5vw",
-                marginTop: "20px"
-              }}
-            />
-          }
+          containerElement={<div className="MapContainer" />}
           mapElement={<div style={{ height: `100%` }} />}
         />
       </div>

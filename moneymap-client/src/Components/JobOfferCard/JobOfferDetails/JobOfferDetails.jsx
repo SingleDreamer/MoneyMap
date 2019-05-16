@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, InputGroup } from "react-bootstrap";
 import Select from "react-select";
 import "../JobOfferCard.css";
 import axios from "axios";
@@ -134,17 +134,18 @@ class JobOfferDetails extends Component {
           />
         </Form.Group>
         <div hidden={!values.name || !values.cityid}>
-          {toggle}
           <p />
           <strong>
             *Averages for Costs per City are Given if Applicable, Based on Your
             Preferences; Please change Values as Needed*
           </strong>
           <p />
-          <Row>
-            <Col>
-              <Form.Group controlId="income">
-                <Form.Label className="required">Income</Form.Label>
+          {toggle}
+
+          <Form.Group controlId="income">
+            <Form.Label className="required">Income</Form.Label>
+            <Row>
+              <Col sm="10">
                 <Form.Control
                   required
                   type="number"
@@ -154,63 +155,91 @@ class JobOfferDetails extends Component {
                   onChange={this.props.handleChange("Components", "Income", 1)}
                   value={Math.round(values.Components["Income"].camt) || 0}
                 />
-              </Form.Group>
-            </Col>
-          </Row>
+              </Col>
+              <Form.Label column sm="2">
+                {!this.props.monthly ? "/Year" : "/Month"}
+              </Form.Label>
+            </Row>
+          </Form.Group>
+
           <Form.Group controlId="Mandatory Costs">
             <Form.Label className="required">Mandatory Costs</Form.Label>
-            <Form.Control
-              required
-              type="number"
-              min="0"
-              step="1"
-              placeholder="Mandatory Costs"
-              onChange={this.props.handleChange(
-                "Components",
-                "Mandatory Costs",
-                2
-              )}
-              value={Math.round(values.Components["Mandatory Costs"].camt) || 0}
-            />
+            <Row>
+              <Col sm="10">
+                <Form.Control
+                  required
+                  type="number"
+                  min="0"
+                  step="1"
+                  placeholder="Mandatory Costs"
+                  onChange={this.props.handleChange(
+                    "Components",
+                    "Mandatory Costs",
+                    2
+                  )}
+                  value={
+                    Math.round(values.Components["Mandatory Costs"].camt) || 0
+                  }
+                />
+              </Col>
+              <Form.Label column sm="2">
+                /Month
+              </Form.Label>
+            </Row>
           </Form.Group>
           <Form.Group controlId="Consumable Costs">
             <Form.Label className="required">Consumable Costs</Form.Label>
-            <Form.Control
-              required
-              type="number"
-              min="0"
-              step="1"
-              placeholder="Consumable Costs"
-              onChange={this.props.handleChange(
-                "Components",
-                "Consumable Costs",
-                3
-              )}
-              value={
-                Math.round(values.Components["Consumable Costs"].camt) || 0
-              }
-            />
+            <Row>
+              <Col sm="10">
+                <Form.Control
+                  required
+                  type="number"
+                  min="0"
+                  step="1"
+                  placeholder="Consumable Costs"
+                  onChange={this.props.handleChange(
+                    "Components",
+                    "Consumable Costs",
+                    3
+                  )}
+                  value={
+                    Math.round(values.Components["Consumable Costs"].camt) || 0
+                  }
+                />
+              </Col>
+              <Form.Label column sm="2">
+                /Month
+              </Form.Label>
+            </Row>
           </Form.Group>
           <Form.Group controlId="Entertainment Expenses">
             <Form.Label className="required">Entertainment Expenses</Form.Label>
-            <Form.Control
-              required
-              type="number"
-              min="0"
-              step="1"
-              placeholder="Entertainment Expenses"
-              onChange={this.props.handleChange(
-                "Components",
-                "Entertainment Expenses",
-                4
-              )}
-              value={
-                Math.round(values.Components["Entertainment Expenses"].camt) ||
-                0
-              }
-            />
+            <Row>
+              <Col sm="10">
+                <Form.Control
+                  required
+                  type="number"
+                  min="0"
+                  step="1"
+                  placeholder="Entertainment Expenses"
+                  onChange={this.props.handleChange(
+                    "Components",
+                    "Entertainment Expenses",
+                    4
+                  )}
+                  value={
+                    Math.round(
+                      values.Components["Entertainment Expenses"].camt
+                    ) || 0
+                  }
+                />
+              </Col>
+              <Form.Label column sm="2">
+                /Month
+              </Form.Label>
+            </Row>
           </Form.Group>
-          <Form.Group controlId="Debt">
+          {/* <Form.Group controlId="Debt">
             <Form.Label className="required">Debt</Form.Label>
             <Form.Control
               required
@@ -221,7 +250,7 @@ class JobOfferDetails extends Component {
               onChange={this.props.handleChange("Components", "Debt", 5)}
               value={Math.round(values.Components["Debt"].camt) || 0}
             />
-          </Form.Group>
+          </Form.Group> */}
           <Button
             variant="primary"
             type="submit"
