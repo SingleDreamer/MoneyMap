@@ -3,16 +3,9 @@ import Card from "../Card/Card.js";
 import "./CardArray.css";
 import "../Card/Card.css";
 import logo from "./addJOC2.png";
-import {
-  ButtonGroup,
-  Button,
-  Modal,
-  Col,
-  Row,
-  Card as Ca
-} from "react-bootstrap";
-import Chart from "react-apexcharts";
-import JobOfferCard from "../JobOfferCard/JobOfferCard";
+import { Button, Modal, Col, Row } from "react-bootstrap";
+// import Chart from "react-apexcharts";
+// import JobOfferCard from "../JobOfferCard/JobOfferCard";
 import CompareCharts from "../Card/CompareChart";
 import Preferences from "../PreferencesWorksheet/PreferencesWorksheet";
 
@@ -25,9 +18,9 @@ class CardArray extends Component {
       profile: {},
       companies: [],
       compareCompanies: [],
-      show: false,
-      showProfile: false,
-      showPrefs: false
+      show: false
+      // showProfile: false,
+      // showPrefs: false
     };
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -86,12 +79,12 @@ class CardArray extends Component {
     });
   };
 
-  handleShowProfile = () => {
-    this.setState({ showProfile: !this.state.showProfile });
-  };
-  handleShowPrefs = () => {
-    this.setState({ showPrefs: true });
-  };
+  // handleShowProfile = () => {
+  //   this.setState({ showProfile: !this.state.showProfile });
+  // };
+  // handleShowPrefs = () => {
+  //   this.setState({ showPrefs: true });
+  // };
   test = rfs => {
     let optionsRadial = {
       colors: ["#000000"],
@@ -176,101 +169,110 @@ class CardArray extends Component {
         </div>
       )
     );
-    let prof;
-    if (Object.keys(this.state.profile).length > 0) {
-      // console.log("test: ", this.state.profile.city);
-      prof = (
-        <div>
-          <div className="notSelected">
-            {/* <i className="fas fa-check" /> */}
-          </div>
-          <h3 style={{ textAlign: "center" }}>Profile</h3>
+    // let prof;
+    // if (Object.keys(this.state.profile).length > 0) {
+    //   // console.log("test: ", this.state.profile.city);
+    //   prof = (
+    //     <div>
+    //       <div className="notSelected">
+    //         {/* <i className="fas fa-check" /> */}
+    //       </div>
+    //       <h3 style={{ textAlign: "center" }}>Profile</h3>
 
-          <Ca className="joc">
-            {" "}
-            <Ca.Body>
-              <div className="header">
-                <Ca.Title>
-                  <img
-                    src={`https://logo.clearbit.com/${
-                      this.state.profile.jocname
-                    }.com`}
-                    alt={"no logo"}
-                    width={"30px"}
-                    style={{ marginRight: "5px" }}
-                  />
-                  {this.state.profile.jocname}
-                </Ca.Title>
+    //       <Ca className="joc">
+    //         {" "}
+    //         <Ca.Body>
+    //           <div className="header">
+    //             <Ca.Title>
+    //               <img
+    //                 src={`https://logo.clearbit.com/${
+    //                   this.state.profile.jocname
+    //                 }.com`}
+    //                 alt={"no logo"}
+    //                 width={"30px"}
+    //                 style={{ marginRight: "5px" }}
+    //               />
+    //               {this.state.profile.jocname}
+    //             </Ca.Title>
 
-                <div className="chart">
-                  <Chart
-                    options={this.test(this.state.profile.jocrfc)}
-                    series={[Math.ceil(this.state.profile.jocrfc)]}
-                    type="radialBar"
-                    width="100"
-                    height="130"
-                  />
-                </div>
-              </div>
-              <Ca.Text>{this.state.profile.city.City}</Ca.Text>
-              <strong>Yearly Values</strong>
-              {this.state.profile.components.length ? (
-                this.state.profile.components.map((component, index) => (
-                  <Ca.Text key={index}>
-                    {`${component.ComponentDescription}: $${
-                      component.ComponentAmount
-                    }`}
-                  </Ca.Text>
-                ))
-              ) : (
-                <Ca.Text>Empty Card</Ca.Text>
-              )}{" "}
-              <Ca.Text>
-                Savings: ${Math.round(this.state.profile.savings)}
-              </Ca.Text>
-              <div className="buttons">
-                <Button variant="primary" onClick={this.handleShowProfile}>
-                  Replace Profile
-                </Button>
-              </div>
-            </Ca.Body>
-          </Ca>
+    //             <div className="chart">
+    //               <Chart
+    //                 options={this.test(this.state.profile.jocrfc)}
+    //                 series={[Math.ceil(this.state.profile.jocrfc)]}
+    //                 type="radialBar"
+    //                 width="100"
+    //                 height="130"
+    //               />
+    //             </div>
+    //           </div>
+    //           <Ca.Text>{this.state.profile.city.City}</Ca.Text>
+    //           <strong>Yearly Values</strong>
+    //           {this.state.profile.components.length ? (
+    //             this.state.profile.components.map((component, index) => (
+    //               <Ca.Text key={index}>
+    //                 {`${component.ComponentDescription}: $${
+    //                   component.ComponentAmount
+    //                 }`}
+    //               </Ca.Text>
+    //             ))
+    //           ) : (
+    //             <Ca.Text>Empty Card</Ca.Text>
+    //           )}{" "}
+    //           <Ca.Text>
+    //             Savings: ${Math.round(this.state.profile.savings)}
+    //           </Ca.Text>
+    //           <div className="buttons">
+    //             <Button variant="primary" onClick={this.handleShowProfile}>
+    //               Replace Profile
+    //             </Button>
+    //           </div>
+    //         </Ca.Body>
+    //       </Ca>
 
-          <Modal show={this.state.showProfile} onHide={this.handleClose}>
-            <Modal.Header closeButton={false}>
-              <Modal.Title>New Profile Card</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <JobOfferCard
-                edit={true}
-                handleCloseModal={this.handleClose}
-                getCards={this.props.getCards}
-                jocid={this.state.profile.jocid}
-              />
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={this.handleClose}>Close</Button>
-            </Modal.Footer>
-          </Modal>
-        </div>
-      );
-    }
-    let buttons = (
-      <ButtonGroup vertical size="sm" className="button">
-        <Button onClick={this.props.handleShow}>Add New Job Offer</Button>
-        <p />
-        <Button onClick={this.handleShowPrefs}>Edit Basket of Goods</Button>
-      </ButtonGroup>
+    //       <Modal show={this.state.showProfile} onHide={this.handleClose}>
+    //         <Modal.Header closeButton={false}>
+    //           <Modal.Title>New Profile Card</Modal.Title>
+    //         </Modal.Header>
+    //         <Modal.Body>
+    //           <JobOfferCard
+    //             edit={true}
+    //             handleCloseModal={this.handleClose}
+    //             getCards={this.props.getCards}
+    //             jocid={this.state.profile.jocid}
+    //           />
+    //         </Modal.Body>
+    //         <Modal.Footer>
+    //           <Button onClick={this.handleClose}>Close</Button>
+    //         </Modal.Footer>
+    //       </Modal>
+    //     </div>
+    //   );
+    // }
+    // let buttons = (
+    //   <ButtonGroup vertical size="sm" className="button">
+    //     <Button onClick={this.props.handleShow}>Add New Job Offer</Button>
+    //     <p />
+    //     <Button onClick={this.handleShowPrefs}>Edit Basket of Goods</Button>
+    //   </ButtonGroup>
+    // );
+    cards.unshift(
+      <img
+        key={"0"}
+        src={logo}
+        alt="logo"
+        className="add"
+        onClick={this.props.handleShow}
+      />
     );
     return (
       <div>
-        {cards.length === 0 ? (
+        {cards.length === 1 ? (
           <Row>
-            <Col className="profile" md={5}>
+            {/* <Col className="profile" md={5}>
               {prof}
               {buttons}
-            </Col>
-            <Col className="array" md={5}>
+            </Col> */}
+            <Col className="array">
               {cards}
               <h1
                 style={{
@@ -289,13 +291,11 @@ class CardArray extends Component {
           </Row>
         ) : (
           <Row>
-            <Col className="profile" md={3}>
+            {/* <Col className="profile" md={3}>
               {prof}
               {buttons}
-            </Col>
-            <Col className="array" md={6}>
-              {cards}
-            </Col>
+            </Col> */}
+            <Col className="array">{cards}</Col>
           </Row>
         )}
 

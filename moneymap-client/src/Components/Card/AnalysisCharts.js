@@ -120,7 +120,7 @@ class Charts extends Component {
       {
         name: "City Average Values",
         data: [
-          this.props.cityAverages[0][3].Amount.toFixed(2),
+          this.props.cityAverages[0][3].Amount.toFixed(2) * 12,
           this.props.cityAverages[0][0].Amount.toFixed(2),
           this.props.cityAverages[0][1].Amount.toFixed(2),
           this.props.cityAverages[0][2].Amount.toFixed(2),

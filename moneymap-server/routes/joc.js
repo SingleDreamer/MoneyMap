@@ -19,7 +19,7 @@ router.post('/:id/components', [AuthService.checkToken], async (req, res, next) 
     let result = await JOCService.addComponent(req.params.id, component.ctype, component.cdesc, component.camt, req.params.token);
     results.push(result);
   }
-
+  JOCService.updateRFS(req.params.id, req.params.token);
   res.json(results);
 });
 
@@ -39,7 +39,7 @@ router.post('/:id', [AuthService.checkToken], async (req, res, next) => {
     let addComponentResult = await JOCService.addComponent(req.params.id, component.ctype, component.cdesc, component.camt, req.params.token);
     result.addComponents.push(addComponentResult);
   }
-
+  JOCService.updateRFS(req.params.id, req.params.token);
   res.json(result);
 });
 
