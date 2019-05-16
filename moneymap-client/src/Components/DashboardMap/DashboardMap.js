@@ -155,8 +155,8 @@ class DashboardMap extends Component {
             <div
               style={{
                 height: window.innerHeight * 0.4 + "px",
-                width: "80vw",
-                marginLeft: "10vw",
+                width: window.innerLength,
+                marginLeft: "5vw",
                 marginTop: "20px"
               }}
             />

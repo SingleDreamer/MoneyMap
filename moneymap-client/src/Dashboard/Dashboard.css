@@ -1,8 +1,13 @@
 /*Need to plan the grid layout better*/
-.Dashboard {
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 10px;
+}
+
+.dashboard {
+  height: 100%;
+  width: 100%;
   overflow: hidden;
 }
 
@@ -19,8 +24,8 @@
 .map {
   position: relative;
   left: 10vw;
-  height: 40vh;
-  width: 80vw;
+  height: 200vh;
+  width: 300vw;
 }
 .lds-spinner {
   color: #45a29e;
