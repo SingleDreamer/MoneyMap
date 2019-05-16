@@ -3,6 +3,7 @@ import { Tabs, Tab, Button, Modal, Card } from "react-bootstrap";
 import Chart from "react-apexcharts";
 import ProfileDetails from "../Profile/ProfileDetails";
 import JobOfferCard from "../JobOfferCard/JobOfferCard";
+import Charts from "../Card/AnalysisCharts";
 import axios from "axios";
 import AuthService from "../../AuthService/AuthService";
 
@@ -13,13 +14,36 @@ class Profile extends Component {
       key: "profileDetails",
       profile: {},
       user: {},
+      cityAverages: {
+        0: {
+          0: {
+            ComponentTypeID: 2,
+            ComponentTypeDescription: "Mandatory Costs",
+            Amount: 0
+          },
+          1: {
+            ComponentTypeID: 3,
+            ComponentTypeDescription: "Consumable Costs",
+            Amount: 0
+          },
+          2: {
+            ComponentTypeID: 4,
+            ComponentTypeDescription: "Entertainment Expenses",
+            Amount: 0
+          },
+          3: {
+            ComponentTypeID: 1,
+            ComponentTypeDescription: "Income",
+            Amount: 0
+          }
+        }
+      },
       userInfo: {},
       showEdit: false,
-      showProfile: false
+      showProfile: false,
+      analyseProfile: false
     };
     this.Auth = new AuthService();
-
-    this.handleClose = this.handleClose.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,16 +53,103 @@ class Profile extends Component {
     });
   }
 
-  handleClose() {
+  componentDidMount() {
+    let config = {
+      headers: {
+        authorization: this.Auth.getToken(),
+        "Content-Type": "application/json"
+      }
+    };
+    axios
+      .get(
+        "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/cities/" +
+          this.state.profile.joccityid +
+          "/averages/" +
+          this.Auth.getUser(),
+        config
+      )
+      .then(res => {
+        // console.log("City averages:", res.data.recordsets);
+        if (
+          (res.data.recordsets[0].length > 0 &&
+            res.data.recordsets[0].length < 4) ||
+          res.data.recordsets[0].length > 4
+        ) {
+          this.setState(
+            {
+              cityAverages: {
+                0: {
+                  ...this.state.cityAverages[0],
+                  0: !!res.data.recordsets[0].find(amount => {
+                    return amount.ComponentTypeID === 2;
+                  })
+                    ? res.data.recordsets[0].find(amount => {
+                        return amount.ComponentTypeID === 2;
+                      })
+                    : { ...this.state.cityAverages[0][0] },
+                  1: !!res.data.recordsets[0].find(amount => {
+                    return amount.ComponentTypeID === 3;
+                  })
+                    ? res.data.recordsets[0].find(amount => {
+                        return amount.ComponentTypeID === 3;
+                      })
+                    : { ...this.state.cityAverages[0][1] },
+                  2: !!res.data.recordsets[0].find(amount => {
+                    return amount.ComponentTypeID === 4;
+                  })
+                    ? res.data.recordsets[0].find(amount => {
+                        return amount.ComponentTypeID === 4;
+                      })
+                    : { ...this.state.cityAverages[0][2] },
+                  3: !!res.data.recordsets[0].find(amount => {
+                    return amount.ComponentTypeID === 1;
+                  })
+                    ? res.data.recordsets[0].find(amount => {
+                        return amount.ComponentTypeID === 1;
+                      })
+                    : { ...this.state.cityAverages[0][3] }
+                }
+              }
+            }
+            // () => console.log("This is the state ::: ", this.state.cityAverages)
+          );
+        } else if (res.data.recordsets[0].length === 4) {
+          this.setState({ cityAverages: res.data.recordsets });
+          // console.log(this.state.cityAverages[0][0].Amount);
+        } else {
+          this.setState({
+            cityAverages: {
+              0: {
+                0: { Amount: 0 },
+                1: { Amount: 0 },
+                2: { Amount: 0 },
+                3: { Amount: 0 }
+              }
+            }
+          });
+          // console.log(this.state.cityAverages[0][0].Amount);
+        }
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
+  }
+
+  handleClose = () => {
     this.setState({
       showProfile: false,
       showPrefs: false,
-      showEdit: false
+      showEdit: false,
+      analyseProfile: false
     });
-  }
+  };
 
   handleShowProfile = () => {
     this.setState({ showProfile: true });
+  };
+  handleShowAnalysis = () => {
+    this.setState({ analyseProfile: true });
   };
   handleShowEdit = () => {
     this.setState({
@@ -177,7 +288,31 @@ class Profile extends Component {
             <Button variant="primary" onClick={this.handleShowProfile}>
               Replace Profile
             </Button>
+            <Button variant="primary" onClick={this.handleShowAnalysis}>
+              Analyse Profile
+            </Button>
           </div>
+          <Modal
+            show={this.state.analyseProfile}
+            onHide={this.closeModal}
+            centered
+            size="lg"
+          >
+            <Modal.Header closeButton={false}>
+              <Modal.Title>Job offer analysis</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Charts
+                company={this.state.profile}
+                cityAverages={this.state.cityAverages}
+                profile={this.state.profile}
+              />
+              {/* get profile info */}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.handleClose}>Close</Button>
+            </Modal.Footer>
+          </Modal>
           <Modal show={this.state.showProfile} onHide={this.handleClose}>
             <Modal.Header closeButton={false}>
               <Modal.Title>New Profile Card</Modal.Title>
