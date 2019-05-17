@@ -97,7 +97,7 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
           "pay_rate": camt,
           "exemptions": result.recordset[0].exemptions
         }
-      }).then(function(res) {
+      }).then(async function(res) {
         let taxes = JSON.parse(res).annual;
 
         let totalTaxAmount = taxes.fica.amount + taxes.federal.amount;
