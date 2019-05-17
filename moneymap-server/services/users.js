@@ -4,9 +4,10 @@ var db = require("../services/db")
 const UserService = {};
 
 function isAuthFailure(recordset) {
-  if(recordset != undefined && recordset[0].hasOwnProperty('AuthFailed')) {
+  if(recordset != undefined)
+	{if(recordset[0] != undefined && recordset[0].hasOwnProperty('AuthFailed')) {
     return true;
-  }
+  }}
 
   return false;
 }
