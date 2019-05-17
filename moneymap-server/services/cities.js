@@ -26,10 +26,7 @@ CityService.get = async (name) => {
 
   let result = await request.execute('sp_get_cities');
 
-  return {
-    status: "success",
-    "cities": result.recordset
-  };
+  return result;
 };
 
 CityService.getById = async (id) => {
