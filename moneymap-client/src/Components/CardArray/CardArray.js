@@ -114,9 +114,9 @@ class CardArray extends Component {
       labels: ["RFS"]
     };
     if (rfs >= 30 && rfs <= 50) {
-      optionsRadial.colors = ["#35ff53"];
-    } else if (rfs > 50) {
       optionsRadial.colors = ["#dbf400"];
+    } else if (rfs > 50) {
+      optionsRadial.colors = ["#35ff53"];
     } else { //rfs < 30
       optionsRadial.colors = ["#f45042"];
     }
