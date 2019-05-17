@@ -59,9 +59,6 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
   const saveComponentRequest = new sql.Request(db);
   saveComponentRequest.input('jocid', sql.Int, id);
   saveComponentRequest.input('ctypeid', sql.Int, ctypeid);
-  if(cdesc != null) {
-    saveComponentRequest.input('cdesc', sql.VarChar, cdesc);
-  }
   saveComponentRequest.input('token', sql.UniqueIdentifier, token);
 
   // Get tax information
@@ -79,8 +76,8 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
 
       let getUserTaxRequest = new sql.Request(db);
 
-      getUserTaxRequest.input('uid', sql.UniqueIdentifier, "67E2CD40-1D16-43A2-B0DE-0E0C67598AF0");
-      getUserTaxRequest.input('token', sql.UniqueIdentifier, "BC7679DA-F682-4897-8BEF-3A9258DC1442");
+      getUserTaxRequest.input('jocid', sql.Int, id);
+      getUserTaxRequest.input('token', sql.UniqueIdentifier, token);
 
       let result = await getUserTaxRequest.execute('sp_get_tax_info');
 
@@ -108,9 +105,6 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
         const savePretaxRequest = new sql.Request(db);
         savePretaxRequest.input('jocid', sql.Int, id);
         savePretaxRequest.input('ctypeid', sql.Int, 0);
-        if(cdesc != null) {
-          savePretaxRequest.input('cdesc', sql.VarChar, cdesc);
-        }
         savePretaxRequest.input('token', sql.UniqueIdentifier, token);
 
         savePretaxRequest.input('camt', sql.Int, camt);
@@ -118,6 +112,7 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
         await savePretaxRequest.execute('sp_add_joc_component');
 
         camt -= totalTaxAmount;
+        cdesc = null;
       }).catch(function(err) {
         console.log(err);
       });
@@ -125,6 +120,9 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
   }
 
   saveComponentRequest.input('camt', sql.Int, camt);
+  if(cdesc != null) {
+    saveComponentRequest.input('cdesc', sql.VarChar, cdesc);
+  }
 
   let result = await saveComponentRequest.execute('sp_add_joc_component');
 
