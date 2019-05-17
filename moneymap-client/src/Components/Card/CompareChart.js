@@ -15,12 +15,12 @@ class CompareCharts extends Component {
       optionsBarChart: {
         chart: {
           height: 350,
-          type: "line"
+          type: "bar"
         },
         seriesMixedChart: [
           {
             name: this.props.companies[0].jocname,
-            type: "line",
+            type: "bar",
             data: [
               this.props.companies[0].components[0].ComponentAmount / 10,
               this.props.companies[0].components[1].ComponentAmount,
@@ -32,7 +32,7 @@ class CompareCharts extends Component {
           },
           {
             name: this.props.companies[1].jocname,
-            type: "line",
+            type: "bar",
             data: [
               this.props.companies[1].components[0].ComponentAmount / 10,
               this.props.companies[1].components[1].ComponentAmount,
@@ -48,7 +48,7 @@ class CompareCharts extends Component {
         },
         fill: {
           type: "solid",
-          opacity: [0.35, 1]
+          opacity: [1, 1]
         },
         labels: [
           "Income",
@@ -193,7 +193,7 @@ class CompareCharts extends Component {
             <Chart
               options={this.state.optionsBarChart}
               series={this.state.optionsBarChart.seriesMixedChart}
-              type="line"
+              type="bar"
               height="auto"
             />
             <h2>Benefits Breakdown</h2>

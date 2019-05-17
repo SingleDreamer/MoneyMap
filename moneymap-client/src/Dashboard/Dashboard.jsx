@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import CardArray from "../Components/CardArray/CardArray.js";
 import Sidebar from "../Components/Sidebar/Sidebar.js";
 import { JobOfferCard } from "../Components/JobOfferCard";
-import { Modal, Button } from "react-bootstrap";
+import Profile from "../Components/Profile/Profile";
+import { Modal, Col, Row, Button } from "react-bootstrap";
 import DashboardMap from "../Components/DashboardMap/DashboardMap.js";
 import "./Dashboard.css";
 import axios from "axios";
@@ -221,10 +222,11 @@ class Dashboard extends Component {
       );
     }
     return (
-      <div className="App">
+      <div>
         <Sidebar
-          className="Sidebar"
+          // className="Sidebar"
           getCards={this.getCards}
+          items={this.state.items}
           profCity={this.state.profile.joccityid}
           profilePrefs={this.state.profilePrefs}
           user={this.state.user}
@@ -242,19 +244,29 @@ class Dashboard extends Component {
             <Button onClick={this.handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
-        <DashboardMap
-          companies={this.state.companies}
-          profile={this.state.profile}
-        />
-        <CardArray
-          currentJob={this.state.profile}
-          items={this.state.items}
-          profilePrefs={this.state.profilePrefs}
-          getCards={this.getCards}
-          companies={this.state.companies}
-          profile={this.state.profile}
-          handleShow={this.handleShow}
-        />
+        <div id="container">
+          <Profile
+            profile={this.state.profile}
+            user={this.state.user}
+            handleShow={this.handleShow}
+          />
+
+          <DashboardMap
+            companies={this.state.companies}
+            profile={this.state.profile}
+            profilePrefs={this.state.profilePrefs}
+          />
+
+          <CardArray
+            currentJob={this.state.profile}
+            items={this.state.items}
+            profilePrefs={this.state.profilePrefs}
+            getCards={this.getCards}
+            companies={this.state.companies}
+            profile={this.state.profile}
+            handleShow={this.handleShow}
+          />
+        </div>
       </div>
     );
   }

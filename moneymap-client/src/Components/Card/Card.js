@@ -200,7 +200,7 @@ class CardArray extends Component {
                 type="button"
                 className="close"
                 aria-label="Close"
-                style={{ position: "absolute", top: "0px", left: "260px" }}
+                style={{ position: "absolute", top: "5px", left: "270px" }}
                 onClick={() => this.deleteJOC(this.props.info.jocid)}
               >
                 <span aria-hidden="true">×</span>

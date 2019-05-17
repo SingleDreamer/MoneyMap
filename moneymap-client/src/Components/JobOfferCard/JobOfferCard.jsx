@@ -232,19 +232,19 @@ class JobOfferCard extends Component {
         },
         "Mandatory Costs": {
           ...this.state.Components["Mandatory Costs"],
-          camt: man / 12
+          camt: man /// 12
         },
         "Consumable Costs": {
           ...this.state.Components["Consumable Costs"],
-          camt: con / 12
+          camt: con /// 12
         },
         "Entertainment Expenses": {
           ...this.state.Components["Entertainment Expenses"],
-          camt: ent / 12
+          camt: ent /// 12
         },
         Debt: {
           ...this.state.Components["Debt"],
-          camt: debt / 12
+          camt: debt /// 12
         }
       }
     });
@@ -262,19 +262,19 @@ class JobOfferCard extends Component {
           },
           "Mandatory Costs": {
             ...this.state.Components["Mandatory Costs"],
-            camt: man * 12
+            camt: man // * 12
           },
           "Consumable Costs": {
             ...this.state.Components["Consumable Costs"],
-            camt: con * 12
+            camt: con //* 12
           },
           "Entertainment Expenses": {
             ...this.state.Components["Entertainment Expenses"],
-            camt: ent * 12
+            camt: ent //* 12
           },
           Debt: {
             ...this.state.Components["Debt"],
-            camt: debt * 12
+            camt: debt //* 12
           }
         }
       }
@@ -315,19 +315,19 @@ class JobOfferCard extends Component {
             },
             "Mandatory Costs": {
               ...this.state.Components["Mandatory Costs"],
-              camt: man * 12
+              camt: man
             },
             "Consumable Costs": {
               ...this.state.Components["Consumable Costs"],
-              camt: con * 12
+              camt: con
             },
             "Entertainment Expenses": {
               ...this.state.Components["Entertainment Expenses"],
-              camt: ent * 12
+              camt: ent
             },
             Debt: {
               ...this.state.Components["Debt"],
-              camt: debt * 12
+              camt: debt
             }
           }
         },
@@ -409,7 +409,7 @@ class JobOfferCard extends Component {
           const body2 = body.map(component => {
             return { ...component, JobOfferCardID: response.data };
           });
-
+          console.log("Create JOC Components: ", body2);
           axios
             .post(url2, body2, config)
             .then(response2 => {

@@ -155,10 +155,7 @@ UserService.getItems = async () => {
   const request = new sql.Request(db);
 
   let result = await request.execute('sp_get_items');
-  return {
-    status: "success",
-    items: result.recordset
-  };
+  return result;
 };
 
 UserService.getProfile = async (id, token) => {
@@ -175,10 +172,7 @@ UserService.getProfile = async (id, token) => {
     };
   }
 
-  return {
-    status: "success",
-    profile: result.recordset[0]
-  };
+  return result;
 };
 
 UserService.getPreferences = async (id, token) => {
@@ -195,10 +189,7 @@ UserService.getPreferences = async (id, token) => {
     };
   }
 
-  return {
-    status: "success",
-    preferences: result.recordset
-  };
+  return result;
 };
 
 UserService.createPreference = async (id, iid, amount, token) => {
@@ -237,10 +228,7 @@ UserService.getCityPreferences = async (id, cid, token) => {
     };
   }
 
-  return {
-    status: "success",
-    preferences: result.recordset
-  };
+  return result;
 };
 
 UserService.getCityCosts = async (id, cid, token) => {
@@ -258,10 +246,7 @@ UserService.getCityCosts = async (id, cid, token) => {
     };
   }
 
-  return {
-    status: "success",
-    costs: result.recordset
-  };
+  return result;
 };
 
 module.exports = UserService;

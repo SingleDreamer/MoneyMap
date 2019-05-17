@@ -26,6 +26,7 @@ router.get('/:id/jocs', [AuthService.checkToken], async (req, res, next) => {
 */
 router.post('/', async (req, res, next) => {
   const { username, password, fname, lname, adults, children, married } = req.body;
+	console.log(req.body);
   let result = await UserService.create(username, password, fname, lname, adults, children, married);
   res.json(result);
 });
