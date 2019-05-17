@@ -107,7 +107,7 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
 
         const savePretaxRequest = new sql.Request(db);
         savePretaxRequest.input('jocid', sql.Int, id);
-        savePretaxRequest.input('ctypeid', sql.Int, ctypeid);
+        savePretaxRequest.input('ctypeid', sql.Int, 0);
         if(cdesc != null) {
           savePretaxRequest.input('cdesc', sql.VarChar, cdesc);
         }
