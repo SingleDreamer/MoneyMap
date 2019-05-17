@@ -54,7 +54,7 @@ class Sidebar extends Component {
           <Modal.Body>
             <p>
               <strong>
-                Add your estimated monthly amounts for each Cardtegory in order
+                Add your estimated monthly amounts for each category in order
                 to get a more accurate report. If a field is left blank we will
                 use the averages for that city.
               </strong>

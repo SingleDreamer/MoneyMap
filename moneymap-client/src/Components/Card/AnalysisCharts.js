@@ -251,7 +251,7 @@ class Charts extends Component {
           </tbody>
         </Table>
         <h2>
-          Comsumables: $
+          Consumables: $
           {this.props.company.components[2].ComponentAmount.toFixed(2)}
           <Button
             className="divider"
