@@ -31,8 +31,7 @@ class Charts extends Component {
             "Income",
             "Mandatory Costs",
             "Consumable Costs",
-            "Entertainment Expenses",
-            "Debt"
+            "Entertainment Expenses"
           ]
         },
         yaxis: {
@@ -113,8 +112,8 @@ class Charts extends Component {
           this.props.profile.components[0].ComponentAmount.toFixed(2),
           this.props.profile.components[1].ComponentAmount.toFixed(2),
           this.props.profile.components[2].ComponentAmount.toFixed(2),
-          this.props.profile.components[3].ComponentAmount.toFixed(2),
-          this.props.profile.components[4].ComponentAmount.toFixed(2)
+          this.props.profile.components[3].ComponentAmount.toFixed(2)
+          //this.props.profile.components[4].ComponentAmount.toFixed(2)
         ]
       },
       {
@@ -123,8 +122,8 @@ class Charts extends Component {
           this.props.cityAverages[0][3].Amount.toFixed(2) * 12,
           this.props.cityAverages[0][0].Amount.toFixed(2),
           this.props.cityAverages[0][1].Amount.toFixed(2),
-          this.props.cityAverages[0][2].Amount.toFixed(2),
-          0
+          this.props.cityAverages[0][2].Amount.toFixed(2)
+          //0
         ]
       },
       {
@@ -133,8 +132,8 @@ class Charts extends Component {
           this.props.company.components[0].ComponentAmount.toFixed(2),
           this.props.company.components[1].ComponentAmount.toFixed(2),
           this.props.company.components[2].ComponentAmount.toFixed(2),
-          this.props.company.components[3].ComponentAmount.toFixed(2),
-          this.props.company.components[4].ComponentAmount.toFixed(2)
+          this.props.company.components[3].ComponentAmount.toFixed(2)
+          //this.props.company.components[4].ComponentAmount.toFixed(2)
         ]
       }
     ];
@@ -145,8 +144,8 @@ class Charts extends Component {
           this.props.profile.components[0].ComponentAmount.toFixed(2),
           this.props.profile.components[1].ComponentAmount.toFixed(2),
           this.props.profile.components[2].ComponentAmount.toFixed(2),
-          this.props.profile.components[3].ComponentAmount.toFixed(2),
-          this.props.profile.components[4].ComponentAmount.toFixed(2)
+          this.props.profile.components[3].ComponentAmount.toFixed(2)
+          //this.props.profile.components[4].ComponentAmount.toFixed(2)
         ]
       },
 
@@ -156,8 +155,8 @@ class Charts extends Component {
           this.props.company.components[0].ComponentAmount.toFixed(2),
           this.props.company.components[1].ComponentAmount.toFixed(2),
           this.props.company.components[2].ComponentAmount.toFixed(2),
-          this.props.company.components[3].ComponentAmount.toFixed(2),
-          this.props.company.components[4].ComponentAmount.toFixed(2)
+          this.props.company.components[3].ComponentAmount.toFixed(2)
+          //this.props.company.components[4].ComponentAmount.toFixed(2)
         ]
       }
     ];
