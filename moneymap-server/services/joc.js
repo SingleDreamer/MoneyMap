@@ -81,7 +81,7 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
 
       let result = await getUserTaxRequest.execute('sp_get_tax_info');
 
-      request({
+      let res = await request({
         method: "POST",
         url: "https://taxee.io/api/v2/calculate/2019",
         headers: {
@@ -94,28 +94,26 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
           "pay_rate": camt,
           "exemptions": result.recordset[0].exemptions
         }
-      }).then(async function(res) {
-        let taxes = JSON.parse(res).annual;
-
-        let totalTaxAmount = taxes.fica.amount + taxes.federal.amount;
-        if(taxes.state.amount != null) {
-          totalTaxAmount += taxes.state.amount;
-        }
-
-        const savePretaxRequest = new sql.Request(db);
-        savePretaxRequest.input('jocid', sql.Int, id);
-        savePretaxRequest.input('ctypeid', sql.Int, 0);
-        savePretaxRequest.input('token', sql.UniqueIdentifier, token);
-
-        savePretaxRequest.input('camt', sql.Int, camt);
-
-        await savePretaxRequest.execute('sp_add_joc_component');
-
-        camt -= totalTaxAmount;
-        cdesc = null;
-      }).catch(function(err) {
-        console.log(err);
       });
+
+      let taxes = JSON.parse(res).annual;
+
+      let totalTaxAmount = taxes.fica.amount + taxes.federal.amount;
+      if(taxes.state.amount != null) {
+        totalTaxAmount += taxes.state.amount;
+      }
+
+      const savePretaxRequest = new sql.Request(db);
+      savePretaxRequest.input('jocid', sql.Int, id);
+      savePretaxRequest.input('ctypeid', sql.Int, 0);
+      savePretaxRequest.input('token', sql.UniqueIdentifier, token);
+
+      savePretaxRequest.input('camt', sql.Int, camt);
+
+      await savePretaxRequest.execute('sp_add_joc_component');
+
+      camt -= totalTaxAmount;
+      cdesc = null;
     }
   }
 
