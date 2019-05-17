@@ -3,7 +3,7 @@ const NumbeoService = {};
 const baseUrl = "https://numbeo.com/api";
 const key = "mig78v3toapc2s";
 
-const request = require('request-promise');
+const request = require('request-promise-native');
 
 NumbeoService.getCityData = async () => {
   return await request(constructApiUrl("/cities"));
