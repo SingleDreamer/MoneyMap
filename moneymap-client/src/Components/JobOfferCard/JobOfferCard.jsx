@@ -32,11 +32,6 @@ class JobOfferCard extends Component {
           cdesc: "Entertainment Expenses",
           camt: 0,
           ctype: 4
-        },
-        Debt: {
-          cdesc: "Debt",
-          camt: 0,
-          ctype: 5
         }
       },
       cityAvgs: {},
@@ -221,7 +216,7 @@ class JobOfferCard extends Component {
     );
   };
 
-  changeToMonthly = (inc, man, con, ent, debt) => {
+  changeToMonthly = (inc, man, con, ent) => {
     this.setState({
       ...this.state,
       Components: {
@@ -241,16 +236,12 @@ class JobOfferCard extends Component {
         "Entertainment Expenses": {
           ...this.state.Components["Entertainment Expenses"],
           camt: ent /// 12
-        },
-        Debt: {
-          ...this.state.Components["Debt"],
-          camt: debt /// 12
         }
       }
     });
   };
 
-  changeToYearly = (inc, man, con, ent, debt) => {
+  changeToYearly = (inc, man, con, ent) => {
     this.setState(
       {
         ...this.state,
@@ -271,10 +262,6 @@ class JobOfferCard extends Component {
           "Entertainment Expenses": {
             ...this.state.Components["Entertainment Expenses"],
             camt: ent //* 12
-          },
-          Debt: {
-            ...this.state.Components["Debt"],
-            camt: debt //* 12
           }
         }
       }
@@ -287,11 +274,10 @@ class JobOfferCard extends Component {
     let man = this.state.Components["Mandatory Costs"].camt;
     let con = this.state.Components["Consumable Costs"].camt;
     let ent = this.state.Components["Entertainment Expenses"].camt;
-    let debt = this.state.Components["Debt"].camt;
     if (this.state.monthly) {
-      this.changeToMonthly(inc, man, con, ent, debt);
+      this.changeToMonthly(inc, man, con, ent);
     } else {
-      this.changeToYearly(inc, man, con, ent, debt);
+      this.changeToYearly(inc, man, con, ent);
     }
   };
 
@@ -302,7 +288,6 @@ class JobOfferCard extends Component {
       let man = this.state.Components["Mandatory Costs"].camt;
       let con = this.state.Components["Consumable Costs"].camt;
       let ent = this.state.Components["Entertainment Expenses"].camt;
-      let debt = this.state.Components["Debt"].camt;
 
       this.setState(
         {
@@ -324,10 +309,6 @@ class JobOfferCard extends Component {
             "Entertainment Expenses": {
               ...this.state.Components["Entertainment Expenses"],
               camt: ent
-            },
-            Debt: {
-              ...this.state.Components["Debt"],
-              camt: debt
             }
           }
         },
