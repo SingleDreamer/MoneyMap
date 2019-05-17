@@ -55,27 +55,74 @@ JOCService.update = async (id, name, cityid, image, token) => {
   return result.recordset[0];
 };
 
-JOCService.addComponent = async (id, ctypid, cdesc, camt, token) => {
-  const request = new sql.Request(db);
-  request.input('jocid', sql.Int, id);
-  request.input('ctypeid', sql.Int, ctypid);
-  request.input('camt', sql.Int, camt);
-  if(cdesc != null) {
-    request.input('cdesc', sql.VarChar, cdesc);
-  }
-  request.input('token', sql.UniqueIdentifier, token);
+JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
+  const saveComponentRequest = new sql.Request(db);
+  saveComponentRequest.input('jocid', sql.Int, id);
+  saveComponentRequest.input('ctypeid', sql.Int, ctypeid);
+  saveComponentRequest.input('token', sql.UniqueIdentifier, token);
 
   // Get tax information
   if(ctypeid == 1) {
-    request({
-      url: "https://taxee.io/api/v2/calculate/2019",
-      headers: {
-        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUElfS0VZX01BTkFHRVIiLCJodHRwOi8vdGF4ZWUuaW8vdXNlcl9pZCI6IjVjZDEyMTRkNGU5ZjIxNTMzNDQyZjBmOCIsImh0dHA6Ly90YXhlZS5pby9zY29wZXMiOlsiYXBpIl0sImlhdCI6MTU1NzIwOTQyMX0.R1PxmgK0t8Z9UCHJsIGVdtb8pzofaCC2H_I3wWhqbvU"
+    let checkCityRequest = new sql.Request(db);
+    checkCityRequest.input('cityid', sql.Int, "10107");
+
+    let result = await checkCityRequest.execute('sp_get_city');
+
+    let region = result.recordset[0];
+
+    // Only calculate taxes if in US
+    if(region.Country == "United States") {
+      let state = region.City.substring(region.City.length - 2);
+
+      let getUserTaxRequest = new sql.Request(db);
+
+      getUserTaxRequest.input('jocid', sql.Int, id);
+      getUserTaxRequest.input('token', sql.UniqueIdentifier, token);
+
+      let result = await getUserTaxRequest.execute('sp_get_tax_info');
+
+      let res = await request({
+        method: "POST",
+        url: "https://taxee.io/api/v2/calculate/2019",
+        headers: {
+          "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUElfS0VZX01BTkFHRVIiLCJodHRwOi8vdGF4ZWUuaW8vdXNlcl9pZCI6IjVjZDEyMTRkNGU5ZjIxNTMzNDQyZjBmOCIsImh0dHA6Ly90YXhlZS5pby9zY29wZXMiOlsiYXBpIl0sImlhdCI6MTU1NzIwOTQyMX0.R1PxmgK0t8Z9UCHJsIGVdtb8pzofaCC2H_I3wWhqbvU",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        form: {
+          "state": state,
+          "filing_status": result.recordset[0].filing_status,
+          "pay_rate": camt,
+          "exemptions": result.recordset[0].exemptions
+        }
+      });
+
+      let taxes = JSON.parse(res).annual;
+
+      let totalTaxAmount = taxes.fica.amount + taxes.federal.amount;
+      if(taxes.state.amount != null) {
+        totalTaxAmount += taxes.state.amount;
       }
-    });
+
+      const savePretaxRequest = new sql.Request(db);
+      savePretaxRequest.input('jocid', sql.Int, id);
+      savePretaxRequest.input('ctypeid', sql.Int, 0);
+      savePretaxRequest.input('token', sql.UniqueIdentifier, token);
+
+      savePretaxRequest.input('camt', sql.Int, camt);
+
+      await savePretaxRequest.execute('sp_add_joc_component');
+
+      camt -= totalTaxAmount;
+      cdesc = null;
+    }
   }
 
-  let result = await request.execute('sp_add_joc_component');
+  saveComponentRequest.input('camt', sql.Int, camt);
+  if(cdesc != null) {
+    saveComponentRequest.input('cdesc', sql.VarChar, cdesc);
+  }
+
+  let result = await saveComponentRequest.execute('sp_add_joc_component');
 
   return result;
 };
