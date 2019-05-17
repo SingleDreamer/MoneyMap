@@ -55,21 +55,21 @@ JOCService.update = async (id, name, cityid, image, token) => {
   return result.recordset[0];
 };
 
-JOCService.addComponent = async (id, ctypid, cdesc, camt, token) => {
-  const request = new sql.Request(db);
-  request.input('jocid', sql.Int, id);
-  request.input('ctypeid', sql.Int, ctypid);
+JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
+  const saveComponentRequest = new sql.Request(db);
+  saveComponentRequest.input('jocid', sql.Int, id);
+  saveComponentRequest.input('ctypeid', sql.Int, ctypeid);
   if(cdesc != null) {
-    request.input('cdesc', sql.VarChar, cdesc);
+    saveComponentRequest.input('cdesc', sql.VarChar, cdesc);
   }
-  request.input('token', sql.UniqueIdentifier, token);
+  saveComponentRequest.input('token', sql.UniqueIdentifier, token);
 
   // Get tax information
   if(ctypeid == 1) {
-    let dbrequest = new sql.Request(db);
-    dbrequest.input('cityid', sql.Int, "10107");
+    let checkCityRequest = new sql.Request(db);
+    checkCityRequest.input('cityid', sql.Int, "10107");
 
-    let result = await dbrequest.execute('sp_get_city');
+    let result = await checkCityRequest.execute('sp_get_city');
 
     let region = result.recordset[0];
 
@@ -77,12 +77,12 @@ JOCService.addComponent = async (id, ctypid, cdesc, camt, token) => {
     if(region.Country == "United States") {
       let state = region.City.substring(region.City.length - 2);
 
-      let dbrequest = new sql.Request(db);
+      let getUserTaxRequest = new sql.Request(db);
 
-      dbrequest.input('uid', sql.UniqueIdentifier, "67E2CD40-1D16-43A2-B0DE-0E0C67598AF0");
-      dbrequest.input('token', sql.UniqueIdentifier, "BC7679DA-F682-4897-8BEF-3A9258DC1442");
+      getUserTaxRequest.input('uid', sql.UniqueIdentifier, "67E2CD40-1D16-43A2-B0DE-0E0C67598AF0");
+      getUserTaxRequest.input('token', sql.UniqueIdentifier, "BC7679DA-F682-4897-8BEF-3A9258DC1442");
 
-      let result = await dbrequest.execute('sp_get_tax_info');
+      let result = await getUserTaxRequest.execute('sp_get_tax_info');
 
       request({
         method: "POST",
@@ -94,7 +94,7 @@ JOCService.addComponent = async (id, ctypid, cdesc, camt, token) => {
         form: {
           "state": state,
           "filing_status": result.recordset[0].filing_status,
-          "pay_rate": 116500,
+          "pay_rate": camt,
           "exemptions": result.recordset[0].exemptions
         }
       }).then(function(res) {
@@ -105,6 +105,18 @@ JOCService.addComponent = async (id, ctypid, cdesc, camt, token) => {
           totalTaxAmount += taxes.state.amount;
         }
 
+        const savePretaxRequest = new sql.Request(db);
+        savePretaxRequest.input('jocid', sql.Int, id);
+        savePretaxRequest.input('ctypeid', sql.Int, ctypeid);
+        if(cdesc != null) {
+          savePretaxRequest.input('cdesc', sql.VarChar, cdesc);
+        }
+        savePretaxRequest.input('token', sql.UniqueIdentifier, token);
+
+        savePretaxRequest.input('camt', sql.Int, camt);
+
+        await savePretaxRequest.execute('sp_add_joc_component');
+
         camt -= totalTaxAmount;
       }).catch(function(err) {
         console.log(err);
@@ -112,9 +124,9 @@ JOCService.addComponent = async (id, ctypid, cdesc, camt, token) => {
     }
   }
 
-  request.input('camt', sql.Int, camt);
+  saveComponentRequest.input('camt', sql.Int, camt);
 
-  let result = await request.execute('sp_add_joc_component');
+  let result = await saveComponentRequest.execute('sp_add_joc_component');
 
   return result;
 };
