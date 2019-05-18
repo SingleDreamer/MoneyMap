@@ -179,6 +179,17 @@ class CardArray extends Component {
   }
 
   render() {
+
+    let rfs = Math.ceil(this.props.info.jocrfc);
+    var colors = "dbf400";
+    if (rfs >= 30 && rfs <= 50) {
+      colors = "dbf400"; //light green
+    } else if (rfs > 50) {
+      colors = "35ff53"; //green
+    } else { //rfs < 30
+      colors = "f45042"; //red
+    }
+
     return (
       <div>
         <div className={this.props.cardType}>
@@ -207,13 +218,19 @@ class CardArray extends Component {
               </button>
 
               <div className="chart">
-                <Chart
+                {/*}<Chart
                   options={this.props.test(this.props.info.jocrfc)} //{this.state.optionsRadial}
                   series={[Math.ceil(this.props.info.jocrfc)]}
                   type="radialBar"
                   width="100"
                   height="130"
-                />
+                />*/}
+                <img src= {"https://ui-avatars.com/api/?length=3\
+                  &name=" + Math.ceil(this.props.info.jocrfc).toString() +
+                  "&rounded=true" +
+                  "&color=000000" +
+                  "&background=" + colors}
+                style={{ marginRight: "10px" }}/>
               </div>
             </div>
             <Card.Text>{this.props.info.city.City}</Card.Text>
