@@ -361,6 +361,11 @@ class Profile extends Component {
     }
     let user = (
       <div>
+        <img src= {"https://ui-avatars.com/api/?\
+        name=" + this.state.user.FirstName + "+" + this.state.user.LastName +
+        "&background=0D8ABC&color=fff"}
+        style={{ margin: "10px" }}/>
+        <p/>
         <Card.Text>{`First Name: ${this.state.user.FirstName}`}</Card.Text>
         <Card.Text>{`Last Name: ${this.state.user.LastName}`}</Card.Text>
         <Card.Text>{`Marital Status: ${
