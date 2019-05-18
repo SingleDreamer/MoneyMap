@@ -60,26 +60,28 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
   saveComponentRequest.input('jocid', sql.Int, id);
   saveComponentRequest.input('ctypeid', sql.Int, ctypeid);
   saveComponentRequest.input('token', sql.UniqueIdentifier, token);
-
+  
   // Get tax information
   if(ctypeid == 1) {
+    
+    let getUserTaxRequest = new sql.Request(db);
+
+    getUserTaxRequest.input('jocid', sql.Int, id);
+    getUserTaxRequest.input('token', sql.UniqueIdentifier, token);
+    let result = await getUserTaxRequest.execute('sp_get_tax_info');
+  
     let checkCityRequest = new sql.Request(db);
-    checkCityRequest.input('cityid', sql.Int, "10107");
+    checkCityRequest.input('cityid', sql.Int, result.recordset[0].CityID);
 
-    let result = await checkCityRequest.execute('sp_get_city');
-
-    let region = result.recordset[0];
+    let result2 = await checkCityRequest.execute('sp_get_city');
+    
+    let region = result2.recordset[0];
+	  
 
     // Only calculate taxes if in US
     if(region.Country == "United States") {
+  
       let state = region.City.substring(region.City.length - 2);
-
-      let getUserTaxRequest = new sql.Request(db);
-
-      getUserTaxRequest.input('jocid', sql.Int, id);
-      getUserTaxRequest.input('token', sql.UniqueIdentifier, token);
-
-      let result = await getUserTaxRequest.execute('sp_get_tax_info');
 
       let res = await request({
         method: "POST",
@@ -95,7 +97,7 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
           "exemptions": result.recordset[0].exemptions
         }
       });
-
+      
       let taxes = JSON.parse(res).annual;
 
       let totalTaxAmount = taxes.fica.amount + taxes.federal.amount;
