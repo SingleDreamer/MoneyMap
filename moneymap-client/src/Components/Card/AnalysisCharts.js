@@ -14,7 +14,7 @@ class Charts extends Component {
         plotOptions: {
           bar: {
             horizontal: false,
-            columnWidth: "55%",
+            //columnWidth: "55%",
             endingShape: "rounded"
           }
         },
@@ -105,11 +105,18 @@ class Charts extends Component {
       });
   }
   render() {
+    console.log(
+      "hi",
+      this.props.company.components[0].ComponentAmount /
+        this.props.company.components[4].ComponentAmount,
+      this.props.company.components[0].ComponentAmount,
+      this.props.company.components[4].ComponentAmount
+    );
     const threeBar = [
       {
         name: "User Profile Values", //from profile
         data: [
-          this.props.profile.components[0].ComponentAmount.toFixed(2),
+          (this.props.profile.components[0].ComponentAmount / 12).toFixed(2),
           this.props.profile.components[1].ComponentAmount.toFixed(2),
           this.props.profile.components[2].ComponentAmount.toFixed(2),
           this.props.profile.components[3].ComponentAmount.toFixed(2)
@@ -119,7 +126,7 @@ class Charts extends Component {
       {
         name: "City Average Values",
         data: [
-          this.props.cityAverages[0][3].Amount.toFixed(2) * 12,
+          this.props.cityAverages[0][3].Amount.toFixed(2),
           this.props.cityAverages[0][0].Amount.toFixed(2),
           this.props.cityAverages[0][1].Amount.toFixed(2),
           this.props.cityAverages[0][2].Amount.toFixed(2)
@@ -129,7 +136,7 @@ class Charts extends Component {
       {
         name: "JOC Values",
         data: [
-          this.props.company.components[0].ComponentAmount.toFixed(2),
+          (this.props.profile.components[0].ComponentAmount / 12).toFixed(2),
           this.props.company.components[1].ComponentAmount.toFixed(2),
           this.props.company.components[2].ComponentAmount.toFixed(2),
           this.props.company.components[3].ComponentAmount.toFixed(2)
@@ -141,7 +148,7 @@ class Charts extends Component {
       {
         name: "User Profile Values", //from profile
         data: [
-          this.props.profile.components[0].ComponentAmount.toFixed(2),
+          this.props.profile.components[0].ComponentAmount.toFixed(2) / 12,
           this.props.profile.components[1].ComponentAmount.toFixed(2),
           this.props.profile.components[2].ComponentAmount.toFixed(2),
           this.props.profile.components[3].ComponentAmount.toFixed(2)
@@ -152,7 +159,7 @@ class Charts extends Component {
       {
         name: "JOC Values",
         data: [
-          this.props.company.components[0].ComponentAmount.toFixed(2),
+          this.props.company.components[0].ComponentAmount.toFixed(2) / 12,
           this.props.company.components[1].ComponentAmount.toFixed(2),
           this.props.company.components[2].ComponentAmount.toFixed(2),
           this.props.company.components[3].ComponentAmount.toFixed(2)
@@ -190,12 +197,24 @@ class Charts extends Component {
             height="350"
           />
         </OverlayTrigger>
+        <h3>
+          Gross Income: ${this.props.company.components[4].ComponentAmount}
+        </h3>
+        <h3>
+          After Tax Income: ${this.props.company.components[0].ComponentAmount}
+        </h3>
 
-        {/* <p>
-          **City Average data is not available for all cities and does not
-          include debt.
-        </p> */}
-        <h2>Monthly Savings: ${this.props.company.savings.toFixed(2)}</h2>
+        <h3>
+          Tax Rate:{" "}
+          {(
+            Math.abs(
+              this.props.company.components[0].ComponentAmount /
+                this.props.company.components[4].ComponentAmount -
+                1
+            ) * 100
+          ).toFixed(2)}
+          %
+        </h3>
         <br />
         <h2>
           Mandatory Expenses: $
@@ -361,6 +380,8 @@ class Charts extends Component {
             ))}
           </tbody>
         </Table>
+        <h2>Monthly Savings: ${this.props.company.savings.toFixed(2)}</h2>
+        <br />
       </div>
     );
   }
