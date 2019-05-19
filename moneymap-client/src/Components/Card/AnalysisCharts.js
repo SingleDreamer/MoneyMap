@@ -134,7 +134,6 @@ class Charts extends Component {
   }
   render() {
     console.log(
-      "hi",
       this.props.company.components[0].ComponentAmount /
         this.props.company.components[4].ComponentAmount,
       this.props.company.components[0].ComponentAmount,

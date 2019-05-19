@@ -237,7 +237,8 @@ class Profile extends Component {
       axios
         .post(url, userInfo, config)
         .then(response => {
-          console.log("Edit Profile Response: ", response.data);
+          console.log("REPLACE PROFILE DONE");
+          this.props.getCards();
         })
         .catch(err => {
           this.setState({ error: err });
@@ -299,14 +300,14 @@ class Profile extends Component {
                   <Card.Text key={index}>
                     {`${component.ComponentDescription}: $${
                       component.ComponentAmount
-                    } `}
+                    } /month`}
                     {/*Testing this out maybe? <ProgressBar now={Math.random() * 100} key={index} />*/}
                   </Card.Text>
                 ) : (
                   <Card.Text key={index}>
                     {`${component.ComponentDescription}: $${
                       component.ComponentAmount
-                    } / year`}
+                    } /year`}
                     {/*Testing this out maybe? <ProgressBar now={Math.random() * 100} key={index} />*/}
                   </Card.Text>
                 )
@@ -318,7 +319,7 @@ class Profile extends Component {
             <Card.Text>Empty Card</Card.Text>
           )}
           <Card.Text>
-            Savings: ${Math.round(this.state.profile.savings)}
+            Savings: ${Math.round(this.state.profile.savings)} /month
           </Card.Text>
           <div className="buttons">
             <Button variant="primary" onClick={this.handleShowProfile}>
@@ -385,15 +386,23 @@ class Profile extends Component {
         <p />
         <Card.Text>{`First Name: ${this.state.user.FirstName}`}</Card.Text>
         <Card.Text>{`Last Name: ${this.state.user.LastName}`}</Card.Text>
-        <Card.Text>{`Marital Status: ${
-          this.state.user.MaritalStatus
-        }`}</Card.Text>
+        {this.state.user.MaritalStatus !== "married_separately" ? (
+          <Card.Text>{`Marital Status: ${
+            this.state.user.MaritalStatus
+          }`}</Card.Text>
+        ) : (
+          <Card.Text>{`Marital Status: Married Separately`}</Card.Text>
+        )}
+
         <Card.Text>{`Adults in Family: ${this.state.user.Adults}`}</Card.Text>
         <Card.Text>{`Children in Family: ${
           this.state.user.Children
         }`}</Card.Text>
 
-        <div className="buttons" style={{position:"absolute",bottom:"10px",left:"10px"}}>
+        <div
+          className="buttons"
+          style={{ position: "absolute", bottom: "10px", left: "10px" }}
+        >
           <Button variant="primary" onClick={this.handleShowEdit}>
             Replace Account Details
           </Button>

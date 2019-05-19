@@ -245,14 +245,14 @@ class CardArray extends Component {
                     <Card.Text key={index}>
                       {`${component.ComponentDescription}: $${
                         component.ComponentAmount
-                      } `}
+                      } /mo`}
                       {/*Testing this out maybe? <ProgressBar now={Math.random() * 100} key={index} />*/}
                     </Card.Text>
                   ) : (
                     <Card.Text key={index}>
                       {`${component.ComponentDescription}: $${
                         component.ComponentAmount
-                      } / year`}
+                      } / yr`}
                       {/*Testing this out maybe? <ProgressBar now={Math.random() * 100} key={index} />*/}
                     </Card.Text>
                   )
@@ -264,7 +264,7 @@ class CardArray extends Component {
               <Card.Text>Empty Card</Card.Text>
             )}
             <Card.Text>
-              Savings: ${Math.round(this.props.info.savings)}
+              Savings: ${Math.round(this.props.info.savings)}/mo
             </Card.Text>
 
             <div className="buttons">
