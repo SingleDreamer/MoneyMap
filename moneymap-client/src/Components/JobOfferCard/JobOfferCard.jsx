@@ -357,7 +357,9 @@ class JobOfferCard extends Component {
         "Content-Type": "application/json"
       }
     };
-    axios.post(url, payload, config).then(res => console.log(res));
+    axios.post(url, payload, config).then(res => {
+      this.props.getCards();
+    });
   };
 
   sendRequest = () => {
@@ -394,7 +396,8 @@ class JobOfferCard extends Component {
           axios
             .post(url2, body2, config)
             .then(response2 => {
-              this.props.getCards("Created New Profile");
+              console.log("refresh ");
+              this.props.getCards();
             })
             .catch(err => {
               this.setState({ error: err });

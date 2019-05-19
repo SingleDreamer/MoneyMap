@@ -151,7 +151,7 @@ class Dashboard extends Component {
       });
   };
 
-  getCards = (message = "default") => {
+  getCards = () => {
     let config = {
       headers: {
         authorization: this.Auth.getToken(),
@@ -255,6 +255,7 @@ class Dashboard extends Component {
             profile={this.state.profile}
             user={this.state.user}
             handleShow={this.handleShow}
+            getCards={this.getCards}
           />
 
           <DashboardMap
