@@ -40,11 +40,13 @@ class CompareCharts extends Component {
             name: this.props.companies[0].jocname,
             type: "bar",
             data: [
-              this.props.companies[0].components[0].ComponentAmount / 12,
+              (
+                this.props.companies[0].components[0].ComponentAmount / 12
+              ).toFixed(0),
               this.props.companies[0].components[1].ComponentAmount,
               this.props.companies[0].components[2].ComponentAmount,
               this.props.companies[0].components[3].ComponentAmount,
-              this.props.companies[1].savings,
+              this.props.companies[0].savings,
               this.props.companies[0].jocrfc
             ]
           },
@@ -52,7 +54,9 @@ class CompareCharts extends Component {
             name: this.props.companies[1].jocname,
             type: "bar",
             data: [
-              this.props.companies[1].components[0].ComponentAmount / 12,
+              (
+                this.props.companies[1].components[0].ComponentAmount / 12
+              ).toFixed(0),
               this.props.companies[1].components[1].ComponentAmount,
               this.props.companies[1].components[2].ComponentAmount,
               this.props.companies[1].components[3].ComponentAmount,
@@ -231,8 +235,8 @@ class CompareCharts extends Component {
             />
             <h2>Tax Breakdown</h2>
             <h4 style={{ display: "flex", justifyContent: "space-around" }}>
-              {this.props.companies[0].jocname} vs{" "}
-              {this.props.companies[1].jocname}
+              {this.props.companies[0].city.City} vs{" "}
+              {this.props.companies[1].city.City}
             </h4>
             <div className="taxChart">
               <Chart
