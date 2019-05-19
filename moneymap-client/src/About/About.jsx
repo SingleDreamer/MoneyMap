@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { Modal, Button, Row, Col, Container } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-//import Register from "./Register/Register";
-//import LoginDetails from "./Login/LoginDetails";
-//import Sidebar from "../Components/Sidebar/Sidebar.js";
 import AuthService from "../AuthService/AuthService";
 import Collapse from "react-bootstrap/Collapse";
 import "./About.css";
@@ -32,7 +29,6 @@ class About extends Component {
   render() {
     const { open } = this.state;
     let navbarButton = "";
-    let navbarDash = "";
     if (this.Auth.loggedIn()) {
       navbarButton = (
         <Button
@@ -43,7 +39,6 @@ class About extends Component {
           Log Out
         </Button>
       );
-      navbarDash = <Nav.Link href="/Dashboard">Dashboard</Nav.Link>;
     } else {
       navbarButton = (
         <Button
@@ -59,16 +54,12 @@ class About extends Component {
     return (
       <div className="about">
         <Navbar variant="dark" className="justify-content-between">
-          <Navbar.Brand>
+          <Navbar.Brand href="/Dashboard">
             <div className="title">
               <i className="fas fa-map-signs navIcon" />
               {" MoneyMap"}
             </div>
           </Navbar.Brand>
-          <Nav className="mr-auto">
-            {navbarDash}
-            <Nav.Link href="/FAQs">FAQs</Nav.Link>
-          </Nav>
           <Nav>
             <Nav.Link>{navbarButton}</Nav.Link>
           </Nav>
@@ -172,8 +163,6 @@ class About extends Component {
             in the family.
           </p>
         </div>
-        <div className="png" />
-        {/* <img href="home.png" /> */}
       </div>
     );
   }

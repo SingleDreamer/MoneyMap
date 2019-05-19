@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tabs, Tab, Button, Modal, Card } from "react-bootstrap";
+import { Tabs, Tab, Button, Modal, Card, OverlayTrigger, Tooltip} from "react-bootstrap";
 import Chart from "react-apexcharts";
 import ProfileDetails from "../Profile/ProfileDetails";
 import JobOfferCard from "../JobOfferCard/JobOfferCard";
@@ -280,6 +280,16 @@ class Profile extends Component {
             </Card.Title>
 
             <div className="chart">
+            <OverlayTrigger
+              placement="right"
+              delay={{ show: 250, hide: 400 }}
+              overlay={
+                <Tooltip id={"right"}>
+                  This is your Relative Financial Score (RFS).
+                </Tooltip>
+              }
+            >
+              <a href="/FAQs#RFS">
               <Chart
                 options={this.test(this.state.profile.jocrfc)}
                 series={[Math.ceil(this.state.profile.jocrfc + 10000)]}
@@ -287,6 +297,8 @@ class Profile extends Component {
                 width="100"
                 height="130"
               />
+              </a>
+            </OverlayTrigger>
             </div>
           </div>
           <Card.Text>{this.state.profile.city.City}</Card.Text>
@@ -321,10 +333,14 @@ class Profile extends Component {
           <Card.Text>
             Savings: ${Math.round(this.state.profile.savings)} /mo
           </Card.Text>
-          <div className="buttons">
+          <div className="buttons"
+          style={{ position: "absolute", bottom: "10px", left: "10px" }}>
             <Button variant="primary" onClick={this.handleShowProfile}>
               Replace Profile
             </Button>
+          </div>
+          <div className="buttons"
+          style={{ position: "absolute", bottom: "10px", right: "10px" }}>
             <Button variant="primary" onClick={this.handleShowAnalysis}>
               Analyze Profile
             </Button>

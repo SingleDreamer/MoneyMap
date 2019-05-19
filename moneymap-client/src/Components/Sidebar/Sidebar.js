@@ -39,23 +39,25 @@ class Sidebar extends Component {
     return (
       <div>
         <Navbar variant="dark" className="justify-content-between">
-          <Navbar.Brand>
+          <Navbar.Brand href="/Dashboard">
             <div className="title">
               <i className="fas fa-map-signs navIcon" />
               {" MoneyMap"}
             </div>
           </Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link href="/Dashboard">Dashboard</Nav.Link>
-            <Nav.Link href="/FAQs">FAQs</Nav.Link>
-          </Nav>
-          <Nav>
             <Nav.Link>
-              <Button variant="primary" onClick={this.handleShowPrefs}>
+              <Button variant="outline-light" onClick={this.handleShowPrefs}>
                 Edit Basket of Goods
               </Button>
             </Nav.Link>
-
+            <Nav.Link href="/FAQs">
+              <Button variant="outline-light">
+                FAQs
+              </Button>
+            </Nav.Link>
+          </Nav>
+          <Nav>
             <Nav.Link>
               <Button
                 variant="danger"

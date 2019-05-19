@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Button, Row, Col, InputGroup } from "react-bootstrap";
+import { Form, Button, Row, Col, InputGroup, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Select from "react-select";
 import "../JobOfferCard.css";
 import axios from "axios";
@@ -143,6 +143,7 @@ class JobOfferDetails extends Component {
         </Form.Group>
         <div hidden={!values.name || !values.cityid}>
           <p />
+          <br />
           <strong>
             *Averages for costs per city are given if applicable, based on your
             Basket of Goods; Please change values as needed*
@@ -174,6 +175,15 @@ class JobOfferDetails extends Component {
             <Form.Label className="required">Mandatory Costs</Form.Label>
             <Row>
               <Col sm="10">
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={
+                  <Tooltip id={"right"}>
+                    This is your total spent on rent and transportation costs.
+                  </Tooltip>
+                }
+              >
                 <Form.Control
                   required
                   type="number"
@@ -189,6 +199,7 @@ class JobOfferDetails extends Component {
                     Math.round(values.Components["Mandatory Costs"].camt) || 0
                   }
                 />
+                </OverlayTrigger>
               </Col>
               <Form.Label column sm="2">
                 /Month
@@ -199,6 +210,15 @@ class JobOfferDetails extends Component {
             <Form.Label className="required">Consumable Costs</Form.Label>
             <Row>
               <Col sm="10">
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={
+                  <Tooltip id={"right"}>
+                    This is your total spent on food and restaurants.
+                  </Tooltip>
+                }
+              >
                 <Form.Control
                   required
                   type="number"
@@ -214,6 +234,7 @@ class JobOfferDetails extends Component {
                     Math.round(values.Components["Consumable Costs"].camt) || 0
                   }
                 />
+              </OverlayTrigger>
               </Col>
               <Form.Label column sm="2">
                 /Month
@@ -224,6 +245,15 @@ class JobOfferDetails extends Component {
             <Form.Label className="required">Entertainment Expenses</Form.Label>
             <Row>
               <Col sm="10">
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={
+                  <Tooltip id={"right"}>
+                    This is your total spent on entertainment, such as movies, activities, etc.
+                  </Tooltip>
+                }
+              >
                 <Form.Control
                   required
                   type="number"
@@ -241,6 +271,7 @@ class JobOfferDetails extends Component {
                     ) || 0
                   }
                 />
+              </OverlayTrigger>
               </Col>
               <Form.Label column sm="2">
                 /Month
@@ -259,6 +290,8 @@ class JobOfferDetails extends Component {
               value={Math.round(values.Components["Debt"].camt) || 0}
             />
           </Form.Group> */}
+          <Row>
+          <Col>
           <Button
             variant="primary"
             type="submit"
@@ -266,6 +299,23 @@ class JobOfferDetails extends Component {
           >
             Submit
           </Button>
+          </Col>
+          <Col>
+          <div
+            className="buttons"
+            style={{position:"absolute", right: "10px" }}
+          >
+            <Button href="/FAQs#BasketofGoods">
+              <i
+                className="fas fa-question-circle"
+                width="30"
+                height="30"
+                alt="?"
+              />
+            </Button>
+            </div>
+            </Col>
+            </Row>
         </div>
       </Form>
     );
