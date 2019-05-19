@@ -280,7 +280,7 @@ class Profile extends Component {
             ))
           ) : (
             <Card.Text>Empty Card</Card.Text>
-          )}{" "}
+          )}
           <Card.Text>
             Savings: ${Math.round(this.state.profile.savings)}
           </Card.Text>

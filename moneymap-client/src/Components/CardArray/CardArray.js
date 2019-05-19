@@ -117,7 +117,8 @@ class CardArray extends Component {
       optionsRadial.colors = ["#dbf400"];
     } else if (rfs > 50) {
       optionsRadial.colors = ["#35ff53"];
-    } else { //rfs < 30
+    } else {
+      //rfs < 30
       optionsRadial.colors = ["#f45042"];
     }
     return optionsRadial;
@@ -165,92 +166,7 @@ class CardArray extends Component {
         </div>
       )
     );
-    // let prof;
-    // if (Object.keys(this.state.profile).length > 0) {
-    //   // console.log("test: ", this.state.profile.city);
-    //   prof = (
-    //     <div>
-    //       <div className="notSelected">
-    //         {/* <i className="fas fa-check" /> */}
-    //       </div>
-    //       <h3 style={{ textAlign: "center" }}>Profile</h3>
 
-    //       <Ca className="joc">
-    //         {" "}
-    //         <Ca.Body>
-    //           <div className="header">
-    //             <Ca.Title>
-    //               <img
-    //                 src={`https://logo.clearbit.com/${
-    //                   this.state.profile.jocname
-    //                 }.com`}
-    //                 alt={"no logo"}
-    //                 width={"30px"}
-    //                 style={{ marginRight: "5px" }}
-    //               />
-    //               {this.state.profile.jocname}
-    //             </Ca.Title>
-
-    //             <div className="chart">
-    //               <Chart
-    //                 options={this.test(this.state.profile.jocrfc)}
-    //                 series={[Math.ceil(this.state.profile.jocrfc)]}
-    //                 type="radialBar"
-    //                 width="100"
-    //                 height="130"
-    //               />
-    //             </div>
-    //           </div>
-    //           <Ca.Text>{this.state.profile.city.City}</Ca.Text>
-    //           <strong>Yearly Values</strong>
-    //           {this.state.profile.components.length ? (
-    //             this.state.profile.components.map((component, index) => (
-    //               <Ca.Text key={index}>
-    //                 {`${component.ComponentDescription}: $${
-    //                   component.ComponentAmount
-    //                 }`}
-    //               </Ca.Text>
-    //             ))
-    //           ) : (
-    //             <Ca.Text>Empty Card</Ca.Text>
-    //           )}{" "}
-    //           <Ca.Text>
-    //             Savings: ${Math.round(this.state.profile.savings)}
-    //           </Ca.Text>
-    //           <div className="buttons">
-    //             <Button variant="primary" onClick={this.handleShowProfile}>
-    //               Replace Profile
-    //             </Button>
-    //           </div>
-    //         </Ca.Body>
-    //       </Ca>
-
-    //       <Modal show={this.state.showProfile} onHide={this.handleClose}>
-    //         <Modal.Header closeButton={false}>
-    //           <Modal.Title>New Profile Card</Modal.Title>
-    //         </Modal.Header>
-    //         <Modal.Body>
-    //           <JobOfferCard
-    //             edit={true}
-    //             handleCloseModal={this.handleClose}
-    //             getCards={this.props.getCards}
-    //             jocid={this.state.profile.jocid}
-    //           />
-    //         </Modal.Body>
-    //         <Modal.Footer>
-    //           <Button onClick={this.handleClose}>Close</Button>
-    //         </Modal.Footer>
-    //       </Modal>
-    //     </div>
-    //   );
-    // }
-    // let buttons = (
-    //   <ButtonGroup vertical size="sm" className="button">
-    //     <Button onClick={this.props.handleShow}>Add New Job Offer</Button>
-    //     <p />
-    //     <Button onClick={this.handleShowPrefs}>Edit Basket of Goods</Button>
-    //   </ButtonGroup>
-    // );
     cards.unshift(
       <img
         key={"0"}
@@ -263,36 +179,24 @@ class CardArray extends Component {
     return (
       <div>
         {cards.length === 1 ? (
-          <Row>
-            {/* <Col className="profile" md={5}>
-              {prof}
-              {buttons}
-            </Col> */}
-            <Col className="array">
-              {cards}
-              <h1
-                style={{
-                  color: "#45a29e",
-                  position: "relative",
-                  top: "200px"
-                }}
-              >
-                <i
-                  className="fas fa-arrow-left"
-                  style={{ marginRight: "20px" }}
-                />
-                Add A Job Offer
-              </h1>
-            </Col>
-          </Row>
+          <div className="array">
+            {cards}
+            <h1
+              style={{
+                color: "#45a29e",
+                position: "relative",
+                top: "200px"
+              }}
+            >
+              <i
+                className="fas fa-arrow-left"
+                style={{ marginRight: "20px" }}
+              />
+              Add A Job Offer
+            </h1>
+          </div>
         ) : (
-          <Row>
-            {/* <Col className="profile" md={3}>
-              {prof}
-              {buttons}
-            </Col> */}
-            <Col className="array">{cards}</Col>
-          </Row>
+          <div className="array">{cards}</div>
         )}
 
         <Modal size="lg" show={this.state.showPrefs} onHide={this.handleClose}>
@@ -302,9 +206,9 @@ class CardArray extends Component {
           <Modal.Body>
             <p>
               <strong>
-                Add your estimated monthly amounts for each category in order to
-                get a more accurate report. If a field is left blank we will use
-                the averages for that city.
+                Add your estimated monthly quantity for each category in order
+                to get a more accurate report. If a field is left blank we will
+                use the averages for that city.
               </strong>
             </p>
             <Preferences
