@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Row, Col, Container } from "react-bootstrap";
 import Register from "./Register/Register";
 import LoginDetails from "./Login/LoginDetails";
 import AuthService from "../AuthService/AuthService";
+import Collapse from "react-bootstrap/Collapse";
 import "./Home.css";
 
 class Home extends Component {
@@ -10,43 +11,88 @@ class Home extends Component {
     super(props, context);
     this.state = {
       showRegister: false,
-      showLogin: false
+      showLogin: false,
+      open: false
     };
     this.Auth = new AuthService();
   }
   render() {
+    const { open } = this.state;
     return (
       <div className="app">
-        <h1
-          align="center"
-          style={{
-            marginTop: "20px",
-            marginBottom: "20px"
-          }}
-        >
-          <i className="fas fa-map-signs navIcon" />
-          MoneyMap
+        <h1 align="center" className="title">
+          {"MoneyMap"}
         </h1>
-        <div align="center">
-          <Button
-            id="newPrimary"
-            style={{
-              margin: "10px"
-            }}
-            onClick={this.handleShowLogin}
-          >
-            Login
-          </Button>
-          <Button
-            style={{
-              margin: "10px"
-            }}
-            id="newSecondary"
-            onClick={this.handleShowRegister}
-          >
-            Register
-          </Button>
-        </div>
+
+        <Container>
+          <Row className="justify-content-md-center">
+            <Button
+              onClick={() => this.setState({ open: !open })}
+              aria-controls="example-collapse-text"
+              aria-expanded={open}
+              variant="outline-light"
+              style={{
+                margin: "10px"
+              }}
+            >
+              <i
+                className="fas fa-map-signs navIcon d-inline-block align-top"
+                width="30"
+                height="30"
+                alt=""
+              />
+            </Button>
+            <Collapse in={this.state.open}>
+              <div id="example-collapse-text">
+                <h2 className="tagline" align="center">
+                  A map to financial success.
+                </h2>
+                <h3 align="center">
+                  MoneyMap is an all in one web app that will help users decide
+                  which city makes the most financial sense to move to according
+                  to their current lifestyle and job offers. By consolidating
+                  and analyzing data about different cities, users will be
+                  provided with an overview of their current status and
+                  financial potential for the chosen city.
+                </h3>
+              </div>
+            </Collapse>
+          </Row>
+        </Container>
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col xs lg="3">
+              <Button
+                id="newPrimary"
+                size="lg"
+                style={{
+                  margin: "10px",
+                  marginTop: "60px"
+                }}
+                onClick={this.handleShowLogin}
+                block
+              >
+                Login
+              </Button>
+            </Col>
+          </Row>
+
+          <Row className="justify-content-md-center">
+            <Col xs lg="3">
+              <Button
+                style={{
+                  margin: "10px"
+                }}
+                id="newSecondary"
+                size="lg"
+                onClick={this.handleShowRegister}
+                block
+              >
+                Register
+              </Button>
+            </Col>
+          </Row>
+        </Container>
 
         <Modal show={this.state.showRegister} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>

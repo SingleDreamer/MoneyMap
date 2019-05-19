@@ -91,14 +91,14 @@ class JobOfferDetails extends Component {
     let toggle;
     if (this.props.monthly) {
       toggle = (
-        <Button variant="danger" onClick={this.props.handleMonthly}>
-          Switch to YEARLY amounts
+        <Button variant="danger" onClick={this.props.handleMonthly} style = {{margin:"10px"}}>
+          Switch income to YEARLY amounts
         </Button>
       );
     } else {
       toggle = (
-        <Button variant="danger" onClick={this.props.handleMonthly}>
-          Switch to MONTHLY amounts
+        <Button variant="danger" onClick={this.props.handleMonthly} style = {{margin:"10px"}}>
+          Switch income to MONTHLY amounts
         </Button>
       );
     }
@@ -136,14 +136,15 @@ class JobOfferDetails extends Component {
         <div hidden={!values.name || !values.cityid}>
           <p />
           <strong>
-            *Averages for Costs per City are Given if Applicable, Based on Your
-            Preferences; Please change Values as Needed*
+            *Averages for costs per city are given if applicable, based on your
+            Basket of Goods; Please change values as needed*
           </strong>
           <p />
-          {toggle}
+
 
           <Form.Group controlId="income">
             <Form.Label className="required">Income</Form.Label>
+            {toggle}
             <Row>
               <Col sm="10">
                 <Form.Control

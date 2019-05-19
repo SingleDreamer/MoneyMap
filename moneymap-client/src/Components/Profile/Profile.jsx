@@ -334,7 +334,7 @@ class Profile extends Component {
               Replace Profile
             </Button>
             <Button variant="primary" onClick={this.handleShowAnalysis}>
-              Analyse Profile
+              Analyze Profile
             </Button>
           </div>
           <Modal
@@ -401,11 +401,21 @@ class Profile extends Component {
         <Card.Text>{`Children in Family: ${
           this.state.user.Children
         }`}</Card.Text>
-        <div className="buttons">
+
+        <div className="buttons" style={{position:"absolute",bottom:"10px",left:"10px"}}>
           <Button variant="primary" onClick={this.handleShowEdit}>
             Replace Account Details
           </Button>
+          </div>
+          <div className="buttons" style={{position:"absolute",bottom:"10px",right:"10px"}}>
+          <Button href="/About#UserDetails">
+          <i className="fas fa-question-circle"
+          width="30"
+          height="30"
+          alt = "?"/>
+          </Button>
         </div>
+
         <Modal show={this.state.showEdit} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>
             <Modal.Title>Replace Account Details</Modal.Title>

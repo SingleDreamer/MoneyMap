@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
 .header {
   display: flex;
   align-content: space-around;
@@ -18,8 +20,9 @@
 }
 
 .title {
-  font-size: 2em;
+  font-size: 1.75em;
   margin-left: 20px;
+  font-family: 'Raleway', sans-serif;
 }
 
 .icon {

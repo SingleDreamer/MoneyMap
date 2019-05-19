@@ -99,12 +99,30 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
       });
       
       let taxes = JSON.parse(res).annual;
+      const saveTaxRequestFederal = new sql.Request(db);
+      saveTaxRequestFederal.input('jocid', sql.Int, id);
+      saveTaxRequestFederal.input('ctypeid', sql.Int,6);
+      saveTaxRequestFederal.input('token', sql.UniqueIdentifier, token);
+      saveTaxRequestFederal.input('camt', sql.Int, taxes.federal.amount);
+      await saveTaxRequestFederal.execute('sp_add_joc_component');
+      const saveTaxRequestFica = new sql.Request(db);
+      saveTaxRequestFica.input('jocid', sql.Int, id);
+      saveTaxRequestFica.input('ctypeid', sql.Int,7);
+      saveTaxRequestFica.input('token', sql.UniqueIdentifier, token);
+      saveTaxRequestFica.input('camt', sql.Int, taxes.fica.amount);
+      await saveTaxRequestFica.execute('sp_add_joc_component');
 
       let totalTaxAmount = taxes.fica.amount + taxes.federal.amount;
       if(taxes.state.amount != null) {
         totalTaxAmount += taxes.state.amount;
+	const saveTaxRequestState = new sql.Request(db);
+        saveTaxRequestState.input('jocid', sql.Int, id);
+        saveTaxRequestState.input('ctypeid', sql.Int,8);
+        saveTaxRequestState.input('token', sql.UniqueIdentifier, token);
+        saveTaxRequestState.input('camt', sql.Int, taxes.state.amount);
+        await saveTaxRequestState.execute('sp_add_joc_component');
       }
-
+      
       const savePretaxRequest = new sql.Request(db);
       savePretaxRequest.input('jocid', sql.Int, id);
       savePretaxRequest.input('ctypeid', sql.Int, 0);
