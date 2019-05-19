@@ -290,6 +290,8 @@ class JobOfferDetails extends Component {
               value={Math.round(values.Components["Debt"].camt) || 0}
             />
           </Form.Group> */}
+          <Row>
+          <Col>
           <Button
             variant="primary"
             type="submit"
@@ -297,6 +299,23 @@ class JobOfferDetails extends Component {
           >
             Submit
           </Button>
+          </Col>
+          <Col>
+          <div
+            className="buttons"
+            style={{position:"absolute", right: "10px" }}
+          >
+            <Button href="/FAQs#BasketofGoods">
+              <i
+                className="fas fa-question-circle"
+                width="30"
+                height="30"
+                alt="?"
+              />
+            </Button>
+            </div>
+            </Col>
+            </Row>
         </div>
       </Form>
     );

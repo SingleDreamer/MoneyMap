@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Tab, Tabs } from "react-bootstrap";
+import { Tab, Tabs, Row, Col } from "react-bootstrap";
 import AuthService from "../../AuthService/AuthService";
 import { Button } from "react-bootstrap";
 import axios from "axios";
@@ -104,7 +104,26 @@ class Preference extends Component {
             />
           </Tab>
         </Tabs>
+        <Row>
+        <Col>
         <Button onClick={this.sendRequest}>Submit</Button>
+        </Col>
+        <Col>
+        <div
+          className="buttons"
+          style={{position:"absolute", right: "10px" }}
+        >
+          <Button href="/FAQs#BasketofGoods">
+            <i
+              className="fas fa-question-circle"
+              width="30"
+              height="30"
+              alt="?"
+            />
+          </Button>
+          </div>
+          </Col>
+          </Row>
       </div>
     );
   }
