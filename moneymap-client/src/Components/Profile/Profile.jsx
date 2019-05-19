@@ -190,7 +190,7 @@ class Profile extends Component {
       labels: ["RFS"]
     };
 
-  
+
     if (rfs >= 30 && rfs <= 50) {
       optionsRadial.colors = ["#dbf400"]; //light green
     } else if (rfs > 50) {
@@ -399,7 +399,7 @@ class Profile extends Component {
           </Button>
           </div>
           <div className="buttons" style={{position:"absolute",bottom:"10px",right:"10px"}}>
-          <Button href="/About#UserDetails">
+          <Button href="/FAQs#UserDetails">
           <i className="fas fa-question-circle"
           width="30"
           height="30"
