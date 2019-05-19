@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Modal, ButtonGroup, Button, ButtonToolbar } from "react-bootstrap";
-import { withRouter } from "react-router-dom";
-import "@material/react-drawer/dist/drawer.css";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import { withRouter } from "react-router-dom";
+import "@material/react-drawer/dist/drawer.css";
 import Preferences from "../PreferencesWorksheet/PreferencesWorksheet";
 import "./Sidebar.css";
 
