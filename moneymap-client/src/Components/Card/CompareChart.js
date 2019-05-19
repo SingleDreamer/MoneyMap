@@ -300,7 +300,7 @@ class CompareCharts extends Component {
                 ) : (
                   <tr key={0}>
                     <td>
-                      <strong>{`Benefit info isnt available for one of the selected companies`}</strong>
+                      <strong>{`Information about benefits is not available for one or more of the selected companies`}</strong>
                     </td>
                     <td />
                     <td />
