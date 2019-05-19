@@ -91,13 +91,21 @@ class JobOfferDetails extends Component {
     let toggle;
     if (this.props.monthly) {
       toggle = (
-        <Button variant="danger" onClick={this.props.handleMonthly} style = {{margin:"10px"}}>
+        <Button
+          variant="danger"
+          onClick={this.props.handleMonthly}
+          style={{ margin: "10px" }}
+        >
           Switch income to YEARLY amounts
         </Button>
       );
     } else {
       toggle = (
-        <Button variant="danger" onClick={this.props.handleMonthly} style = {{margin:"10px"}}>
+        <Button
+          variant="danger"
+          onClick={this.props.handleMonthly}
+          style={{ margin: "10px" }}
+        >
           Switch income to MONTHLY amounts
         </Button>
       );
@@ -140,7 +148,6 @@ class JobOfferDetails extends Component {
             Basket of Goods; Please change values as needed*
           </strong>
           <p />
-
 
           <Form.Group controlId="income">
             <Form.Label className="required">Income</Form.Label>

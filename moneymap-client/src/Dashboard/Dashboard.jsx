@@ -256,6 +256,7 @@ class Dashboard extends Component {
             user={this.state.user}
             handleShow={this.handleShow}
             getCards={this.getCards}
+            getUser={this.getUserInfo}
           />
 
           <DashboardMap

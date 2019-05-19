@@ -249,7 +249,8 @@ class Profile extends Component {
         .post(url, userInfo, config)
         .then(response => {
           console.log("REPLACE PROFILE DONE");
-          this.props.getCards();
+          this.handleClose();
+          this.props.getUser();
         })
         .catch(err => {
           this.setState({ error: err });

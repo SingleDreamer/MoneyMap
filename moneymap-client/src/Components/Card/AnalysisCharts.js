@@ -231,23 +231,13 @@ class Charts extends Component {
     }
     return (
       <div id="chart">
-        <OverlayTrigger
-          placement="right"
-          delay={{ show: 250, hide: 400 }}
-          overlay={
-            <Tooltip id={"top"}>
-              **City Average data is not available for all cities and does not
-              include debt.
-            </Tooltip>
-          }
-        >
-          <Chart
-            options={this.state.options}
-            series={seriesOption}
-            type="bar"
-            height="350"
-          />
-        </OverlayTrigger>
+        <Chart
+          options={this.state.options}
+          series={seriesOption}
+          type="bar"
+          height="350"
+        />
+
         <Chart
           options={this.state.optionsDonut} //{this.state.optionsRadial}
           series={this.state.optionsDonut.seriesCompany}
