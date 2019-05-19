@@ -230,7 +230,9 @@ class CardArray extends Component {
                   "&rounded=true" +
                   "&color=000000" +
                   "&background=" + colors}
-                style={{ marginRight: "10px" }}/>
+                style={{ marginRight: "20px", marginTop:"10px" }}
+                height="65"
+                width="65"/>
               </div>
             </div>
             <Card.Text>{this.props.info.city.City}</Card.Text>
