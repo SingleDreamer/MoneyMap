@@ -287,6 +287,7 @@ class Profile extends Component {
               width="100"
               height="130"
             /> */}
+            <a href="/About#RFS">
             <img src= {"https://ui-avatars.com/api/?length=4\
               &name=" + Math.ceil(this.state.profile.jocrfc).toString() +
               "&rounded=true" +
@@ -295,6 +296,7 @@ class Profile extends Component {
             style={{ marginRight: "20px", marginTop:"10px" }}
             height="65"
             width="65"/>
+            </a>
             </div>
           </div>
           <Card.Text>{this.state.profile.city.City}</Card.Text>

@@ -225,6 +225,7 @@ class CardArray extends Component {
                   width="100"
                   height="130"
                 />*/}
+                <a href="/About#RFS">
                 <img src= {"https://ui-avatars.com/api/?length=4\
                   &name=" + Math.ceil(this.props.info.jocrfc).toString() +
                   "&rounded=true" +
@@ -233,6 +234,7 @@ class CardArray extends Component {
                 style={{ marginRight: "20px", marginTop:"10px" }}
                 height="65"
                 width="65"/>
+                </a>
               </div>
             </div>
             <Card.Text>{this.props.info.city.City}</Card.Text>
