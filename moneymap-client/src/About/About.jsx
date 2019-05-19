@@ -163,6 +163,7 @@ class About extends Component {
           </p>
         </div>
         <div className="png" />
+        //<img href="home.png"/>
       </div>
     );
   }
