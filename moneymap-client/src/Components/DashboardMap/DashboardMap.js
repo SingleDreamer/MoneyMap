@@ -136,18 +136,18 @@ class DashboardMap extends Component {
                       key={index}
                     />
                   );
-                // if (i.rfs < 0 && i.rfs >= -50)
-                //   return (
-                //     <Marker
-                //       icon={{
-                //         url:
-                //           "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
-                //       }}
-                //       position={{ lat: i.lat, lng: i.lng }}
-                //       key={index}
-                //     />
-                //   );
-                return ( // rfs < 30
+                if (i.rfs > 0 && i.rfs < 30)
+                  return (
+                    <Marker
+                      icon={{
+                        url:
+                          "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
+                      }}
+                      position={{ lat: i.lat, lng: i.lng }}
+                      key={index}
+                    />
+                  );
+                return ( // rfs <= 0
                   <Marker
                     icon={{
                       url:

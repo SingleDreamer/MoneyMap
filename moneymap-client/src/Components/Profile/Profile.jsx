@@ -205,8 +205,10 @@ class Profile extends Component {
       optionsRadial.colors = ["#dbf400"]; //light green
     } else if (rfs > 50) {
       optionsRadial.colors = ["#35ff53"]; //green
+    } else if (rfs > 0 && rfs < 30) {
+      optionsRadial.colors = ["#ffff00"]; // yellow
     } else {
-      //rfs < 30
+      //rfs <= 0
       //optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
       optionsRadial.colors = ["#f45042"]; //red
     }
