@@ -3,6 +3,7 @@ import { Modal, ButtonGroup, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import "@material/react-drawer/dist/drawer.css";
 import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
 import Preferences from "../PreferencesWorksheet/PreferencesWorksheet";
 import "./Sidebar.css";
 
@@ -35,9 +36,20 @@ class Sidebar extends Component {
   render() {
     return (
       <div>
-        <Navbar className="justify-content-between">
-          <i className="fas fa-map-signs navIcon" onClick={this.toggleDrawer} />
-          <div className="title">Money Map</div>
+        <Navbar variant="dark" className="justify-content-between">
+          <Navbar.Brand>
+          <i
+          className="fas fa-map-signs navIcon d-inline-block align-top"
+          onClick={this.toggleDrawer}
+          width="30"
+          height="30"
+          alt = ""/>
+          <a className="title">{ 'Money Map' }</a>
+          </Navbar.Brand>
+          <Nav className="mr-auto">
+            <Nav.Link href="/Dashboard">Dashboard</Nav.Link>
+            <Nav.Link href="/About">About</Nav.Link>
+          </Nav>
           <ButtonGroup>
             <Button variant="primary" onClick={this.handleShowPrefs}>
               Edit Basket of Goods

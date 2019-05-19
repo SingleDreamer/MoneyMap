@@ -17,10 +17,11 @@
 }
 .navIcon {
   font-size: 2em;
+  margin: 10px;
 }
 
 .title {
-  font-size: 2em;
+  font-size: 1.75em;
   margin-left: 20px;
   font-family: 'Raleway', sans-serif;
 }
