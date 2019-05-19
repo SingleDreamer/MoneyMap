@@ -122,6 +122,14 @@ JOCService.addComponent = async (id, ctypeid, cdesc, camt, token) => {
         saveTaxRequestState.input('camt', sql.Int, taxes.state.amount);
         await saveTaxRequestState.execute('sp_add_joc_component');
       }
+      else {
+	const saveTaxRequestState = new sql.Request(db);
+        saveTaxRequestState.input('jocid', sql.Int, id);
+        saveTaxRequestState.input('ctypeid', sql.Int,8);
+        saveTaxRequestState.input('token', sql.UniqueIdentifier, token);
+        saveTaxRequestState.input('camt', sql.Int,0 );
+        await saveTaxRequestState.execute('sp_add_joc_component');
+      }
       
       const savePretaxRequest = new sql.Request(db);
       savePretaxRequest.input('jocid', sql.Int, id);
