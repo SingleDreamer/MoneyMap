@@ -189,18 +189,8 @@ class Profile extends Component {
       },
       labels: ["RFS"]
     };
-    // if (rfs >= 50) {
-    //   optionsRadial.colors = ["#35ff53"];
-    // } else if (rfs < 50 && rfs >= 0) {
-    //   optionsRadial.colors = ["#f48e00"];
-    // } else if (rfs < 0 && rfs >= -50) {
-    //   optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
-    //   optionsRadial.colors = ["#ffa434"];
-    // } else {
-    //   optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
-    //   optionsRadial.colors = ["#f45042"];
-    // }
-    // return optionsRadial;
+
+  
     if (rfs >= 30 && rfs <= 50) {
       optionsRadial.colors = ["#dbf400"]; //light green
     } else if (rfs > 50) {
@@ -209,7 +199,6 @@ class Profile extends Component {
       optionsRadial.colors = ["#ffff00"]; // yellow
     } else {
       //rfs <= 0
-      //optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
       optionsRadial.colors = ["#f45042"]; //red
     }
 
