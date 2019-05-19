@@ -38,14 +38,10 @@ class Sidebar extends Component {
       <div>
         <Navbar variant="dark" className="justify-content-between">
           <Navbar.Brand>
-            <i
-              className="fas fa-map-signs navIcon d-inline-block align-top"
-              onClick={this.toggleDrawer}
-              width="30"
-              height="30"
-              alt=""
-            />
-            <div className="title">{"MoneyMap"}</div>
+            <div className="title">
+              <i className="fas fa-map-signs navIcon" />
+              {"MoneyMap"}
+            </div>
           </Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="/Dashboard">Dashboard</Nav.Link>
