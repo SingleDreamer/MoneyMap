@@ -2,6 +2,8 @@
 
 <b>Project Link</b>: http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3001/
 
+<b>Writeup Link</b>: https://docs.google.com/document/d/1lc6lS96ysOmjlq45GsI_vmkbfLIkF75ehKsPrsey_Ms/edit?usp=sharing
+
 This is the web application MoneyMap, created for the Computer Science Capstone course in Spring 2019 at Hunter College. The goal is to create an all in one web app that will help users make the difficult decision of which city makes the most financial sense to move to according to their current lifestyle and job offers. The primary audience will be people trying to navigate their job offers, with their new offers or expectations on hand. By consolidating information from different cities in the dataset, users will be provided with an overview of their current status and financial potential for the chosen city.
 
 <b>Project Developers</b>: Jessica Ng (lead), David Belinsky, Eunice Hew, Cris Jimenez, Riyadh Rahman
