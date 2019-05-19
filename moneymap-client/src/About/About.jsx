@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { Modal, Button, Row, Col, Container } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-//import Register from "./Register/Register";
-//import LoginDetails from "./Login/LoginDetails";
-//import Sidebar from "../Components/Sidebar/Sidebar.js";
 import AuthService from "../AuthService/AuthService";
 import Collapse from "react-bootstrap/Collapse";
 import "./About.css";
@@ -166,8 +163,6 @@ class About extends Component {
             in the family.
           </p>
         </div>
-
-        {/* <img href="home.png" /> */}
       </div>
     );
   }
