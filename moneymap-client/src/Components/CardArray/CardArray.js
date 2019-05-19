@@ -3,7 +3,7 @@ import Card from "../Card/Card.js";
 import "./CardArray.css";
 import "../Card/Card.css";
 import logo from "./addJOC2.png";
-import { Button, Modal, Container, Col, Row } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 // import Chart from "react-apexcharts";
 // import JobOfferCard from "../JobOfferCard/JobOfferCard";
 import CompareCharts from "../Card/CompareChart";
@@ -69,7 +69,11 @@ class CardArray extends Component {
   };
 
   handleClose() {
-    this.setState({ show: false, showProfile: false, showPrefs: false });
+    this.setState({
+      show: false,
+      showProfile: false,
+      showPrefs: false
+    });
   }
 
   handleShow = e => {
@@ -203,7 +207,7 @@ class CardArray extends Component {
 
         <Modal size="lg" show={this.state.showPrefs} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>
-              <Modal.Title>Edit Basket of Goods</Modal.Title>
+            <Modal.Title>Edit Basket of Goods</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p>

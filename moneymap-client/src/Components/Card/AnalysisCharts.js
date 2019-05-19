@@ -3,7 +3,7 @@ import Chart from "react-apexcharts";
 import axios from "axios";
 import AuthService from "../../AuthService/AuthService";
 import Table from "react-bootstrap/Table";
-import { OverlayTrigger, Tooltip, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 class Charts extends Component {
   constructor(props) {
@@ -153,7 +153,7 @@ class Charts extends Component {
       {
         name: "City Average Values",
         data: [
-          (this.props.cityAverages[0][3].Amount / 12).toFixed(2),
+          this.props.cityAverages[0][3].Amount.toFixed(2),
           this.props.cityAverages[0][0].Amount.toFixed(2),
           this.props.cityAverages[0][1].Amount.toFixed(2),
           this.props.cityAverages[0][2].Amount.toFixed(2)
@@ -208,7 +208,7 @@ class Charts extends Component {
       {
         name: "City Average Values",
         data: [
-          (this.props.cityAverages[0][3].Amount / 12).toFixed(2),
+          this.props.cityAverages[0][3].Amount.toFixed(2),
           this.props.cityAverages[0][0].Amount.toFixed(2),
           this.props.cityAverages[0][1].Amount.toFixed(2),
           this.props.cityAverages[0][2].Amount.toFixed(2)

@@ -46,8 +46,8 @@ class CompareCharts extends Component {
               this.props.companies[0].components[1].ComponentAmount,
               this.props.companies[0].components[2].ComponentAmount,
               this.props.companies[0].components[3].ComponentAmount,
-              this.props.companies[0].savings,
-              this.props.companies[0].jocrfc
+              this.props.companies[0].savings.toFixed(2),
+              this.props.companies[0].jocrfc.toFixed(2)
             ]
           },
           {
@@ -60,8 +60,8 @@ class CompareCharts extends Component {
               this.props.companies[1].components[1].ComponentAmount,
               this.props.companies[1].components[2].ComponentAmount,
               this.props.companies[1].components[3].ComponentAmount,
-              this.props.companies[1].savings,
-              this.props.companies[1].jocrfc
+              this.props.companies[1].savings.toFixed(2),
+              this.props.companies[1].jocrfc.toFixed(2)
             ]
           }
         ],
@@ -141,6 +141,7 @@ class CompareCharts extends Component {
         }
       });
     }
+
     this.setState({
       optionsDonut: {
         ...this.state.optionsDonut,
@@ -161,13 +162,11 @@ class CompareCharts extends Component {
   }
 
   componentWillUnmount() {
-    newSeries = [];
-    this.setState({
-      optionsPerksChart: {
-        ...this.state.optionsPerksChart,
-        series: newSeries
-      }
-    });
+    // this.setState({
+    //   optionsPerksChart: {
+    //     series: []
+    //   }
+    // });
   }
   getBadge = Rating => {
     if (Rating === "Excellent") {
@@ -221,7 +220,7 @@ class CompareCharts extends Component {
                     <td>{company.components[1].ComponentAmount}</td>
                     <td>{company.components[2].ComponentAmount}</td>
                     <td>{company.components[3].ComponentAmount}</td>
-                    <td>{company.savings}</td>
+                    <td>{company.savings.toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>

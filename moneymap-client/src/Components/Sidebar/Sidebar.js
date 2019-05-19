@@ -52,9 +52,7 @@ class Sidebar extends Component {
               </Button>
             </Nav.Link>
             <Nav.Link href="/FAQs">
-              <Button variant="outline-light">
-                FAQs
-              </Button>
+              <Button variant="outline-light">FAQs</Button>
             </Nav.Link>
           </Nav>
           <Nav>
