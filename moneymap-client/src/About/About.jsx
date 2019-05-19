@@ -29,6 +29,7 @@ class About extends Component {
   render() {
     const { open } = this.state;
     let navbarButton = "";
+    let returnbutton = "";
     if (this.Auth.loggedIn()) {
       navbarButton = (
         <Button
@@ -38,6 +39,27 @@ class About extends Component {
         >
           Log Out
         </Button>
+      );
+
+      returnbutton = (
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col xs lg="3">
+              <Button
+                id="newPrimary"
+                size="lg"
+                style={{
+                  margin: "10px",
+                  marginTop: "60px"
+                }}
+                href = "/Dashboard"
+                block
+              >
+                Return to Dashboard
+              </Button>
+            </Col>
+          </Row>
+        </Container>
       );
     } else {
       navbarButton = (
@@ -163,6 +185,9 @@ class About extends Component {
             in the family.
           </p>
         </div>
+
+        {returnbutton}
+
       </div>
     );
   }
