@@ -184,17 +184,27 @@ class Profile extends Component {
       },
       labels: ["RFS"]
     };
-    if (rfs >= 50) {
-      optionsRadial.colors = ["#35ff53"];
-    } else if (rfs < 50 && rfs >= 0) {
-      optionsRadial.colors = ["#f48e00"];
-    } else if (rfs < 0 && rfs >= -50) {
-      optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
-      optionsRadial.colors = ["#ffa434"];
-    } else {
-      optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
-      optionsRadial.colors = ["#f45042"];
+    // if (rfs >= 50) {
+    //   optionsRadial.colors = ["#35ff53"];
+    // } else if (rfs < 50 && rfs >= 0) {
+    //   optionsRadial.colors = ["#f48e00"];
+    // } else if (rfs < 0 && rfs >= -50) {
+    //   optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
+    //   optionsRadial.colors = ["#ffa434"];
+    // } else {
+    //   optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
+    //   optionsRadial.colors = ["#f45042"];
+    // }
+    // return optionsRadial;
+    if (rfs >= 30 && rfs <= 50) {
+      optionsRadial.colors = ["#dbf400"]; //light green
+    } else if (rfs > 50) {
+      optionsRadial.colors = ["#35ff53"]; //green
+    } else { //rfs < 30
+      //optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
+      optionsRadial.colors = ["#f45042"]; //red
     }
+
     return optionsRadial;
   };
 
@@ -242,6 +252,17 @@ class Profile extends Component {
   };
   render() {
     let prof;
+
+    let rfs = this.state.profile.jocrfc;
+    var colors = "dbf400";
+    if (rfs >= 30 && rfs <= 50) {
+      colors = "dbf400"; //light green
+    } else if (rfs > 50) {
+      colors = "35ff53"; //green
+    } else { //rfs < 30
+      colors = "f45042"; //red
+    }
+
     if (Object.keys(this.state.profile).length > 0) {
       // console.log("test: ", this.state.profile.city);
       prof = (
@@ -259,14 +280,20 @@ class Profile extends Component {
               {this.state.profile.jocname}
             </Card.Title>
 
-            <div className="chart">
-              <Chart
-                options={this.test(this.state.profile.jocrfc)}
-                series={[Math.ceil(this.state.profile.jocrfc)]}
-                type="radialBar"
-                width="100"
-                height="130"
-              />
+           <div className="chart">
+             {/* <Chart
+              options={this.test(this.state.profile.jocrfc)}
+              series={[Math.ceil(this.state.profile.jocrfc)]}
+              type="radialBar"
+              width="100"
+              height="130"
+            /> */}
+            <img src= {"https://ui-avatars.com/api/?length=3\
+              &name=" + Math.ceil(this.state.profile.jocrfc).toString() +
+              "&rounded=true" +
+              "&color=000000" +
+              "&background=" + colors}
+            style={{ marginRight: "10px" }}/>
             </div>
           </div>
           <Card.Text>{this.state.profile.city.City}</Card.Text>
@@ -334,6 +361,11 @@ class Profile extends Component {
     }
     let user = (
       <div>
+        <img src= {"https://ui-avatars.com/api/?\
+        name=" + this.state.user.FirstName + "+" + this.state.user.LastName +
+        "&background=0D8ABC&color=fff"}
+        style={{ margin: "10px" }}/>
+        <p/>
         <Card.Text>{`First Name: ${this.state.user.FirstName}`}</Card.Text>
         <Card.Text>{`Last Name: ${this.state.user.LastName}`}</Card.Text>
         <Card.Text>{`Marital Status: ${
