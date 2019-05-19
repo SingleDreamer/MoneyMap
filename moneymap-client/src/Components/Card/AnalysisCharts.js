@@ -136,7 +136,7 @@ class Charts extends Component {
       {
         name: "JOC Values",
         data: [
-          (this.props.profile.components[0].ComponentAmount / 12).toFixed(2),
+          (this.props.company.components[0].ComponentAmount / 12).toFixed(2),
           this.props.company.components[1].ComponentAmount.toFixed(2),
           this.props.company.components[2].ComponentAmount.toFixed(2),
           this.props.company.components[3].ComponentAmount.toFixed(2)
