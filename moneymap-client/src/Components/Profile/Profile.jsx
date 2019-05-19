@@ -172,7 +172,7 @@ class Profile extends Component {
             },
             value: {
               formatter: function(val) {
-                return val;
+                return val - 10000;
               },
               offsetY: 5,
               color: "#111",
@@ -200,7 +200,8 @@ class Profile extends Component {
       optionsRadial.colors = ["#dbf400"]; //light green
     } else if (rfs > 50) {
       optionsRadial.colors = ["#35ff53"]; //green
-    } else { //rfs < 30
+    } else {
+      //rfs < 30
       //optionsRadial.plotOptions.radialBar.startAngle = 360 * (rfs / 100);
       optionsRadial.colors = ["#f45042"]; //red
     }
@@ -259,7 +260,8 @@ class Profile extends Component {
       colors = "dbf400"; //light green
     } else if (rfs > 50) {
       colors = "35ff53"; //green
-    } else { //rfs < 30
+    } else {
+      //rfs < 30
       colors = "f45042"; //red
     }
 
@@ -280,31 +282,42 @@ class Profile extends Component {
               {this.state.profile.jocname}
             </Card.Title>
 
-           <div className="chart">
-             {/* <Chart
-              options={this.test(this.state.profile.jocrfc)}
-              series={[Math.ceil(this.state.profile.jocrfc)]}
-              type="radialBar"
-              width="100"
-              height="130"
-            /> */}
-            <img src= {"https://ui-avatars.com/api/?length=3\
-              &name=" + Math.ceil(this.state.profile.jocrfc).toString() +
-              "&rounded=true" +
-              "&color=000000" +
-              "&background=" + colors}
-            style={{ marginRight: "10px" }}/>
+            <div className="chart">
+              <Chart
+                options={this.test(this.state.profile.jocrfc)}
+                series={[Math.ceil(this.state.profile.jocrfc + 10000)]}
+                type="radialBar"
+                width="100"
+                height="130"
+              />
             </div>
           </div>
           <Card.Text>{this.state.profile.city.City}</Card.Text>
           {this.state.profile.components.length ? (
-            this.state.profile.components.map((component, index) => (
-              <Card.Text key={index}>
-                {`${component.ComponentDescription}: $${
-                  component.ComponentAmount
-                }`}
-              </Card.Text>
-            ))
+            this.state.profile.components.map((component, index) =>
+              component.ComponentDescription !== "Gross Income" &&
+              component.ComponentDescription !== "Federal Income Tax" &&
+              component.ComponentDescription !== "FICA Income Tax" &&
+              component.ComponentDescription !== "State Income Tax" ? (
+                component.ComponentDescription !== "Net Income" ? (
+                  <Card.Text key={index}>
+                    {`${component.ComponentDescription}: $${
+                      component.ComponentAmount
+                    } `}
+                    {/*Testing this out maybe? <ProgressBar now={Math.random() * 100} key={index} />*/}
+                  </Card.Text>
+                ) : (
+                  <Card.Text key={index}>
+                    {`${component.ComponentDescription}: $${
+                      component.ComponentAmount
+                    } / year`}
+                    {/*Testing this out maybe? <ProgressBar now={Math.random() * 100} key={index} />*/}
+                  </Card.Text>
+                )
+              ) : (
+                <div key={index} />
+              )
+            )
           ) : (
             <Card.Text>Empty Card</Card.Text>
           )}
@@ -361,11 +374,18 @@ class Profile extends Component {
     }
     let user = (
       <div>
-        <img src= {"https://ui-avatars.com/api/?\
-        name=" + this.state.user.FirstName + "+" + this.state.user.LastName +
-        "&background=0D8ABC&color=fff"}
-        style={{ margin: "10px" }}/>
-        <p/>
+        <img
+          src={
+            "https://ui-avatars.com/api/?name=" +
+            this.state.user.FirstName +
+            "+" +
+            this.state.user.LastName +
+            "&background=0D8ABC&color=fff"
+          }
+          style={{ margin: "10px" }}
+          alt="Placeholder"
+        />
+        <p />
         <Card.Text>{`First Name: ${this.state.user.FirstName}`}</Card.Text>
         <Card.Text>{`Last Name: ${this.state.user.LastName}`}</Card.Text>
         <Card.Text>{`Marital Status: ${
@@ -397,13 +417,7 @@ class Profile extends Component {
         </Modal>
       </div>
     );
-    // let buttons = (
-    //   <ButtonGroup vertical size="sm" className="button">
-    //     <Button onClick={this.props.handleShow}>Add New Job Offer</Button>
-    //     <p />
-    //     <Button onClick={this.handleShowPrefs}>Edit Basket of Goods</Button>
-    //   </ButtonGroup>
-    // );
+
     return (
       <div>
         <Card

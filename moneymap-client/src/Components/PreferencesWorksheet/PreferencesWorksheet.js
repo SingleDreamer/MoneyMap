@@ -87,10 +87,10 @@ class Preference extends Component {
               addToList={this.addToList}
             />
           </Tab>
-          <Tab eventKey="Restuartants" title="Restuartants">
+          <Tab eventKey="Restaurants" title="Restaurants">
             <PreferenceDetails
               items={this.props.items["RestuartantItems"]}
-              category="Restuartants"
+              category="Restaurants"
               profilePrefs={this.props.profilePrefs}
               addToList={this.addToList}
             />

@@ -101,7 +101,7 @@ class CardArray extends Component {
             },
             value: {
               formatter: function(val) {
-                return val;
+                return val - 10000;
               },
               offsetY: 5,
               color: "#111",

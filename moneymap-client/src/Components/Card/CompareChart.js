@@ -12,6 +12,31 @@ class CompareCharts extends Component {
     super(props);
 
     this.state = {
+      optionsRadial: {
+        colors: ["#45a29e"],
+        plotOptions: {
+          radialBar: {
+            dataLabels: {
+              name: {
+                offsetY: -50,
+                show: false,
+                color: "#888",
+                fontSize: "15px"
+              },
+              value: {
+                formatter: function(val) {
+                  return val;
+                },
+                offsetY: 5,
+                color: "#111",
+                fontSize: "20px",
+                show: true
+              }
+            }
+          }
+        },
+        labels: ["RFS"]
+      },
       optionsBarChart: {
         chart: {
           height: 350,
@@ -22,11 +47,11 @@ class CompareCharts extends Component {
             name: this.props.companies[0].jocname,
             type: "bar",
             data: [
-              this.props.companies[0].components[0].ComponentAmount / 10,
+              this.props.companies[0].components[0].ComponentAmount / 12,
               this.props.companies[0].components[1].ComponentAmount,
               this.props.companies[0].components[2].ComponentAmount,
               this.props.companies[0].components[3].ComponentAmount,
-              this.props.companies[0].components[4].ComponentAmount,
+              this.props.companies[1].savings,
               this.props.companies[0].jocrfc
             ]
           },
@@ -34,11 +59,11 @@ class CompareCharts extends Component {
             name: this.props.companies[1].jocname,
             type: "bar",
             data: [
-              this.props.companies[1].components[0].ComponentAmount / 10,
+              this.props.companies[1].components[0].ComponentAmount / 12,
               this.props.companies[1].components[1].ComponentAmount,
               this.props.companies[1].components[2].ComponentAmount,
               this.props.companies[1].components[3].ComponentAmount,
-              this.props.companies[1].components[4].ComponentAmount,
+              this.props.companies[1].savings,
               this.props.companies[1].jocrfc
             ]
           }
@@ -51,11 +76,10 @@ class CompareCharts extends Component {
           opacity: [1, 1]
         },
         labels: [
-          "Income",
+          "Net Income",
           "Mandatory",
           "Consumables",
           "Entertainment",
-          "Debt",
           "Savings",
           "RFS"
         ],
@@ -81,7 +105,7 @@ class CompareCharts extends Component {
           y: {
             formatter: function(y) {
               if (typeof y !== "undefined") {
-                return y.toFixed(0) + " points";
+                return y.toFixed(0);
               }
               return y;
             }
@@ -95,6 +119,7 @@ class CompareCharts extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.companies);
     if (
       typeof this.props.companies[0].perks !== "undefined" &&
       typeof this.props.companies[1].perks !== "undefined"
@@ -196,6 +221,13 @@ class CompareCharts extends Component {
               type="bar"
               height="auto"
             />
+            <Chart
+              options={this.state.optionsRadial} //{this.state.optionsRadial}
+              series={[23]}
+              type="radialBar"
+              width="100"
+              height="130"
+            />
             <h2>Benefits Breakdown</h2>
             <Table striped bordered hover responsive>
               <thead>
@@ -222,23 +254,33 @@ class CompareCharts extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.optionsPerksChart.series.map((benefit, index) => (
-                  <tr key={index}>
+                {this.state.optionsPerksChart.series.length > 0 ? (
+                  this.state.optionsPerksChart.series.map((benefit, index) => (
+                    <tr key={index}>
+                      <td>
+                        <strong>{`${benefit.name}`}</strong>
+                      </td>
+                      <td>
+                        {this.getBadge(benefit.Rating[0])}
+                        <br />
+                        {benefit.desc[0]}
+                      </td>
+                      <td>
+                        {this.getBadge(benefit.Rating[1])}
+                        <br />
+                        {benefit.desc[1]}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr key={0}>
                     <td>
-                      <strong>{`${benefit.name}`}</strong>
+                      <strong>{`Benefit info isnt available for one of the selected companies`}</strong>
                     </td>
-                    <td>
-                      {this.getBadge(benefit.Rating[0])}
-                      <br />
-                      {benefit.desc[0]}
-                    </td>
-                    <td>
-                      {this.getBadge(benefit.Rating[1])}
-                      <br />
-                      {benefit.desc[1]}
-                    </td>
+                    <td />
+                    <td />
                   </tr>
-                ))}
+                )}
               </tbody>
             </Table>
             {typeof this.props.companies[0].perks !== "undefined" &&

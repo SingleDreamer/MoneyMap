@@ -36,8 +36,10 @@ class Sidebar extends Component {
     return (
       <div>
         <Navbar className="justify-content-between">
-          <i className="fas fa-map-signs navIcon" onClick={this.toggleDrawer} />
-          <div className="title">Money Map</div>
+          <div className="title">
+            <i className="fas fa-map-signs navIcon" />
+            Money Map
+          </div>
           <ButtonGroup>
             <Button variant="primary" onClick={this.handleShowPrefs}>
               Edit Basket of Goods

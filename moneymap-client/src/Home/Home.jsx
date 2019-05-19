@@ -24,6 +24,7 @@ class Home extends Component {
             marginBottom: "20px"
           }}
         >
+          <i className="fas fa-map-signs navIcon" />
           MoneyMap
         </h1>
         <div align="center">

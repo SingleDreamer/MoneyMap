@@ -58,8 +58,14 @@ class Dashboard extends Component {
         config
       )
       .then(response => {
-        console.log("user", response.data.recordset[0]);
-        this.setState({ user: response.data.recordset[0] });
+        if (response.data.status) {
+          console.log("Failed");
+          sessionStorage.clear();
+          this.setState({ isAuthed: false });
+        } else {
+          console.log("user", response.data.recordset[0]);
+          this.setState({ user: response.data.recordset[0] });
+        }
       })
       .catch(error => {
         console.log(error);
