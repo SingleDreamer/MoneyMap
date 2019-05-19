@@ -32,7 +32,6 @@ class About extends Component {
   render() {
     const { open } = this.state;
     let navbarButton = "";
-    let navbarDash = "";
     if (this.Auth.loggedIn()) {
       navbarButton = (
         <Button
@@ -43,7 +42,6 @@ class About extends Component {
           Log Out
         </Button>
       );
-      navbarDash = <Nav.Link href="/Dashboard">Dashboard</Nav.Link>;
     } else {
       navbarButton = (
         <Button
@@ -59,16 +57,12 @@ class About extends Component {
     return (
       <div className="about">
         <Navbar variant="dark" className="justify-content-between">
-          <Navbar.Brand>
+          <Navbar.Brand href="/Dashboard">
             <div className="title">
               <i className="fas fa-map-signs navIcon" />
               {" MoneyMap"}
             </div>
           </Navbar.Brand>
-          <Nav className="mr-auto">
-            {navbarDash}
-            <Nav.Link href="/FAQs">FAQs</Nav.Link>
-          </Nav>
           <Nav>
             <Nav.Link>{navbarButton}</Nav.Link>
           </Nav>
