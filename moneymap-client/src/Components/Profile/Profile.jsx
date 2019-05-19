@@ -52,8 +52,13 @@ class Profile extends Component {
       user: nextProps.user
     });
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.profile !== prevProps.profile) {
+      this.getAverages();
+    }
+  }
 
-  componentDidMount() {
+  getAverages = () => {
     let config = {
       headers: {
         authorization: this.Auth.getToken(),
@@ -110,8 +115,8 @@ class Profile extends Component {
                     : { ...this.state.cityAverages[0][3] }
                 }
               }
-            }
-            // () => console.log("This is the state ::: ", this.state.cityAverages)
+            },
+            () => console.log("This is the state ::: ", this.state.cityAverages)
           );
         } else if (res.data.recordsets[0].length === 4) {
           this.setState({ cityAverages: res.data.recordsets });
@@ -134,7 +139,7 @@ class Profile extends Component {
         // handle error
         console.log(error);
       });
-  }
+  };
 
   handleClose = () => {
     this.setState({
@@ -334,7 +339,7 @@ class Profile extends Component {
           </div>
           <Modal
             show={this.state.analyseProfile}
-            onHide={this.closeModal}
+            onHide={this.handleClose}
             centered
             size="lg"
           >
@@ -343,6 +348,7 @@ class Profile extends Component {
             </Modal.Header>
             <Modal.Body>
               <Charts
+                fromProfile={true}
                 company={this.state.profile}
                 cityAverages={this.state.cityAverages}
                 profile={this.state.profile}

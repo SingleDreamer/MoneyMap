@@ -12,30 +12,23 @@ class CompareCharts extends Component {
     super(props);
 
     this.state = {
-      optionsRadial: {
-        colors: ["#45a29e"],
-        plotOptions: {
-          radialBar: {
-            dataLabels: {
-              name: {
-                offsetY: -50,
-                show: false,
-                color: "#888",
-                fontSize: "15px"
+      optionsDonut: {
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
               },
-              value: {
-                formatter: function(val) {
-                  return val;
-                },
-                offsetY: 5,
-                color: "#111",
-                fontSize: "20px",
-                show: true
+              legend: {
+                position: "bottom"
               }
             }
           }
-        },
-        labels: ["RFS"]
+        ],
+        seriesCompany1: [],
+        seriesCompany2: [],
+        labels: ["Net Income", "Federal Tax", "State Tax", "FICA Tax"]
       },
       optionsBarChart: {
         chart: {
@@ -144,6 +137,23 @@ class CompareCharts extends Component {
         }
       });
     }
+    this.setState({
+      optionsDonut: {
+        ...this.state.optionsDonut,
+        seriesCompany1: [
+          this.props.companies[0].components[0].ComponentAmount,
+          this.props.companies[0].components[5].ComponentAmount,
+          this.props.companies[0].components[6].ComponentAmount,
+          this.props.companies[0].components[7].ComponentAmount
+        ],
+        seriesCompany2: [
+          this.props.companies[1].components[0].ComponentAmount,
+          this.props.companies[1].components[5].ComponentAmount,
+          this.props.companies[1].components[6].ComponentAmount,
+          this.props.companies[1].components[7].ComponentAmount
+        ]
+      }
+    });
   }
 
   componentWillUnmount() {
@@ -187,13 +197,12 @@ class CompareCharts extends Component {
                 <tr>
                   <th>Company</th>
                   <th>City</th>
-                  <th>Income</th>
+                  <th>Net Income</th>
                   <th>RFS</th>
-                  <th>Rent</th>
+                  <th>Mandatory</th>
                   <th>Consumable</th>
                   <th>Entertainment</th>
-                  <th>Debt</th>
-                  <th>Savings</th>
+                  <th>Monthly Savings</th>
                 </tr>
               </thead>
               <tbody>
@@ -206,10 +215,9 @@ class CompareCharts extends Component {
                     <td>{company.components[0].ComponentAmount}</td>
                     <td>{Math.round(company.jocrfc)}</td>
                     <td>{company.components[1].ComponentAmount}</td>
-                    <td>{company.components[1].ComponentAmount}</td>
                     <td>{company.components[2].ComponentAmount}</td>
                     <td>{company.components[3].ComponentAmount}</td>
-                    <td>{company.components[4].ComponentAmount}</td>
+                    <td>{company.savings}</td>
                   </tr>
                 ))}
               </tbody>
@@ -221,13 +229,26 @@ class CompareCharts extends Component {
               type="bar"
               height="auto"
             />
-            <Chart
-              options={this.state.optionsRadial} //{this.state.optionsRadial}
-              series={[23]}
-              type="radialBar"
-              width="100"
-              height="130"
-            />
+            <h2>Tax Breakdown</h2>
+            <h4 style={{ display: "flex", justifyContent: "space-around" }}>
+              {this.props.companies[0].jocname} vs{" "}
+              {this.props.companies[1].jocname}
+            </h4>
+            <div className="taxChart">
+              <Chart
+                options={this.state.optionsDonut} //{this.state.optionsRadial}
+                series={this.state.optionsDonut.seriesCompany1}
+                type="donut"
+                height="auto"
+              />
+              <Chart
+                options={this.state.optionsDonut} //{this.state.optionsRadial}
+                series={this.state.optionsDonut.seriesCompany2}
+                type="donut"
+                height="auto"
+              />
+            </div>
+
             <h2>Benefits Breakdown</h2>
             <Table striped bordered hover responsive>
               <thead>

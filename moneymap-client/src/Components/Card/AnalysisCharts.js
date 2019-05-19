@@ -10,6 +10,23 @@ class Charts extends Component {
     super(props);
 
     this.state = {
+      optionsDonut: {
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: "bottom"
+              }
+            }
+          }
+        ],
+        seriesCompany: [],
+        labels: ["Net Income", "Federal Tax", "State Tax", "FICA Tax"]
+      },
       options: {
         plotOptions: {
           bar: {
@@ -103,6 +120,17 @@ class Charts extends Component {
           EntertainmentItems: EntertainmentItems
         });
       });
+    this.setState({
+      optionsDonut: {
+        ...this.state.optionsDonut,
+        seriesCompany: [
+          this.props.company.components[0].ComponentAmount,
+          this.props.company.components[5].ComponentAmount,
+          this.props.company.components[6].ComponentAmount,
+          this.props.company.components[7].ComponentAmount
+        ]
+      }
+    });
   }
   render() {
     console.log(
@@ -136,7 +164,7 @@ class Charts extends Component {
       {
         name: "JOC Values",
         data: [
-          (this.props.profile.components[0].ComponentAmount / 12).toFixed(2),
+          (this.props.company.components[0].ComponentAmount / 12).toFixed(2),
           this.props.company.components[1].ComponentAmount.toFixed(2),
           this.props.company.components[2].ComponentAmount.toFixed(2),
           this.props.company.components[3].ComponentAmount.toFixed(2)
@@ -167,6 +195,28 @@ class Charts extends Component {
         ]
       }
     ];
+    const profileAnalysis = [
+      {
+        name: "User Profile Values", //from profile
+        data: [
+          this.props.profile.components[0].ComponentAmount.toFixed(2) / 12,
+          this.props.profile.components[1].ComponentAmount.toFixed(2),
+          this.props.profile.components[2].ComponentAmount.toFixed(2),
+          this.props.profile.components[3].ComponentAmount.toFixed(2)
+          //this.props.profile.components[4].ComponentAmount.toFixed(2)
+        ]
+      },
+      {
+        name: "City Average Values",
+        data: [
+          this.props.cityAverages[0][3].Amount.toFixed(2),
+          this.props.cityAverages[0][0].Amount.toFixed(2),
+          this.props.cityAverages[0][1].Amount.toFixed(2),
+          this.props.cityAverages[0][2].Amount.toFixed(2)
+          //0
+        ]
+      }
+    ];
     let seriesOption;
     if (
       this.props.cityAverages[0][0].Amount === 0 &&
@@ -175,6 +225,8 @@ class Charts extends Component {
       this.props.cityAverages[0][3].Amount === 0
     ) {
       seriesOption = twoBar;
+    } else if (this.props.fromProfile) {
+      seriesOption = profileAnalysis;
     } else {
       seriesOption = threeBar;
     }
@@ -197,6 +249,12 @@ class Charts extends Component {
             height="350"
           />
         </OverlayTrigger>
+        <Chart
+          options={this.state.optionsDonut} //{this.state.optionsRadial}
+          series={this.state.optionsDonut.seriesCompany}
+          type="donut"
+          height="400"
+        />
         <h3>
           Gross Income: ${this.props.company.components[4].ComponentAmount}
         </h3>
