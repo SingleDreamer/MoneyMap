@@ -105,18 +105,7 @@ class About extends Component {
       Anything lower than 30 is considered unsustainable.
       </p>
       </div>
-      <div style = {{marginTop:"90px", marginRight:"200px", marginLeft:"200px"}}>
-      <p className="heading" id="UserDetails">User Details</p>
-      <p className="text">The Relative Financial Score (RFS) is MoneyMap’s unique performance score that shows the financial standing of the Job Offer Card relative to averages in the city,
-      that is, how “good” this job offer is for the city it is being offered in,
-      based on the user’s expenses, savings, the job offer and the city’s cost of living.
-      </p>
-      <p className="text">
-      Based on our current equation, a good score would then be somewhere in the range of 30-50 and a great score would be anything larger.
-      Anything lower than 30 is considered unsustainable.
-      </p>
-      </div>
-
+      
       </div>
     );
   }
