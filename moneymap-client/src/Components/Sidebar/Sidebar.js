@@ -11,7 +11,6 @@ class Sidebar extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = { showPrefs: false };
-    this.handleClose = this.handleClose.bind(this);
   }
 
   clearSession = () => {
@@ -19,19 +18,22 @@ class Sidebar extends Component {
     sessionStorage.clear();
   };
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState({
-  //     userInfo: nextProps.user
-  //   });
-  // }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.hasBasket);
+    setTimeout(() => {
+      this.setState({
+        showPrefs: !nextProps.hasBasket
+      });
+    }, 200);
+  }
   handleShowPrefs = () => {
     this.setState({ showPrefs: true });
   };
-  handleClose() {
+  handleClosePref = () => {
     this.setState({
       showPrefs: false
     });
-  }
+  };
 
   render() {
     return (
@@ -65,7 +67,11 @@ class Sidebar extends Component {
             </Nav.Link>
           </Nav>
         </Navbar>
-        <Modal size="lg" show={this.state.showPrefs} onHide={this.handleClose}>
+        <Modal
+          size="lg"
+          show={this.state.showPrefs}
+          onHide={this.handleClosePref}
+        >
           <Modal.Header closeButton={false}>
             <Modal.Title>Edit Basket of Goods</Modal.Title>
           </Modal.Header>
@@ -81,11 +87,12 @@ class Sidebar extends Component {
               items={this.props.items}
               profCity={this.props.profCity}
               profilePrefs={this.props.profilePrefs}
-              close={this.handleClose}
+              close={this.handleClosePref}
+              submitBasket={this.props.submitBasket}
             />
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleClose}>Close</Button>
+            <Button onClick={this.handleClosePref}>Close</Button>
           </Modal.Footer>
         </Modal>
       </div>

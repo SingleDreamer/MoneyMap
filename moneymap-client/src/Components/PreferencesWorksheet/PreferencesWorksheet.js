@@ -38,7 +38,10 @@ class Preference extends Component {
         payload,
         config
       )
-      .then(response => this.props.close())
+      .then(response => {
+        this.props.close();
+        this.props.submitBasket();
+      })
       .catch(error => {
         console.log(error);
       });

@@ -3,7 +3,7 @@ import CardArray from "../Components/CardArray/CardArray.js";
 import Sidebar from "../Components/Sidebar/Sidebar.js";
 import { JobOfferCard } from "../Components/JobOfferCard";
 import Profile from "../Components/Profile/Profile";
-import { Modal, Col, Row, Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import DashboardMap from "../Components/DashboardMap/DashboardMap.js";
 import "./Dashboard.css";
 import axios from "axios";
@@ -17,6 +17,7 @@ class Dashboard extends Component {
     super(props, context);
     this.state = {
       profileSubmit: false,
+      basketOfGoodsSumbit: true,
       show: false,
       isAuthed: true,
       spinner: true,
@@ -43,6 +44,11 @@ class Dashboard extends Component {
       }
     }, 800);
   }
+  submitBasket = () => {
+    this.setState({
+      basketOfGoodsSumbit: true
+    });
+  };
   getUserInfo = () => {
     let config = {
       headers: {
@@ -143,8 +149,18 @@ class Dashboard extends Component {
         config
       )
       .then(response => {
-        console.log("preferences", response.data);
-        this.setState({ profilePrefs: response.data });
+        console.log("preferences", response.data.recordset.length);
+        if (response.data.recordset.length === 0) {
+          this.setState({
+            profilePrefs: response.data,
+            basketOfGoodsSumbit: false
+          });
+        } else {
+          this.setState({
+            profilePrefs: response.data,
+            basketOfGoodsSumbit: true
+          });
+        }
       })
       .catch(error => {
         console.log(error);
@@ -236,6 +252,8 @@ class Dashboard extends Component {
           profCity={this.state.profile.joccityid}
           profilePrefs={this.state.profilePrefs}
           user={this.state.user}
+          hasBasket={this.state.basketOfGoodsSumbit}
+          submitBasket={this.submitBasket}
         />
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>{cardType}</Modal.Header>

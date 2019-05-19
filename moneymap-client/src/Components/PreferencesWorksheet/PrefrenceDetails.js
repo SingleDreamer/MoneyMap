@@ -15,24 +15,26 @@ class PreferenceDetails extends Component {
   componentDidMount() {
     let temp = this.props.items;
     //this.setState({ items: nextProps.items });
-    if (this.props.profilePrefs.recordset.length) {
-      for (var i = 0; i < temp.length; i++) {
-        for (var j = 0; j < this.props.profilePrefs.recordset.length; j++) {
-          if (temp[i].Name === this.props.profilePrefs.recordset[j].Name) {
-            this.addToItems(
-              temp[i].Item_ID,
-              temp[i].Name,
-              this.props.profilePrefs.recordset[j].Amount
-            );
-            break;
-          } else if (j === this.props.profilePrefs.recordset.length - 1) {
-            this.addToItems(temp[i].Item_ID, temp[i].Name, 0);
+    try {
+      if (this.props.profilePrefs.recordset.length) {
+        for (var i = 0; i < temp.length; i++) {
+          for (var j = 0; j < this.props.profilePrefs.recordset.length; j++) {
+            if (temp[i].Name === this.props.profilePrefs.recordset[j].Name) {
+              this.addToItems(
+                temp[i].Item_ID,
+                temp[i].Name,
+                this.props.profilePrefs.recordset[j].Amount
+              );
+              break;
+            } else if (j === this.props.profilePrefs.recordset.length - 1) {
+              this.addToItems(temp[i].Item_ID, temp[i].Name, 0);
+            }
           }
         }
+      } else {
+        temp.forEach(item => this.addToItems(item.Item_ID, item.Name, 0));
       }
-    } else {
-      temp.forEach(item => this.addToItems(item.Item_ID, item.Name, 0));
-    }
+    } catch {}
   }
 
   addToItems = (id, name, amount) => {
