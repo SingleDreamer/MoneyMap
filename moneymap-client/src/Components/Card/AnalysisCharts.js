@@ -153,7 +153,7 @@ class Charts extends Component {
       {
         name: "City Average Values",
         data: [
-          this.props.cityAverages[0][3].Amount.toFixed(2),
+          (this.props.cityAverages[0][3].Amount / 12).toFixed(2),
           this.props.cityAverages[0][0].Amount.toFixed(2),
           this.props.cityAverages[0][1].Amount.toFixed(2),
           this.props.cityAverages[0][2].Amount.toFixed(2)
@@ -175,7 +175,7 @@ class Charts extends Component {
       {
         name: "User Profile Values", //from profile
         data: [
-          this.props.profile.components[0].ComponentAmount.toFixed(2) / 12,
+          (this.props.profile.components[0].ComponentAmount / 12).toFixed(2),
           this.props.profile.components[1].ComponentAmount.toFixed(2),
           this.props.profile.components[2].ComponentAmount.toFixed(2),
           this.props.profile.components[3].ComponentAmount.toFixed(2)
@@ -198,7 +198,7 @@ class Charts extends Component {
       {
         name: "User Profile Values", //from profile
         data: [
-          this.props.profile.components[0].ComponentAmount.toFixed(2) / 12,
+          (this.props.profile.components[0].ComponentAmount / 12).toFixed(2),
           this.props.profile.components[1].ComponentAmount.toFixed(2),
           this.props.profile.components[2].ComponentAmount.toFixed(2),
           this.props.profile.components[3].ComponentAmount.toFixed(2)
@@ -208,7 +208,7 @@ class Charts extends Component {
       {
         name: "City Average Values",
         data: [
-          this.props.cityAverages[0][3].Amount.toFixed(2),
+          (this.props.cityAverages[0][3].Amount / 12).toFixed(2),
           this.props.cityAverages[0][0].Amount.toFixed(2),
           this.props.cityAverages[0][1].Amount.toFixed(2),
           this.props.cityAverages[0][2].Amount.toFixed(2)
