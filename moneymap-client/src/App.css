@@ -1,17 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Raleway|Roboto&display=swap");
 @font-face {
-   font-family: Simplifica;
-   /*src: url(SIMPLIFICA\ Typeface.ttf);*/
+  font-family: Simplifica;
+  /*src: url(SIMPLIFICA\ Typeface.ttf);*/
 }
-
 
 .App {
   color: #c5c6c7;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   height: 150vh;
   width: 100vw;
   background-color: #1f2833;
   overflow: hidden;
+  
 }
 
 @media only screen and (max-width: 768px) {

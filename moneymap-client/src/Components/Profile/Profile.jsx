@@ -190,7 +190,6 @@ class Profile extends Component {
       labels: ["RFS"]
     };
 
-
     if (rfs >= 30 && rfs <= 50) {
       optionsRadial.colors = ["#dbf400"]; //light green
     } else if (rfs > 50) {
@@ -301,14 +300,14 @@ class Profile extends Component {
                   <Card.Text key={index}>
                     {`${component.ComponentDescription}: $${
                       component.ComponentAmount
-                    } /month`}
+                    } /mo`}
                     {/*Testing this out maybe? <ProgressBar now={Math.random() * 100} key={index} />*/}
                   </Card.Text>
                 ) : (
                   <Card.Text key={index}>
                     {`${component.ComponentDescription}: $${
                       component.ComponentAmount
-                    } /year`}
+                    } /yr`}
                     {/*Testing this out maybe? <ProgressBar now={Math.random() * 100} key={index} />*/}
                   </Card.Text>
                 )
@@ -320,7 +319,7 @@ class Profile extends Component {
             <Card.Text>Empty Card</Card.Text>
           )}
           <Card.Text>
-            Savings: ${Math.round(this.state.profile.savings)} /month
+            Savings: ${Math.round(this.state.profile.savings)} /mo
           </Card.Text>
           <div className="buttons">
             <Button variant="primary" onClick={this.handleShowProfile}>
@@ -407,13 +406,18 @@ class Profile extends Component {
           <Button variant="primary" onClick={this.handleShowEdit}>
             Replace Account Details
           </Button>
-          </div>
-          <div className="buttons" style={{position:"absolute",bottom:"10px",right:"10px"}}>
+        </div>
+        <div
+          className="buttons"
+          style={{ position: "absolute", bottom: "10px", right: "10px" }}
+        >
           <Button href="/FAQs#UserDetails">
-          <i className="fas fa-question-circle"
-          width="30"
-          height="30"
-          alt = "?"/>
+            <i
+              className="fas fa-question-circle"
+              width="30"
+              height="30"
+              alt="?"
+            />
           </Button>
         </div>
 
