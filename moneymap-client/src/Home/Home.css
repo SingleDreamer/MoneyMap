@@ -26,6 +26,18 @@
   color: red;
 }
 
-h1 {
+.app .title {
+  margin-top:50px;
+  margin-bottom: 50px;
+  align-content: center;
+  font-size: 5em;
   font-family: "Raleway", sans-serif;
+  color: white;
+}
+
+.app .tagline {
+  font-size: 2em;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: white;
 }

@@ -44,7 +44,7 @@ class Sidebar extends Component {
           width="30"
           height="30"
           alt = ""/>
-          <a className="title">{ 'Money Map' }</a>
+          <a className="title">{ 'MoneyMap' }</a>
           </Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="/Dashboard">Dashboard</Nav.Link>
