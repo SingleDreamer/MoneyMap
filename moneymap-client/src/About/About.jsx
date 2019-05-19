@@ -32,10 +32,6 @@ class About extends Component {
 
   render() {
     const { open } = this.state;
-    let text = "test";
-    if (this.Auth.loggedIn()) {
-        text = "test2";
-    }
     let navbarButton = "";
     let navbarDash = "";
     if (this.Auth.loggedIn()) {
@@ -69,27 +65,37 @@ class About extends Component {
           </Nav.Link>
         </Nav>
       </Navbar>
-      About Page
-      {text}
+
+      <div>
+      <h1 className="pagetitle">About Page</h1>
+      </div>
+
+      <div style = {{marginTop:"90px", marginRight:"200px", marginLeft:"200px"}}>
+      <p className="heading" id="RFS">RFS</p>
+      <p className="text">The Relative Financial Score (RFS) is MoneyMap’s unique performance score that shows the financial standing of the Job Offer Card relative to averages in the city,
+      that is, how “good” this job offer is for the city it is being offered in,
+      based on the user’s expenses, savings, the job offer and the city’s cost of living.
+      </p>
+      <p className="text">
+      Based on our current equation, a good score would then be somewhere in the range of 30-50 and a great score would be anything larger.
+      Anything lower than 30 is considered unsustainable.
+      </p>
+      </div>
+
+      <div style = {{marginTop:"90px", marginRight:"200px", marginLeft:"200px"}}>
+      <p className="heading" id="RFS">Basket of Goods</p>
+      <p className="text">The Relative Financial Score (RFS) is MoneyMap’s unique performance score that shows the financial standing of the Job Offer Card relative to averages in the city,
+      that is, how “good” this job offer is for the city it is being offered in,
+      based on the user’s expenses, savings, the job offer and the city’s cost of living.
+      </p>
+      <p className="text">
+      Based on our current equation, a good score would then be somewhere in the range of 30-50 and a great score would be anything larger.
+      Anything lower than 30 is considered unsustainable.
+      </p>
+      </div>
+
       </div>
     );
   }
-  handleShowRegister = () => {
-    this.setState({ showRegister: true });
-  };
-  handleShowLogin = () => {
-    this.setState({ showLogin: true });
-  };
-  handleClose = () => {
-    this.setState({
-      showRegister: false,
-      showLogin: false
-    });
-  };
-  // componentWillMount = () => {
-  //   if (this.Auth.loggedIn()) {
-  //     this.props.history.replace("/dashboard");
-  //   }
-  // };
 }
 export default About;
