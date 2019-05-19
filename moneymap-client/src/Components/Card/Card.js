@@ -225,7 +225,7 @@ class CardArray extends Component {
                   width="100"
                   height="130"
                 />*/}
-                <img src= {"https://ui-avatars.com/api/?length=3\
+                <img src= {"https://ui-avatars.com/api/?length=4\
                   &name=" + Math.ceil(this.props.info.jocrfc).toString() +
                   "&rounded=true" +
                   "&color=000000" +
