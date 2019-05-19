@@ -16,6 +16,7 @@ class DashboardMap extends Component {
     this.state = {
       height: props.height,
       companies: [],
+      profile: {},
       cities: []
     };
   }
@@ -23,6 +24,9 @@ class DashboardMap extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       companies: nextProps.companies
+    });
+    this.setState({
+      profile: nextProps.profile
     });
     //console.log("array: ", this.state.companies);
   }
@@ -56,7 +60,7 @@ class DashboardMap extends Component {
   }
 
   render() {
-    var coordinates = [];
+    var coordinates = []; //placeholder for rendering issues
 
     //console.log("TEST", this.state.companies);
     var cityIDs = [];
@@ -66,7 +70,11 @@ class DashboardMap extends Component {
         rfs: company.jocrfc
       };
     });
-    //console.log(cityIDs);
+    //console.log("DashboardMap profile", this.state.profile.joccityid)
+    if (this.state.profile.joccityid != null) {
+      cityIDs.unshift({cityid:this.state.profile.joccityid, rfs:this.state.profile.jocrfc});
+    }
+    console.log("DashboardMap cityIDs",cityIDs);
     //console.log(this.state.cities);
 
     if (this.state.cities.length > 0) {
@@ -84,19 +92,29 @@ class DashboardMap extends Component {
           };
         }
       });
-      //console.log(coordinates);
+
+      console.log("DashboardMap coordinates", coordinates);
+      console.log("DashboardMap center", coordinates[0]);
+    }
+
+    let defaultlat = 0;
+    let defaultlng = 0;
+
+    if (typeof coordinates[0] != 'undefined') {
+      defaultlat=coordinates[0].lat;
+      defaultlng=coordinates[0].lng;
     }
 
     let MapWithAMarker = withScriptjs(
       withGoogleMap(props => (
         <GoogleMap
           className="Map"
-          defaultZoom={6}
-          defaultCenter={{ lat: 40.7128, lng: -73.935242 }}
+          defaultZoom={4}
+          defaultCenter={{ lat:defaultlat, lng:defaultlng }}
         >
           {coordinates
             ? coordinates.map((i, index) => {
-                if (i.rfs >= 50)
+                if (i.rfs > 50)
                   return (
                     <Marker
                       icon={{
@@ -107,7 +125,7 @@ class DashboardMap extends Component {
                       key={index}
                     />
                   );
-                if (i.rfs < 50 && i.rfs >= 0)
+                if (i.rfs <= 50 && i.rfs > 30)
                   return (
                     <Marker
                       icon={{
@@ -118,18 +136,18 @@ class DashboardMap extends Component {
                       key={index}
                     />
                   );
-                if (i.rfs < 0 && i.rfs >= -50)
-                  return (
-                    <Marker
-                      icon={{
-                        url:
-                          "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
-                      }}
-                      position={{ lat: i.lat, lng: i.lng }}
-                      key={index}
-                    />
-                  );
-                return (
+                // if (i.rfs < 0 && i.rfs >= -50)
+                //   return (
+                //     <Marker
+                //       icon={{
+                //         url:
+                //           "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
+                //       }}
+                //       position={{ lat: i.lat, lng: i.lng }}
+                //       key={index}
+                //     />
+                //   );
+                return ( // rfs < 30
                   <Marker
                     icon={{
                       url:
