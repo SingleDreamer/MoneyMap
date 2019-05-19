@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Raleway|Roboto&display=swap");
 
 .png {
   position: relative;
@@ -10,6 +10,12 @@
   padding-bottom: calc(100% * 3 / 4);
   transform: scale(0.8);
   overflow: visible;
+}
+
+.about {
+  color: #c5c6c7;
+  font-family: "Roboto", sans-serif;
+  background-color: #1f2833;
 }
 
 .about .pagetitle {

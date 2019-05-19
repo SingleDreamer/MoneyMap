@@ -7,11 +7,10 @@
 .App {
   color: #c5c6c7;
   font-family: "Roboto", sans-serif;
-  height: 150vh;
+  height: 250vh;
   width: 100vw;
   background-color: #1f2833;
   overflow: hidden;
-  
 }
 
 @media only screen and (max-width: 768px) {

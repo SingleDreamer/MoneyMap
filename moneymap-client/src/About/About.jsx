@@ -97,8 +97,9 @@ class About extends Component {
           </p>
           <p className="text">
             Based on our current equation, a good score would then be somewhere
-            in the range of 30-50 and a great score would be anything larger.
-            An RFS in the range of 0-30 is passable, and anything lower than 0 is considered unsustainable.
+            in the range of 30-50 and a great score would be anything larger. An
+            RFS in the range of 0-30 is passable, and anything lower than 0 is
+            considered unsustainable.
           </p>
         </div>
 
@@ -113,22 +114,28 @@ class About extends Component {
             What is the Basket of Goods?
           </p>
           <p className="text">
-          The Basket of Goods is our way of assisting you the user in figuring out your costs in a city.
-          If you have never lived in a city before, figuring out how much you will be spending on groceries,
-          rent, utilities etc. may be quite daunting. As such, the Basket of Goods is a way for you to specify
-          your general spending habits, and allow us to determine the actual costs of those habits in the city of choice.
+            The Basket of Goods is our way of assisting you the user in figuring
+            out your costs in a city. If you have never lived in a city before,
+            figuring out how much you will be spending on groceries, rent,
+            utilities etc. may be quite daunting. As such, the Basket of Goods
+            is a way for you to specify your general spending habits, and allow
+            us to determine the actual costs of those habits in the city of
+            choice.
           </p>
           <p className="text">
-          By designating the type of apartment you plan to live in,
-          and your expected mode of transportation,
-          the Basket of Goods determines the Mandatory Expense for the cities in which you have job offers.
-          By designating the amount of food you family eats, and the number of times your family goes to restaurants,
-          we determine the Consumable Expenses. And lastly, by designating the shopping habits, sports memberships,
-          and your frequency of cinema visits, we determine the Entertainment Expenses for your family.
+            By designating the type of apartment you plan to live in, and your
+            expected mode of transportation, the Basket of Goods determines the
+            Mandatory Expense for the cities in which you have job offers. By
+            designating the amount of food you family eats, and the number of
+            times your family goes to restaurants, we determine the Consumable
+            Expenses. And lastly, by designating the shopping habits, sports
+            memberships, and your frequency of cinema visits, we determine the
+            Entertainment Expenses for your family.
           </p>
           <p className="text">
-          This way by providing information that is relatively well known to you,
-          we can assist you in the daunting task of tracking your monthly expenses in uncharted territory.
+            This way by providing information that is relatively well known to
+            you, we can assist you in the daunting task of tracking your monthly
+            expenses in uncharted territory.
           </p>
         </div>
 
@@ -143,27 +150,30 @@ class About extends Component {
             What are my User Details used for?
           </p>
           <p className="text">
-          While some of the information we ask of you for User Details may touch on the personal side,
-          their provision greatly increases the accuracy of the information that we can provide to you.
+            While some of the information we ask of you for User Details may
+            touch on the personal side, their provision greatly increases the
+            accuracy of the information that we can provide to you.
           </p>
           <p className="text">
-          By specifying the number of adults and children in your family,
-          we can show you how your projected costs compare with city averages for families of similar sizes.
-          Additionally, this information along with your marital status,
-          can help us provide you with your realistic income after taxes,
-          so that you can properly budget yourself.
-          When you are presented with a job offer,
-          it may be difficult to gauge how much money you will have left after taxes,
-          and with the number of adults, children, and marital status,
-          we provide you with an accurate comparison of the deductions you will be facing from city to city.
+            By specifying the number of adults and children in your family, we
+            can show you how your projected costs compare with city averages for
+            families of similar sizes. Additionally, this information along with
+            your marital status, can help us provide you with your realistic
+            income after taxes, so that you can properly budget yourself. When
+            you are presented with a job offer, it may be difficult to gauge how
+            much money you will have left after taxes, and with the number of
+            adults, children, and marital status, we provide you with an
+            accurate comparison of the deductions you will be facing from city
+            to city.
           </p>
           <p className="text">
-          Lastly by letting us know the number of adults in your family,
-          we can further scale your RFS off of the number of contributing earners in the family.
+            Lastly by letting us know the number of adults in your family, we
+            can further scale your RFS off of the number of contributing earners
+            in the family.
           </p>
         </div>
         <div className="png" />
-        //<img href="home.png"/>
+        <img href="home.png" />
       </div>
     );
   }
