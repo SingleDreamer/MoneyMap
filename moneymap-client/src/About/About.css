@@ -3,7 +3,7 @@
 .png {
   position: relative;
   width: 65%;
-  background-image: url("home.png");
+  background-image: url("../Home/home.png");
   background-size: cover;
   left: 15vw;
   height: 100%;
@@ -27,7 +27,7 @@
 .about .heading {
   font-family: "Raleway", sans-serif;
   text-align: center;
-  font-size: 2em;
+  font-size: 25px;
 }
 
 .about p {
