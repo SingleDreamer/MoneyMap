@@ -50,9 +50,10 @@ class Home extends Component {
           >
             A map to financial success.
           </h2>
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-            terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-            labore wes anderson cred nesciunt sapiente ea proident.
+          <h3 align="center">
+          MoneyMap is an all in one web app that will help users decide which city makes the most financial sense to move to according to their current lifestyle and job offers.
+          By consolidating and analyzing data about different cities, users will be provided with an overview of their current status and financial potential for the chosen city.
+          </h3>
           </div>
         </Collapse>
         </Row>
