@@ -45,7 +45,7 @@ class Sidebar extends Component {
           </Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="/Dashboard">Dashboard</Nav.Link>
-            <Nav.Link href="/About">About</Nav.Link>
+            <Nav.Link href="/FAQs">FAQs</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link>

@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway|Roboto&display=swap');
 
+.png {
+  position: relative;
+  width: 65%;
+  background-image: url("home.png");
+  background-size: cover;
+  left: 15vw;
+  /* padding-bottom: calc(100% * 3 / 4); */
+  transform: scale(0.8);
+  overflow: visible;
+}
+
 .about .pagetitle {
   font-family: "Raleway", sans-serif;
   text-align: center;
