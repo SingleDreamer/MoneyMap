@@ -62,7 +62,7 @@ class About extends Component {
           <Navbar.Brand>
             <div className="title">
               <i className="fas fa-map-signs navIcon" />
-              {"MoneyMap"}
+              {" MoneyMap"}
             </div>
           </Navbar.Brand>
           <Nav className="mr-auto">
