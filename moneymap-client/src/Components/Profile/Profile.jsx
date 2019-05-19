@@ -316,7 +316,7 @@ class Profile extends Component {
               Replace Profile
             </Button>
             <Button variant="primary" onClick={this.handleShowAnalysis}>
-              Analyse Profile
+              Analyze Profile
             </Button>
           </div>
           <Modal
