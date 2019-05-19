@@ -162,8 +162,6 @@ class About extends Component {
           we can further scale your RFS off of the number of contributing earners in the family.
           </p>
         </div>
-        <div className="png" />
-        //<img href="home.png"/>
       </div>
     );
   }
