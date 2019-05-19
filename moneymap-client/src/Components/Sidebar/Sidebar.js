@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, ButtonGroup, Button } from "react-bootstrap";
+import { Modal, ButtonGroup, Button, ButtonToolbar } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import "@material/react-drawer/dist/drawer.css";
 import Navbar from "react-bootstrap/Navbar";
@@ -50,14 +50,21 @@ class Sidebar extends Component {
             <Nav.Link href="/Dashboard">Dashboard</Nav.Link>
             <Nav.Link href="/About">About</Nav.Link>
           </Nav>
-          <ButtonGroup>
-            <Button variant="primary" onClick={this.handleShowPrefs}>
-              Edit Basket of Goods
-            </Button>
-            <Button variant="danger" onClick={this.clearSession}>
-              Log Out
-            </Button>
-          </ButtonGroup>
+          <Nav>
+
+            <Nav.Link>
+              <Button variant="primary" onClick={this.handleShowPrefs}>
+                Edit Basket of Goods
+              </Button>
+            </Nav.Link>
+
+            <Nav.Link>
+              <Button variant="danger" onClick={this.clearSession} style={{marginRight:"10px"}}>
+                Log Out
+              </Button>
+            </Nav.Link>
+
+          </Nav>
         </Navbar>
         <Modal size="lg" show={this.state.showPrefs} onHide={this.handleClose}>
           <Modal.Header closeButton={false}>
