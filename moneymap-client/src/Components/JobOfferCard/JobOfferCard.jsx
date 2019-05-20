@@ -38,7 +38,7 @@ class JobOfferCard extends Component {
       profSubmit: false,
       edit: false,
       submit: false,
-      monthly: true,
+      monthly: false,
       error: null
     };
     this.Auth = new AuthService();

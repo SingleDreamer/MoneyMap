@@ -184,7 +184,24 @@ class CardArray extends Component {
     );
     return (
       <div>
-        {cards.length === 1 ? (
+        {Object.keys(this.state.profile).length === 0 ? (
+          <div className="array">
+            {cards}
+            <h1
+              style={{
+                color: "#45a29e",
+                position: "relative",
+                top: "200px"
+              }}
+            >
+              <i
+                className="fas fa-arrow-left"
+                style={{ marginRight: "20px" }}
+              />
+              Add Your Current Job
+            </h1>
+          </div>
+        ) : cards.length === 1 ? (
           <div className="array">
             {cards}
             <h1

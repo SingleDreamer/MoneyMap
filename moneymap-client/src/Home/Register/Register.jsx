@@ -110,6 +110,7 @@ class Register extends Component {
           });
       } else {
         alert("There was an error with your registration.");
+        document.location.reload();
       }
     } catch (err) {
       console.log("Registration error: ", err.response);
