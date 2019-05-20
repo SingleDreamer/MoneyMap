@@ -1,6 +1,6 @@
 # MoneyMap
 
-<b>Project Link</b>: http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3001/
+<b>Project Link</b>: http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:5000/
 
 <b>Writeup Link</b>: https://docs.google.com/document/d/1lc6lS96ysOmjlq45GsI_vmkbfLIkF75ehKsPrsey_Ms/edit?usp=sharing
 
@@ -8,8 +8,15 @@ This is the web application MoneyMap, created for the Computer Science Capstone 
 
 <b>Project Developers</b>: Jessica Ng (lead), David Belinsky, Eunice Hew, Cris Jimenez, Riyadh Rahman
 
-
 <b>You do not need to install if you just want to try the web app; use the link above.</b>
+
+## Known Bugs:
+
+To solve these temporary issues, simply refreshing the page is fine.  
+
+- Selection for Job Offer Comparison behavior breaks if one card or more is selected before adding or deleting a card. 
+- Profile information is not automatically updated on the page after Replace Profile submission. 
+- User details update automatically on the page after Replace Account Details submission, but RFS is not automatically updated. 
 
 ## Installation Guide (only for running frontend locally, with our server):
 
