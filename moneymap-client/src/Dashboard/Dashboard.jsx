@@ -151,6 +151,9 @@ class Dashboard extends Component {
       .then(response => {
         //console.log("preferences", response.data.recordset.length);
         if (response.data.recordset.length === 0) {
+          alert(
+            "Enter your estimated expenses to get the full benefit of the app. If no expenses are entered, you will be prompted again"
+          );
           this.setState({
             profilePrefs: response.data,
             basketOfGoodsSumbit: false
@@ -194,7 +197,7 @@ class Dashboard extends Component {
               profile: company,
               profileSubmit: true
             });
-           // console.log("Profile: ", this.state.profile);
+            // console.log("Profile: ", this.state.profile);
           }
           company.selected = false;
           if (company.jocname === "Google") {
