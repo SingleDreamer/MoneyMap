@@ -156,7 +156,7 @@ class Charts extends Component {
         ]
       },
       {
-        name: "JOC Values",
+        name: "Job Offer Values",
         data: [
           (this.props.company.components[0].ComponentAmount / 12).toFixed(2),
           this.props.company.components[1].ComponentAmount.toFixed(2),
@@ -179,7 +179,7 @@ class Charts extends Component {
       },
 
       {
-        name: "JOC Values",
+        name: "Job Offer Values",
         data: [
           this.props.company.components[0].ComponentAmount.toFixed(2) / 12,
           this.props.company.components[1].ComponentAmount.toFixed(2),
