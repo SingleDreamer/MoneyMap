@@ -99,7 +99,7 @@ class About extends Component {
           }}
         >
           <p className="heading" id="RFS">
-            What is the RFS?
+            What is this number in the circle? That's the RFS!
           </p>
           <p className="text">
             The Relative Financial Score (RFS) is MoneyMap’s unique performance
