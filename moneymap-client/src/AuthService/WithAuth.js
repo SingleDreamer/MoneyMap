@@ -16,12 +16,12 @@ export default function withAuth(AuthComponent) {
     componentDidMount() {
       // console.log(Auth.loggedIn());
       if (!Auth.loggedIn()) {
-        console.log("withAuth-not logged in");
+        //console.log("withAuth-not logged in");
         this.props.history.replace("/");
       } else {
         try {
           const profile = Auth.getProfile();
-          console.log("Auth profile: " + profile);
+          //console.log("Auth profile: " + profile);
           this.setState({
             user: profile
           });

@@ -81,7 +81,7 @@ class Register extends Component {
     let userInfo = this.state.userInfo;
     userInfo.adults = Number(this.state.userInfo.adults);
     userInfo.children = Number(this.state.userInfo.children);
-    console.log("New registration: ", userInfo);
+    //console.log("New registration: ", userInfo);
 
     let url =
       "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/";
@@ -93,9 +93,9 @@ class Register extends Component {
 
     try {
       let result = await axios.post(url, userInfo, config);
-      console.log(result.data);
+      //console.log(result.data);
       if (result.data.status !== "error") {
-        console.log("success");
+        //console.log("success");
         this.setState({ submit: true });
         this.Auth.login(
           this.state.userInfo.username,

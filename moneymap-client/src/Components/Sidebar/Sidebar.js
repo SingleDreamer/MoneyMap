@@ -19,7 +19,7 @@ class Sidebar extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.hasBasket);
+    //console.log(nextProps.hasBasket);
     setTimeout(() => {
       this.setState({
         showPrefs: !nextProps.hasBasket
@@ -42,7 +42,7 @@ class Sidebar extends Component {
           <Navbar.Brand href="/Dashboard">
             <div className="title">
               <i className="fas fa-map-signs navIcon" />
-              {" MoneyMap"}
+              {"MoneyMap"}
             </div>
           </Navbar.Brand>
           <Nav className="mr-auto">

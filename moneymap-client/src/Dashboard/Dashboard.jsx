@@ -69,7 +69,7 @@ class Dashboard extends Component {
           sessionStorage.clear();
           this.setState({ isAuthed: false });
         } else {
-          console.log("user", response.data.recordset[0]);
+          //console.log("user", response.data.recordset[0]);
           this.setState({ user: response.data.recordset[0] });
         }
       })
@@ -149,7 +149,7 @@ class Dashboard extends Component {
         config
       )
       .then(response => {
-        console.log("preferences", response.data.recordset.length);
+        //console.log("preferences", response.data.recordset.length);
         if (response.data.recordset.length === 0) {
           this.setState({
             profilePrefs: response.data,
@@ -184,7 +184,7 @@ class Dashboard extends Component {
       .then(response => {
         let jocs = response.data.result;
         let temp = [];
-        console.log("jocs", jocs);
+        //console.log("jocs", jocs);
         if (jocs.length === 0) {
           this.setState({ profileSubmit: false, show: true });
         }
@@ -194,7 +194,7 @@ class Dashboard extends Component {
               profile: company,
               profileSubmit: true
             });
-            console.log("Profile: ", this.state.profile);
+           // console.log("Profile: ", this.state.profile);
           }
           company.selected = false;
           if (company.jocname === "Google") {

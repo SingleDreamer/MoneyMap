@@ -75,7 +75,7 @@ class CardArray extends Component {
   }
 
   deleteJOC = jocid => {
-    console.log(jocid);
+    //console.log(jocid);
     let config = {
       headers: {
         authorization: this.Auth.getToken(),
@@ -201,7 +201,7 @@ class CardArray extends Component {
               <Card.Title>
                 <img
                   src={this.props.image}
-                  alt={"no logo"}
+                  alt={""}
                   width={"30px"}
                   style={{ marginRight: "5px" }}
                 />
@@ -323,19 +323,19 @@ class CardArray extends Component {
 
   openModal = (e, index) => {
     // console.log("Card profile: ", this.props.profile);
-    console.log("openModal");
+    //console.log("openModal");
     //this.getCityAverages();
     this.setState({ currModal: index });
   };
 
   closeModal = () => {
-    console.log("closeModal");
+    //("closeModal");
     this.setState({ show: false });
     this.setState({ currModal: null });
   };
 
   handleShow = e => {
-    console.log("handleShow");
+    //console.log("handleShow");
 
     e.preventDefault();
     this.setState({
@@ -344,7 +344,7 @@ class CardArray extends Component {
   };
 
   handleClose() {
-    console.log("handleClose");
+    //console.log("handleClose");
     this.setState({ currModal: null });
     this.setState({ show: false });
   }

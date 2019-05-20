@@ -103,7 +103,7 @@ class Charts extends Component {
       )
       .then(response => {
         let temp = response.data.recordset;
-        console.log(temp);
+        //console.log(temp);
         let MandatoryItems = temp.filter(item => {
           return item.ComponentTypeID === 2;
         });
@@ -133,12 +133,7 @@ class Charts extends Component {
     });
   }
   render() {
-    console.log(
-      this.props.company.components[0].ComponentAmount /
-        this.props.company.components[4].ComponentAmount,
-      this.props.company.components[0].ComponentAmount,
-      this.props.company.components[4].ComponentAmount
-    );
+    
     const threeBar = [
       {
         name: "User Profile Values", //from profile

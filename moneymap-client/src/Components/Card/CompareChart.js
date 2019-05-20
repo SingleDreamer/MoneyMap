@@ -116,7 +116,7 @@ class CompareCharts extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.companies);
+    //console.log(this.props.companies);
     if (
       typeof this.props.companies[0].perks !== "undefined" &&
       typeof this.props.companies[1].perks !== "undefined"
@@ -124,7 +124,7 @@ class CompareCharts extends Component {
       let keys = Object.keys(this.props.companies[0].perks);
       let series1 = Object.values(this.props.companies[0].perks);
       let series2 = Object.values(this.props.companies[1].perks);
-      console.log(keys, series1, series2);
+      //console.log(keys, series1, series2);
       for (let i = 0; i < keys.length; i++) {
         newSeries.push({
           name: keys[i],
@@ -133,7 +133,7 @@ class CompareCharts extends Component {
           Rating: [series1[i].Rating, series2[i].Rating]
         });
       }
-      console.log(newSeries);
+     // console.log(newSeries);
       this.setState({
         optionsPerksChart: {
           ...this.state.optionsPerksChart,
@@ -307,7 +307,7 @@ class CompareCharts extends Component {
                 )}
               </tbody>
             </Table>
-            {typeof this.props.companies[0].perks !== "undefined" &&
+            {/* {typeof this.props.companies[0].perks !== "undefined" &&
             typeof this.props.companies[1].perks !== "undefined" ? (
               console.log(
                 "THIS",
@@ -316,7 +316,7 @@ class CompareCharts extends Component {
               )
             ) : (
               <div />
-            )}
+            )} */}
           </div>
         </div>
       </div>

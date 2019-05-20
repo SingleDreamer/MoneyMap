@@ -36,7 +36,7 @@ class CardArray extends Component {
   }
 
   selectCard = company => {
-    console.log(company);
+    //console.log(company);
     let temp = this.state.companies;
     temp[temp.indexOf(company)].selected = !temp[temp.indexOf(company)]
       .selected;
@@ -51,7 +51,7 @@ class CardArray extends Component {
   };
 
   addToCompare = company => {
-    console.log("added", company);
+   // console.log("added", company);
     amountSelected++;
     this.setState({
       compareCompanies: [...this.state.compareCompanies, company]
@@ -59,7 +59,7 @@ class CardArray extends Component {
   };
 
   removeFromCompare = company => {
-    console.log("removed", company);
+    //console.log("removed", company);
     amountSelected--;
     let newCompanies = this.state.compareCompanies;
     newCompanies.splice(newCompanies.indexOf(company), 1);

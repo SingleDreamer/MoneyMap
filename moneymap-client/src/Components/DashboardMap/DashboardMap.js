@@ -74,7 +74,7 @@ class DashboardMap extends Component {
     if (this.state.profile.joccityid != null) {
       cityIDs.unshift({cityid:this.state.profile.joccityid, rfs:this.state.profile.jocrfc});
     }
-    console.log("DashboardMap cityIDs",cityIDs);
+    //console.log("DashboardMap cityIDs",cityIDs);
     //console.log(this.state.cities);
 
     if (this.state.cities.length > 0) {
@@ -93,8 +93,8 @@ class DashboardMap extends Component {
         }
       });
 
-      console.log("DashboardMap coordinates", coordinates);
-      console.log("DashboardMap center", coordinates[0]);
+      //console.log("DashboardMap coordinates", coordinates);
+      //console.log("DashboardMap center", coordinates[0]);
     }
 
     let defaultlat = 0;

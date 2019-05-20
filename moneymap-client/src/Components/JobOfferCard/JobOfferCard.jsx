@@ -346,7 +346,7 @@ class JobOfferCard extends Component {
       };
     });
     let payload = { name, cityid, image, components };
-    console.log("body: ", payload);
+    //console.log("body: ", payload);
     let url =
       "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
       this.props.jocid;
@@ -357,7 +357,7 @@ class JobOfferCard extends Component {
         "Content-Type": "application/json"
       }
     };
-    axios.post(url, payload, config).then(res => console.log(res));
+    axios.post(url, payload, config);
   };
 
   sendRequest = () => {
@@ -382,7 +382,7 @@ class JobOfferCard extends Component {
       axios
         .post(url, payload1, config)
         .then(response => {
-          console.log("Response: ", response.data);
+          //console.log("Response: ", response.data);
           let url2 =
             "http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/joc/" +
             response.data.JobOfferCardID +
@@ -390,7 +390,7 @@ class JobOfferCard extends Component {
           const body2 = body.map(component => {
             return { ...component, JobOfferCardID: response.data };
           });
-          console.log("Create JOC Components: ", body2);
+          //console.log("Create JOC Components: ", body2);
           axios
             .post(url2, body2, config)
             .then(response2 => {

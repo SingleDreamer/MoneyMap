@@ -48,22 +48,18 @@ class JobOfferDetails extends Component {
         }
       });
     }
-    console.log(`Option selected: `, input, event.target.value);
+    //console.log(`Option selected: `, input, event.target.value);
   };
 
   handleCityChange = selectedOption => {
     this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+   // console.log(`Option selected:`, selectedOption);
   };
 
   addRow = () => {
     // also put this in "next" button for case where user doesn't add row
     if (!!this.state.filledInName && !!this.state.filledInAmount) {
-      console.log(
-        "Filled in! tempname, tempincome",
-        this.state.tempName,
-        this.state.tempIncome
-      );
+      
       // this.props.handleChange(
       //   "Components",
       //   this.state.tempName,
@@ -81,7 +77,7 @@ class JobOfferDetails extends Component {
         tempIncome: ""
       }));
     } else {
-      console.log("fill in previous row");
+      //console.log("fill in previous row");
     }
   };
 
@@ -220,10 +216,10 @@ class JobOfferDetails extends Component {
     //     alert("Form submitted");
     // }
     if (e.currentTarget.checkValidity() === false) {
-      console.log("Validation false");
+      //console.log("Validation false");
       e.stopPropagation();
     } else {
-      console.log("Validation true");
+      //console.log("Validation true");
       this.props.nextStep();
       this.setState({ validated: true });
     }

@@ -36,7 +36,7 @@ export default class AuthService {
           if (response.data.status === "error") {
             alert("Wrong username or email");
           } else {
-            console.log(response.data.uid);
+            //console.log(response.data.uid);
             this.setToken(response.data.token);
             this.setUser(response.data.uid);
           }
@@ -61,7 +61,7 @@ export default class AuthService {
     };
     try {
       let response = await axios.post(this.forgotpw, payload, config);
-      console.log(response.data);
+      //console.log(response.data);
     } catch (err) {
       console.log(err.response);
       alert(err.response.data.message);
@@ -81,7 +81,7 @@ export default class AuthService {
     };
     try {
       let response = await axios.post(this.resetpw, payload, config);
-      console.log(response.data);
+      //console.log(response.data);
     } catch (err) {
       console.log(err.response);
       alert(err.response.data.message);

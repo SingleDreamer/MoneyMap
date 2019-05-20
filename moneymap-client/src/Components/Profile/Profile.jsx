@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Tabs, Tab, Button, Modal, Card, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {
+  Tabs,
+  Tab,
+  Button,
+  Modal,
+  Card,
+  OverlayTrigger,
+  Tooltip
+} from "react-bootstrap";
 import Chart from "react-apexcharts";
 import ProfileDetails from "../Profile/ProfileDetails";
 import JobOfferCard from "../JobOfferCard/JobOfferCard";
@@ -80,44 +88,41 @@ class Profile extends Component {
             res.data.recordsets[0].length < 4) ||
           res.data.recordsets[0].length > 4
         ) {
-          this.setState(
-            {
-              cityAverages: {
-                0: {
-                  ...this.state.cityAverages[0],
-                  0: !!res.data.recordsets[0].find(amount => {
-                    return amount.ComponentTypeID === 2;
-                  })
-                    ? res.data.recordsets[0].find(amount => {
-                        return amount.ComponentTypeID === 2;
-                      })
-                    : { ...this.state.cityAverages[0][0] },
-                  1: !!res.data.recordsets[0].find(amount => {
-                    return amount.ComponentTypeID === 3;
-                  })
-                    ? res.data.recordsets[0].find(amount => {
-                        return amount.ComponentTypeID === 3;
-                      })
-                    : { ...this.state.cityAverages[0][1] },
-                  2: !!res.data.recordsets[0].find(amount => {
-                    return amount.ComponentTypeID === 4;
-                  })
-                    ? res.data.recordsets[0].find(amount => {
-                        return amount.ComponentTypeID === 4;
-                      })
-                    : { ...this.state.cityAverages[0][2] },
-                  3: !!res.data.recordsets[0].find(amount => {
-                    return amount.ComponentTypeID === 1;
-                  })
-                    ? res.data.recordsets[0].find(amount => {
-                        return amount.ComponentTypeID === 1;
-                      })
-                    : { ...this.state.cityAverages[0][3] }
-                }
+          this.setState({
+            cityAverages: {
+              0: {
+                ...this.state.cityAverages[0],
+                0: !!res.data.recordsets[0].find(amount => {
+                  return amount.ComponentTypeID === 2;
+                })
+                  ? res.data.recordsets[0].find(amount => {
+                      return amount.ComponentTypeID === 2;
+                    })
+                  : { ...this.state.cityAverages[0][0] },
+                1: !!res.data.recordsets[0].find(amount => {
+                  return amount.ComponentTypeID === 3;
+                })
+                  ? res.data.recordsets[0].find(amount => {
+                      return amount.ComponentTypeID === 3;
+                    })
+                  : { ...this.state.cityAverages[0][1] },
+                2: !!res.data.recordsets[0].find(amount => {
+                  return amount.ComponentTypeID === 4;
+                })
+                  ? res.data.recordsets[0].find(amount => {
+                      return amount.ComponentTypeID === 4;
+                    })
+                  : { ...this.state.cityAverages[0][2] },
+                3: !!res.data.recordsets[0].find(amount => {
+                  return amount.ComponentTypeID === 1;
+                })
+                  ? res.data.recordsets[0].find(amount => {
+                      return amount.ComponentTypeID === 1;
+                    })
+                  : { ...this.state.cityAverages[0][3] }
               }
-            },
-            () => console.log("This is the state ::: ", this.state.cityAverages)
-          );
+            }
+          });
         } else if (res.data.recordsets[0].length === 4) {
           this.setState({ cityAverages: res.data.recordsets });
           // console.log(this.state.cityAverages[0][0].Amount);
@@ -205,21 +210,18 @@ class Profile extends Component {
   };
 
   handleProfChange = input => event => {
-    this.setState(
-      {
-        ...this.state,
-        userInfo: {
-          ...this.state.userInfo,
-          [input]: event.target.value
-        }
-      },
-      () => console.log("prof: ", this.state.userInfo)
-    );
+    this.setState({
+      ...this.state,
+      userInfo: {
+        ...this.state.userInfo,
+        [input]: event.target.value
+      }
+    });
   };
 
   sendProfile = e => {
     e.preventDefault();
-    console.log("Send profile");
+    //console.log("Send profile");
     let userInfo = this.state.userInfo;
     let url = `http://ec2-18-217-169-247.us-east-2.compute.amazonaws.com:3000/users/${sessionStorage.getItem(
       "user"
@@ -230,13 +232,13 @@ class Profile extends Component {
         "Content-Type": "application/json"
       }
     };
-    console.log("userInfo ", userInfo);
+    //console.log("userInfo ", userInfo);
 
     try {
       axios
         .post(url, userInfo, config)
         .then(response => {
-          console.log("REPLACE PROFILE DONE");
+          //console.log("REPLACE PROFILE DONE");
           this.handleClose();
           this.props.getUser();
         })
@@ -272,7 +274,7 @@ class Profile extends Component {
                 src={`https://logo.clearbit.com/${
                   this.state.profile.jocname
                 }.com`}
-                alt={"no logo"}
+                alt={""}
                 width={"30px"}
                 style={{ marginRight: "5px" }}
               />
@@ -280,25 +282,25 @@ class Profile extends Component {
             </Card.Title>
 
             <div className="chart">
-            <OverlayTrigger
-              placement="right"
-              delay={{ show: 250, hide: 400 }}
-              overlay={
-                <Tooltip id={"right"}>
-                  This is your Relative Financial Score (RFS).
-                </Tooltip>
-              }
-            >
-              <a href="/FAQs#RFS">
-              <Chart
-                options={this.test(this.state.profile.jocrfc)}
-                series={[Math.ceil(this.state.profile.jocrfc + 10000)]}
-                type="radialBar"
-                width="100"
-                height="130"
-              />
-              </a>
-            </OverlayTrigger>
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250, hide: 400 }}
+                overlay={
+                  <Tooltip id={"right"}>
+                    This is your Relative Financial Score (RFS).
+                  </Tooltip>
+                }
+              >
+                <a href="/FAQs#RFS">
+                  <Chart
+                    options={this.test(this.state.profile.jocrfc)}
+                    series={[Math.ceil(this.state.profile.jocrfc + 10000)]}
+                    type="radialBar"
+                    width="100"
+                    height="130"
+                  />
+                </a>
+              </OverlayTrigger>
             </div>
           </div>
           <Card.Text>{this.state.profile.city.City}</Card.Text>
@@ -333,14 +335,18 @@ class Profile extends Component {
           <Card.Text>
             Savings: ${Math.round(this.state.profile.savings)} /mo
           </Card.Text>
-          <div className="buttons"
-          style={{ position: "absolute", bottom: "10px", left: "10px" }}>
+          <div
+            className="buttons"
+            style={{ position: "absolute", bottom: "10px", left: "10px" }}
+          >
             <Button variant="primary" onClick={this.handleShowProfile}>
               Replace Profile
             </Button>
           </div>
-          <div className="buttons"
-          style={{ position: "absolute", bottom: "10px", right: "10px" }}>
+          <div
+            className="buttons"
+            style={{ position: "absolute", bottom: "10px", right: "10px" }}
+          >
             <Button variant="primary" onClick={this.handleShowAnalysis}>
               Analyze Profile
             </Button>

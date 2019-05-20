@@ -23,7 +23,7 @@ class Preference extends Component {
       payload.push(this.state.prefrences[key]);
     }
 
-    console.log("pay", payload);
+    //console.log("pay", payload);
     let config = {
       headers: {
         authorization: this.Auth.getToken(),
@@ -48,7 +48,7 @@ class Preference extends Component {
   };
 
   addToList = (id, name) => event => {
-    console.log(this.state.prefrences);
+    //console.log(this.state.prefrences);
     this.setState(
       {
         prefrences: {
@@ -57,7 +57,7 @@ class Preference extends Component {
         }
       },
       () => {
-        console.log("Item: ", id);
+        //console.log("Item: ", id);
       }
     );
   };

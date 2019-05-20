@@ -20,12 +20,12 @@ class JobOfferDetails extends Component {
       selectedOption,
       selectedCity: selectedOption
     });
-    console.log(`Option selected:`, selectedOption);
+    //console.log(`Option selected:`, selectedOption);
     this.props.handleCitySelection(selectedOption.value);
   };
   handleCountryChange = selectedOption => {
     this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+    //console.log(`Option selected:`, selectedOption);
     this.setState(
       {
         selectedCountry: selectedOption.value,
